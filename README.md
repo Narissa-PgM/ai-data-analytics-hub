@@ -28,15 +28,13 @@ Everything runs **in the browser** with **no build step, no dependencies, no ser
 
 ### Option 1: View it live (easiest)
 
-👉 **[Open the live hub →](https://YOUR_USERNAME.github.io/ai-data-analytics-hub/)**
-
-*(Replace `YOUR_USERNAME` with your GitHub username after enabling GitHub Pages — see [Deploying](#-deploying-to-github-pages).)*
+👉 **[Open the live hub →](https://Narissa-PgM.github.io/ai-data-analytics-hub/)**
 
 ### Option 2: Run it locally
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/ai-data-analytics-hub.git
+git clone https://github.com/Narissa-PgM./ai-data-analytics-hub.git
 cd ai-data-analytics-hub
 
 # Open it (macOS)
