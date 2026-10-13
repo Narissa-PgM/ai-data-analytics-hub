@@ -1,47 +1,24 @@
 # 📈 AI Data Analytics Learning Hub
 
-> Interactive cheat sheets, visual guides, and an AI prompt lab for data analytics — covering 27 modules from SQL and Python to statistics, machine learning, business intelligence, and modern data platforms.
+**651+ interactive analytics cheat sheets. Zero setup. Just open and learn.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Made with HTML](https://img.shields.io/badge/Made%20with-HTML%20%2B%20CSS%20%2B%20JS-orange.svg)](#)
-[![Modules](https://img.shields.io/badge/Modules-27-blueviolet.svg)](#-modules)
-[![Topics](https://img.shields.io/badge/Topics-651%2B-success.svg)](#-modules)
+[![Live Demo](https://img.shields.io/badge/▶_Live_Demo-narissa--pgm.github.io-3b82f6?style=for-the-badge)](https://narissa-pgm.github.io/ai-data-analytics-hub/)
+[![License](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](./LICENSE)
+[![Modules](https://img.shields.io/badge/27_Modules-651+_Topics-8b5cf6?style=for-the-badge)](#-whats-inside)
 
----
+A browser-based learning platform that turns every data analytics concept into a **clickable cheat sheet** — with visual guides, worked examples, common mistakes, checklists, and a copy-ready AI prompt for each topic.
 
-## 📖 What Is This?
-
-The **AI Data Analytics Learning Hub** is a self-contained, browser-based learning platform. It presents every analytics concept as a **visual cheat sheet** — a clickable tile that opens a detailed popup with:
-
-- 📐 **Visual guides** — SVG diagrams, sample charts, annotated figures
-- 📋 **Worked examples** — sample data, syntax, and filled-in walkthroughs
-- ⚖️ **Common mistakes vs. best practices** — side-by-side comparisons
-- ✅ **Checklists** — actionable steps for every topic
-- 🤖 **AI prompt lab** — a copy-ready prompt to explore each topic with an LLM
-- 📈 **Sample graphs** — see what "good" looks like before you build it
-
-Everything runs **in the browser** with **no build step, no dependencies, no server**. Open the HTML file and start learning.
+**No install. No build step. No dependencies.** Open the HTML file and it works.
 
 ---
 
-## 🚀 Quick Start
+## ⚡ Try It in 10 Seconds
 
-### Option 1: View it live (easiest)
+### 🌐 [**Open the live hub →**](https://narissa-pgm.github.io/ai-data-analytics-hub/)
 
-👉 **[Open the live hub →](https://Narissa-PgM.github.io/ai-data-analytics-hub/)**
-
-### Option 2: Run it locally
+Or run it locally:
 
 ```bash
-# Clone the repo
-git clone https://github.com/Narissa-PgM./ai-data-analytics-hub.git
+git clone https://github.com/Narissa-PgM/ai-data-analytics-hub.git
 cd ai-data-analytics-hub
-
-# Open it (macOS)
-open index.html
-
-# Open it (Linux)
-xdg-open index.html
-
-# Open it (Windows)
-start index.html
+open index.html   # macOS · or: xdg-open (Linux) · start (Windows)
