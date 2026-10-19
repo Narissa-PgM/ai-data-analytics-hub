@@ -4,11 +4,7 @@ Data and AI transformation consultant for higher education and advancement.
 I build reporting people trust, and dashboards and tools that offices actually use.
 
 ### What I've done
-- **Harvard FAS: Faculty Affairs data owner, IT reporting and data analyst** (to 2025).
-  Governed reporting for an operation of over $1B a year.
-- **Built the FAS DataHub**, which unified 7 sources (Aurora, SIS, GSAS BI Data Warehouse, GMAS,
-  FROPS, Harvard Institutional Research, the FAS Registrar). Ad-hoc data requests fell
-  from 300–400 a year to under 100.
+- **Harvard FAS: Faculty Affairs IT reporting and data analyst** (to 2025).
 - **Advancement technology consulting since 2008**, including Phillips Academy and UAMS.
 
 ### What I build
