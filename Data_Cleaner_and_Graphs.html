@@ -1,0 +1,2368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Cleaner &amp; Graph Finder</title>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box}
+body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;margin:0;background:#f6f8fa;color:#1f2328;font-size:14px}
+h1,h3,.serif{font-family:Cambria,Georgia,serif}
+header{background:#a51c30;color:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font-size:19px;font-weight:700;letter-spacing:.2px}
+header .btn{background:#fff;color:#a51c30;border-color:#fff}
+.container{max-width:1280px;margin:20px auto;padding:0 16px}
+.card{background:#fff;border:1px solid #d0d7de;border-radius:8px;padding:20px;margin-bottom:16px}
+.card-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.muted{color:#656d76;font-size:12px}
+.btn{border:1px solid #d0d7de;background:#f6f8fa;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;color:#1f2328}
+.btn:hover{background:#eaeef2}
+.btn.primary{background:#0969da;color:#fff;border-color:#0969da}
+.btn.primary:hover{background:#0860ca}
+.btn.green{background:#1a7f37;color:#fff;border-color:#1a7f37}
+.btn.green:hover{background:#166e30}
+.btn.red{background:#cf222e;color:#fff;border-color:#cf222e}
+.btn.red:hover{background:#a40e26}
+.btn.amber{background:#fff8c5;color:#7d4e00;border-color:#d4a72c}
+.btn.sm{padding:3px 8px;font-size:12px}
+.btn.link{background:none;border:none;color:#0969da;padding:0 2px;font-size:11px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.drop-zone{border:2px dashed #d0d7de;border-radius:8px;padding:40px 20px;text-align:center;cursor:pointer}
+.drop-zone:hover,.drop-zone.drag{border-color:#0969da;background:#f0f6ff}
+.drop-zone input{display:none}
+.privacy{font-size:12px;color:#1a7f37;margin-top:10px;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px}
+@media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:#f6f8fa;border-radius:6px;padding:12px 16px}
+.stat .num{font-size:24px;font-weight:700}
+.stat .lbl{font-size:11px;color:#656d76;text-transform:uppercase;letter-spacing:.4px}
+.colmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:12px}
+.colmap label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;color:#656d76;letter-spacing:.3px;margin-bottom:3px}
+.colmap select{width:100%;padding:5px 6px;border:1px solid #d0d7de;border-radius:6px;font-size:13px;background:#fff}
+.colmap select.unset{color:#656d76;background:#fafbfc}
+.colmap .hint{font-size:11px;color:#656d76;margin-top:2px}
+.pipeline{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.step-chip{flex:1;min-width:120px;background:#f6f8fa;border:1px solid #d0d7de;border-radius:8px;padding:10px 12px;cursor:pointer;font-size:12px}
+.step-chip:hover{border-color:#0969da}
+.step-chip.active{border-color:#0969da;background:#f0f6ff;box-shadow:0 0 0 2px #b6d3ff}
+.step-chip.done{background:#dafbe1;border-color:#1a7f37}
+.step-chip .step-num{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;background:#8c959f;color:#fff;font-weight:700;font-size:11px;margin-right:6px}
+.step-chip.active .step-num{background:#0969da}
+.step-chip.done .step-num{background:#1a7f37}
+.step-chip .step-label{font-weight:600;font-size:12px;display:block;margin-top:4px}
+.step-chip .step-status{font-size:10px;color:#656d76;margin-top:2px;display:block}
+.step-chip.done .step-status{color:#1a7f37;font-weight:600}
+.action-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;padding:10px 12px;background:#f6f8fa;border-radius:6px}
+.action-bar .left,.action-bar .right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.search-input{padding:5px 10px;border:1px solid #d0d7de;border-radius:6px;font-size:13px;width:240px;max-width:100%}
+.save-status{font-size:11px;color:#656d76}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:10px;border-bottom:1px solid #eaeef2;vertical-align:top}
+th{background:#f6f8fa;font-weight:600;font-size:11px;text-transform:uppercase;color:#656d76;letter-spacing:.3px}
+th.sortable{cursor:pointer;user-select:none}
+th.sortable:hover{color:#0969da}
+.table-scroll{overflow-x:auto}
+.pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap}
+.pill.high{background:#ffebe9;color:#cf222e}
+.pill.med{background:#fff8c5;color:#7d4e00}
+.pill.low{background:#ddf4ff;color:#0969da}
+.pill.info{background:#eaeef2;color:#57606a}
+.conf-pill{display:inline-block;padding:2px 6px;border-radius:8px;font-size:10px;font-weight:700}
+.conf-pill.hi{background:#dafbe1;color:#1a7f37}
+.conf-pill.md{background:#fff8c5;color:#7d4e00}
+.conf-pill.lo{background:#ffebe9;color:#cf222e}
+.decision-cell{min-width:250px}
+.decision-actions{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.comment-input{width:100%;padding:5px 8px;border:1px solid #d0d7de;border-radius:4px;font-size:12px;font-family:inherit}
+.comment-input:focus{outline:2px solid #b6d3ff;border-color:#0969da}
+.rule-check{font-size:11px;color:#656d76;margin-top:4px;display:block;cursor:pointer}
+.comment-shown{font-size:12px;background:#fff8c5;padding:4px 8px;border-radius:4px;display:block;margin-top:4px}
+.decided-pill{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600}
+.decided-pill.ok{color:#1a7f37}
+.decided-pill.no{color:#cf222e}
+.decided-pill.flag{color:#7d4e00}
+.row-decided-approve{background:#f0fff4}
+.row-decided-reject{background:#fff5f5}
+.row-decided-flag{background:#fffbea}
+.edited-badge{display:inline-block;font-size:10px;background:#fbefff;color:#8250df;border-radius:6px;padding:0 5px;margin-top:2px}
+.empty{text-align:center;color:#656d76;padding:40px 20px;font-size:13px}
+.group-row td{background:#f6f8fa;font-weight:600}
+.group-toggle{cursor:pointer;user-select:none;display:inline-block;width:16px;font-size:12px}
+.group-toggle:hover{color:#0969da}
+.child-row td{background:#fcfcfd}
+.child-row td:first-child{padding-left:28px}
+.reco-box{background:#f0f6ff;border-left:3px solid #0969da;padding:6px 10px;border-radius:4px;font-size:12px;margin-top:4px;line-height:1.5}
+.reco-box strong{color:#0969da}
+.why-box{margin-top:4px;font-size:11px;color:#656d76}
+.why-box summary{cursor:pointer;color:#0969da}
+.why-box div{margin-top:4px;padding:6px 8px;background:#f6f8fa;border-radius:4px;line-height:1.5}
+.show-more{text-align:center;padding:12px}
+.validation-box{background:#f0fff4;border:1px solid #a6e3b0;border-radius:8px;padding:16px;font-size:13px}
+.validation-box.fail{background:#fff5f5;border-color:#f5a3a3}
+.validation-box h3{margin:0 0 10px 0;font-size:16px;color:#1a7f37}
+.validation-box.fail h3{color:#cf222e}
+.validation-box ul{margin:0;padding-left:20px}
+.validation-box li{padding:4px 0}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:100}
+.modal-bg.show{display:flex}
+.modal{background:#fff;padding:24px;border-radius:8px;width:560px;max-width:92vw;max-height:85vh;overflow-y:auto}
+.modal.wide{width:820px}
+.modal h3{margin:0 0 12px 0;font-size:18px}
+.modal input[type=text]{width:100%;padding:8px;margin-bottom:12px;border:1px solid #d0d7de;border-radius:6px;font-size:14px}
+.edit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.edit-grid label{display:block;font-size:11px;font-weight:600;color:#656d76;margin-bottom:2px}
+.edit-grid input{width:100%;padding:6px 8px;border:1px solid #d0d7de;border-radius:5px;font-size:13px;margin:0}
+.edit-grid input.changed{border-color:#8250df;background:#fbefff}
+.edit-grid .orig{font-size:10px;color:#8250df;margin-top:2px}
+.strategy-option{display:block;padding:10px 12px;border:1px solid #d0d7de;border-radius:6px;margin:8px 0;cursor:pointer;font-size:13px}
+.strategy-option:hover{background:#f0f6ff;border-color:#0969da}
+.strategy-option.disabled{opacity:.45;cursor:not-allowed}
+.strategy-option input{margin-right:8px}
+.advanced-drawer{margin-top:16px;border:1px solid #d0d7de;border-radius:6px;padding:12px;background:#fafbfc;font-size:12px}
+.advanced-drawer summary{cursor:pointer;font-weight:600;color:#656d76}
+.advanced-drawer summary:hover{color:#0969da}
+.rule-item{font-size:12px;padding:6px 0;border-bottom:1px dashed #d0d7de;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.rule-item:last-child{border-bottom:none}
+.hidden{display:none!important}
+.audit-log{font-family:ui-monospace,monospace;font-size:11px;max-height:240px;overflow:auto;background:#0d1117;color:#c9d1d9;padding:12px;border-radius:6px}
+.audit-log div{padding:2px 0}
+.view-tabs{display:flex;gap:8px;margin-bottom:16px}
+.view-tab{padding:8px 16px;background:#fff;border:1px solid #d0d7de;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600}
+.view-tab.active{background:#a51c30;color:#fff;border-color:#a51c30}
+.builder{display:grid;grid-template-columns:220px 1fr;gap:16px}
+@media(max-width:860px){.builder{grid-template-columns:1fr}}
+.fields-panel{background:#f6f8fa;border-radius:8px;padding:12px;max-height:680px;overflow:auto;border:2px dashed transparent}
+.fields-panel.over{border-color:#cf222e;background:#fff5f5}
+.panel-title{font-family:Cambria,Georgia,serif;font-weight:700;font-size:14px}
+.field-chip{display:flex;justify-content:space-between;align-items:center;gap:6px;background:#fff;border:1px solid #d0d7de;border-radius:6px;padding:6px 8px;margin:6px 0;cursor:grab;font-size:12px;user-select:none}
+.field-chip:hover{border-color:#0969da;background:#f0f6ff}
+.field-chip.used{border-left:3px solid #0969da}
+.field-chip .fname{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dragging{opacity:.45}
+.suggest{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px;font-size:12px}
+.suggest .btn{font-size:12px;padding:3px 10px;border-radius:14px;background:#fff}
+.suggest .btn:hover{border-color:#0969da;background:#f0f6ff}
+.shelves{display:grid;grid-template-columns:1fr 1.6fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:860px){.shelves{grid-template-columns:1fr}}
+.shelf{border:2px dashed #d0d7de;border-radius:8px;padding:8px 10px;min-height:74px;background:#fafbfc}
+.shelf.over{border-color:#0969da;background:#f0f6ff}
+.shelf-label{font-size:11px;font-weight:700;text-transform:uppercase;color:#656d76;letter-spacing:.3px;margin-bottom:6px}
+.shelf-drop{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.shelf-hint{font-size:11px;color:#8c959f;line-height:1.4}
+.shelf-chip{display:inline-flex;align-items:center;gap:4px;background:#0969da;color:#fff;border-radius:14px;padding:3px 3px 3px 10px;font-size:12px;cursor:grab;user-select:none}
+.shelf-chip .swatch{width:9px;height:9px;border-radius:50%;border:1px solid #fff}
+.shelf-chip select{font-size:11px;border:none;border-radius:10px;padding:1px 3px;background:#fff;color:#1f2328;cursor:pointer}
+.shelf-chip .x{background:none;border:none;color:#fff;cursor:pointer;font-size:15px;line-height:1;padding:0 5px}
+.chart-toolbar{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-bottom:10px;font-size:12px;padding:8px 10px;background:#f6f8fa;border-radius:6px}
+.chart-toolbar .grp{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.chart-toolbar select{font-size:12px;padding:3px 4px;border:1px solid #d0d7de;border-radius:5px;background:#fff}
+.chart-toolbar label.chk{display:inline-flex;gap:4px;align-items:center;cursor:pointer}
+.chart-toolbar label.chk.off{opacity:.4;cursor:not-allowed}
+.filter-badge{display:inline-flex;align-items:center;gap:4px;background:#fbefff;color:#8250df;border-radius:12px;padding:2px 4px 2px 10px;font-size:12px;font-weight:600}
+.filter-badge button{background:none;border:none;color:#8250df;cursor:pointer;font-size:14px}
+.chart-notes{font-size:12px;color:#7d4e00;background:#fff8c5;border-radius:6px;padding:6px 10px;margin-bottom:8px}
+.chart-notes:empty{display:none}
+.chart-canvas-wrap{position:relative;height:430px;background:#fff;border:1px solid #d0d7de;border-radius:8px;padding:16px}
+.chart-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;color:#656d76;font-size:13px}
+.data-table-box{margin-top:10px;font-size:12px}
+.data-table-box summary{cursor:pointer;color:#0969da;font-weight:600}
+.data-table-box table{font-size:12px;margin-top:8px}
+.data-table-box td.num,.data-table-box th.num{text-align:right;font-variant-numeric:tabular-nums}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:12px}
+@media(max-width:500px){.board{grid-template-columns:1fr}}
+.board-item{border:1px solid #d0d7de;border-radius:8px;padding:10px;background:#fff}
+.bi-head{display:flex;justify-content:space-between;gap:6px;align-items:center;margin-bottom:6px;font-size:12px;color:#656d76}
+.board-item .canvas-box{position:relative;height:300px}
+.bi-note{font-size:11px;color:#7d4e00;margin-top:4px}
+.col-types{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:16px}
+.col-type{background:#f6f8fa;border-radius:6px;padding:8px 10px;font-size:12px}
+.col-type strong{display:block;font-size:12px}
+.type-badge{display:inline-block;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;text-transform:uppercase;margin-left:4px}
+.type-numeric{background:#ddf4ff;color:#0969da}
+.type-categorical{background:#fbefff;color:#8250df}
+.type-date{background:#dafbe1;color:#1a7f37}
+.type-text{background:#fff8c5;color:#7d4e00}
+.type-id{background:#eaeef2;color:#57606a}
+.nm-box{margin-top:6px;border:1px solid #d0d7de;border-radius:6px;padding:6px 8px;background:#fff}
+.nm-item{display:flex;gap:6px;align-items:baseline;font-size:12px;padding:2px 0;cursor:pointer}
+.nm-item.off span:first-of-type{text-decoration:line-through;color:#8c959f}
+.nm-target{margin-top:6px;font-size:12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.nm-canon{flex:1;min-width:180px;padding:4px 6px;border:1px solid #0969da;border-radius:4px;font-size:12px;font-weight:600}
+.nm-note{font-size:11px;color:#1a7f37;margin-top:4px;display:block}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🧹 Data Cleaner &amp; Graph Finder</h1>
+  <div style="font-size:13px;">
+    Reviewer: <strong id="reviewerName">anonymous</strong>
+    <button class="btn sm" style="margin-left:8px;" onclick="openReviewerModal()">Change</button>
+  </div>
+</header>
+
+<div class="container">
+  <div class="view-tabs">
+    <div class="view-tab active" id="vtCleaner" onclick="switchView('cleaner')">🧹 Cleaner</div>
+    <div class="view-tab" id="vtCharts" onclick="switchView('charts')">📊 Charts</div>
+  </div>
+
+  <div id="cleanerView">
+    <div class="card">
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="fileInput" accept=".xlsx,.xls,.csv">
+        <div style="font-size:36px;">📂</div>
+        <div style="font-weight:600;margin-top:8px;">Drop your Excel file here</div>
+        <div style="font-size:12px;color:#656d76;margin-top:4px;">.xlsx · .xls · .csv · click to browse</div>
+      </div>
+      <div class="privacy">🔒 Runs entirely in your browser — the file is never uploaded anywhere.</div>
+      <div id="fileInfo" style="margin-top:12px;font-size:13px;color:#656d76;"></div>
+      <div class="stats hidden" id="stats"></div>
+    </div>
+
+    <div class="card hidden" id="colMapCard">
+      <div class="card-head">
+        <strong class="serif" style="font-size:15px;">Detected columns</strong>
+        <span class="muted">The checks below depend on these matches. Fix any that are wrong, then re-scan.</span>
+      </div>
+      <div class="colmap" id="colMap"></div>
+      <button class="btn primary sm" onclick="rescan()">↻ Re-scan with these columns</button>
+    </div>
+
+    <div class="card hidden" id="reviewCard">
+      <div class="pipeline" id="stepBar"></div>
+      <div class="action-bar">
+        <div class="left">
+          <span id="viewLabel" style="font-weight:600;font-size:13px;">Showing: All issues</span>
+          <span id="pendingCount" style="font-size:12px;color:#656d76;"></span>
+          <input class="search-input" id="searchInput" placeholder="Search issues, HUIDs, columns, rows…">
+        </div>
+        <div class="right">
+          <span class="save-status" id="saveStatus"></span>
+          <button class="btn green" id="approveAllBtn" onclick="approveAll()">✓ Approve All Pending</button>
+          <button class="btn primary" onclick="exportCleaned()">⬇ Export</button>
+        </div>
+      </div>
+      <div id="issueTableWrap" class="table-scroll"></div>
+
+      <details class="advanced-drawer">
+        <summary>⚙ Advanced: auto-approve rules, saved progress &amp; audit log</summary>
+        <div style="margin-top:12px;">
+          <strong style="font-size:12px;">Saved Rules</strong> <span id="ruleCount" style="font-size:11px;color:#656d76;"></span>
+          <div id="rulesList" style="margin-top:8px;"></div>
+          <div style="margin-top:10px;">
+            <button class="btn sm" onclick="applyAllRules()">Apply all rules</button>
+            <button class="btn sm" onclick="clearRules()">Clear all rules</button>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <strong style="font-size:12px;">Name dictionary</strong> <span id="dictCount" style="font-size:11px;color:#656d76;"></span>
+          <div class="muted" style="margin:4px 0 8px;">Approved name merges are remembered here and applied automatically to future files. You can also import an official crosswalk (CSV or Excel, two columns: From, To).</div>
+          <div id="dictList" style="max-height:200px;overflow:auto;"></div>
+          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+            <button class="btn sm" onclick="exportNameDict()">⬇ Download CSV</button>
+            <button class="btn sm" onclick="document.getElementById('dictFile').click()">⬆ Import crosswalk</button>
+            <input type="file" id="dictFile" accept=".csv,.xlsx,.xls" style="display:none">
+            <button class="btn sm" onclick="clearNameDict()">Clear dictionary</button>
+            <button class="btn sm" onclick="clearNameDistinct()">Forget "not the same" decisions</button>
+            <span class="muted" id="distinctCount"></span>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <strong style="font-size:12px;">Saved progress</strong>
+          <div class="muted" style="margin:4px 0 8px;">Decisions and edits for this file are saved in this browser as you work, so a refresh doesn't lose your review.</div>
+          <button class="btn sm" onclick="discardProgress()">Discard saved progress for this file</button>
+        </div>
+        <div style="margin-top:16px;">
+          <strong style="font-size:12px;">Audit Log</strong>
+          <div class="audit-log" id="auditLog" style="margin-top:8px;"><div>No decisions yet.</div></div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div id="chartView" class="hidden">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <div>
+          <strong class="serif" style="font-size:15px;">📊 Chart Builder</strong>
+          <span style="font-size:12px;color:#656d76;margin-left:8px;" id="chartDataStatus">No data loaded</span>
+        </div>
+        <div>
+          <button class="btn" onclick="useCleanerData()">Use Cleaner Data</button>
+          <button class="btn" onclick="document.getElementById('chartFileInput').click()">Upload File</button>
+          <input type="file" id="chartFileInput" accept=".xlsx,.xls,.csv" style="display:none">
+        </div>
+      </div>
+      <div class="empty" id="chartEmpty">Upload a file first, or click "Use Cleaner Data".</div>
+    </div>
+
+    <div class="card hidden" id="chartWorkspace">
+      <div class="builder">
+        <aside class="fields-panel" data-shelf="remove">
+          <div class="panel-title">Fields</div>
+          <div class="muted" style="margin:2px 0 6px;">Drag onto a shelf, or click to add. Drag a chip back here to remove it.</div>
+          <div id="fieldList"></div>
+        </aside>
+        <div>
+          <div class="suggest" id="suggestions"></div>
+          <div class="shelves">
+            <div class="shelf" data-shelf="x"><div class="shelf-label">Categories (X axis)</div><div class="shelf-drop" id="shelfX"></div></div>
+            <div class="shelf" data-shelf="values"><div class="shelf-label">Values — add several to compare</div><div class="shelf-drop" id="shelfValues"></div></div>
+            <div class="shelf" data-shelf="split"><div class="shelf-label">Compare by (one series per group)</div><div class="shelf-drop" id="shelfSplit"></div></div>
+          </div>
+          <div class="chart-toolbar">
+            <div class="grp" id="typeBtns">
+              <button class="btn sm" data-act="type" data-type="bar">Bar</button>
+              <button class="btn sm" data-act="type" data-type="line">Line</button>
+              <button class="btn sm" data-act="type" data-type="pie">Pie</button>
+              <button class="btn sm" data-act="type" data-type="doughnut">Doughnut</button>
+              <button class="btn sm" data-act="type" data-type="scatter">Scatter</button>
+            </div>
+            <div class="grp">
+              <label class="chk" id="chkStacked"><input type="checkbox" data-opt="stacked"> Stacked</label>
+              <label class="chk" id="chkHorizontal"><input type="checkbox" data-opt="horizontal"> Horizontal</label>
+            </div>
+            <div class="grp">Order <select data-opt="sort"><option value="label">A→Z / time</option><option value="value">Largest first</option></select></div>
+            <div class="grp">Show <select data-opt="top"><option value="10">10</option><option value="20">20</option><option value="50">50</option><option value="0">All</option></select></div>
+            <div class="grp" id="grainGrp">By <select data-opt="grain"><option value="year">Year</option><option value="quarter">Quarter</option><option value="month">Month</option><option value="day">Day</option></select></div>
+            <span id="filterBadge"></span>
+            <div class="grp" style="margin-left:auto;">
+              <button class="btn sm" data-act="swap" title="Swap Categories and Compare by">⇄ Swap</button>
+              <button class="btn sm" data-act="panels" id="panelsBtn" title="One chart per group, same scale, on the board">▦ Panels</button>
+              <button class="btn sm primary" data-act="pin">📌 Pin to board</button>
+              <button class="btn sm" data-act="png">⬇ PNG</button>
+              <button class="btn sm" data-act="clear">Clear</button>
+            </div>
+          </div>
+          <div class="chart-notes" id="chartNotes"></div>
+          <div class="chart-canvas-wrap"><canvas id="chartCanvas"></canvas><div class="chart-placeholder hidden" id="chartPlaceholder"></div></div>
+          <details class="data-table-box"><summary>Show the numbers</summary><div id="chartTable"></div></details>
+        </div>
+      </div>
+    </div>
+
+    <div class="card hidden" id="boardCard">
+      <div class="card-head">
+        <strong class="serif" style="font-size:15px;">📌 Comparison board</strong>
+        <span class="muted">Pinned charts sit side by side. Panels from one chart share the same scale so they compare fairly.</span>
+        <button class="btn sm" data-act="board-clear">Clear board</button>
+      </div>
+      <div class="board" id="board"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="reviewerModal">
+  <div class="modal">
+    <h3>Set Reviewer Name</h3>
+    <p style="font-size:13px;color:#656d76;margin:0 0 8px 0;">Appears in the audit trail.</p>
+    <input type="text" id="reviewerInput" placeholder="e.g., jane.doe">
+    <button class="btn green" onclick="saveReviewer()">Save</button>
+    <button class="btn" onclick="closeModal('reviewerModal')">Cancel</button>
+  </div>
+</div>
+
+<div class="modal-bg" id="strategyModal">
+  <div class="modal">
+    <h3>How should missing values be handled?</h3>
+    <p style="font-size:13px;color:#656d76;margin:0 0 12px 0;" id="strategyContext"></p>
+    <label class="strategy-option" id="optImpute"><input type="radio" name="missStrat" value="impute"> <strong>Impute</strong> — fill empty cells (each filled row is labeled in DQ_Flags)</label>
+    <label class="strategy-option"><input type="radio" name="missStrat" value="flag"> <strong>Flag rows</strong> — leave blank, mark each empty row in DQ_Flags</label>
+    <label class="strategy-option"><input type="radio" name="missStrat" value="drop"> <strong>Drop rows</strong> — remove every row where this column is empty</label>
+    <div style="margin-top:16px;">
+      <button class="btn green" onclick="confirmStrategy()">Apply</button>
+      <button class="btn" onclick="closeModal('strategyModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="huidModal">
+  <div class="modal wide">
+    <h3 id="huidTitle">HUID History</h3>
+    <div id="huidContent" style="font-size:13px;" class="table-scroll"></div>
+    <div style="margin-top:16px;">
+      <button class="btn" onclick="closeModal('huidModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="editModal">
+  <div class="modal wide">
+    <h3 id="editTitle">Edit row</h3>
+    <p class="muted" style="margin:0 0 12px;">Edits are applied to the exported file and recorded in a "Manual Edits" sheet. The original upload is never changed.</p>
+    <div class="edit-grid" id="editContent"></div>
+    <div style="margin-top:16px;">
+      <button class="btn green" onclick="saveEditRow()">Save edits</button>
+      <button class="btn" onclick="closeModal('editModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONSTANTS & STATE
+// ============================================================
+const PAGE = 150;
+let workbook = null, sheetName = '', fileName = '';
+let rows = [], headers = [], issues = [], huidIndex = {};
+let colMap = {};
+let edits = {};       // rowIndex -> { column: newValue }
+let editLog = [];
+let reviewer = 'anonymous', rules = [], auditLog = [];
+let expandedGroups = new Set();
+let activeStep = 'all';
+let sortState = { key: 'pipeline', dir: 'asc' };
+let validationResults = null;
+let pendingStrategyIssue = null;
+let editingRow = null;
+let showLimit = PAGE;
+let searchText = '';
+let fingerprint = '';
+
+const STEPS = [
+  { key: 'irrelevant', num: 1, label: 'Irrelevant columns', types: ['Irrelevance'] },
+  { key: 'duplicates', num: 2, label: 'Duplicates',          types: ['Duplication'] },
+  { key: 'structural', num: 3, label: 'Structural errors',   types: ['Inconsistency', 'Inaccuracy'] },
+  { key: 'outliers',   num: 4, label: 'Outliers / FTE',      types: ['Outliers'] },
+  { key: 'missing',    num: 5, label: 'Missing data',        types: ['Incompleteness'] },
+  { key: 'standard',   num: 6, label: 'Standardization',     types: ['Standardization'] },
+  { key: 'validate',   num: 7, label: 'Validate & export',   types: [] }
+];
+const SEVERITY_RANK = { high: 3, med: 2, low: 1, info: 0 };
+const FLAG_ACTIONS = new Set(['flagOnly', 'flagMissing', 'flagValue']);
+
+// Column roles. Order matters: each header is claimed by the first role that matches it,
+// so "Active FTE" becomes FTE before the Status pattern can grab it.
+const ROLES = [
+  { key: 'huid',   label: 'Person ID (HUID)', hint: 'Groups rows per person',     pat: /^(huid|employee[_\s]*id|empl[_\s]*id|emplid|net[_\s]*id|person[_\s]*id|personnel[_\s]*id|univ[_\s]*id|eid)$/i },
+  { key: 'email',  label: 'Email',            hint: 'Email format check',         pat: /e-?mail/i },
+  { key: 'fte',    label: 'FTE',              hint: 'FTE 2.0 cap checks',         pat: /\bfte\b|fte[\s_\-%]*$|^(active|base|total)[\s_\-]*fte/i },
+  { key: 'start',  label: 'Start date',       hint: 'Date order & duration',      pat: /^(start|start[\s_]*date|begin|hire|hire[\s_]*date|effective[\s_]*date|appt[\s_]*start)/i },
+  { key: 'end',    label: 'End date',         hint: 'Date order & duration',      pat: /^(end|end[\s_]*date|termination|separation|departure|appt[\s_]*end)/i },
+  { key: 'dept',   label: 'Department',       hint: 'Labels in FTE details',      pat: /^(dept|department|division|unit)/i },
+  { key: 'school', label: 'School / Org',     hint: 'Labels in FTE details',      pat: /^(school|college|faculty|org)/i },
+  { key: 'grade',  label: 'Grade / Rank',     hint: 'Shown in HUID history',      pat: /^(grade|rank|job[\s_]*code|classif|title[\s_]*code)/i },
+  { key: 'status', label: 'Status',           hint: 'Status vs. dates & FTE',     pat: /^(status|active|employment[\s_]*status|employee[\s_]*status|current)/i }
+];
+function col(role) { return colMap[role] || null; }
+function autoDetectColumns() {
+  const used = new Set(), m = {};
+  ROLES.forEach(r => {
+    const h = headers.find(h => !used.has(h) && r.pat.test(String(h).trim()));
+    m[r.key] = h || '';
+    if (h) used.add(h);
+  });
+  return m;
+}
+
+// ============================================================
+// BOOTSTRAP
+// ============================================================
+window.addEventListener('DOMContentLoaded', () => {
+  if (typeof XLSX === 'undefined') {
+    document.getElementById('dropZone').innerHTML = '<div style="color:#cf222e;font-weight:600;padding:20px;">⚠ The Excel library failed to load. Check your internet connection and reload.</div>';
+    return;
+  }
+  try { reviewer = localStorage.getItem('cleaner_reviewer') || 'anonymous'; } catch (e) {}
+  document.getElementById('reviewerName').textContent = reviewer;
+  loadRules();
+  wireUpload();
+  wireChart();
+  document.body.addEventListener('click', onActionClick);
+  document.body.addEventListener('change', onNameEdit);
+  document.body.addEventListener('input', e => { if (e.target.dataset.nm === 'canon') onNameEdit(e); });
+  document.getElementById('dictList').addEventListener('click', e => {
+    const b = e.target.closest('[data-dictdel]'); if (!b) return;
+    delete nameDict[b.dataset.dictdel]; saveNameStores(); renderNameDict();
+  });
+  document.getElementById('dictFile').addEventListener('change', e => { if (e.target.files.length) importNameDict(e.target.files[0]); e.target.value = ''; });
+  loadNameStores(); renderNameDict();
+  document.getElementById('searchInput').addEventListener('input', e => {
+    searchText = e.target.value.trim(); showLimit = PAGE; renderActionBar(); renderTable();
+  });
+  document.querySelectorAll('.modal-bg').forEach(bg => bg.addEventListener('click', e => { if (e.target === bg) bg.classList.remove('show'); }));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-bg.show').forEach(m => m.classList.remove('show')); });
+});
+
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+function openReviewerModal() {
+  document.getElementById('reviewerInput').value = reviewer === 'anonymous' ? '' : reviewer;
+  document.getElementById('reviewerModal').classList.add('show');
+  document.getElementById('reviewerInput').focus();
+}
+function saveReviewer() {
+  const v = document.getElementById('reviewerInput').value.trim();
+  if (v) {
+    reviewer = v; document.getElementById('reviewerName').textContent = v;
+    try { localStorage.setItem('cleaner_reviewer', v); } catch (e) {}
+  }
+  closeModal('reviewerModal');
+}
+function switchView(v) {
+  document.getElementById('vtCleaner').classList.toggle('active', v === 'cleaner');
+  document.getElementById('vtCharts').classList.toggle('active', v === 'charts');
+  document.getElementById('cleanerView').classList.toggle('hidden', v !== 'cleaner');
+  document.getElementById('chartView').classList.toggle('hidden', v !== 'charts');
+}
+
+// ============================================================
+// UPLOAD & PARSING
+// ============================================================
+function wireUpload() {
+  const dz = document.getElementById('dropZone'), fi = document.getElementById('fileInput');
+  dz.addEventListener('click', e => { if (e.target !== fi) fi.click(); });
+  ['dragenter', 'dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('drag'); }));
+  ['dragleave', 'drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('drag'); }));
+  dz.addEventListener('drop', e => { if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
+  fi.addEventListener('change', e => { if (e.target.files.length) handleFile(e.target.files[0]); e.target.value = ''; });
+}
+
+function handleFile(file) {
+  fileName = file.name;
+  document.getElementById('fileInfo').textContent = `Loading ${file.name}…`;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      workbook = XLSX.read(new Uint8Array(e.target.result), { type: 'array', cellDates: true });
+      loadSheet(workbook.SheetNames[0]);
+    } catch (err) { alert('Could not read the file: ' + err.message); }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// raw:true keeps real numbers (so "1,234" or "$5" formatting can't break FTE math);
+// Date cells are normalized to yyyy-mm-dd so 2-digit years can't be misread.
+function readSheet(wb, name) {
+  const json = XLSX.utils.sheet_to_json(wb.Sheets[name], { defval: null, raw: true });
+  const out = json.map(r => { const o = {}; for (const k in r) o[k] = normalizeCell(r[k]); return o; });
+  return { rows: out, headers: out.length ? Object.keys(out[0]) : [] };
+}
+function pad(n) { return String(n).padStart(2, '0'); }
+function normalizeCell(v) {
+  if (v instanceof Date) {
+    if (isNaN(v.getTime())) return null;
+    const d = new Date(Math.round(v.getTime() / 60000) * 60000);   // SheetJS dates can be a few seconds off
+    const ymd = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+    return (d.getHours() || d.getMinutes()) ? `${ymd} ${pad(d.getHours())}:${pad(d.getMinutes())}` : ymd;
+  }
+  if (typeof v === 'string' && v.trim() === '') return null;
+  return v;
+}
+
+function loadSheet(name) {
+  const data = readSheet(workbook, name);
+  if (!data.rows.length) { alert(`Sheet "${name}" has no data rows.`); return; }
+  sheetName = name; rows = data.rows; headers = data.headers;
+  fingerprint = makeFingerprint();
+  edits = {}; editLog = []; auditLog = [];
+  colMap = autoDetectColumns();
+
+  const saved = loadSession();
+  let restore = null;
+  if (saved) {
+    const nd = Object.keys(saved.decisions || {}).length, ne = countEdits(saved.edits);
+    if (confirm(`You have saved progress on this file from ${new Date(saved.savedAt).toLocaleString()} (${nd} decisions, ${ne} edits).\n\nOK = resume where you left off\nCancel = start fresh`)) {
+      restore = saved;
+      colMap = { ...colMap, ...(saved.colMap || {}) };
+      edits = saved.edits || {}; editLog = saved.editLog || []; auditLog = saved.auditLog || [];
+    } else clearSession();
+  }
+  renderFileInfo();
+  renderColMap();
+  runDetection(restore);
+}
+
+function renderFileInfo() {
+  const el = document.getElementById('fileInfo');
+  let html = `<strong>${escapeHtml(fileName)}</strong> — ${rows.length.toLocaleString()} rows, ${headers.length} columns`;
+  if (workbook && workbook.SheetNames.length > 1) {
+    html += ` · Sheet: <select onchange="switchSheet(this.value)" style="font-size:12px;padding:2px 4px;">${workbook.SheetNames.map(s =>
+      `<option value="${escapeHtml(s)}" ${s === sheetName ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}</select>`;
+  }
+  el.innerHTML = html;
+}
+function switchSheet(name) {
+  if (issues.some(i => i.decision) && !confirm('Switch sheets? Progress on this sheet stays saved in this browser.')) { renderFileInfo(); return; }
+  loadSheet(name);
+}
+
+// ============================================================
+// SAVED PROGRESS (per file, in this browser)
+// ============================================================
+function hashStr(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36); }
+function makeFingerprint() {
+  const sample = [headers.join('|'), rows.length, JSON.stringify(rows.slice(0, 20)), JSON.stringify(rows.slice(-20))].join('#');
+  return 'cleaner_session_' + hashStr(fileName + '::' + sheetName + '::' + sample);
+}
+function issueKey(i) { return [i.type, i.col, i.row ?? '', i.original].join('|'); }
+function countEdits(e) { return Object.values(e || {}).reduce((s, r) => s + Object.keys(r).length, 0); }
+function loadSession() { try { const s = localStorage.getItem(fingerprint); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
+function clearSession() { try { localStorage.removeItem(fingerprint); } catch (e) {} }
+function saveSession() {
+  if (!fingerprint || !rows.length) return;
+  const decisions = {};
+  issues.forEach(i => { if (i.decision) decisions[issueKey(i)] = decisionRecord(i); });
+  const el = document.getElementById('saveStatus');
+  if (!Object.keys(decisions).length && !countEdits(edits)) { clearSession(); el.textContent = ''; return; }
+  try {
+    localStorage.setItem(fingerprint, JSON.stringify({ savedAt: Date.now(), decisions, edits, editLog, colMap, auditLog: auditLog.slice(-500) }));
+    el.textContent = '💾 Progress saved in this browser';
+  } catch (e) { el.textContent = '⚠ Progress not saved (browser storage blocked or full)'; }
+}
+function decisionRecord(i) {
+  const d = { decision: i.decision, reviewer: i.reviewer, decidedAt: i.decidedAt, comment: i.comment, action: i.action, viaRule: !!i.viaRule };
+  if (i.nameMatch) Object.assign(d, { canonical: i.canonical, excluded: i.excluded || [], dictAdds: i.dictAdds || [], distinctAdds: i.distinctAdds || [] });
+  return d;
+}
+function discardProgress() {
+  if (!rows.length) return;
+  if (!confirm('Discard all decisions and edits for this file and start the review over?')) return;
+  clearSession(); edits = {}; editLog = []; auditLog = [];
+  runDetection(null);
+}
+
+// ============================================================
+// COLUMN MAPPING
+// ============================================================
+function renderColMap() {
+  document.getElementById('colMapCard').classList.remove('hidden');
+  document.getElementById('colMap').innerHTML = ROLES.map(r => `<div>
+    <label>${r.label}</label>
+    <select data-role="${r.key}" class="${colMap[r.key] ? '' : 'unset'}" onchange="colMap[this.dataset.role]=this.value;this.classList.toggle('unset',!this.value)">
+      <option value="">— not in this file —</option>
+      ${headers.map(h => `<option value="${escapeHtml(h)}" ${colMap[r.key] === h ? 'selected' : ''}>${escapeHtml(h)}</option>`).join('')}
+    </select>
+    <div class="hint">${r.hint}</div></div>`).join('');
+}
+function rescan() {
+  const decisions = {};
+  issues.forEach(i => { if (i.decision) decisions[issueKey(i)] = decisionRecord(i); });
+  logAudit('↻ Re-scanned with updated column mapping');
+  runDetection({ decisions });
+}
+
+// ============================================================
+// DETECTION
+// ============================================================
+function runDetection(restore) {
+  issues = []; validationResults = null; expandedGroups = new Set();
+  activeStep = 'all'; showLimit = PAGE; searchText = '';
+  document.getElementById('searchInput').value = '';
+  let id = 1;
+  const add = o => issues.push({ id: id++, decision: null, ...o });
+
+  const huidCol = col('huid'), fteCol = col('fte'), startCol = col('start'), endCol = col('end');
+  const statusCol = col('status'), deptCol = col('dept'), schoolCol = col('school'), emailCol = col('email');
+  const where = r => (deptCol && r[deptCol]) || (schoolCol && r[schoolCol]) || '?';
+
+  huidIndex = {};
+  if (huidCol) rows.forEach((r, i) => {
+    const h = String(r[huidCol] ?? '').trim();
+    if (h) (huidIndex[h] ||= []).push(i);
+  });
+
+  // ---------- 1. Exact duplicates ----------
+  const seenRows = new Map(), dupRows = new Set();
+  rows.forEach((r, i) => {
+    const key = headers.map(h => normalizeForDup(r[h])).join('\u0001');
+    if (seenRows.has(key)) {
+      const f = seenRows.get(key);
+      dupRows.add(i);
+      add({
+        type: 'Duplication', severity: 'high', confidence: 1.0, row: i, col: '(all columns)',
+        original: `Row ${xr(i)} identical to row ${xr(f)}`, proposed: `Remove row ${xr(i)}`, method: 'Full row match',
+        recommendation: `These two rows match across all ${headers.length} columns (ignoring case and spacing). Safe to remove one.`,
+        action: 'dropRow', targetRow: i, legacy: `Row ${i + 1} identical to row ${f + 1}`
+      });
+    } else seenRows.set(key, i);
+  });
+
+  // ---------- 2. Per-column: missing values & zero variance ----------
+  const idCols = new Set([huidCol, emailCol, startCol, endCol].filter(Boolean));
+  headers.forEach(c => {
+    const vals = rows.map(r => r[c]);
+    const nonNull = vals.filter(notEmpty);
+    const missing = vals.length - nonNull.length;
+
+    if (missing > 0 && missing / vals.length >= 0.15) {
+      const rate = missing / vals.length, pct = (rate * 100).toFixed(0);
+      const nums = nonNull.map(toNum).filter(n => !isNaN(n));
+      const isNumeric = nonNull.length > 0 && nums.length >= nonNull.length * 0.8;
+      const uniqRatio = nonNull.length ? new Set(nonNull.map(String)).size / nonNull.length : 0;
+      const idLike = idCols.has(c) || /(^|[\s_\-])(id|huid|name|email|e-mail|date|phone|address)([\s_\-]|$)/i.test(c) || (nonNull.length >= 10 && uniqRatio > 0.9);
+      let proposed, action, reco;
+      if (idLike || !nonNull.length) {
+        proposed = 'Flag the empty rows'; action = 'flagMissing';
+        reco = `"${c}" looks like an identifier, date, or unique field — any guessed value would be wrong. Flag the ${missing} empty rows so they can be filled from the source system.`;
+      } else if (isNumeric) {
+        proposed = `Impute median (${fmtNum(medianOf(nums))})`; action = 'imputeMedian';
+        reco = `${missing} rows are empty. Approve to choose: fill with the median, flag them, or drop them.`;
+      } else {
+        proposed = `Impute most common value ("${modeOf(nonNull)}")`; action = 'imputeMode';
+        reco = `${missing} rows are empty. Approve to choose: fill with the most common value, flag them, or drop them.`;
+      }
+      if (rate > 0.5) reco = `${pct}% of this column is empty — consider whether it's needed at all. ` + reco;
+      add({
+        type: 'Incompleteness', severity: rate > 0.5 ? 'high' : 'med', confidence: Math.min(0.99, 0.55 + rate * 0.5),
+        row: null, col: c, original: `${missing} of ${vals.length} empty (${pct}%)`, proposed, method: 'Missing-value profiling',
+        recommendation: reco, action, imputable: !(idLike || !nonNull.length),
+        legacy: `${missing} of ${vals.length} missing (${pct}%)`
+      });
+    }
+
+    if (rows.length > 1 && nonNull.length > 0 && new Set(nonNull.map(String)).size === 1) {
+      add({
+        type: 'Irrelevance', severity: 'med', confidence: 0.92, row: null, col: c,
+        original: `Only one value in the whole column: "${nonNull[0]}"`, proposed: `Drop column "${c}"`, method: 'Zero-variance',
+        recommendation: `Every filled row says "${nonNull[0]}". The column carries no information for analysis — safe to drop unless a downstream system expects it.`,
+        action: 'dropColumn', legacy: `Only one unique value: "${nonNull[0]}"`
+      });
+    }
+  });
+
+  // ---------- 3. FTE checks ----------
+  if (fteCol) {
+    rows.forEach((r, i) => {
+      if (notEmpty(r[fteCol]) && isNaN(toNum(r[fteCol]))) {
+        add({
+          type: 'Inaccuracy', severity: 'high', confidence: 0.95, row: i, col: fteCol,
+          original: `FTE = "${r[fteCol]}"`, proposed: 'Fix — FTE is not a number', method: 'Type check',
+          recommendation: 'FTE must be numeric. Edit the row with the correct value, or flag it.',
+          action: 'flagOnly', targetRow: i, flag: 'FTE not numeric', huid: huidCol ? String(r[huidCol] ?? '').trim() || undefined : undefined
+        });
+      }
+    });
+  }
+  if (fteCol && huidCol) {
+    Object.entries(huidIndex).forEach(([huid, idxs]) => {
+      // Exact duplicate rows are left out so a copy-paste row doesn't double someone's FTE
+      const fr = idxs.filter(idx => !dupRows.has(idx)).map(idx => ({ idx, fte: toNum(rows[idx][fteCol]) })).filter(x => !isNaN(x.fte) && x.fte > 0);
+      if (!fr.length) return;
+      const total = fr.reduce((s, x) => s + x.fte, 0);
+      const listing = fr.map(x => `Row ${xr(x.idx)}: ${where(rows[x.idx])} = ${fmtNum(x.fte)}`).join('; ');
+
+      if (total > 2.0001) {
+        add({
+          type: 'Outliers', severity: 'high', confidence: 0.98, row: fr[0].idx, col: fteCol,
+          original: `HUID ${huid}: total FTE ${fmtNum(total)} across ${fr.length} row(s)`, proposed: 'Fix the wrong FTE, or flag', method: 'HUID FTE cross-check',
+          recommendation: `Total FTE for this person is ${fmtNum(total)}, above the 2.0 cap. Open the HUID history, edit the row with the wrong FTE, then mark this fine — or flag it for the source-system owner.`,
+          explanation: listing, action: 'flagOnly', targetRows: fr.map(x => x.idx), flag: `FTE total ${fmtNum(total)} > 2.0 cap`, huid,
+          legacy: `Total FTE for HUID ${huid} = ${total.toFixed(2)}`
+        });
+        return;
+      }
+      if (fr.length === 1 && fr[0].fte >= 2.0) {
+        add({
+          type: 'Outliers', severity: 'med', confidence: 0.8, row: fr[0].idx, col: fteCol,
+          original: `HUID ${huid}: one row with FTE = ${fmtNum(fr[0].fte)}`, proposed: 'Review — FTE ≥ 2.0 with no second appointment', method: 'HUID FTE cross-check',
+          recommendation: 'Multi-appointment faculty should have one row per department/school. A single row at 2.0 is likely an entry error or a missing row.',
+          action: 'flagOnly', targetRow: fr[0].idx, flag: 'Single row FTE ≥ 2.0', huid,
+          legacy: `HUID ${huid}: single row with FTE = ${fr[0].fte}`
+        });
+      }
+      if (fr.length > 1 && total >= 1.5) {
+        add({
+          type: 'Outliers', severity: 'info', confidence: 0.85, row: fr[0].idx, col: fteCol,
+          original: `HUID ${huid}: ${fr.length} rows, total FTE = ${fmtNum(total)}`, proposed: 'Looks legitimate — multi-appointment', method: 'HUID FTE cross-check',
+          recommendation: `${fr.length} distinct appointments summing to ${fmtNum(total)} fits the multi-department exception. Acknowledge to clear it.`,
+          explanation: listing, action: 'info', huid,
+          legacy: `HUID ${huid}: ${fr.length} rows, total FTE = ${total.toFixed(2)}`
+        });
+      }
+    });
+  } else if (fteCol) {
+    rows.forEach((r, i) => {
+      const n = toNum(r[fteCol]);
+      if (!isNaN(n) && n > 2.0001) add({
+        type: 'Outliers', severity: 'high', confidence: 0.95, row: i, col: fteCol,
+        original: `FTE = ${fmtNum(n)}`, proposed: 'Flag — exceeds 2.0 cap', method: 'FTE cap',
+        recommendation: 'FTE cannot exceed 2.0. Map a Person ID column above to check totals per person, or edit/flag this row.',
+        action: 'flagOnly', targetRow: i, flag: `FTE ${fmtNum(n)} > 2.0 cap`, legacy: `FTE = ${n}`
+      });
+    });
+  }
+
+  // ---------- 4. Dates ----------
+  const huidOf = r => huidCol ? (String(r[huidCol] ?? '').trim() || undefined) : undefined;
+  [startCol, endCol].filter(Boolean).forEach(dc => {
+    rows.forEach((r, i) => {
+      if (notEmpty(r[dc]) && !parseDate(r[dc])) add({
+        type: 'Inaccuracy', severity: 'high', confidence: 0.9, row: i, col: dc,
+        original: `"${r[dc]}" is not a recognizable date`, proposed: 'Fix or flag the date', method: 'Date parsing',
+        recommendation: 'This value cannot be read as a date, so date checks skip it. Edit it to yyyy-mm-dd, or flag it.',
+        action: 'flagOnly', targetRow: i, flag: `Unreadable ${dc}`, huid: huidOf(r)
+      });
+    });
+  });
+  if (startCol && endCol) {
+    rows.forEach((r, i) => {
+      const s = parseDate(r[startCol]), e = parseDate(r[endCol]);
+      if (!s || !e) return;
+      if (e < s) add({
+        type: 'Inconsistency', severity: 'high', confidence: 0.98, row: i, col: `${startCol} / ${endCol}`,
+        original: `start ${formatDate(s)}, end ${formatDate(e)}`, proposed: 'Fix — end date is before start date', method: 'Date ordering',
+        recommendation: 'An appointment cannot end before it starts — usually swapped dates or a typo. Edit the row, or flag it.',
+        action: 'flagOnly', targetRow: i, flag: 'End date before start date', huid: huidOf(r),
+        legacy: `start=${formatDate(s)}, end=${formatDate(e)}`
+      });
+      const years = (e - s) / (1000 * 60 * 60 * 24 * 365.25);
+      if (years > 40) add({
+        type: 'Inconsistency', severity: 'med', confidence: 0.75, row: i, col: `${startCol} / ${endCol}`,
+        original: `Duration ≈ ${years.toFixed(0)} years`, proposed: 'Review — unusually long appointment', method: 'Duration sanity',
+        recommendation: `Spans ${years.toFixed(0)} years. Could be a long tenure, or a typo such as 1985 for 2025.`,
+        action: 'flagOnly', targetRow: i, flag: `Duration ${years.toFixed(0)} yrs`, huid: huidOf(r),
+        legacy: `Duration ≈ ${((e - s) / (1000 * 60 * 60 * 24 * 365)).toFixed(0)} years`
+      });
+    });
+  }
+
+  // ---------- 5. Status consistency (latest row per HUID only; never assumes departure) ----------
+  // An end date is only suspicious if it's in the past AND earlier than the latest date in the file.
+  // On an old extract, everyone's end date can be in the past — that alone doesn't mean they left.
+  let fileMaxDate = null;
+  [endCol, startCol].filter(Boolean).some(dc => {
+    rows.forEach(r => { const d = parseDate(r[dc]); if (d && (!fileMaxDate || d > fileMaxDate)) fileMaxDate = d; });
+    return !!fileMaxDate;
+  });
+  if (huidCol && statusCol) {
+    const today = new Date();
+    Object.entries(huidIndex).forEach(([huid, idxs]) => {
+      const sorted = startCol ? [...idxs].sort((a, b) => (parseDate(rows[b][startCol]) || 0) - (parseDate(rows[a][startCol]) || 0)) : idxs;
+      const li = sorted[0], r = rows[li];
+      const status = String(r[statusCol] ?? '');
+      const inactive = /\b(inactive|terminated|separated|retired)\b/i.test(status);
+      const active = /\bactive\b/i.test(status) && !inactive;   // "Inactive" contains "active" — don't confuse them
+      const eDate = endCol ? parseDate(r[endCol]) : null;
+
+      if (active && eDate && eDate < today && fileMaxDate && eDate < fileMaxDate) add({
+        type: 'Inconsistency', severity: 'med', confidence: 0.85, row: li, col: `${statusCol} / ${endCol}`,
+        original: `status "${status}", end ${formatDate(eDate)}`, proposed: 'Review — Active but end date has passed', method: 'Status-date consistency',
+        recommendation: `The latest record says Active, but its end date (${formatDate(eDate)}) is before today and before the file's latest date (${formatDate(fileMaxDate)}). Either the status is stale or the end date is wrong.`,
+        action: 'flagOnly', targetRow: li, flag: 'Active with past end date', huid,
+        legacy: `status="${r[statusCol]}", end=${formatDate(eDate)}`
+      });
+      if (fteCol && inactive) {
+        const fte = toNum(r[fteCol]);
+        if (!isNaN(fte) && fte > 0) add({
+          type: 'Inconsistency', severity: 'med', confidence: 0.8, row: li, col: `${statusCol} / ${fteCol}`,
+          original: `status "${status}", FTE ${fmtNum(fte)}`, proposed: 'Review — inactive but FTE above 0', method: 'Status-FTE check',
+          recommendation: `The latest record is ${status} but FTE = ${fmtNum(fte)}. Either the status is wrong or FTE should be 0.`,
+          action: 'flagOnly', targetRow: li, flag: 'Inactive with FTE > 0', huid,
+          legacy: `status="Inactive", FTE=${fte}`
+        });
+      }
+    });
+  }
+
+  // ---------- 6. Standardization (case / whitespace variants) ----------
+  headers.forEach(c => {
+    const nonNull = rows.map(r => r[c]).filter(notEmpty);
+    if (!nonNull.length || nonNull.length > 50000) return;
+    const counts = new Map();
+    nonNull.forEach(v => { const s = String(v); counts.set(s, (counts.get(s) || 0) + 1); });
+    const groups = new Map();
+    for (const s of counts.keys()) {
+      const norm = s.trim().replace(/\s+/g, ' ').toLowerCase();
+      (groups.get(norm) || groups.set(norm, []).get(norm)).push(s);
+    }
+    for (const variants of groups.values()) {
+      if (variants.length < 2) continue;
+      const legacy = `Variants: ${variants.map(v => `"${v}"`).join(', ')}`;   // first-seen order, as the old version wrote it
+      variants.sort((a, b) => counts.get(b) - counts.get(a));
+      const canonical = variants[0];
+      add({
+        type: 'Standardization', severity: 'med', confidence: Math.min(0.95, 0.65 + (variants.length - 2) * 0.08),
+        row: null, col: c, original: `Variants: ${variants.map(v => `"${v}" (${counts.get(v)})`).join(', ')}`,
+        proposed: `Merge → "${canonical}"`, method: 'Case/whitespace clustering',
+        recommendation: `Same value written ${variants.length} ways. Merging to "${canonical}" (the most common form) fixes grouping and counts.`,
+        action: 'standardize', variants, canonical, legacy
+      });
+    }
+  });
+
+  // ---------- 6b. Name matching: abbreviations, acronyms, typos ----------
+  const skipNameCols = new Set([huidCol, emailCol, startCol, endCol, fteCol].filter(Boolean));
+  headers.forEach(c => {
+    if (skipNameCols.has(c)) return;
+    const nonNull = rows.map(r => r[c]).filter(notEmpty);
+    if (nonNull.length < 2) return;
+    if (nonNull.filter(v => !isNaN(toNum(v))).length > nonNull.length * 0.5) return;
+    if (nonNull.filter(v => /^\d{4}-\d{2}-\d{2}/.test(String(v))).length > nonNull.length * 0.5) return;
+    const byKey = new Map();
+    nonNull.forEach(v => {
+      const raw = String(v), k = nameKey(raw);
+      let e = byKey.get(k); if (!e) byKey.set(k, e = { raws: new Map(), n: 0 });
+      e.raws.set(raw, (e.raws.get(raw) || 0) + 1); e.n++;
+    });
+    const nk = byKey.size, roleCol = c === deptCol || c === schoolCol;
+    // Skip free text and people's names — mostly-unique columns are where fuzzy merging does harm
+    if (nk < 2 || nk > 2000) return;
+    if (!roleCol && nk > 30 && nk / nonNull.length > 0.5) return;
+    if (!roleCol && /(^|[\s_])(first|last|full|person|employee|preferred)?[\s_]?name$/i.test(c) && !/dept|department|school|unit|org|division|program|title/i.test(c)) return;
+    detectNameGroups(c, byKey, add);
+  });
+
+  // ---------- 7. Email format ----------
+  if (emailCol) rows.forEach((r, i) => {
+    const v = r[emailCol];
+    if (!notEmpty(v)) return;
+    const s = String(v).trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s)) add({
+      type: 'Inaccuracy', severity: 'high', confidence: 0.97, row: i, col: emailCol,
+      original: s, proposed: 'Fix or flag invalid email', method: 'Email format',
+      recommendation: `"${s}" is not a valid email address. Edit it, or flag it so the record can be corrected at the source.`,
+      action: 'flagOnly', targetRow: i, flag: 'Invalid email', huid: huidOf(r)
+    });
+  });
+
+  // Restore saved decisions, then saved rules
+  if (restore && restore.decisions) issues.forEach(i => { const d = restore.decisions[issueKey(i)]; if (d) { Object.assign(i, d); if (i.nameMatch) refreshNameIssue(i); } });
+  issues.forEach(iss => tryAutoApprove(iss));
+
+  document.getElementById('reviewCard').classList.remove('hidden');
+  document.getElementById('stats').classList.remove('hidden');
+  render();
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function xr(i) { return i + 2; }   // data index → Excel row number (row 1 is the header)
+function notEmpty(v) { return v !== null && v !== undefined && String(v).trim() !== ''; }
+function toNum(v) {
+  if (v === null || v === undefined) return NaN;
+  if (typeof v === 'number') return v;
+  if (typeof v === 'boolean' || v instanceof Date) return NaN;
+  let s = String(v).trim();
+  if (!s) return NaN;
+  const neg = /^\(.*\)$/.test(s);
+  s = s.replace(/[()$,\s]/g, '');
+  const pct = s.endsWith('%');
+  if (pct) s = s.slice(0, -1);
+  if (!/^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?$/i.test(s)) return NaN;
+  let n = Number(s);
+  if (pct) n /= 100;
+  return neg ? -n : n;
+}
+function fmtNum(n) { return Number.isInteger(n) ? String(n) : String(Math.round(n * 1000) / 1000); }
+function parseDate(v) {
+  if (v === null || v === undefined || v === '') return null;
+  if (v instanceof Date) return isNaN(v.getTime()) ? null : v;
+  if (typeof v === 'number') return null;
+  const s = String(v).trim();
+  // Build a date only if it's real: month 13 or Feb 30 returns null instead of rolling into another month
+  const mk = (y, m, dd) => { const d = new Date(y, m - 1, dd); return d.getFullYear() === y && d.getMonth() === m - 1 && d.getDate() === dd ? d : null; };
+  const iso = s.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/);
+  if (iso) return mk(+iso[1], +iso[2], +iso[3]);
+  const us = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (us) return mk(+us[3], +us[1], +us[2]);              // US month/day/year; "25/12/2021" fails and gets flagged
+  if (/^\d{1,2}[\/\-.]\d{1,2}[\/\-.]\d{2,4}$/.test(s)) return null;   // 2-digit year or other ambiguous numeric form: flag, don't guess
+  const d = new Date(s);                                    // named months, e.g. "Jan 5, 2021"
+  return isNaN(d.getTime()) ? null : d;
+}
+function formatDate(v) {
+  const d = parseDate(v);
+  if (!d) return String(v ?? '');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+function normalizeForDup(v) {
+  if (v === null || v === undefined) return '\u0000';
+  const s = String(v).trim().replace(/\s+/g, ' ');
+  const n = toNum(s);
+  return isNaN(n) ? s.toLowerCase() : String(n);
+}
+function medianOf(arr) {
+  if (!arr.length) return 0;
+  const s = [...arr].sort((a, b) => a - b), m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+function modeOf(arr) { const m = new Map(); arr.forEach(v => m.set(v, (m.get(v) || 0) + 1)); let best = null, bc = 0; for (const [k, c] of m) if (c > bc) { best = k; bc = c; } return best; }
+function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function logAudit(msg) { auditLog.push(`[${new Date().toLocaleString()}] ${msg}`); renderAudit(); }
+function cellVal(i, c) { const e = edits[i]; return e && Object.prototype.hasOwnProperty.call(e, c) ? e[c] : rows[i][c]; }
+function rowEdited(i) { return !!(edits[i] && Object.keys(edits[i]).length); }
+
+// ============================================================
+// NAME MATCHING — abbreviations, acronyms, typos, "sounds like"
+// ============================================================
+// Soundex alone can't do this job: "Afr"/"African" get different codes, a swapped-letter typo
+// ("Pyschology") gets a different code, and "Government"/"Governance" get the SAME code.
+// So names are compared in layers, strongest evidence first, and every merge is reviewed.
+const NAME_STOP = new Set(['and', 'of', 'the', 'for', 'in', 'at', 'on', 'dept', 'department', 'departments', 'program', 'programs']);
+// Only abbreviations that are NOT simple prefixes ("Afr", "Econ", "Am" are handled by prefix matching)
+const NAME_ABBR = { dept: 'department', depts: 'departments', dpt: 'department', govt: 'government', gov: 'government', intl: 'international',
+  mgmt: 'management', mgt: 'management', ctr: 'center', cntr: 'center', centre: 'center', engr: 'engineering', envtl: 'environmental',
+  univ: 'university', inst: 'institute', assoc: 'associate', asst: 'assistant', svc: 'services', svcs: 'services', ofc: 'office',
+  lits: 'literatures', langs: 'languages', sch: 'school', st: 'saint' };
+let nameDict = {};            // normalized name -> approved name (learned from approvals, or imported)
+let nameDistinct = new Set(); // pairs you said are NOT the same
+
+function loadNameStores() {
+  try { nameDict = JSON.parse(localStorage.getItem('cleaner_name_dict') || '{}'); } catch (e) { nameDict = {}; }
+  try { nameDistinct = new Set(JSON.parse(localStorage.getItem('cleaner_name_distinct') || '[]')); } catch (e) { nameDistinct = new Set(); }
+}
+function saveNameStores() {
+  try {
+    localStorage.setItem('cleaner_name_dict', JSON.stringify(nameDict));
+    localStorage.setItem('cleaner_name_distinct', JSON.stringify([...nameDistinct]));
+  } catch (e) {}
+}
+function nameKey(v) { return String(v).trim().replace(/\s+/g, ' ').toLowerCase(); }
+function pairKey(a, b) { return a < b ? a + '\u0001' + b : b + '\u0001' + a; }
+function nameTokens(k) {
+  return k.replace(/&/g, ' and ').replace(/['’`.]/g, '').replace(/[^a-z0-9]+/g, ' ').trim().split(' ').filter(Boolean).map(t => NAME_ABBR[t] || t);
+}
+function soundex(w) {
+  const c = { b: 1, f: 1, p: 1, v: 1, c: 2, g: 2, j: 2, k: 2, q: 2, s: 2, x: 2, z: 2, d: 3, t: 3, l: 4, m: 5, n: 5, r: 6 };
+  w = w.replace(/[^a-z]/g, '');
+  if (!w) return '';
+  let out = w[0].toUpperCase(), prev = c[w[0]] || 0;
+  for (let i = 1; i < w.length && out.length < 4; i++) {
+    const ch = w[i], d = c[ch] || 0;
+    if (d && d !== prev) out += d;
+    if (ch !== 'h' && ch !== 'w') prev = d;
+  }
+  return out.padEnd(4, '0');
+}
+// Edit distance that counts a swapped pair of letters as one edit ("pyschology" → "psychology" = 1)
+function editDist(a, b) {
+  const m = a.length, n = b.length;
+  if (Math.abs(m - n) > 3) return 9;
+  const d = Array.from({ length: m + 1 }, (_, i) => { const r = new Array(n + 1).fill(0); r[0] = i; return r; });
+  for (let j = 0; j <= n; j++) d[0][j] = j;
+  for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) {
+    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+  }
+  return d[m][n];
+}
+function nameInfo(k) {
+  const toks = nameTokens(k);
+  const c = toks.filter(t => !NAME_STOP.has(t));
+  const core = c.length ? c : toks;
+  return { k, toks, core, full: toks.join(' '), coreStr: core.join(' '), digits: (k.match(/\d+/g) || []).join(','),
+    sdx: toks.map(soundex).join(' '), init: toks.map(t => t[0]).join(''), coreInit: core.map(t => t[0]).join('') };
+}
+// Same number of words, and every differing word is a prefix of its partner ("afr" → "african")
+function prefixAlign(a, b) {
+  if (a.length !== b.length) return null;
+  const ab = [];
+  for (let i = 0; i < a.length; i++) {
+    const x = a[i], y = b[i];
+    if (x === y) continue;
+    const [s, l] = x.length < y.length ? [x, y] : [y, x];
+    if (s.length >= 2 && l.startsWith(s) && !/\d/.test(s)) ab.push([s, l]); else return null;
+  }
+  return ab.length ? ab : null;
+}
+function matchNames(A, B) {
+  if (A.digits !== B.digits) return null;     // "Math 101" ≠ "Math 102"
+  if (A.full === B.full) return { conf: 0.95, method: 'Formatting', why: 'identical once punctuation, "&" and standard abbreviations are normalized' };
+  if (A.coreStr === B.coreStr) return { conf: 0.85, method: 'Filler words', why: 'same name apart from words like "Department", "of", "and"' };
+  // Opposites are never the same: Active/Inactive, Tenured/Untenured, Eligible/Ineligible
+  const NEG = /^(non[\s-]?|not\s|un|in|im|ir|il|dis)/;
+  const strip = x => { const t = x.replace(NEG, ''); return t !== x ? t : null; };
+  if (strip(A.coreStr) === B.coreStr || strip(B.coreStr) === A.coreStr) return null;
+  const ab = prefixAlign(A.toks, B.toks) || prefixAlign(A.core, B.core);
+  if (ab) return { conf: 0.9, method: 'Abbreviation', abbr: true, why: ab.map(([s, l]) => `"${s}" = "${l}"`).join(', ') };
+  const acr = (X, Y) => X.toks.length === 1 && /^[a-z]{3,6}$/.test(X.toks[0]) && Y.toks.length >= 2 && (X.toks[0] === Y.init || X.toks[0] === Y.coreInit);
+  if (acr(A, B) || acr(B, A)) return { conf: 0.65, method: 'Acronym', abbr: true, why: 'the short form matches the initials of the long one — acronyms can be ambiguous' };
+  // Typos are judged word by word: same words except one or two, each off by a small edit.
+  // This keeps "Assistant Professor" and "Associate Professor" apart.
+  if (A.core.length !== B.core.length) return null;
+  const diffs = A.core.map((t, i) => [t, B.core[i]]).filter(([x, y]) => x !== y);
+  if (!diffs.length || diffs.length > 2) return null;
+  const small = ([x, y]) => Math.min(x.length, y.length) >= 5 && editDist(x, y) <= (Math.max(x.length, y.length) >= 8 ? 2 : 1);
+  if (diffs.every(small)) return { conf: 0.75, method: 'Close spelling', why: diffs.map(([x, y]) => `"${x}" ≈ "${y}"`).join(', ') + ' — likely a typo' };
+  const alike = ([x, y]) => Math.min(x.length, y.length) >= 5 && soundex(x) === soundex(y) && editDist(x, y) <= 3;
+  if (diffs.length === 1 && alike(diffs[0]))
+    return { conf: 0.6, method: 'Sounds alike', why: `"${diffs[0][0]}" and "${diffs[0][1]}" share Soundex code ${soundex(diffs[0][0])} — could be a misspelling, or two different units` };
+  return null;
+}
+
+// Finds groups of names in one column that are probably the same thing.
+function detectNameGroups(c, byKey, add) {
+  const info = new Map([...byKey.keys()].map(k => [k, nameInfo(k)]));
+  // Names your dictionary maps to, even if that exact spelling isn't in this file
+  [...byKey.keys()].forEach(k => {
+    const canon = nameDict[k];
+    if (!canon) return;
+    const ck = nameKey(canon);
+    if (ck !== k && !byKey.has(ck)) { byKey.set(ck, { raws: new Map([[canon, 0]]), n: 0, virtual: true }); info.set(ck, nameInfo(ck)); }
+  });
+  const keys = [...byKey.keys()];
+  const edges = [];
+  for (let i = 0; i < keys.length; i++) for (let j = i + 1; j < keys.length; j++) {
+    const a = keys[i], b = keys[j];
+    if (nameDistinct.has(pairKey(a, b))) continue;
+    const da = nameDict[a] && nameKey(nameDict[a]), db = nameDict[b] && nameKey(nameDict[b]);
+    if (da === b || db === a || (da && da === db)) { edges.push({ a, b, m: { conf: 0.99, method: 'Name dictionary', known: true, why: 'approved before — saved in your name dictionary' } }); continue; }
+    if (byKey.get(a).virtual || byKey.get(b).virtual) continue;
+    const m = matchNames(info.get(a), info.get(b));
+    if (m) edges.push({ a, b, m });
+  }
+  const rawOf = k => { const e = byKey.get(k); return [...e.raws.entries()].sort((x, y) => y[1] - x[1])[0][0]; };
+
+  // An abbreviation that fits two different full names ("Bio" → Biology? Biophysics?) is not merged.
+  const linked = (x, y) => edges.some(e => (e.a === x && e.b === y) || (e.a === y && e.b === x));
+  const partners = new Map();
+  edges.filter(e => e.m.abbr).forEach(e => {
+    const short = info.get(e.a).full.length <= info.get(e.b).full.length ? e.a : e.b;
+    const long = short === e.a ? e.b : e.a;
+    (partners.get(short) || partners.set(short, []).get(short)).push({ long, e });
+  });
+  partners.forEach((list, short) => {
+    if (list.length < 2) return;
+    const longs = list.map(l => l.long);
+    if (longs.every((x, i) => longs.every((y, j) => j <= i || linked(x, y)))) return;
+    list.forEach(l => { l.e.drop = true; });
+    if (byKey.get(short).virtual) return;
+    add({
+      type: 'Standardization', severity: 'med', confidence: 0.6, row: null, col: c,
+      original: `"${rawOf(short)}" (${byKey.get(short).n}) could mean: ${longs.map(l => `"${rawOf(l)}"`).join(' or ')}`,
+      proposed: 'Fix by hand — ambiguous abbreviation', method: 'Name matching · ambiguous',
+      recommendation: `"${rawOf(short)}" fits more than one full name, so it isn't merged automatically. Flag these rows to fix them at the source, or edit each row to the right name.`,
+      action: 'flagValue', valueKey: short, flag: `Ambiguous ${c}: "${rawOf(short)}"`
+    });
+  });
+
+  // Group the remaining matches (union-find)
+  const parent = new Map(keys.map(k => [k, k]));
+  const find = k => { while (parent.get(k) !== k) { parent.set(k, parent.get(parent.get(k))); k = parent.get(k); } return k; };
+  const kept = edges.filter(e => !e.drop);
+  kept.forEach(e => parent.set(find(e.a), find(e.b)));
+  const groups = new Map();
+  keys.forEach(k => { const r = find(k); (groups.get(r) || groups.set(r, []).get(r)).push(k); });
+
+  groups.forEach(members => {
+    if (members.length < 2) return;
+    const real = members.filter(k => !byKey.get(k).virtual);
+    if (!real.length) return;
+    const gEdges = kept.filter(e => members.includes(e.a) && members.includes(e.b));
+    // Default target: the dictionary's choice, else the fullest spelled-out form, then the most common
+    const dictTarget = members.map(k => nameDict[k]).find(Boolean);
+    let canonical = dictTarget;
+    if (!canonical) {
+      // Fullest spelled-out form wins; a plural "s" doesn't count as fuller, so "Lecturer" beats "Lecturers"
+      const fullness = k => info.get(k).core.map(t => t.replace(/s$/, '')).join(' ').length;
+      const best = [...real].sort((x, y) => fullness(y) - fullness(x) || byKey.get(y).n - byKey.get(x).n || info.get(x).toks.length - info.get(y).toks.length || rawOf(x).length - rawOf(y).length)[0];
+      canonical = rawOf(best);
+    }
+    const memberList = real.map(k => ({ key: k, raw: rawOf(k), n: byKey.get(k).n, raws: [...byKey.get(k).raws.keys()] }))
+      .sort((x, y) => y.n - x.n || x.raw.localeCompare(y.raw));
+    const allRaws = memberList.flatMap(m => m.raws);
+    if (allRaws.every(r => r === canonical)) return;   // nothing to change
+    const conf = Math.min(...gEdges.map(e => e.m.conf));
+    const methods = [...new Set(gEdges.map(e => e.m.method))];
+    const known = gEdges.length && gEdges.every(e => e.m.known);
+    const caution = methods.some(m => ['Sounds alike', 'Close spelling', 'Acronym'].includes(m));
+    const iss = {
+      type: 'Standardization', severity: known ? 'low' : conf >= 0.85 ? 'med' : 'low', confidence: conf, row: null, col: c,
+      original: `Similar names: ${memberList.map(m => `"${m.raw}" (${m.n})`).join(', ')}`,
+      proposed: `Merge → "${canonical}"`, method: `Name matching · ${methods.join(', ')}`,
+      recommendation: known
+        ? 'Every name here is already in your name dictionary, so this merge was applied automatically. Undo it if this file is different.'
+        : `These look like the same name written ${memberList.length} ways.${caution ? ` Some matches rest on ${methods.includes('Acronym') ? 'an acronym' : 'spelling'} alone — check they aren't different units.` : ''} Untick any that don't belong, or type the name to merge into.`,
+      explanation: gEdges.map(e => `"${rawOf(e.a)}" ↔ "${rawOf(e.b)}" — ${e.m.method}: ${e.m.why}`).join('\n'),
+      action: 'standardize', nameMatch: true, members: memberList, excluded: [], canonical, variants: allRaws
+    };
+    if (known) Object.assign(iss, { decision: 'approved', reviewer: 'name dictionary', decidedAt: new Date().toISOString(), comment: 'Matched your name dictionary', viaRule: true });
+    add(iss);
+  });
+}
+
+// Keep a name issue's merge list in step with the reviewer's ticks and target name
+function refreshNameIssue(iss) {
+  const ex = new Set(iss.excluded || []);
+  iss.variants = iss.members.filter(m => !ex.has(m.key)).flatMap(m => m.raws);
+  iss.proposed = `Merge → "${iss.canonical}"`;
+}
+function onNameEdit(e) {
+  const el = e.target.closest('[data-nm]');
+  if (!el) return;
+  const iss = issues.find(i => i.id === Number(el.dataset.id));
+  if (!iss || iss.decision) return;
+  if (el.dataset.nm === 'member') {
+    const ex = new Set(iss.excluded);
+    el.checked ? ex.delete(el.dataset.key) : ex.add(el.dataset.key);
+    iss.excluded = [...ex];
+  } else if (el.dataset.nm === 'canon') iss.canonical = el.value.trim();
+  refreshNameIssue(iss);
+}
+function nameEditorHtml(iss) {
+  const locked = !!iss.decision, ex = new Set(iss.excluded || []);
+  return `<div class="nm-box">
+    ${iss.members.map(m => `<label class="nm-item ${ex.has(m.key) ? 'off' : ''}"><input type="checkbox" data-nm="member" data-id="${iss.id}" data-key="${escapeHtml(m.key)}" ${ex.has(m.key) ? '' : 'checked'} ${locked ? 'disabled' : ''}>
+      <span>${escapeHtml(m.raw)}</span> <span class="muted">${m.n} row${m.n === 1 ? '' : 's'}</span></label>`).join('')}
+    <div class="nm-target">Merge into <input class="nm-canon" data-nm="canon" data-id="${iss.id}" value="${escapeHtml(iss.canonical)}" list="nmlist_${iss.id}" ${locked ? 'disabled' : ''}>
+      <datalist id="nmlist_${iss.id}">${iss.members.map(m => `<option value="${escapeHtml(m.raw)}">`).join('')}</datalist></div></div>`;
+}
+// Approving teaches the dictionary; rejecting remembers "not the same". Undo reverses both.
+function learnFromNameDecision(iss) {
+  if (!iss.nameMatch) return;
+  iss.dictAdds = []; iss.distinctAdds = [];
+  const ex = new Set(iss.excluded || []);
+  const keys = iss.members.map(m => m.key);
+  if (iss.decision === 'approved') {
+    const ck = nameKey(iss.canonical);
+    keys.filter(k => !ex.has(k) && k !== ck).forEach(k => { iss.dictAdds.push([k, nameDict[k] ?? null]); nameDict[k] = iss.canonical; });
+    if (nameDict[ck] && nameKey(nameDict[ck]) !== ck) { iss.dictAdds.push([ck, nameDict[ck]]); delete nameDict[ck]; }
+    keys.filter(k => ex.has(k)).forEach(k => { const p = pairKey(k, ck); if (!nameDistinct.has(p)) { nameDistinct.add(p); iss.distinctAdds.push(p); } });
+  } else {
+    keys.forEach((a, i) => keys.slice(i + 1).forEach(b => { const p = pairKey(a, b); if (!nameDistinct.has(p)) { nameDistinct.add(p); iss.distinctAdds.push(p); } }));
+  }
+  saveNameStores();
+}
+function unlearnNameDecision(iss) {
+  if (!iss.nameMatch) return;
+  if (iss.reviewer === 'name dictionary' && !(iss.dictAdds || []).length) {
+    iss.members.forEach(m => { if (nameDict[m.key] && nameKey(nameDict[m.key]) === nameKey(iss.canonical)) delete nameDict[m.key]; });
+  }
+  (iss.dictAdds || []).slice().reverse().forEach(([k, prev]) => { if (prev == null) delete nameDict[k]; else nameDict[k] = prev; });
+  (iss.distinctAdds || []).forEach(p => nameDistinct.delete(p));
+  iss.dictAdds = []; iss.distinctAdds = [];
+  saveNameStores();
+}
+
+// ---------- dictionary management (Advanced drawer) ----------
+function renderNameDict() {
+  const entries = Object.entries(nameDict).sort((a, b) => a[1].localeCompare(b[1]) || a[0].localeCompare(b[0]));
+  document.getElementById('dictCount').textContent = entries.length ? `(${entries.length})` : '';
+  document.getElementById('distinctCount').textContent = nameDistinct.size ? `${nameDistinct.size} "not the same" decision(s) remembered.` : '';
+  document.getElementById('dictList').innerHTML = entries.length
+    ? entries.slice(0, 200).map(([k, v]) => `<div class="rule-item"><div>"${escapeHtml(k)}" → <strong>${escapeHtml(v)}</strong></div>
+        <button class="btn sm" data-dictdel="${escapeHtml(k)}">✕</button></div>`).join('') + (entries.length > 200 ? `<div class="muted">…and ${entries.length - 200} more (download to see all)</div>` : '')
+    : '<div style="color:#656d76;">Empty. Approve a name merge, or import a crosswalk.</div>';
+}
+function exportNameDict() {
+  const q = v => /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
+  const csv = ['From,To', ...Object.entries(nameDict).map(([k, v]) => `${q(k)},${q(v)}`)].join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.download = 'name_dictionary.csv'; a.click();
+}
+function importNameDict(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const wb = XLSX.read(new Uint8Array(e.target.result), { type: 'array' });
+      const aoa = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: null });
+      let n = 0;
+      aoa.forEach((r, i) => {
+        if (!r || !notEmpty(r[0]) || !notEmpty(r[1])) return;
+        if (i === 0 && /^from$/i.test(String(r[0]).trim())) return;
+        const k = nameKey(r[0]), v = String(r[1]).trim();
+        if (k !== nameKey(v)) { nameDict[k] = v; n++; }
+      });
+      saveNameStores();
+      alert(`Imported ${n} name mapping(s).${rows.length ? ' Re-scanning the current file.' : ''}`);
+      if (rows.length) rescan(); else renderNameDict();
+    } catch (err) { alert('Could not read the crosswalk: ' + err.message); }
+  };
+  reader.readAsArrayBuffer(file);
+}
+function clearNameDict() { if (!confirm('Clear the whole name dictionary?')) return; nameDict = {}; saveNameStores(); renderNameDict(); }
+function clearNameDistinct() { if (!confirm('Forget all "not the same" decisions? Those pairs will be suggested again.')) return; nameDistinct = new Set(); saveNameStores(); renderNameDict(); }
+
+// ============================================================
+// RULES
+// ============================================================
+function loadRules() { try { rules = JSON.parse(localStorage.getItem('cleaner_rules') || '[]'); } catch (e) { rules = []; } }
+function saveRules() { try { localStorage.setItem('cleaner_rules', JSON.stringify(rules)); } catch (e) {} }
+function clearRules() { if (!confirm('Clear all rules?')) return; rules = []; saveRules(); render(); }
+// Rules match on the issue text. `legacy` is the wording the previous version used,
+// so rules saved before this update keep working.
+function ruleMatches(rule, iss) {
+  if (rule.type !== iss.type || rule.col !== iss.col) return false;
+  const norm = s => String(s).replace(/\s+/g, ' ').trim().toLowerCase();
+  const p = norm(rule.pattern);
+  return p === norm(iss.original) || (iss.legacy != null && p === norm(iss.legacy));
+}
+function tryAutoApprove(iss) {
+  if (iss.decision) return false;
+  const rule = rules.find(r => ruleMatches(r, iss));
+  if (!rule) return false;
+  Object.assign(iss, { decision: 'approved', reviewer: rule.by, decidedAt: new Date().toISOString(), comment: rule.comment, viaRule: true });
+  return true;
+}
+function applyAllRules() {
+  let count = 0;
+  issues.forEach(iss => { if (tryAutoApprove(iss)) count++; });
+  logAudit(`Applied ${count} rule match(es)`);
+  render();
+}
+
+// ============================================================
+// CLEANED DATA
+// ============================================================
+function computeDropped() {
+  const d = new Set();
+  issues.forEach(iss => {
+    if (iss.decision !== 'approved') return;
+    if (iss.action === 'dropRow') d.add(iss.targetRow);
+    else if (iss.action === 'dropRowsWithMissing') rows.forEach((_, i) => { if (!notEmpty(cellVal(i, iss.col))) d.add(i); });
+  });
+  return d;
+}
+function getCleanedRows(withFlags = false) {
+  const out = rows.map((r, i) => { const o = { ...r }; const e = edits[i]; if (e) for (const c in e) o[c] = e[c]; return o; });
+  const dropped = computeDropped(), droppedCols = new Set(), flags = rows.map(() => []);
+  const approved = issues.filter(i => i.decision === 'approved');
+
+  // Pass 1: standardize first, so imputed values use the merged form
+  approved.filter(i => i.action === 'standardize').forEach(iss => {
+    const v = new Set(iss.variants);
+    out.forEach(r => { if (r[iss.col] != null && v.has(String(r[iss.col]))) r[iss.col] = iss.canonical; });
+  });
+  // Pass 2: everything else
+  approved.forEach(iss => {
+    switch (iss.action) {
+      case 'dropColumn': droppedCols.add(iss.col); break;
+      case 'imputeMedian': {
+        const med = medianOf(out.filter((_, i) => !dropped.has(i)).map(r => toNum(r[iss.col])).filter(n => !isNaN(n)));
+        out.forEach((r, i) => { if (!notEmpty(r[iss.col])) { r[iss.col] = med; flags[i].push(`Imputed ${iss.col}`); } });
+        break;
+      }
+      case 'imputeMode': {
+        const mode = modeOf(out.filter((_, i) => !dropped.has(i)).map(r => r[iss.col]).filter(notEmpty));
+        out.forEach((r, i) => { if (!notEmpty(r[iss.col])) { r[iss.col] = mode; flags[i].push(`Imputed ${iss.col}`); } });
+        break;
+      }
+      case 'flagMissing': out.forEach((r, i) => { if (!notEmpty(r[iss.col])) flags[i].push(`Missing ${iss.col}`); }); break;
+      case 'flagOnly': (iss.targetRows || [iss.targetRow]).forEach(i => { if (i != null) flags[i].push(iss.flag || iss.proposed); }); break;
+      case 'flagValue': rows.forEach((r, i) => { if (notEmpty(r[iss.col]) && nameKey(r[iss.col]) === iss.valueKey) flags[i].push(iss.flag); }); break;
+    }
+  });
+  const keepCols = headers.filter(h => !droppedCols.has(h));
+  const anyFlags = withFlags && flags.some((f, i) => f.length && !dropped.has(i));
+  const anyEdits = withFlags && rows.some((_, i) => rowEdited(i) && !dropped.has(i));
+  const result = [];
+  out.forEach((r, i) => {
+    if (dropped.has(i)) return;
+    const o = {};
+    keepCols.forEach(h => { o[h] = r[h]; });
+    if (anyFlags) o.DQ_Flags = [...new Set(flags[i])].join('; ');
+    if (anyEdits) o.DQ_Edited = rowEdited(i) ? 'yes' : '';
+    result.push(o);
+  });
+  return result;
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  renderStats(); renderStepBar(); renderActionBar(); renderTable(); renderRulesList(); renderNameDict(); renderAudit(); saveSession();
+}
+
+function renderStats() {
+  const decided = issues.filter(i => i.decision).length;
+  const pct = issues.length ? Math.round(decided / issues.length * 100) : 100;
+  const after = rows.length - computeDropped().size;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="num">${rows.length.toLocaleString()}</div><div class="lbl">Rows in file</div></div>
+    <div class="stat"><div class="num">${headers.length}</div><div class="lbl">Columns</div></div>
+    <div class="stat"><div class="num">${issues.length.toLocaleString()}</div><div class="lbl">Issues found</div></div>
+    <div class="stat"><div class="num" style="color:#1a7f37">${pct}%</div><div class="lbl">Reviewed</div></div>
+    <div class="stat"><div class="num">${after.toLocaleString()}</div><div class="lbl">Rows after cleaning · ${countEdits(edits)} edits</div></div>`;
+}
+
+function renderStepBar() {
+  document.getElementById('stepBar').innerHTML =
+    `<div class="step-chip ${activeStep === 'all' ? 'active' : ''}" onclick="setStep('all')">
+      <span class="step-num">Σ</span><span class="step-label">All issues</span>
+      <span class="step-status">${issues.filter(i => !i.decision).length} pending</span></div>` +
+    STEPS.map(s => {
+      const pool = s.key === 'validate' ? [] : issues.filter(i => s.types.includes(i.type));
+      const total = pool.length, done = pool.filter(i => i.decision).length;
+      const isDone = total > 0 && done === total;
+      const cls = activeStep === s.key ? 'active' : (isDone ? 'done' : '');
+      const status = s.key === 'validate' ? 'Run final checks' : total === 0 ? 'no issues' : `${done}/${total} reviewed`;
+      return `<div class="step-chip ${cls}" onclick="setStep('${s.key}')">
+        <span class="step-num">${isDone ? '✓' : s.num}</span>
+        <span class="step-label">${s.label}</span>
+        <span class="step-status">${status}</span></div>`;
+    }).join('') +
+    `<div class="step-chip ${activeStep === 'grouped' ? 'active' : ''}" onclick="setStep('grouped')">
+      <span class="step-num">▦</span><span class="step-label">Group by fix</span>
+      <span class="step-status">Collapse identical</span></div>`;
+}
+
+function getFilteredIssues() {
+  if (activeStep === 'all' || activeStep === 'grouped') return issues;
+  const step = STEPS.find(s => s.key === activeStep);
+  return step ? issues.filter(i => step.types.includes(i.type)) : issues;
+}
+function getVisibleIssues() {
+  let list = getFilteredIssues();
+  if (searchText) {
+    const q = searchText.toLowerCase();
+    list = list.filter(i => [i.type, i.col, i.original, i.proposed, i.recommendation, i.huid, i.row != null ? `row ${xr(i.row)}` : '', i.explanation]
+      .join(' ').toLowerCase().includes(q));
+  }
+  return list;
+}
+
+function renderActionBar() {
+  const pool = getVisibleIssues();
+  const pending = pool.filter(i => !i.decision).length;
+  const label = activeStep === 'all' ? 'All issues' : activeStep === 'grouped' ? 'Grouped by fix' : (STEPS.find(s => s.key === activeStep)?.label || '');
+  document.getElementById('viewLabel').textContent = `Showing: ${label}`;
+  document.getElementById('pendingCount').textContent = activeStep === 'validate' ? '' : pending ? `· ${pending} pending${searchText ? ' (filtered)' : ''}` : '· all reviewed';
+  const btn = document.getElementById('approveAllBtn');
+  btn.disabled = pending === 0 || activeStep === 'validate';
+  btn.textContent = pending ? `✓ Approve ${searchText ? 'these' : 'all'} ${pending}` : '✓ All reviewed';
+  document.getElementById('searchInput').classList.toggle('hidden', activeStep === 'validate');
+}
+
+function renderTable() {
+  const wrap = document.getElementById('issueTableWrap');
+
+  if (activeStep === 'validate') {
+    if (!validationResults) runValidation();
+    const allPass = validationResults.every(r => r.pass);
+    wrap.innerHTML = `<div class="validation-box ${allPass ? '' : 'fail'}">
+      <h3>${allPass ? '✓ Ready to export' : '⚠ Some checks failed — you can still export'}</h3>
+      <ul>${validationResults.map(r => `<li><strong>${r.pass ? '✓' : '✗'}</strong> ${r.label} — <span style="color:#656d76;">${escapeHtml(r.detail)}</span></li>`).join('')}</ul>
+      <div style="margin-top:14px;">
+        <button class="btn green" onclick="exportCleaned()">⬇ Export cleaned file</button>
+        <button class="btn" onclick="validationResults=null;render();">🔄 Re-run checks</button>
+      </div></div>`;
+    return;
+  }
+
+  let list = getVisibleIssues();
+  if (!list.length) { wrap.innerHTML = `<div class="empty">${searchText ? 'No issues match your search.' : 'No issues here. 🎉'}</div>`; return; }
+  list = [...list].sort(compareBy);
+
+  const hdr = (label, key) => `<th class="sortable" onclick="setSort('${key}')">${label}${sortArrow(key)}</th>`;
+  let html = `<table><thead><tr>
+    ${hdr('Type', 'type')}${hdr('Conf.', 'confidence')}${hdr('Sev.', 'severity')}${hdr('Excel row', 'row')}${hdr('Column', 'column')}
+    <th>Issue &amp; Recommendation</th>${hdr('Method', 'method')}<th>Decision</th></tr></thead><tbody>`;
+  let total, shown;
+
+  if (activeStep === 'grouped') {
+    const groups = new Map();
+    list.forEach(iss => {
+      const k = [iss.type, iss.method, iss.col, iss.proposed].join('||');
+      (groups.get(k) || groups.set(k, []).get(k)).push(iss);
+    });
+    const arr = [...groups.entries()].map(([gid, members]) => ({
+      gid, members, rep: members[0],
+      maxSev: Math.max(...members.map(m => SEVERITY_RANK[m.severity] ?? 0)),
+      avgConf: members.reduce((s, m) => s + (m.confidence || 0), 0) / members.length
+    }));
+    arr.sort((a, b) => stepIndex(a.rep.type) - stepIndex(b.rep.type) || b.maxSev - a.maxSev);
+    total = arr.length; shown = Math.min(total, showLimit);
+
+    arr.slice(0, showLimit).forEach(g => {
+      const { gid, members, rep, avgConf } = g;
+      const pending = members.filter(m => !m.decision).length;
+      const approved = members.filter(m => m.decision === 'approved').length;
+      const isExp = expandedGroups.has(gid);
+      const sevLabel = Object.keys(SEVERITY_RANK).find(k => SEVERITY_RANK[k] === g.maxSev) || 'low';
+      html += `<tr class="group-row">
+        <td><span class="group-toggle" data-action="toggleGroup" data-gid="${escapeHtml(gid)}">${isExp ? '▼' : '▶'}</span> <strong>${rep.type}</strong></td>
+        <td>${confPill(avgConf)}</td>
+        <td><span class="pill ${sevLabel}">${sevLabel.toUpperCase()}</span></td>
+        <td colspan="2">${members.length} item${members.length === 1 ? '' : 's'} · ${escapeHtml(rep.col)}</td>
+        <td><div class="reco-box"><strong>${escapeHtml(rep.proposed)}</strong><br>${escapeHtml(rep.recommendation || '')}</div></td>
+        <td style="font-size:11px;color:#656d76;">${escapeHtml(rep.method)}</td>
+        <td class="decision-cell">${pending === 0
+          ? `<span class="decided-pill ${approved === members.length ? 'ok' : 'no'}">${approved === members.length ? '✓ All approved' : 'Mixed decisions'}</span>`
+          : `<button class="btn green sm" data-action="approveGroup" data-gid="${escapeHtml(gid)}">${btnLabels(rep).yes} all ${pending}</button>`}</td></tr>`;
+      if (isExp) members.forEach(iss => { html += renderRow(iss, true); });
+    });
+  } else {
+    total = list.length; shown = Math.min(total, showLimit);
+    list.slice(0, showLimit).forEach(iss => { html += renderRow(iss, false); });
+  }
+
+  html += '</tbody></table>';
+  if (total > shown) html += `<div class="show-more"><span class="muted">Showing ${shown.toLocaleString()} of ${total.toLocaleString()}</span>
+    <button class="btn sm" data-action="showMore" style="margin-left:8px;">Show ${Math.min(PAGE, total - shown)} more</button>
+    <button class="btn sm" data-action="showAll">Show all</button></div>`;
+  wrap.innerHTML = html;
+}
+
+function btnLabels(iss) {
+  if (iss.action === 'info') return { yes: '✓ Acknowledge', no: null, yesCls: 'green' };
+  if (FLAG_ACTIONS.has(iss.action)) return { yes: '⚑ Flag in export', no: '✓ Looks fine', yesCls: 'amber', noCls: 'green' };
+  return { yes: '✓ Approve', no: '✗ Reject', yesCls: 'green', noCls: 'red' };
+}
+function decidedInfo(iss) {
+  const flaggy = FLAG_ACTIONS.has(iss.action);
+  if (iss.decision === 'approved') {
+    if (iss.action === 'info') return { text: '✓ Acknowledged', cls: 'ok', row: 'row-decided-approve' };
+    if (flaggy) return { text: '⚑ Flagged', cls: 'flag', row: 'row-decided-flag' };
+    return { text: '✓ Approved', cls: 'ok', row: 'row-decided-approve' };
+  }
+  return flaggy ? { text: '✓ Marked fine', cls: 'ok', row: 'row-decided-approve' } : { text: '✗ Rejected', cls: 'no', row: 'row-decided-reject' };
+}
+
+function renderRow(iss, isChild) {
+  const info = iss.decision ? decidedInfo(iss) : null;
+  const rowCls = (isChild ? 'child-row ' : '') + (info ? info.row : '');
+  const rowCell = iss.row === null ? '—' :
+    `${xr(iss.row)}${rowEdited(iss.row) ? '<br><span class="edited-badge">✎ edited</span>' : ''}`;
+  let html = `<tr class="${rowCls}">
+    <td>${isChild ? '└ ' + iss.type : '<strong>' + iss.type + '</strong>'}</td>
+    <td>${confPill(iss.confidence)}</td>
+    <td><span class="pill ${iss.severity}">${iss.severity.toUpperCase()}</span></td>
+    <td>${rowCell}${iss.huid ? `<br><button class="btn link" data-action="huid" data-huid="${escapeHtml(iss.huid)}">HUID ${escapeHtml(iss.huid)}</button>` : ''}</td>
+    <td>${escapeHtml(iss.col)}</td>
+    <td>${iss.nameMatch ? `<div style="font-size:12px;">Similar names in <strong>${escapeHtml(iss.col)}</strong>:</div>${nameEditorHtml(iss)}` : `<div style="font-size:12px;line-height:1.5;">${escapeHtml(iss.original)}</div>`}
+      <div class="reco-box"><strong>Recommendation:</strong> ${escapeHtml(iss.recommendation || iss.proposed)}</div>
+      ${iss.explanation ? `<details class="why-box"><summary>Why?</summary><div>${escapeHtml(iss.explanation)}</div></details>` : ''}
+    </td>
+    <td style="font-size:11px;color:#656d76;">${escapeHtml(iss.method)}</td>
+    <td class="decision-cell">`;
+
+  const editBtn = iss.row !== null && iss.type !== 'Duplication'
+    ? `<button class="btn sm" data-action="edit" data-row="${iss.row}">✎ Edit row</button>` : '';
+  if (info) {
+    html += `<span class="decided-pill ${info.cls}">${info.text} — ${escapeHtml(iss.reviewer || '')}${iss.viaRule ? ' (rule)' : ''}</span>
+      <button class="btn link" data-action="undo" data-id="${iss.id}">↺ undo</button>`;
+    if (iss.comment) html += `<div class="comment-shown">💬 ${escapeHtml(iss.comment)}</div>`;
+    if (editBtn) html += `<div class="decision-actions">${editBtn}</div>`;
+  } else {
+    const L = btnLabels(iss);
+    html += `<input class="comment-input" id="comment_${iss.id}" placeholder="Optional comment…">
+      ${iss.nameMatch ? '<span class="nm-note">✓ Approving saves these to your name dictionary — future files are fixed automatically.</span>'
+        : `<label class="rule-check"><input type="checkbox" id="rule_${iss.id}"> Remember this decision (needs a comment)</label>`}
+      <div class="decision-actions">
+        <button class="btn ${L.yesCls} sm" data-action="approve" data-id="${iss.id}">${L.yes}</button>
+        ${L.no ? `<button class="btn ${L.noCls} sm" data-action="reject" data-id="${iss.id}">${L.no}</button>` : ''}
+        ${editBtn}
+      </div>`;
+  }
+  return html + '</td></tr>';
+}
+
+function confPill(c) {
+  if (c == null) return '';
+  const cls = c >= 0.85 ? 'hi' : c >= 0.6 ? 'md' : 'lo';
+  return `<span class="conf-pill ${cls}">${Math.round(c * 100)}%</span>`;
+}
+function stepIndex(type) { const i = STEPS.findIndex(s => s.types.includes(type)); return i === -1 ? 99 : i; }
+function sortArrow(k) { return sortState.key === k ? (sortState.dir === 'asc' ? ' ▲' : ' ▼') : ''; }
+function setSort(k) {
+  if (sortState.key === k) sortState.dir = sortState.dir === 'asc' ? 'desc' : 'asc';
+  else { sortState.key = k; sortState.dir = ['severity', 'confidence'].includes(k) ? 'desc' : 'asc'; }
+  renderTable();
+}
+function compareBy(a, b) {
+  const { key, dir } = sortState;
+  if (key === 'pipeline') {
+    return stepIndex(a.type) - stepIndex(b.type) || (SEVERITY_RANK[b.severity] ?? 0) - (SEVERITY_RANK[a.severity] ?? 0) || (a.row ?? -1) - (b.row ?? -1);
+  }
+  let av, bv;
+  switch (key) {
+    case 'severity': av = SEVERITY_RANK[a.severity] ?? 0; bv = SEVERITY_RANK[b.severity] ?? 0; break;
+    case 'confidence': av = a.confidence ?? 0; bv = b.confidence ?? 0; break;
+    case 'type': av = a.type; bv = b.type; break;
+    case 'method': av = a.method; bv = b.method; break;
+    case 'column': av = a.col; bv = b.col; break;
+    case 'row': av = a.row ?? -1; bv = b.row ?? -1; break;
+    default: av = 0; bv = 0;
+  }
+  if (typeof av === 'string') { const c = av.localeCompare(bv); return dir === 'asc' ? c : -c; }
+  return dir === 'asc' ? av - bv : bv - av;
+}
+
+function renderRulesList() {
+  document.getElementById('ruleCount').textContent = rules.length ? `(${rules.length})` : '';
+  const el = document.getElementById('rulesList');
+  if (!rules.length) { el.innerHTML = '<div style="color:#656d76;">No rules yet. Save one by approving with "Remember this decision" checked.</div>'; return; }
+  el.innerHTML = rules.map(r => `<div class="rule-item">
+    <div><strong>${escapeHtml(r.type)}</strong> · <code>${escapeHtml(r.col)}</code> · "${escapeHtml(r.pattern)}" → "${escapeHtml(r.comment)}" <em style="color:#656d76;">by ${escapeHtml(r.by)}</em></div>
+    <button class="btn sm" onclick="deleteRule(${r.id})">✕</button></div>`).join('');
+}
+function deleteRule(id) { rules = rules.filter(r => r.id !== id); saveRules(); render(); }
+
+function renderAudit() {
+  document.getElementById('auditLog').innerHTML = auditLog.length
+    ? auditLog.slice().reverse().map(l => `<div>${escapeHtml(l)}</div>`).join('')
+    : '<div>No decisions yet.</div>';
+}
+
+// ============================================================
+// CLICK HANDLING (one delegated listener for all dynamic buttons)
+// ============================================================
+function onActionClick(e) {
+  const btn = e.target.closest('[data-action]');
+  if (!btn) return;
+  const a = btn.dataset.action, id = Number(btn.dataset.id), gid = btn.dataset.gid;
+  if (a === 'approve') decide(id, 'approved');
+  else if (a === 'reject') decide(id, 'rejected');
+  else if (a === 'undo') undoDecision(id);
+  else if (a === 'edit') { closeModal('huidModal'); openEditRow(Number(btn.dataset.row)); }
+  else if (a === 'huid') showHuid(btn.dataset.huid);
+  else if (a === 'toggleGroup') { expandedGroups.has(gid) ? expandedGroups.delete(gid) : expandedGroups.add(gid); renderTable(); }
+  else if (a === 'approveGroup') approveGroup(gid);
+  else if (a === 'showMore') { showLimit += PAGE; renderTable(); }
+  else if (a === 'showAll') { showLimit = Infinity; renderTable(); }
+}
+
+// ============================================================
+// DECISIONS
+// ============================================================
+function decide(id, decision) {
+  const iss = issues.find(i => i.id === id);
+  if (!iss || iss.decision) return;
+  const cEl = document.getElementById(`comment_${id}`), rEl = document.getElementById(`rule_${id}`);
+  if (rEl && rEl.checked && decision === 'approved' && !(cEl && cEl.value.trim())) {
+    alert('Add a comment explaining the rule before saving it — it will auto-approve matching issues on future files.');
+    cEl && cEl.focus();
+    return;
+  }
+  if (iss.nameMatch && decision === 'approved') {
+    if (!iss.canonical) { alert('Type the name to merge into.'); return; }
+    if (!iss.variants.some(v => v !== iss.canonical)) { alert('Tick at least one name that differs from the target name.'); return; }
+  }
+  if (iss.type === 'Incompleteness' && decision === 'approved') {
+    pendingStrategyIssue = id;
+    document.getElementById('strategyContext').textContent = `Column "${iss.col}" — ${iss.original}.`;
+    const imp = document.querySelector('input[name="missStrat"][value="impute"]');
+    imp.disabled = !iss.imputable;
+    document.getElementById('optImpute').classList.toggle('disabled', !iss.imputable);
+    document.querySelector(`input[name="missStrat"][value="${iss.imputable ? 'impute' : 'flag'}"]`).checked = true;
+    document.getElementById('strategyModal').classList.add('show');
+    return;
+  }
+  finishDecide(iss, decision, null);
+}
+function confirmStrategy() {
+  const strategy = document.querySelector('input[name="missStrat"]:checked').value;
+  const iss = issues.find(i => i.id === pendingStrategyIssue);
+  if (!iss) return;
+  iss.originalAction ||= iss.action;
+  if (strategy === 'drop') iss.action = 'dropRowsWithMissing';
+  else if (strategy === 'flag') iss.action = 'flagMissing';
+  else iss.action = iss.originalAction;
+  closeModal('strategyModal');
+  finishDecide(iss, 'approved', strategy);
+  pendingStrategyIssue = null;
+}
+function finishDecide(iss, decision, strategy) {
+  const cEl = document.getElementById(`comment_${iss.id}`), rEl = document.getElementById(`rule_${iss.id}`);
+  const comment = cEl ? cEl.value.trim() : '';
+  iss.decision = decision; iss.reviewer = reviewer; iss.decidedAt = new Date().toISOString();
+  iss.comment = [comment, strategy ? `[${strategy}]` : ''].filter(Boolean).join(' ') || null;
+  learnFromNameDecision(iss);
+  if (rEl && rEl.checked && decision === 'approved' && comment &&
+      !rules.some(r => r.type === iss.type && r.col === iss.col && r.pattern === iss.original)) {
+    rules.push({ id: Date.now(), type: iss.type, col: iss.col, pattern: iss.original, comment, by: reviewer });
+    saveRules();
+  }
+  validationResults = null;
+  logAudit(`${decidedInfo(iss).text.toUpperCase()} ${iss.type} · ${iss.col}${iss.row != null ? ` · row ${xr(iss.row)}` : ''}${strategy ? ` [${strategy}]` : ''} by ${reviewer}`);
+  render();
+}
+function undoDecision(id) {
+  const iss = issues.find(i => i.id === id);
+  if (!iss || !iss.decision) return;
+  logAudit(`↺ UNDO ${iss.type} · ${iss.col}${iss.row != null ? ` · row ${xr(iss.row)}` : ''} by ${reviewer}`);
+  unlearnNameDecision(iss);
+  Object.assign(iss, { decision: null, reviewer: null, decidedAt: null, comment: null, viaRule: false });
+  if (iss.originalAction) iss.action = iss.originalAction;
+  validationResults = null;
+  render();
+}
+function bulkApprove(members, comment) {
+  members.forEach(m => { Object.assign(m, { decision: 'approved', reviewer, decidedAt: new Date().toISOString(), comment: comment || null }); learnFromNameDecision(m); });
+  validationResults = null;
+}
+function approveGroup(gid) {
+  const members = getVisibleIssues().filter(iss => [iss.type, iss.method, iss.col, iss.proposed].join('||') === gid && !iss.decision);
+  if (!members.length) return;
+  const comment = prompt(`Apply "${btnLabels(members[0]).yes}" to ${members.length} item(s). Optional comment:`, '');
+  if (comment === null) return;
+  bulkApprove(members, comment);
+  logAudit(`✓ BULK ${members.length} × ${members[0].type} · ${members[0].col} by ${reviewer}`);
+  render();
+}
+function approveAll() {
+  const pool = getVisibleIssues().filter(i => !i.decision);
+  if (!pool.length) { alert('Nothing pending.'); return; }
+  const flagCount = pool.filter(i => FLAG_ACTIONS.has(i.action)).length;
+  const missCount = pool.filter(i => i.type === 'Incompleteness').length;
+  let msg = `Approve ${pool.length} pending item(s)?`;
+  if (flagCount) msg += `\n• ${flagCount} will be flagged in the export`;
+  if (missCount) msg += `\n• ${missCount} missing-data item(s) will use their default fix`;
+  msg += '\n\nOptional comment:';
+  const comment = prompt(msg, '');
+  if (comment === null) return;
+  bulkApprove(pool, comment);
+  logAudit(`✓ BULK APPROVED ${pool.length} issues by ${reviewer}`);
+  render();
+}
+function setStep(key) {
+  activeStep = key; showLimit = PAGE;
+  if (key === 'validate') validationResults = null;
+  render();
+}
+
+// ============================================================
+// HUID HISTORY & ROW EDITING
+// ============================================================
+function showHuid(huid) {
+  document.getElementById('huidTitle').textContent = `HUID ${huid} — History`;
+  const idxs = huidIndex[huid] || [];
+  if (!idxs.length) { document.getElementById('huidContent').textContent = 'No records.'; }
+  else {
+    const startCol = col('start');
+    const cols = ['start', 'end', 'status', 'dept', 'school', 'fte', 'grade'].map(col).filter(Boolean);
+    const sorted = startCol ? [...idxs].sort((a, b) => (parseDate(cellVal(b, startCol)) || 0) - (parseDate(cellVal(a, startCol)) || 0)) : idxs;
+    let html = `<table><thead><tr><th>Excel row</th>${cols.map(c => `<th>${escapeHtml(c)}</th>`).join('')}<th></th></tr></thead><tbody>`;
+    sorted.forEach(i => {
+      html += `<tr><td>${xr(i)}${rowEdited(i) ? ' <span class="edited-badge">edited</span>' : ''}</td>${cols.map(c => `<td>${escapeHtml(cellVal(i, c) ?? '—')}</td>`).join('')}
+        <td><button class="btn amber sm" data-action="edit" data-row="${i}">✎ Edit</button></td></tr>`;
+    });
+    document.getElementById('huidContent').innerHTML = html + '</tbody></table>';
+  }
+  document.getElementById('huidModal').classList.add('show');
+}
+
+function openEditRow(i) {
+  editingRow = i;
+  document.getElementById('editTitle').textContent = `Edit Excel row ${xr(i)}`;
+  document.getElementById('editContent').innerHTML = headers.map(h => {
+    const cur = cellVal(i, h), orig = rows[i][h];
+    const changed = edits[i] && Object.prototype.hasOwnProperty.call(edits[i], h);
+    return `<div><label>${escapeHtml(h)}</label>
+      <input type="text" data-col="${escapeHtml(h)}" value="${escapeHtml(cur ?? '')}" class="${changed ? 'changed' : ''}">
+      ${changed ? `<div class="orig">Original: ${escapeHtml(orig ?? '(empty)')}</div>` : ''}</div>`;
+  }).join('');
+  document.getElementById('editModal').classList.add('show');
+}
+function saveEditRow() {
+  const i = editingRow;
+  if (i == null) return;
+  let n = 0;
+  document.querySelectorAll('#editContent input[data-col]').forEach(inp => {
+    const c = inp.dataset.col, cur = cellVal(i, c);
+    if (inp.value === (cur == null ? '' : String(cur))) return;
+    let nv = inp.value.trim() === '' ? null : inp.value;
+    if (nv !== null && typeof rows[i][c] === 'number' && !isNaN(toNum(nv))) nv = toNum(nv);
+    const orig = rows[i][c];
+    edits[i] ||= {};
+    if ((orig == null ? '' : String(orig)) === (nv == null ? '' : String(nv))) delete edits[i][c];
+    else edits[i][c] = nv;
+    editLog.push({ at: new Date().toISOString(), by: reviewer, row: i, col: c, from: cur, to: nv });
+    logAudit(`✎ EDIT row ${xr(i)} · ${c}: "${cur ?? ''}" → "${nv ?? ''}" by ${reviewer}`);
+    n++;
+  });
+  if (edits[i] && !Object.keys(edits[i]).length) delete edits[i];
+  closeModal('editModal');
+  editingRow = null;
+  if (n) { validationResults = null; render(); }
+}
+
+// ============================================================
+// VALIDATION
+// ============================================================
+function runValidation() {
+  validationResults = [];
+  const cleaned = getCleanedRows(false);
+  const huidCol = col('huid'), fteCol = col('fte');
+
+  const seen = new Set(); let dup = 0;
+  cleaned.forEach(r => { const k = Object.keys(r).map(h => normalizeForDup(r[h])).join('\u0001'); if (seen.has(k)) dup++; else seen.add(k); });
+  validationResults.push({ label: 'No duplicate rows remain', pass: dup === 0, detail: dup === 0 ? 'All rows unique' : `${dup} duplicate(s) remain` });
+
+  if (huidCol && fteCol && cleaned.length && huidCol in cleaned[0]) {
+    const tot = {};
+    cleaned.forEach(r => { const h = String(r[huidCol] ?? '').trim(); if (!h) return; const v = toNum(r[fteCol]); tot[h] = (tot[h] || 0) + (isNaN(v) ? 0 : v); });
+    const over = Object.entries(tot).filter(([, v]) => v > 2.0001).map(([h]) => h);
+    validationResults.push({ label: 'No HUID exceeds FTE 2.0', pass: !over.length, detail: !over.length ? 'All people within cap' : `${over.length} over cap: ${over.slice(0, 5).join(', ')}${over.length > 5 ? '…' : ''} (edit their rows, or they'll be flagged if you chose to flag)` });
+  }
+
+  const imputes = issues.filter(i => i.decision === 'approved' && ['imputeMedian', 'imputeMode'].includes(i.action));
+  let still = 0; imputes.forEach(i => { still += cleaned.filter(r => i.col in r && !notEmpty(r[i.col])).length; });
+  validationResults.push({ label: 'Imputed columns filled', pass: still === 0, detail: imputes.length === 0 ? 'No imputations applied' : still === 0 ? `All ${imputes.length} column(s) filled` : `${still} gaps remain` });
+
+  const dropCols = issues.filter(i => i.type === 'Irrelevance' && i.decision === 'approved').map(i => i.col);
+  const present = dropCols.filter(c => cleaned.length && c in cleaned[0]);
+  validationResults.push({ label: 'Irrelevant columns removed', pass: present.length === 0, detail: dropCols.length === 0 ? 'None marked' : present.length === 0 ? `All ${dropCols.length} dropped` : `Still present: ${present.join(', ')}` });
+
+  const pending = issues.filter(i => !i.decision).length;
+  validationResults.push({ label: 'All issues reviewed', pass: pending === 0, detail: pending === 0 ? 'Nothing pending' : `${pending} still pending` });
+
+  const flagged = getCleanedRows(true).filter(r => r.DQ_Flags).length;
+  validationResults.push({ label: 'Flagged rows will carry a DQ_Flags column', pass: true, detail: `${flagged} row(s) flagged · ${countEdits(edits)} manual edit(s) · ${cleaned.length.toLocaleString()} rows will export` });
+}
+
+// ============================================================
+// EXPORT
+// ============================================================
+function toExcelValue(v) {
+  if (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v)) { const d = parseDate(v); if (d) return d; }
+  return v;
+}
+function exportCleaned() {
+  const out = getCleanedRows(true);
+  if (!out.length) { alert('No rows remain after cleaning.'); return; }
+  const newHeaders = Object.keys(out[0]);
+  const aoa = [newHeaders, ...out.map(r => newHeaders.map(h => toExcelValue(r[h])))];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoa, { cellDates: true, dateNF: 'yyyy-mm-dd' }), 'Cleaned');
+
+  const audit = [['Timestamp', 'Decision', 'Type', 'Column', 'Excel row', 'HUID', 'Reviewer', 'Confidence', 'Comment', 'Via Rule', 'Applied action', 'Original', 'Recommendation', 'Method', 'Explanation']];
+  issues.forEach(i => {
+    if (!i.decision) return;
+    audit.push([i.decidedAt || '', decidedInfo(i).text.replace(/^\W+\s*/, ''), i.type, i.col, i.row != null ? xr(i.row) : '', i.huid || '', i.reviewer || '',
+      i.confidence != null ? Math.round(i.confidence * 100) + '%' : '', i.comment || '', i.viaRule ? 'yes' : 'no', i.action,
+      i.original, i.recommendation || i.proposed, i.method, i.explanation || '']);
+  });
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(audit), 'Audit Trail');
+
+  if (editLog.length) {
+    const e = [['Timestamp', 'Reviewer', 'Excel row', 'Column', 'Old value', 'New value']];
+    editLog.forEach(x => e.push([x.at, x.by, xr(x.row), x.col, x.from ?? '', x.to ?? '']));
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(e), 'Manual Edits');
+  }
+  const pending = issues.filter(i => !i.decision);
+  if (pending.length) {
+    const p = [['Type', 'Severity', 'Column', 'Excel row', 'HUID', 'Issue', 'Recommendation']];
+    pending.forEach(i => p.push([i.type, i.severity, i.col, i.row != null ? xr(i.row) : '', i.huid || '', i.original, i.recommendation || i.proposed]));
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(p), 'Not Yet Reviewed');
+  }
+  const dictRows = Object.entries(nameDict);
+  if (dictRows.length) {
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([['From (normalized)', 'To'], ...dictRows.sort((a, b) => a[1].localeCompare(b[1]))]), 'Name Dictionary');
+  }
+  if (rules.length) {
+    const r = [['Type', 'Column', 'Pattern', 'Comment', 'By']];
+    rules.forEach(x => r.push([x.type, x.col, x.pattern, x.comment, x.by]));
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(r), 'Rules');
+  }
+  const base = (fileName || 'data').replace(/\.[^.]+$/, '');
+  const stamp = new Date(); const ts = `${stamp.getFullYear()}-${pad(stamp.getMonth() + 1)}-${pad(stamp.getDate())}_${pad(stamp.getHours())}${pad(stamp.getMinutes())}`;
+  XLSX.writeFile(wb, `${base}_cleaned_${ts}.xlsx`);
+  logAudit(`⬇ EXPORTED ${out.length} rows by ${reviewer}`);
+  saveSession();
+}
+
+// ============================================================
+// CHART BUILDER — drag fields onto shelves to compare
+// ============================================================
+// Fixed categorical order, assigned in order and never cycled: a 9th group folds into "Other".
+const SERIES_COLORS = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300', '#6250d6', '#e34948'];
+const OTHER_COLOR = '#8c959f';
+const MAX_SERIES = 8, MAX_SPLIT = 7, MAX_VALUES = 6;
+const AGG_LABEL = { sum: 'Sum', avg: 'Average', median: 'Median', min: 'Min', max: 'Max', count: 'Count', distinct: 'Distinct count' };
+const DEFAULT_OPTS = { type: 'bar', stacked: false, horizontal: false, sort: 'label', top: 20, grain: 'year' };
+const nf = new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 });
+
+let chartData = { headers: [], rows: [] }, fieldInfo = {};
+let shelf = { x: null, values: [], split: null, filter: null };
+let chartOpts = { ...DEFAULT_OPTS };
+let chartInstance = null, pinned = [], boardCharts = [];
+let dragPayload = null, panelSeq = 0;
+const whiteBg = { id: 'whiteBg', beforeDraw(c) { const x = c.ctx; x.save(); x.globalCompositeOperation = 'destination-over'; x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.restore(); } };
+const clone = o => JSON.parse(JSON.stringify(o));
+
+// ---------- loading data ----------
+function wireChart() {
+  document.getElementById('chartFileInput').addEventListener('change', e => { if (e.target.files.length) loadChartFile(e.target.files[0]); e.target.value = ''; });
+  const view = document.getElementById('chartView');
+  view.addEventListener('dragstart', e => {
+    const el = e.target.closest('[data-drag]');
+    if (!el) return;
+    dragPayload = { field: el.dataset.field, from: el.dataset.from, idx: el.dataset.idx != null ? Number(el.dataset.idx) : null };
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', el.dataset.field);
+    el.classList.add('dragging');
+  });
+  view.addEventListener('dragend', () => {
+    document.querySelectorAll('.dragging').forEach(x => x.classList.remove('dragging'));
+    document.querySelectorAll('[data-shelf].over').forEach(x => x.classList.remove('over'));
+    dragPayload = null;
+  });
+  view.addEventListener('dragover', e => {
+    const sh = e.target.closest('[data-shelf]');
+    if (!sh || !dragPayload) return;
+    if (sh.dataset.shelf === 'remove' && dragPayload.from === 'list') return;
+    e.preventDefault(); sh.classList.add('over');
+  });
+  view.addEventListener('dragleave', e => { const sh = e.target.closest('[data-shelf]'); if (sh && !sh.contains(e.relatedTarget)) sh.classList.remove('over'); });
+  view.addEventListener('drop', e => {
+    const sh = e.target.closest('[data-shelf]');
+    if (!sh || !dragPayload) return;
+    e.preventDefault(); sh.classList.remove('over');
+    moveField(dragPayload, sh.dataset.shelf);
+    dragPayload = null;
+  });
+  view.addEventListener('click', onChartClick);
+  view.addEventListener('change', onChartChange);
+}
+function loadChartFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const wb = XLSX.read(new Uint8Array(e.target.result), { type: 'array', cellDates: true });
+      const d = readSheet(wb, wb.SheetNames[0]);
+      if (!d.rows.length) { alert('No rows.'); return; }
+      chartData = d;
+      document.getElementById('chartDataStatus').textContent = `${file.name} — ${d.rows.length.toLocaleString()} rows, ${d.headers.length} cols`;
+      setupChart();
+    } catch (err) { alert('Could not read the file: ' + err.message); }
+  };
+  reader.readAsArrayBuffer(file);
+}
+function useCleanerData() {
+  if (!rows.length) { alert('Load a file in the Cleaner tab first.'); return; }
+  const r = getCleanedRows(false);
+  chartData = { rows: r, headers: r.length ? Object.keys(r[0]) : [] };
+  document.getElementById('chartDataStatus').textContent = `${r.length.toLocaleString()} rows (cleaned, with current decisions & edits)`;
+  setupChart();
+}
+function detectType(c) {
+  const vals = chartData.rows.map(r => r[c]).filter(notEmpty);
+  if (!vals.length) return 'text';
+  const sample = vals.slice(0, 300);
+  const numC = sample.filter(v => !isNaN(toNum(v))).length;
+  const dateC = sample.filter(v => /^\d{4}-\d{2}-\d{2}/.test(String(v))).length;
+  const uniq = new Set(sample.map(String)).size;
+  if (/(^|[\s_\-])(id|huid|emplid)$/i.test(c) || /^(huid|emplid)/i.test(c) || /(^|[\s_\-])e-?mail/i.test(c)) return 'id';
+  if (dateC / sample.length > 0.8) return 'date';
+  if (numC / sample.length > 0.9) return 'numeric';
+  if (uniq <= 20 || uniq / sample.length < 0.3) return 'categorical';
+  return 'text';
+}
+function setupChart() {
+  if (!chartData.rows.length) return;
+  fieldInfo = {};
+  chartData.headers.forEach(h => {
+    const vals = chartData.rows.map(r => r[h]).filter(notEmpty);
+    fieldInfo[h] = { type: detectType(h), uniq: new Set(vals.map(String)).size };
+  });
+  document.getElementById('chartEmpty').classList.add('hidden');
+  document.getElementById('chartWorkspace').classList.remove('hidden');
+  const fieldsStillThere = [shelf.x, shelf.split, ...shelf.values.map(v => v.field)].filter(Boolean).every(f => f in fieldInfo);
+  if (!shelf.x || !fieldsStillThere) {
+    const first = suggestions()[0];
+    if (first) { shelf = clone(first.spec.shelf); chartOpts = { ...first.spec.opts }; }
+    else { shelf = { x: null, values: [], split: null, filter: null }; chartOpts = { ...DEFAULT_OPTS }; }
+  }
+  drawAll();
+  renderBoard();
+}
+
+// ---------- shelf editing ----------
+function allowedAggs(f) { return fieldInfo[f]?.type === 'numeric' ? ['sum', 'avg', 'median', 'min', 'max', 'count', 'distinct'] : ['count', 'distinct']; }
+function defaultAgg(f) { const t = fieldInfo[f]?.type; return t === 'numeric' ? 'sum' : t === 'id' ? 'distinct' : 'count'; }
+function valueLabel(v) {
+  if (v.agg === 'rows') return 'Number of rows';
+  if (v.agg === 'count') return `Count of ${v.field}`;
+  if (v.agg === 'distinct') return `Distinct ${v.field}`;
+  return `${AGG_LABEL[v.agg]} of ${v.field}`;
+}
+function removeFrom(p) {
+  if (p.from === 'x') shelf.x = null;
+  else if (p.from === 'split') shelf.split = null;
+  else if (p.from === 'values' && p.idx != null) shelf.values.splice(p.idx, 1);
+}
+function addToShelf(target, field, prevSpec) {
+  if (target === 'x') { if (shelf.split === field) shelf.split = shelf.x; shelf.x = field; }
+  else if (target === 'split') { if (shelf.x === field) shelf.x = shelf.split; shelf.split = field; }
+  else if (target === 'values') {
+    if (shelf.values.length >= MAX_VALUES) { alert(`Up to ${MAX_VALUES} values per chart. Pin this chart and start another to compare more.`); return; }
+    const agg = prevSpec && allowedAggs(field).includes(prevSpec.agg) ? prevSpec.agg : defaultAgg(field);
+    shelf.values.push({ field, agg });
+  }
+}
+function moveField(p, target) {
+  if (target === 'remove') { if (p.from !== 'list') removeFrom(p); drawAll(); return; }
+  if (p.from === target) return;
+  const prev = p.from === 'values' ? shelf.values[p.idx] : null;
+  if (p.from !== 'list') removeFrom(p);
+  addToShelf(target, p.field, prev);
+  drawAll();
+}
+function autoAdd(field) {
+  const t = fieldInfo[field].type;
+  if (t === 'numeric' && shelf.x) addToShelf('values', field);
+  else if (!shelf.x) addToShelf('x', field);
+  else if (t === 'id') addToShelf('values', field);
+  else if (!shelf.split && field !== shelf.x) addToShelf('split', field);
+  else addToShelf('x', field);
+  drawAll();
+}
+
+// ---------- suggestions ("graph finder") ----------
+function suggestions() {
+  const H = chartData.headers, T = h => fieldInfo[h].type;
+  const cats = H.filter(h => T(h) === 'categorical' && fieldInfo[h].uniq >= 2).sort((a, b) => fieldInfo[a].uniq - fieldInfo[b].uniq);
+  const nums = H.filter(h => T(h) === 'numeric'), ids = H.filter(h => T(h) === 'id'), dates = H.filter(h => T(h) === 'date');
+  const out = [];
+  const S = (label, sh, op) => out.push({ label, spec: { shelf: { values: [], split: null, filter: null, ...sh }, opts: { ...DEFAULT_OPTS, ...op } } });
+  const mainCat = cats.find(c => fieldInfo[c].uniq >= 3) || cats[0];
+  const otherCat = cats.find(c => c !== mainCat);
+  if (mainCat && nums[0]) S(`${nums[0]} by ${mainCat}`, { x: mainCat, values: [{ field: nums[0], agg: 'sum' }] }, { sort: 'value' });
+  else if (mainCat) S(`Rows by ${mainCat}`, { x: mainCat }, { sort: 'value' });
+  if (mainCat && ids[0] && nums[0]) S(`Headcount vs ${nums[0]} by ${mainCat}`, { x: mainCat, values: [{ field: ids[0], agg: 'distinct' }, { field: nums[0], agg: 'sum' }] }, { sort: 'value' });
+  if (mainCat && otherCat) S(`${mainCat} compared by ${otherCat}`, { x: mainCat, values: nums[0] ? [{ field: nums[0], agg: 'sum' }] : [], split: otherCat }, { stacked: true, sort: 'value' });
+  if (dates[0]) S(`Trend by ${dates[0]} (year)`, { x: dates[0], values: ids[0] ? [{ field: ids[0], agg: 'distinct' }] : [] }, { type: 'line', grain: 'year', top: 0 });
+  if (mainCat) S(`Share by ${mainCat}`, { x: mainCat, values: nums[0] ? [{ field: nums[0], agg: 'sum' }] : [] }, { type: 'doughnut', sort: 'value', top: 10 });
+  if (nums.length >= 2) S(`${nums[1]} vs ${nums[0]}`, { x: nums[0], values: [{ field: nums[1], agg: 'sum' }], split: otherCat || mainCat || null }, { type: 'scatter' });
+  return out.slice(0, 6);
+}
+
+// ---------- computing a chart from a spec ----------
+function keyOf(v) { return notEmpty(v) ? String(v) : '(empty)'; }
+function naturalCmp(a, b) {
+  const tail = s => s === '(empty)' || s === '(unreadable)' || s === 'Other';
+  if (tail(a) !== tail(b)) return tail(a) ? 1 : -1;
+  return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: 'base' });
+}
+function aggregate(rs, v) {
+  if (v.agg === 'rows') return rs.length;
+  const f = v.field;
+  if (v.agg === 'count') return rs.filter(r => notEmpty(r[f])).length;
+  if (v.agg === 'distinct') return new Set(rs.map(r => r[f]).filter(notEmpty).map(String)).size;
+  const ns = rs.map(r => toNum(r[f])).filter(n => !isNaN(n));
+  if (!ns.length) return null;
+  if (v.agg === 'sum') return ns.reduce((a, b) => a + b, 0);
+  if (v.agg === 'avg') return ns.reduce((a, b) => a + b, 0) / ns.length;
+  if (v.agg === 'median') return medianOf(ns);
+  if (v.agg === 'min') return ns.reduce((a, b) => Math.min(a, b));
+  if (v.agg === 'max') return ns.reduce((a, b) => Math.max(a, b));
+  return null;
+}
+function computeChart(sp) {
+  const s = sp.shelf, o = sp.opts, notes = [];
+  const used = [s.x, s.split, s.filter?.field, ...s.values.map(v => v.field)].filter(Boolean);
+  const missing = used.filter(f => !(f in fieldInfo));
+  if (missing.length) return { empty: `This chart uses column(s) not in the current data: ${missing.join(', ')}` };
+  if (!s.x) return { empty: 'Drag a field onto Categories (X axis) to start — or click a suggestion above.' };
+  let R = chartData.rows;
+  if (s.filter) R = R.filter(r => keyOf(r[s.filter.field]) === s.filter.value);
+  const filterTxt = s.filter ? ` — ${s.filter.field}: ${s.filter.value}` : '';
+  const values = s.values.length ? s.values : [{ field: null, agg: 'rows' }];
+
+  // Split groups: the largest MAX_SPLIT keep their own color, the rest become "Other".
+  // Colors follow the group name (alphabetical), so re-sorting never repaints a group.
+  let splitKeys = [null], splitOf = () => null;
+  if (s.split) {
+    const cnt = new Map();
+    R.forEach(r => { const k = keyOf(r[s.split]); cnt.set(k, (cnt.get(k) || 0) + 1); });
+    const byCount = [...cnt.keys()].sort((a, b) => cnt.get(b) - cnt.get(a));
+    const keep = new Set(byCount.slice(0, MAX_SPLIT));
+    splitKeys = byCount.filter(k => keep.has(k)).sort(naturalCmp);
+    if (byCount.length > MAX_SPLIT) {
+      splitKeys.push('Other');
+      notes.push(`"${s.split}" has ${byCount.length} groups — the ${MAX_SPLIT} largest are shown, the rest are combined as "Other". Use ▦ Panels or a filter to see them individually.`);
+    }
+    splitOf = r => { const k = keyOf(r[s.split]); return keep.has(k) ? k : 'Other'; };
+  }
+  const colorFor = (sk, i) => sk === 'Other' ? OTHER_COLOR : SERIES_COLORS[(s.split && values.length === 1 ? splitKeys.indexOf(sk) : i) % SERIES_COLORS.length];
+
+  if (o.type === 'scatter') {
+    const yv = values.find(v => v.field && fieldInfo[v.field].type === 'numeric');
+    if (fieldInfo[s.x].type !== 'numeric' || !yv) return { empty: 'Scatter plots one dot per row: put a numeric field on Categories (X) and another numeric field on Values.' };
+    const groups = new Map(splitKeys.map(k => [k, []]));
+    R.forEach(r => { const x = toNum(r[s.x]), y = toNum(r[yv.field]); if (!isNaN(x) && !isNaN(y)) groups.get(splitOf(r))?.push({ x, y }); });
+    const datasets = splitKeys.map((k, i) => ({ label: k ?? yv.field, data: groups.get(k), color: colorFor(k, i) }));
+    if (values.length > 1) notes.push('Scatter uses the first numeric value only.');
+    return { kind: 'scatter', datasets, title: `${yv.field} vs ${s.x}${s.split ? `, by ${s.split}` : ''}${filterTxt}`, xTitle: s.x, yTitle: yv.field, notes, table: null };
+  }
+
+  const isDate = fieldInfo[s.x].type === 'date';
+  const xKey = v => {
+    if (!notEmpty(v)) return '(empty)';
+    if (!isDate) return String(v);
+    const d = parseDate(v);
+    if (!d) return '(unreadable)';
+    const y = d.getFullYear(), m = d.getMonth() + 1;
+    return o.grain === 'year' ? String(y) : o.grain === 'quarter' ? `${y} Q${Math.ceil(m / 3)}` : o.grain === 'month' ? `${y}-${pad(m)}` : `${y}-${pad(m)}-${pad(d.getDate())}`;
+  };
+  const buckets = new Map();
+  R.forEach(r => {
+    const xk = xKey(r[s.x]), sk = splitOf(r);
+    let m = buckets.get(xk); if (!m) buckets.set(xk, m = new Map());
+    let a = m.get(sk); if (!a) m.set(sk, a = []);
+    a.push(r);
+  });
+  let series = [];
+  values.forEach((v, vi) => splitKeys.forEach(sk => series.push({ v, vi, sk })));
+  if (series.length > MAX_SERIES) {
+    notes.push(`${series.length} series is too many to read — showing the first ${MAX_SERIES}. Remove a value, or pin this as ▦ Panels instead.`);
+    series = series.slice(0, MAX_SERIES);
+  }
+  const cell = (x, sr) => { const rs = buckets.get(x)?.get(sr.sk); return rs && rs.length ? aggregate(rs, sr.v) : null; };
+
+  let labels = [...buckets.keys()];
+  if (sp.fixedLabels) labels = sp.fixedLabels.slice();
+  else if (o.sort === 'value') {
+    const tot = new Map(labels.map(x => [x, series.filter(sr => sr.vi === 0).reduce((t, sr) => t + (cell(x, sr) || 0), 0)]));
+    labels.sort((a, b) => tot.get(b) - tot.get(a));
+  } else labels.sort(naturalCmp);
+  const pie = o.type === 'pie' || o.type === 'doughnut';
+  const top = pie ? Math.min(o.top || 8, 8) : o.top;
+  const totalCats = labels.length;
+  if (top && labels.length > top && !sp.fixedLabels) {
+    labels = (isDate && o.sort !== 'value') ? labels.slice(-top) : labels.slice(0, top);
+    notes.push(`Showing ${top} of ${totalCats} ${s.x} groups${o.sort === 'value' ? ' (largest first)' : isDate ? ' (most recent)' : ''}.${pie ? ' A pie stays readable up to 8 slices — use Bar to see all.' : ' Change "Show" to see more.'}`);
+  }
+
+  const datasets = series.map((sr, i) => ({
+    label: s.split ? (values.length > 1 ? `${sr.sk} · ${valueLabel(sr.v)}` : sr.sk) : valueLabel(sr.v),
+    data: labels.map(x => cell(x, sr)),
+    color: colorFor(sr.sk, i)
+  }));
+
+  if (pie) {
+    if (datasets.length > 1) notes.push(`A ${o.type} shows one series — showing "${datasets[0].label}". Use Bar to compare several.`);
+    if (values[0].agg === 'avg' || values[0].agg === 'median' || values[0].agg === 'min' || values[0].agg === 'max')
+      notes.push(`${AGG_LABEL[values[0].agg]}s don't add up to a whole, so slice sizes can mislead — a bar chart is more honest here.`);
+  }
+  if (values.length > 1) {
+    const maxes = values.map((_, vi) => Math.max(0, ...datasets.filter((_, i) => series[i].vi === vi).flatMap(d => d.data.map(v => Math.abs(v || 0)))));
+    const lo = Math.min(...maxes.filter(m => m > 0)), hi = Math.max(...maxes);
+    if (lo > 0 && hi / lo > 15) notes.push('These values have very different scales, so the smaller one looks flat. Pin each as its own chart to compare them side by side.');
+  }
+  if (o.stacked && values.length > 1 && !pie) notes.push('Stacking adds different measures together — usually only meaningful when the values share units.');
+
+  const xTitle = isDate ? `${s.x} (${o.grain})` : s.x;
+  return {
+    kind: 'cat', labels, datasets, notes, xTitle,
+    yTitle: values.length === 1 ? valueLabel(values[0]) : 'Value',
+    title: `${values.map(valueLabel).join(' vs ')} by ${s.x}${isDate ? ` (${o.grain})` : ''}${s.split ? `, compared by ${s.split}` : ''}${filterTxt}`,
+    table: { cols: [xTitle, ...datasets.map(d => d.label)], rows: labels.map((x, li) => [x, ...datasets.map(d => d.data[li])]) }
+  };
+}
+
+function chartConfig(res, o, extra = {}) {
+  const font = { family: 'Cambria, Georgia, serif', size: 15, weight: 'bold' };
+  const base = {
+    responsive: true, maintainAspectRatio: false, animation: false,
+    plugins: {
+      title: { display: true, text: res.title, font, color: '#1f2328', padding: { bottom: 12 } },
+      legend: { display: res.datasets.length > 1, position: 'bottom', labels: { color: '#1f2328', usePointStyle: true, boxWidth: 8 } },
+      tooltip: { callbacks: {} }
+    }
+  };
+  if (res.kind === 'scatter') {
+    base.plugins.tooltip.callbacks.label = c => `${c.dataset.label}: (${nf.format(c.parsed.x)}, ${nf.format(c.parsed.y)})`;
+    return {
+      type: 'scatter', plugins: [whiteBg],
+      data: { datasets: res.datasets.map(d => ({ label: d.label, data: d.data, backgroundColor: d.color, borderColor: '#fff', borderWidth: 2, pointRadius: 5, pointHoverRadius: 7 })) },
+      options: { ...base, scales: { x: { title: { display: true, text: res.xTitle }, grid: { color: '#eaeef2' } }, y: { title: { display: true, text: res.yTitle }, grid: { color: '#eaeef2' } } } }
+    };
+  }
+  if (o.type === 'pie' || o.type === 'doughnut') {
+    const d = res.datasets[0];
+    const total = d.data.reduce((t, v) => t + (v || 0), 0);
+    base.plugins.legend = { display: true, position: 'right', labels: { color: '#1f2328', usePointStyle: true, boxWidth: 8 } };
+    base.plugins.tooltip.callbacks.label = c => `${c.label}: ${nf.format(c.parsed)}${total ? ` (${Math.round(c.parsed / total * 100)}%)` : ''}`;
+    return {
+      type: o.type, plugins: [whiteBg],
+      data: { labels: res.labels, datasets: [{ label: d.label, data: d.data.map(v => v ?? 0), backgroundColor: res.labels.map((l, i) => l === 'Other' ? OTHER_COLOR : SERIES_COLORS[i % SERIES_COLORS.length]), borderColor: '#fff', borderWidth: 2 }] },
+      options: base
+    };
+  }
+  const horiz = o.type === 'bar' && o.horizontal;
+  const stacked = o.stacked && res.datasets.length > 1;
+  const valAxis = horiz ? 'x' : 'y', catAxis = horiz ? 'y' : 'x';
+  base.indexAxis = horiz ? 'y' : 'x';
+  base.interaction = { mode: 'index', intersect: false };
+  base.plugins.tooltip.callbacks.label = c => `${c.dataset.label}: ${c.parsed[valAxis] == null ? '—' : nf.format(c.parsed[valAxis])}`;
+  base.scales = {
+    [catAxis]: { stacked, title: { display: true, text: res.xTitle }, grid: { display: false }, ticks: { autoSkip: true, maxRotation: 45, color: '#57606a' } },
+    [valAxis]: { stacked, beginAtZero: true, title: { display: true, text: res.yTitle }, grid: { color: '#eaeef2' }, ticks: { color: '#57606a', callback: v => nf.format(v) }, ...(extra.suggestedMax ? { suggestedMax: extra.suggestedMax } : {}) }
+  };
+  const datasets = res.datasets.map(d => o.type === 'line'
+    ? { label: d.label, data: d.data, borderColor: d.color, backgroundColor: stacked ? d.color + '55' : d.color, borderWidth: 2, pointRadius: 4, pointHoverRadius: 6, pointBorderColor: '#fff', pointBorderWidth: 1, tension: 0.2, fill: stacked ? 'origin' : false }
+    : { label: d.label, data: d.data, backgroundColor: d.color, borderColor: '#fff', borderWidth: stacked ? 1 : 0, borderRadius: stacked ? 0 : 4, borderSkipped: 'start', maxBarThickness: 48 });
+  return { type: o.type === 'line' ? 'line' : 'bar', plugins: [whiteBg], data: { labels: res.labels, datasets }, options: base };
+}
+function valueMax(res, o) {
+  if (res.kind !== 'cat') return 0;
+  if (o.stacked && res.datasets.length > 1) return Math.max(0, ...res.labels.map((_, i) => res.datasets.reduce((t, d) => t + (d.data[i] || 0), 0)));
+  return Math.max(0, ...res.datasets.flatMap(d => d.data.map(v => v || 0)));
+}
+
+// ---------- rendering the builder ----------
+function drawAll() { renderFieldList(); renderSuggestions(); renderShelves(); renderToolbar(); renderMainChart(); }
+
+function renderFieldList() {
+  const used = new Set([shelf.x, shelf.split, ...shelf.values.map(v => v.field)]);
+  const order = { categorical: 0, date: 1, numeric: 2, id: 3, text: 4 };
+  const names = { categorical: 'group', date: 'date', numeric: 'number', id: 'id', text: 'text' };
+  document.getElementById('fieldList').innerHTML = [...chartData.headers]
+    .sort((a, b) => order[fieldInfo[a].type] - order[fieldInfo[b].type])
+    .map(h => { const t = fieldInfo[h].type; return `<div class="field-chip ${used.has(h) ? 'used' : ''}" draggable="true" data-drag data-from="list" data-field="${escapeHtml(h)}" data-act="add-field" title="${fieldInfo[h].uniq.toLocaleString()} distinct values — drag to a shelf, or click to add">
+      <span class="fname">${escapeHtml(h)}</span><span class="type-badge type-${t === 'categorical' ? 'categorical' : t}">${names[t]}</span></div>`; }).join('');
+}
+function renderSuggestions() {
+  const sug = suggestions();
+  document.getElementById('suggestions').innerHTML = sug.length
+    ? '<span class="muted">💡 Try:</span>' + sug.map((x, i) => `<button class="btn" data-act="suggest" data-i="${i}">${escapeHtml(x.label)}</button>`).join('')
+    : '';
+}
+function chipHtml(field, from, idx, inner = '', color = null) {
+  return `<span class="shelf-chip" draggable="true" data-drag data-from="${from}" data-field="${escapeHtml(field)}"${idx != null ? ` data-idx="${idx}"` : ''}>
+    ${color ? `<span class="swatch" style="background:${color}"></span>` : ''}${escapeHtml(field)}${inner}
+    <button class="x" data-act="remove-chip" data-from="${from}"${idx != null ? ` data-idx="${idx}"` : ''} title="Remove">×</button></span>`;
+}
+function renderShelves() {
+  const hint = t => `<span class="shelf-hint">${t}</span>`;
+  document.getElementById('shelfX').innerHTML = shelf.x ? chipHtml(shelf.x, 'x') : hint('Drop a field to group by — e.g. Department or Start Date');
+  const showSwatch = !shelf.split && shelf.values.length > 1;
+  document.getElementById('shelfValues').innerHTML = shelf.values.length
+    ? shelf.values.map((v, i) => chipHtml(v.field, 'values', i,
+        ` <select data-vidx="${i}" title="How to summarize">${allowedAggs(v.field).map(a => `<option value="${a}" ${a === v.agg ? 'selected' : ''}>${AGG_LABEL[a]}</option>`).join('')}</select>`,
+        showSwatch && i < SERIES_COLORS.length ? SERIES_COLORS[i] : null)).join('')
+    : hint('Drop one or more fields — each becomes a series to compare. Empty = count of rows.');
+  document.getElementById('shelfSplit').innerHTML = shelf.split ? chipHtml(shelf.split, 'split') : hint('Optional — one colored series per group, e.g. School');
+}
+function renderToolbar() {
+  const t = chartOpts.type, isCat = t === 'bar' || t === 'line';
+  const multi = isCat && (shelf.values.length > 1 || !!shelf.split);
+  document.querySelectorAll('#typeBtns [data-type]').forEach(b => b.classList.toggle('primary', b.dataset.type === t));
+  const st = document.querySelector('[data-opt=stacked]'), ho = document.querySelector('[data-opt=horizontal]');
+  st.checked = chartOpts.stacked; st.disabled = !multi; document.getElementById('chkStacked').classList.toggle('off', !multi);
+  ho.checked = chartOpts.horizontal; ho.disabled = t !== 'bar'; document.getElementById('chkHorizontal').classList.toggle('off', t !== 'bar');
+  document.querySelector('[data-opt=sort]').value = chartOpts.sort;
+  document.querySelector('[data-opt=top]').value = String(chartOpts.top);
+  document.querySelector('[data-opt=grain]').value = chartOpts.grain;
+  document.getElementById('grainGrp').classList.toggle('hidden', !(shelf.x && fieldInfo[shelf.x]?.type === 'date'));
+  const pb = document.getElementById('panelsBtn');
+  pb.disabled = !shelf.split || t === 'scatter';
+  pb.textContent = shelf.split ? `▦ Panels by ${shelf.split}` : '▦ Panels';
+  document.getElementById('filterBadge').innerHTML = shelf.filter
+    ? `<span class="filter-badge">Filter: ${escapeHtml(shelf.filter.field)} = ${escapeHtml(shelf.filter.value)}<button data-act="clear-filter" title="Remove filter">×</button></span>` : '';
+}
+function renderMainChart() {
+  if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+  const res = computeChart({ shelf, opts: chartOpts });
+  const ph = document.getElementById('chartPlaceholder'), cv = document.getElementById('chartCanvas');
+  document.getElementById('chartNotes').innerHTML = res.notes ? res.notes.map(n => `⚠ ${escapeHtml(n)}`).join('<br>') : '';
+  if (res.empty) {
+    ph.textContent = res.empty; ph.classList.remove('hidden'); cv.classList.add('hidden');
+    document.getElementById('chartTable').innerHTML = '';
+    return;
+  }
+  ph.classList.add('hidden'); cv.classList.remove('hidden');
+  chartInstance = new Chart(cv.getContext('2d'), chartConfig(res, chartOpts));
+  document.getElementById('chartTable').innerHTML = tableHtml(res);
+  lastResult = res;
+}
+let lastResult = null;
+function tableHtml(res) {
+  if (!res.table) return '<div class="muted" style="margin-top:6px;">Scatter plots each row individually — there is no summary table.</div>';
+  const fmt = v => v == null ? '—' : nf.format(v);
+  return `<button class="btn sm" data-act="csv" style="margin-top:8px;">⬇ Download as CSV</button>
+    <div class="table-scroll"><table><thead><tr>${res.table.cols.map((c, i) => `<th class="${i ? 'num' : ''}">${escapeHtml(c)}</th>`).join('')}</tr></thead>
+    <tbody>${res.table.rows.map(r => `<tr>${r.map((v, i) => `<td class="${i ? 'num' : ''}">${i ? fmt(v) : escapeHtml(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+function downloadCsv(res) {
+  const q = v => { const s = v == null ? '' : String(v); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
+  const csv = [res.table.cols, ...res.table.rows].map(r => r.map(q).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.download = `${res.title.replace(/[^\w\- ]+/g, '').slice(0, 60).trim() || 'chart'}.csv`;
+  a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function downloadPng(chart, title) {
+  if (!chart) { alert('Build a chart first.'); return; }
+  const a = document.createElement('a');
+  a.href = chart.toBase64Image('image/png', 1);
+  a.download = `${(title || 'chart').replace(/[^\w\- ]+/g, '').slice(0, 60).trim() || 'chart'}.png`;
+  a.click();
+}
+
+// ---------- toolbar & chip events ----------
+function onChartClick(e) {
+  const el = e.target.closest('[data-act]');
+  if (!el) return;
+  const act = el.dataset.act;
+  if (act === 'add-field') autoAdd(el.dataset.field);
+  else if (act === 'remove-chip') { e.stopPropagation(); removeFrom({ from: el.dataset.from, idx: el.dataset.idx != null ? Number(el.dataset.idx) : null }); drawAll(); }
+  else if (act === 'type') { chartOpts.type = el.dataset.type; drawAll(); }
+  else if (act === 'suggest') { const sg = suggestions()[Number(el.dataset.i)]; if (sg) { shelf = clone(sg.spec.shelf); chartOpts = { ...sg.spec.opts }; drawAll(); } }
+  else if (act === 'swap') { [shelf.x, shelf.split] = [shelf.split, shelf.x]; drawAll(); }
+  else if (act === 'clear') { shelf = { x: null, values: [], split: null, filter: null }; chartOpts = { ...DEFAULT_OPTS }; drawAll(); }
+  else if (act === 'clear-filter') { shelf.filter = null; drawAll(); }
+  else if (act === 'pin') pinCurrent();
+  else if (act === 'panels') pinPanels();
+  else if (act === 'png') downloadPng(chartInstance, lastResult?.title);
+  else if (act === 'csv') { if (lastResult?.table) downloadCsv(lastResult); }
+  else if (act === 'board-clear') { if (confirm('Remove all pinned charts?')) { pinned = []; renderBoard(); } }
+  else if (act === 'board-remove') { pinned.splice(Number(el.dataset.i), 1); renderBoard(); }
+  else if (act === 'board-png') { const i = Number(el.dataset.i); downloadPng(boardCharts[i], boardCharts[i]?.options.plugins.title.text); }
+  else if (act === 'board-load') {
+    const p = pinned[Number(el.dataset.i)];
+    shelf = clone(p.shelf); chartOpts = { ...p.opts }; drawAll();
+    window.scrollTo(0, document.getElementById('chartWorkspace').offsetTop - 10);
+  }
+}
+function onChartChange(e) {
+  const t = e.target;
+  if (t.dataset.vidx != null) { shelf.values[Number(t.dataset.vidx)].agg = t.value; drawAll(); return; }
+  const opt = t.dataset.opt;
+  if (!opt) return;
+  chartOpts[opt] = t.type === 'checkbox' ? t.checked : opt === 'top' ? Number(t.value) : t.value;
+  drawAll();
+}
+
+// ---------- comparison board ----------
+function pinCurrent() {
+  const res = computeChart({ shelf, opts: chartOpts });
+  if (res.empty) { alert('Build a chart first, then pin it.'); return; }
+  pinned.push({ shelf: clone(shelf), opts: { ...chartOpts } });
+  renderBoard();
+}
+// One chart per "Compare by" group, all on the same scale — small multiples instead of a crowded chart.
+function pinPanels() {
+  if (!shelf.split) return;
+  const cnt = new Map();
+  chartData.rows.forEach(r => { const k = keyOf(r[shelf.split]); cnt.set(k, (cnt.get(k) || 0) + 1); });
+  let keys = [...cnt.keys()].sort((a, b) => cnt.get(b) - cnt.get(a));
+  if (keys.length > 12 && !confirm(`"${shelf.split}" has ${keys.length} groups. Pin panels for the 12 largest?`)) return;
+  keys = keys.slice(0, 12).sort(naturalCmp);
+  const group = ++panelSeq;
+  keys.forEach(k => pinned.push({ shelf: { ...clone(shelf), split: null, filter: { field: shelf.split, value: k } }, opts: { ...chartOpts, stacked: false }, panelGroup: group }));
+  renderBoard();
+  document.getElementById('boardCard').scrollIntoView();
+}
+function renderBoard() {
+  boardCharts.forEach(c => c && c.destroy());
+  boardCharts = [];
+  const card = document.getElementById('boardCard');
+  card.classList.toggle('hidden', !pinned.length);
+  if (!pinned.length) { document.getElementById('board').innerHTML = ''; return; }
+  let results = pinned.map(p => computeChart(p));
+  // Panels made together show the same categories in the same order (taken from the unfiltered chart)
+  pinned.forEach((p, i) => {
+    if (!p.panelGroup || results[i].empty || results[i].kind !== 'cat') return;
+    const whole = computeChart({ shelf: { ...p.shelf, filter: null }, opts: p.opts });
+    if (!whole.empty && whole.labels) results[i] = computeChart({ ...p, fixedLabels: whole.labels });
+  });
+  // Panels made together share one value scale so heights compare fairly
+  const groupMax = {};
+  pinned.forEach((p, i) => { if (p.panelGroup && !results[i].empty) groupMax[p.panelGroup] = Math.max(groupMax[p.panelGroup] || 0, valueMax(results[i], p.opts)); });
+  document.getElementById('board').innerHTML = pinned.map((p, i) => `<div class="board-item">
+    <div class="bi-head"><span>#${i + 1}${p.panelGroup ? ' · panel (shared scale)' : ''}</span>
+      <span><button class="btn sm" data-act="board-load" data-i="${i}" title="Open in the builder">✎ Edit</button>
+      <button class="btn sm" data-act="board-png" data-i="${i}">⬇ PNG</button>
+      <button class="btn sm" data-act="board-remove" data-i="${i}" title="Remove">×</button></span></div>
+    <div class="canvas-box"><canvas id="boardCanvas${i}"></canvas></div>
+    <div class="bi-note">${results[i].empty ? escapeHtml(results[i].empty) : (results[i].notes || []).map(escapeHtml).join(' ')}</div></div>`).join('');
+  pinned.forEach((p, i) => {
+    const res = results[i];
+    if (res.empty) return;
+    const cfg = chartConfig(res, p.opts, { suggestedMax: p.panelGroup ? groupMax[p.panelGroup] : null });
+    cfg.options.plugins.title.font.size = 13;
+    boardCharts[i] = new Chart(document.getElementById(`boardCanvas${i}`).getContext('2d'), cfg);
+  });
+}
+
+</script>
+</body>
+</html>
