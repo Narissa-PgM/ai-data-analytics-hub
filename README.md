@@ -1,13 +1,4 @@
-# Hi, This is Narissa 👋
-
-Data and AI transformation consultant for higher education and advancement.
-I build reporting people trust, and dashboards and tools that offices actually use.
-
-### What I've done
-- **Harvard FAS: Faculty Affairs IT reporting and data analyst** (to 2025).
-- **Advancement technology consulting since 2008**, including Phillips Academy and UAMS.
-
-### What I build
+### What built
 Single-file HTML platforms and dashboards: forecasting, decision tools, data-quality
 checks and workflow, with every number tagged by source.
 
