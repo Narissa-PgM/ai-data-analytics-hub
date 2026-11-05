@@ -1449,6 +1449,43 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
 .comic-panel svg.scene{display:block;width:100%;height:auto;aspect-ratio:120/80;border-radius:4px;margin:0 0 3px}
 .comic-panel:has(svg.scene){padding:3px}
 .command-visual-large .comic-panel svg.scene{border-radius:6px;margin-bottom:6px}
+
+.ri-root{font-family:Cambria,Georgia,serif}
+.ri-head{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-start}
+.ri-head h3{margin:2px 0 4px;font-size:18px;color:#18374d}
+.ri-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}
+.ri-kpi{all:unset;box-sizing:border-box;cursor:pointer;background:#f5fafb;border:1px solid #d8e7eb;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.ri-kpi:hover,.ri-kpi:focus-visible{border-color:#267589;box-shadow:0 0 0 3px rgba(38,117,137,.12)}
+.ri-kpi span{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#5a7480;font-weight:700}
+.ri-kpi strong{font-size:18px;color:#18374d;line-height:1.2;overflow-wrap:anywhere}
+.ri-kpi small{font-size:11.5px;color:#5a7480;line-height:1.3}
+.ri-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,640px),1fr));gap:14px}
+.ri-org,.ri-pay{max-width:820px;margin:0 auto}
+@media (max-width:640px){.ri-panel{overflow-x:auto;-webkit-overflow-scrolling:touch}.ri-org,.ri-pay{min-width:560px}.ri-legend,.ri-notes,.ri-quote{min-width:0}}
+.ri-panel{border:1px solid #e1ecef;border-radius:12px;padding:12px;background:#fff;min-width:0}
+.ri-panel h4{margin:0 0 8px;font-size:14px;color:#18374d;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ri-org,.ri-pay{display:block;width:100%;height:auto;font-family:Cambria,Georgia,serif}
+.ri-box{cursor:pointer;outline:none}.ri-box:hover rect,.ri-box:focus rect{filter:drop-shadow(0 2px 4px rgba(24,55,77,.18))}
+.ri-src{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:#e6f2f5;color:#267589}
+.ri-src.you{background:#e5f2e8;color:#3c7a4f}.ri-src.estimate{background:#eef1f2;color:#6a7c82}
+.ri-quote{font-size:12px;color:#3d5d66;background:#f7fafb;border-left:3px solid #94beca;padding:6px 10px;margin-top:8px;border-radius:0 6px 6px 0}
+.ri-quote div+div{margin-top:4px}
+.ri-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:#3d5d66;margin-top:4px}
+.ri-legend i{display:inline-block;width:14px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.ri-legend .lg-post{background:#267589}.ri-legend .lg-grade{background:#528fa1}.ri-legend .lg-mkt{background:#94beca}.ri-legend .lg-dot{background:#1d5e6e;border-radius:50%;width:9px}.ri-legend .lg-whisk{height:2px;background:#a9bcc2}.ri-legend .lg-anchor{height:0;border-top:2px dashed #c0632b}
+.ri-notes{margin:10px 0 0;padding-left:18px;font-size:12.5px;line-height:1.5;color:#2c4a56}.ri-notes li+li{margin-top:4px}
+.ri-edit{margin-top:12px;border:1px dashed #b9d0d6;border-radius:10px;padding:8px 12px;background:#fbfdfd}
+.ri-edit summary{cursor:pointer;font-weight:700;color:#267589;font-size:13px}
+.ri-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:10px 0}
+.ri-form label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:#3d5d66}
+.ri-form .wide{grid-column:1/-1}
+.ri-form input{font:inherit;font-weight:400;font-size:13px;padding:7px 9px;border:1px solid #cfdfe3;border-radius:8px;background:#fff;min-width:0}
+.ri-form fieldset{border:1px solid #e1ecef;border-radius:8px;padding:8px 10px}.ri-form legend{font-size:12px;font-weight:700;color:#3d5d66;padding:0 4px}
+.ri-cks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:4px 12px}
+.ri-ck{flex-direction:row!important;align-items:center;font-weight:400!important;font-size:12.5px!important;gap:6px!important}.ri-ck small{color:#6a8590;margin-left:auto}
+.ri-ta{width:100%;box-sizing:border-box;font:12.5px/1.45 ui-monospace,Menlo,Consolas,monospace;padding:8px;border:1px solid #cfdfe3;border-radius:8px;background:#f8fbfc}
+.ri-links{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 6px}
+.jf-mini-t{width:100%;border-collapse:collapse;font-size:12.5px}.jf-mini-t th,.jf-mini-t td{border-bottom:1px solid #e3ecef;padding:5px 6px;text-align:right}.jf-mini-t th:first-child,.jf-mini-t td:first-child{text-align:left}
 </style>
 </head>
 <body>
@@ -9137,6 +9174,384 @@ Every number in the project's materials carries exactly one label:
    charter, KPIs, dashboard, trends, benchmark, gap analysis, SWOT, WBS, cost-benefit, roadmap, Gantt,
    action plan, regression, forecast, Monte Carlo, anomaly detection, predictive risk, risk register,
    SOP and a smoke-test gate. Deterministic and offline; every invented figure is labelled [SAMPLE]. */
+/* ===== Role & pay intelligence: org diagram, span of control, grade + market pay ===== */
+window.EPRoleIntel = (() => {
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const money = (n) => (n == null || isNaN(n) ? '—' : '$' + Math.round(n).toLocaleString('en-US'));
+  const k = (n) => (n == null ? '—' : '$' + (n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : Math.round(n / 1000) + 'k'));
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+  /* ---- researched reference data (cite in UI) ---- */
+  const GRADES = {
+    harvardAP: { label: 'Harvard A&P · FY27 table', src: 'Harvard HR · Salary Ranges, effective July 1, 2026', url: 'https://hr.harvard.edu/salary-ranges',
+      g: { '055': [64200, 83200, 102200], '056': [69500, 91600, 113700], '057': [78000, 105300, 132600], '058': [89500, 121700, 153900], '059': [104400, 143500, 182600], '060': [123600, 171800, 220000], '061': [154200, 216600, 279000], '062': [185500, 264300, 343100], '063': [227600, 325400, 423200], '064': [290700, 418600, 546500] } },
+    harvardHUCTW: { label: 'Harvard HUCTW · 35-hr week', src: 'Harvard HR · Salary Ranges, effective July 1, 2026 (min–max only)', url: 'https://hr.harvard.edu/salary-ranges',
+      g: { '047': [39576, null, 58502], '048': [42111, null, 62844], '049': [43631, null, 65738], '050': [46470, null, 70630], '051': [49512, null, 75867], '052': [53635, null, 83068], '053': [58232, null, 90958], '054': [63132, null, 99537], '055': [68506, null, 109012], '056': [74231, null, 121455] } },
+  };
+  const MKT_SRC = 'BLS Occupational Employment & Wage Statistics, May 2025 · Boston-Cambridge-Newton, MA-NH metro (annual wages; republished by WageDex)';
+  const MKT_URL = 'https://www.bls.gov/oes/2025/may/ma_counties.htm';
+  const MARKET = [
+    { id: 'cis', soc: '11-3021', name: 'Computer & Information Systems Managers', emp: 20530, p: [136800, 174270, 214960, 269520, 310450], mgr: 1, re: /information technology|technolog|\bit\b|systems|architect|platform|software|enterprise|infrastructure|\bcio\b|engineering/g, weak: /data|analytic|report|business intelligence|\bbi\b|digital/g },
+    { id: 'fin', soc: '11-3031', name: 'Financial Managers', emp: 21650, p: [126450, 164560, 209780, 292030, 335150], mgr: 1, re: /financ|budget|controller|\bcfo\b|accounting|treasur/g },
+    { id: 'edadm', soc: '11-9033', name: 'Education Administrators, Postsecondary', emp: 6770, p: [81000, 102170, 131130, 173740, 281100], mgr: 1, re: /faculty|academic|\bdean|provost|student|registrar|institutional research|universit|college|curricul/g },
+    { id: 'fund', soc: '11-2033', name: 'Fundraising Managers', emp: 1720, p: [96120, 112840, 161500, 211470, 302110], mgr: 1, re: /advancement|fundrais|\bgift|donor|alumni|philanthrop|stewardship|prospect research|development office/g },
+    { id: 'health', soc: '11-9111', name: 'Medical & Health Services Managers', emp: 12990, p: [89920, 107900, 136760, 188550, 308080], mgr: 1, re: /health|clinical|medical|hospital|biomedical|patient|dental|medicine/g },
+    { id: 'genops', soc: '11-1021', name: 'General & Operations Managers', emp: 70950, p: [63020, 89650, 133800, 210290, 329130], mgr: 1, re: /operations|executive director|chief operating|administrat|business manager|\bcoo\b/g },
+    { id: 'mgrother', soc: '11-9199', name: 'Managers, All Other', emp: 9120, p: [114920, 150500, 184250, 231480, 309990], mgr: 1, re: /portfolio|governance|compliance|strateg|operations director/g, weak: /director|head of|program/g },
+    { id: 'hr', soc: '11-3121', name: 'Human Resources Managers', emp: 6480, p: [99990, 139310, 184990, 232930, 317690], mgr: 1, re: /human resources|\bhr\b|talent|people operations|workforce|faculty affairs/g },
+    { id: 'ds', soc: '15-2051', name: 'Data Scientists', emp: 7930, p: [82030, 102720, 132040, 166120, 206220], mgr: 0, re: /data scien|machine learning|\bml\b|\bai\b|predictive|statistic|python|\br\b/g },
+    { id: 'ma', soc: '13-1111', name: 'Management Analysts', emp: 26450, p: [83380, 104210, 135640, 168800, 218830], mgr: 0, re: /analyst|consult|process improvement|business analys|governance|strateg/g },
+    { id: 'pm', soc: '13-1082', name: 'Project Management Specialists', emp: 18840, p: [72800, 89810, 114990, 147620, 174740], mgr: 0, re: /project|program|portfolio|\bpmo\b|implementation|\bpmp\b/g },
+  ];
+  /* typical patterns by title level — estimates, always labelled as such */
+  const LEVELS = [
+    { re: /\b(vice president|\bvp\b|chief\b|vice provost|provost|\bdean\b)/i, name: 'Executive', boss: 'President, Provost or Dean', fte: [10, 60], grade: ['062', '064'] },
+    { re: /\b(executive director|managing director|associate vice|assistant vice|\bavp\b|associate dean|assistant dean)/i, name: 'Executive director', boss: 'Dean, Vice President, CFO or COO', fte: [8, 40], grade: ['060', '062'] },
+    { re: /\bsenior director\b/i, name: 'Senior director', boss: 'Executive Director, AVP or Associate Dean', fte: [5, 25], grade: ['060', '061'] },
+    { re: /\b(associate|assistant) director\b/i, name: 'Associate / assistant director', boss: 'Director or Senior Director', fte: [1, 6], grade: ['057', '059'] },
+    { re: /\bdirector\b|\bhead of\b/i, name: 'Director', boss: 'Senior Director, Associate Dean or Vice Provost', fte: [3, 12], grade: ['058', '060'] },
+    { re: /\bmanager\b|\blead\b/i, name: 'Manager', boss: 'Director or Associate Director', fte: [1, 5], grade: ['056', '058'] },
+    { re: /\b(senior|principal|sr\.?)\b/i, name: 'Senior individual contributor', boss: 'Manager or Director', fte: [0, 0], grade: ['056', '058'] },
+    { re: /./, name: 'Individual contributor', boss: 'Manager or Associate Director', fte: [0, 0], grade: ['055', '057'] },
+  ];
+  const WORDNUM = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19, twenty: 20, thirty: 30, forty: 40, fifty: 50, dozen: 12 };
+  const NUM = '(\\d{1,3}|' + Object.keys(WORDNUM).join('|') + ')';
+  const toNum = (s) => (/^\d+$/.test(s) ? parseInt(s, 10) : WORDNUM[String(s).toLowerCase()]);
+  const ROLE = '(staff|employees|ftes?|people|professionals|analysts?|managers?|members|reports|coordinators?|specialists?|engineers?|developers?|directors?|officers?|associates?|assistants?|administrators?|scientists?|architects?|consultants?|accountants?|writers?)';
+  const SUPV = /supervis|manag|\blead|leads\b|oversee|oversight|direct reports?|hire|hiring|performance review|mentor/i;
+
+  const clean = (s) => String(s || '').replace(/\s+/g, ' ').replace(/,\s*(with|and|who|while|in|as|to|the|a|an|this|he|she|they|you|we|is|will)\b.*$/i, '').replace(/\s+with an?\s+dotted.*$/i, '').replace(/\s+(and|who|which|while|to ensure|in order)\s+(works?|is|will|serves?|partners?|collaborat\w*|oversees?|manages?|leads?|provides?)\b.*$/i, '').replace(/[,;:]\s*$/, '').trim().slice(0, 90);
+  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+  function levelOf(title) { return LEVELS.find((l) => l.re.test(title || '')) || LEVELS[LEVELS.length - 1]; }
+
+  function extract(job) {
+    const T = String(job.text || ''), title = job.title || T.split('\n')[0] || '';
+    const sentences = T.replace(/\n+/g, '. ').split(/(?<=[.;!?])\s+/);
+    const out = { reportsTo: null, rtSrc: null, dotted: [], partners: [], direct: null, directSrc: null, total: null, roles: [], grade: null, gradeSys: null, posted: null, budget: null, noReports: false };
+    // reports to
+    const RT = [/\breports?\s+(?:directly\s+)?to\s*:?\s*(?:the\s+)?([^.;\n()]{3,110})/i, /\breporting\s+(?:directly\s+)?to\s+(?:the\s+)?([^.;\n()]{3,110})/i, /\bunder\s+the\s+(?:general\s+)?(?:direction|supervision|leadership)\s+of\s+(?:the\s+)?([^.;\n()]{3,110})/i, /\b(?:supervisor|reports to|manager)\s*:\s*([^\n]{3,90})/i];
+    for (const re of RT) { const m = T.match(re); if (m) { const v = clean(m[1]); if (v && !/^(work|you|whom)/i.test(v)) { out.reportsTo = cap(v); out.rtSrc = m[0].trim().slice(0, 160); break; } } }
+    const dl = T.match(/dotted[- ]line\s+(?:reporting\s+)?(?:relationship\s+)?(?:to|with)\s+(?:the\s+)?([^.;\n]{3,80})/i);
+    if (dl) out.dotted = clean(dl[1]).split(/\s*(?:,|\band\b)\s*/).filter(Boolean).slice(0, 3).map(cap);
+    const pm = T.match(/\b(?:partner(?:s|ing)?|work(?:s|ing)? closely|collaborat\w*)\s+with\s+(?:the\s+)?([^.;\n]{3,120})/i);
+    if (pm) out.partners = clean(pm[1].replace(/\s+to\s+.*$/i, '')).split(/\s*(?:,|\band\b|&)\s*/).map((x) => x.replace(/^(the|our)\s+/i, '').trim()).filter((x) => x && x.length <= 40).slice(0, 4).map(cap);
+    // span of control
+    if (/no direct reports|does not (?:have|supervise)|no supervisory|not supervise/i.test(T)) { out.noReports = true; out.direct = 0; out.directSrc = 'posting says no direct reports'; }
+    const reNumRole = new RegExp('\\b' + NUM + '\\s*\\+?\\s*((?:[a-z-]+\\s){0,3}?)' + ROLE + '\\b', 'i');
+    sentences.forEach((s) => {
+      if (!SUPV.test(s) || out.noReports) return;
+      const m = s.match(reNumRole);
+      if (m) { const n = toNum(m[1]); if (n && n <= 400 && (out.direct == null || n > out.direct)) { out.direct = n; out.directSrc = s.trim().slice(0, 170); const noun = (m[2] + m[3]).trim(); if (!/^(staff|employees|ftes?|people|members|reports)$/i.test(m[3])) out.roleNoun = noun.replace(/s$/i, ''); } }
+      const sup = s.match(/supervis\w*\s+(?:the\s+)?([A-Z][^.;]{3,160})/);
+      if (sup && !out.roles.length) { const parts = sup[1].replace(/,?\s+and\s+(?:works?|is|will|serves?|partners?|collaborat\w*|oversees?|manages?|leads?|provides?|reports?)\b.*$/i, '').split(/\s*(?:,|;|\band\b)\s*/).map((x) => x.replace(/^(the|a|an)\s+/i, '').trim()).filter((x) => /^[A-Z]/.test(x) && x.length <= 48); if (parts.length >= 2) out.roles = parts.slice(0, 8); }
+    });
+    const dr = T.match(new RegExp('\\b' + NUM + '\\s+direct reports?', 'i')); if (dr) { out.direct = toNum(dr[1]); out.directSrc = dr[0]; }
+    const tot = T.match(new RegExp('\\b(?:team|staff|department|office|unit|organization) of\\s+(?:approximately\\s+|about\\s+|over\\s+|more than\\s+)?' + NUM + '\\b', 'i')) || T.match(new RegExp('\\b' + NUM + '\\s*-?\\s*(?:person|member|fte)\\s+(?:team|staff|department|office|unit)', 'i')) || T.match(new RegExp('\\b' + NUM + '\\s+(?:total\\s+)?ftes?\\b', 'i'));
+    if (tot) { const n = toNum(tot[1]); if (n && (out.direct == null || n >= out.direct)) out.total = n; }
+    if (out.direct == null && out.roles.length) { out.direct = out.roles.length; out.directSrc = (sentences.find((s) => /supervis/i.test(s)) || '').trim().slice(0, 170); }
+    // grade
+    const g = T.match(/\bgrade\s*(?:level)?\s*[:#]?\s*(0?\d{2,3})\b/i) || T.match(/\b[Gg]rade\s*:\s*([A-Z]{1,2}\d{0,2})\b/);
+    if (g) { let code = g[1].toUpperCase(); if (/^\d+$/.test(code)) code = code.padStart(3, '0'); out.grade = code; }
+    const isHarv = /harvard/i.test(T + ' ' + (job.org || ''));
+    if (out.grade && GRADES.harvardAP.g[out.grade] && (isHarv || !/huctw/i.test(T)) && !/huctw|union:\s*55/i.test(T)) out.gradeSys = 'harvardAP';
+    else if (out.grade && GRADES.harvardHUCTW.g[out.grade] && (isHarv || /huctw/i.test(T))) out.gradeSys = 'harvardHUCTW';
+    // posted pay
+    const sal = T.match(/\$\s?(\d{2,3}(?:,\d{3})+|\d{2,3}\s?k)\s*(?:-|–|—|to)\s*\$?\s?(\d{2,3}(?:,\d{3})+|\d{2,3}\s?k)/i);
+    const pn = (s) => (/k$/i.test(s.trim()) ? parseInt(s, 10) * 1000 : parseInt(s.replace(/[^\d]/g, ''), 10));
+    if (sal) { const a = pn(sal[1]), b = pn(sal[2]); if (a >= 20000 && b >= a) out.posted = [a, b]; }
+    const bud = T.match(/\$\s?(\d+(?:\.\d+)?)\s*(million|billion|m\b|b\b|mm\b)[^.]{0,50}?budget|budget\s+of\s+(?:approximately\s+|over\s+)?\$\s?(\d+(?:\.\d+)?)\s*(million|billion|m\b|b\b)/i);
+    if (bud) { const v = parseFloat(bud[1] || bud[3]), u = (bud[2] || bud[4]).toLowerCase(); out.budget = v * (u[0] === 'b' ? 1e9 : 1e6); }
+    const tidy = (q) => (q ? String(q).replace(/^[-•*\s.]+/, '').replace(/\.{2,}$/, '.').trim() : q);
+    out.rtSrc = tidy(out.rtSrc); out.directSrc = tidy(out.directSrc);
+    out.level = levelOf(title);
+    out.isHarvard = isHarv;
+    return out;
+  }
+
+  function pickMarket(job, lvl) {
+    const title = (job.title || '').toLowerCase(), T = String(job.text || '').toLowerCase();
+    const mgrLevel = !/individual/i.test(lvl.name);
+    return MARKET.map((m) => {
+      const t = (title.match(m.re) || []).length * 4 + (m.weak ? (title.match(m.weak) || []).length * 1.5 : 0), b = Math.min(6, (T.match(m.re) || []).length + (m.weak ? Math.min(2, (T.match(m.weak) || []).length * 0.25) : 0));
+      let s = t + b; if (mgrLevel && !m.mgr && !t) s *= 0.35; if (!mgrLevel && m.mgr && !t) s *= 0.4;
+      return { m, s };
+    }).filter((x) => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 3).map((x) => x.m.id);
+  }
+
+  /* ---- merge posting facts with the user's confirmed edits ---- */
+  function model(a, job) {
+    const x = extract(job), o = job.roleIntel || {};
+    const has = (v) => v !== undefined && v !== null && v !== '';
+    const m = {
+      x, o, level: x.level,
+      reportsTo: has(o.reportsTo) ? o.reportsTo : x.reportsTo, rtFrom: has(o.reportsTo) ? 'you' : x.reportsTo ? 'posting' : 'estimate',
+      dotted: has(o.dotted) ? o.dotted : x.dotted.length ? x.dotted : x.partners.slice(0, 2), dottedFrom: has(o.dotted) ? 'you' : x.dotted.length ? 'posting' : x.partners.length ? 'partners' : 'none',
+      direct: has(o.direct) ? Number(o.direct) : x.direct, directFrom: has(o.direct) ? 'you' : x.direct != null ? 'posting' : 'estimate',
+      total: has(o.total) ? Number(o.total) : x.total,
+      roles: has(o.roles) ? o.roles : x.roles,
+      roleNoun: x.roleNoun,
+      grade: has(o.grade) ? String(o.grade).toUpperCase().replace(/^(\d{2})$/, '0$1') : x.grade, gradeFrom: has(o.grade) ? 'you' : x.grade ? 'posting' : 'estimate',
+      posted: has(o.postedMin) && has(o.postedMax) ? [Number(o.postedMin), Number(o.postedMax)] : x.posted, postedFrom: has(o.postedMin) ? 'you' : x.posted ? 'posting' : null,
+      budget: x.budget, sources: o.sources || [],
+    };
+    m.gradeSys = m.grade ? (GRADES.harvardAP.g[m.grade] && !/huctw/i.test(job.text || '') ? 'harvardAP' : GRADES.harvardHUCTW.g[m.grade] ? 'harvardHUCTW' : null) : null;
+    if (!x.isHarvard) m.gradeSys = null; // Harvard tables apply to Harvard roles only
+    m.range = m.gradeSys ? GRADES[m.gradeSys].g[m.grade] : null;
+    m.estGrades = m.level.grade; // typical Harvard grade band for this level (estimate)
+    m.market = (o.market && o.market.length ? o.market : pickMarket(job, m.level)).map((id) => MARKET.find((q) => q.id === id)).filter(Boolean);
+    if (!m.market.length) m.market = [MARKET.find((q) => q.id === 'mgrother')];
+    // anchor: position in range from documented experience vs. ask (heuristic)
+    const lo = m.posted ? m.posted[0] : m.range ? m.range[0] : null, hi = m.posted ? m.posted[1] : m.range ? m.range[2] : null;
+    const extra = (a.span || 0) - (a.yearsAsk || 0);
+    m.pos = clamp(0.4 + 0.012 * extra + (a.score >= 75 ? 0.06 : a.score < 55 ? -0.08 : 0), 0.2, 0.6);
+    m.anchor = lo != null ? lo + (hi - lo) * m.pos : m.market[0].p[2];
+    m.anchorBasis = m.posted ? 'posted range' : m.range ? 'grade range' : 'market median (no range found)';
+    m.mktMed = m.market[0].p[2];
+    return m;
+  }
+
+  /* ---- SVG helpers ---- */
+  const wrap = (s, n, max = 2) => { const w = String(s || '').split(/\s+/), L = []; let cur = ''; w.forEach((x) => { if ((cur + ' ' + x).trim().length > n) { if (cur) L.push(cur); cur = x; } else cur = (cur + ' ' + x).trim(); }); if (cur) L.push(cur); if (L.length > max) { L.length = max; L[max - 1] = L[max - 1].replace(/.{0,2}$/, '…'); } return L; };
+  const tx = (x, y, s, o = {}) => `<text x="${x}" y="${y}" font-size="${o.fs || 12}" fill="${o.c || '#22404d'}" text-anchor="${o.a || 'middle'}"${o.b ? ' font-weight="700"' : ''}${o.ls ? ' letter-spacing=".08em"' : ''}>${esc(s)}</text>`;
+  const SRCCOL = { posting: '#267589', you: '#3c7a4f', estimate: '#9aa9ae', partners: '#c58a3e', none: '#9aa9ae' };
+  const tagOf = (f) => ({ posting: 'FROM POSTING', you: 'CONFIRMED BY YOU', estimate: 'ESTIMATE · CONFIRM', partners: 'PARTNERS (POSTING)' }[f] || '');
+
+  function orgSvg(job, m) {
+    const W = 680, cx = W / 2;
+    const box = (x, y, w, h, kick, title, opt = {}) => {
+      const dashed = opt.dashed, fill = opt.fill || '#fff', stroke = opt.stroke || '#267589', col = opt.col || '#18374d';
+      const lines = wrap(title, opt.wrapN || Math.floor(w / 7.2), 2);
+      return `<g class="ri-box" data-ri="${opt.act || ''}" tabindex="0" role="button" aria-label="${esc(kick + ': ' + title)}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="9" fill="${fill}" stroke="${stroke}" stroke-width="${opt.sw || 1.6}"${dashed ? ' stroke-dasharray="5 4"' : ''}/>${kick ? tx(x + w / 2, y + 15, kick, { fs: 9, b: 1, c: opt.kc || stroke, ls: 1 }) : ''}${lines.map((l, i) => tx(x + w / 2, y + (kick ? 31 : 24) + i * 15 - (lines.length > 1 && !kick ? 7 : 0), l, { fs: opt.fs || 13, b: 1, c: col })).join('')}${opt.sub ? tx(x + w / 2, y + h - 8, opt.sub, { fs: 10, c: opt.subc || '#5a7480' }) : ''}</g>`;
+    };
+    let s = '';
+    // reports-to
+    const rtTitle = m.reportsTo || 'Not stated in posting';
+    const rtW = 300, rtH = 60, rtY = 30;
+    s += tx(cx, 14, (job.org || 'Organization').slice(0, 80), { fs: 10.5, c: '#6a8590', ls: 1 });
+    s += box(cx - rtW / 2, rtY, rtW, rtH, 'REPORTS TO', rtTitle, { dashed: m.rtFrom === 'estimate', stroke: SRCCOL[m.rtFrom], sub: m.rtFrom === 'estimate' ? 'Typical: ' + m.level.boss : tagOf(m.rtFrom), subc: SRCCOL[m.rtFrom], act: 'box-rt', col: m.rtFrom === 'estimate' ? '#5a7480' : '#18374d' });
+    // this role
+    const rY = 128, rW = 320, rH = 70;
+    s += `<path d="M${cx} ${rtY + rtH}V${rY}" stroke="#267589" stroke-width="2"/>`;
+    const gradeSub = m.grade ? `Grade ${m.grade}${m.range ? ' · ' + k(m.range[0]) + '–' + k(m.range[2]) : ''}` : m.posted ? 'Posted ' + k(m.posted[0]) + '–' + k(m.posted[1]) : 'Grade not posted';
+    s += box(cx - rW / 2, rY, rW, rH, 'THIS ROLE · ' + m.level.name.toUpperCase(), job.title || 'This role', { fill: '#267589', stroke: '#1d5e6e', col: '#fff', kc: '#cfe6ec', sub: gradeSub, subc: '#e6f3f6', act: 'box-role', sw: 2 });
+    // dotted partners
+    const dots = (m.dotted || []).slice(0, 2);
+    dots.forEach((d, i) => {
+      const left = i === 0, bw = 150, bx = left ? 14 : W - 14 - bw, by = rY + 6;
+      s += `<path d="M${left ? bx + bw : bx} ${by + 28}H${left ? cx - rW / 2 : cx + rW / 2}" stroke="#c58a3e" stroke-width="1.6" stroke-dasharray="4 4"/>`;
+      s += box(bx, by, bw, 56, m.dottedFrom === 'partners' ? 'KEY PARTNER' : 'DOTTED LINE', d, { stroke: '#c58a3e', act: 'box-dot', fs: 12 });
+    });
+    // direct reports
+    const tY = 262, n = m.direct;
+    let tH = 64;
+    if (n === 0) {
+      s += `<path d="M${cx} ${rY + rH}V${tY}" stroke="#9aa9ae" stroke-width="1.6" stroke-dasharray="3 4"/>`;
+      s += box(cx - 160, tY, 320, 56, 'SPAN OF CONTROL', 'Individual contributor — no direct reports', { stroke: SRCCOL[m.directFrom], act: 'box-team', fs: 12 });
+    } else if (n == null) {
+      const [a, b] = m.level.fte;
+      s += `<path d="M${cx} ${rY + rH}V${tY}" stroke="#9aa9ae" stroke-width="1.6" stroke-dasharray="3 4"/>`;
+      s += box(cx - 190, tY, 380, 60, 'TEAM SIZE NOT STATED', b ? `Typical for this level: ${a}–${b} FTEs` : 'Typically an individual contributor', { dashed: 1, stroke: '#9aa9ae', col: '#5a7480', act: 'box-team', sub: 'Ask: “How many people report to this role?”', fs: 12.5 });
+    } else {
+      const show = Math.min(n, 6), more = n - show + (n > 6 ? 1 : 0), cells = n > 6 ? 6 : show;
+      const gap = 10, cw = Math.min(132, (W - 28 - gap * (cells - 1)) / cells), total = cells * cw + gap * (cells - 1), x0 = cx - total / 2, bus = tY - 22;
+      s += `<path d="M${cx} ${rY + rH}V${bus}M${x0 + cw / 2} ${bus}H${x0 + total - cw / 2}" stroke="#267589" stroke-width="2" fill="none"/>`;
+      for (let i = 0; i < cells; i++) {
+        const x = x0 + i * (cw + gap), last = n > 6 && i === 5;
+        const nm = last ? `+${more} more` : (m.roles[i] || (m.roleNoun ? cap(m.roleNoun) : 'Direct report') + (m.roles[i] ? '' : ''));
+        s += `<path d="M${x + cw / 2} ${bus}V${tY}" stroke="#267589" stroke-width="2"/>`;
+        s += box(x, tY, cw, 56, last ? 'TEAM' : 'REPORT ' + (i + 1), nm, { stroke: m.directFrom === 'estimate' ? '#9aa9ae' : '#528fa1', fill: '#f2f8f9', fs: 11.5, act: 'box-team', wrapN: Math.max(10, Math.floor(cw / 6.8)) });
+      }
+    }
+    const fteLine = n == null ? `Span of control: not stated · typical ${m.level.fte[0]}–${m.level.fte[1]} FTEs (estimate)` : `Direct reports: ${n}${m.total != null ? ' · Total unit FTEs: ' + m.total : ''}${m.budget ? ' · Budget ' + k(m.budget) : ''} · ${m.directFrom === 'you' ? 'confirmed by you' : 'from posting'}`;
+    s += tx(cx, tY + tH + 22, fteLine, { fs: 11.5, b: 1, c: '#22404d' });
+    const H = tY + tH + 36;
+    return `<svg class="ri-org" viewBox="0 0 ${W} ${H}" role="img" aria-label="Organization diagram for ${esc(job.title || 'this role')}">${s}</svg>`;
+  }
+
+  function paySvg(m) {
+    const rows = [];
+    if (m.posted) rows.push({ kind: 'posted', label: 'Posted pay range', sub: m.postedFrom === 'you' ? 'entered by you' : 'from the posting', v: [m.posted[0], null, m.posted[1]] });
+    if (m.range) rows.push({ kind: 'grade', label: `Grade ${m.grade} range`, sub: GRADES[m.gradeSys].label, v: m.range });
+    else if (m.x.isHarvard) { const g1 = GRADES.harvardAP.g[m.estGrades[0]], g2 = GRADES.harvardAP.g[m.estGrades[1]]; if (g1 && g2) rows.push({ kind: 'est', label: `Typical Harvard grades ${m.estGrades[0]}–${m.estGrades[1]}`, sub: 'estimate for this title level', v: [g1[0], null, g2[2]] }); }
+    m.market.forEach((q) => rows.push({ kind: 'mkt', label: q.name, sub: `Boston metro · SOC ${q.soc} · ${q.emp.toLocaleString('en-US')} jobs`, p: q.p }));
+    const vals = rows.flatMap((r) => (r.p ? r.p : r.v).filter((x) => x != null)).concat([m.anchor]);
+    const lo = Math.floor(Math.min(...vals) / 25000) * 25000, hi = Math.ceil(Math.max(...vals) / 25000) * 25000;
+    const W = 680, L = 270, R = 18, rowH = 44, top = 34, H = top + rows.length * rowH + 22;
+    const X = (v) => L + (v - lo) / (hi - lo) * (W - L - R);
+    let s = '';
+    for (let v = lo; v <= hi; v += 25000) { const x = X(v).toFixed(1); s += `<path d="M${x} ${top - 6}V${H - 26}" stroke="${v % 50000 ? '#eef3f5' : '#dfe8eb'}"/>` + (v % 50000 === 0 ? tx(x, H - 12, k(v), { fs: 10.5, c: '#6a8590' }) : ''); }
+    rows.forEach((r, i) => {
+      const y = top + i * rowH + 16;
+      s += tx(L - 12, y - 2, r.label.length > 42 ? r.label.slice(0, 41) + '…' : r.label, { fs: 11.5, b: 1, a: 'end' }) + tx(L - 12, y + 12, r.sub.length > 46 ? r.sub.slice(0, 45) + '…' : r.sub, { fs: 9.5, a: 'end', c: '#6a8590' });
+      if (r.p) {
+        const [p10, p25, p50, p75, p90] = r.p;
+        s += `<g data-ri="pay-mkt" class="ri-box"><path d="M${X(p10)} ${y + 3}H${X(p90)}" stroke="#a9bcc2" stroke-width="2"/><path d="M${X(p10)} ${y - 2}V${y + 8}M${X(p90)} ${y - 2}V${y + 8}" stroke="#a9bcc2" stroke-width="2"/><rect x="${X(p25)}" y="${y - 5}" width="${X(p75) - X(p25)}" height="16" rx="3" fill="#94beca"/><circle cx="${X(p50)}" cy="${y + 3}" r="5.5" fill="#1d5e6e" stroke="#fff" stroke-width="1.5"/></g>`
+          + tx(X(p50), y - 9, 'median ' + k(p50), { fs: 10, b: 1, c: '#1d5e6e' });
+      } else {
+        const [a, mid, b] = r.v, col = r.kind === 'posted' ? '#267589' : r.kind === 'grade' ? '#528fa1' : '#c9d6da';
+        s += `<g data-ri="pay-${r.kind}" class="ri-box"><rect x="${X(a)}" y="${y - 6}" width="${Math.max(4, X(b) - X(a))}" height="18" rx="4" fill="${col}"${r.kind === 'est' ? ' stroke="#9aa9ae" stroke-dasharray="4 3"' : ''}/>${mid ? `<path d="M${X(mid)} ${y - 9}V${y + 15}" stroke="#18374d" stroke-width="2.2"/>` : ''}</g>`
+          + tx(X(a) - 4, y + 7, k(a), { fs: 10, a: 'end', c: '#3d5d66' }) + tx(X(b) + 4, y + 7, k(b), { fs: 10, a: 'start', c: '#3d5d66' }) + (mid ? tx(X(mid), y - 12, 'mid ' + k(mid), { fs: 10, b: 1, c: '#18374d' }) : '');
+      }
+    });
+    const ax = X(m.anchor).toFixed(1);
+    s += `<path d="M${ax} ${top - 10}V${H - 26}" stroke="#c0632b" stroke-width="2" stroke-dasharray="5 4"/><rect x="${clamp(+ax - 56, L, W - 112)}" y="4" width="112" height="18" rx="9" fill="#c0632b"/>` + tx(clamp(+ax, L + 56, W - 56), 17, 'Your anchor ' + k(m.anchor), { fs: 10.5, b: 1, c: '#fff' });
+    return `<svg class="ri-pay" viewBox="0 0 ${W} ${H + 6}" role="img" aria-label="Pay ranges compared with the Boston market">${s}</svg>
+      <div class="ri-legend">${rows.some((r) => r.kind === 'posted') ? '<span><i class="lg-post"></i>Posted range</span>' : ''}${rows.some((r) => r.kind === 'grade' || r.kind === 'est') ? '<span><i class="lg-grade"></i>Grade range (bar = mid)</span>' : ''}<span><i class="lg-mkt"></i>Market middle 50% (P25–P75)</span><span><i class="lg-dot"></i>Market median</span><span><i class="lg-whisk"></i>P10–P90</span><span><i class="lg-anchor"></i>Suggested anchor</span></div>`;
+  }
+
+  function html(a, job) {
+    const m = model(a, job), o = job.roleIntel || {};
+    const chip = (f) => `<span class="ri-src ${f}">${f === 'posting' ? 'posting' : f === 'you' ? 'confirmed' : 'estimate'}</span>`;
+    const comp = m.range && m.range[1] ? Math.round(m.anchor / m.range[1] * 100) : null;
+    const gapMkt = m.range ? m.range[2] < m.mktMed : m.posted ? m.posted[1] < m.mktMed : false;
+    const kpi = (lab, val, sub, act) => `<button type="button" class="ri-kpi" data-ri="${act}"><span>${lab}</span><strong>${val}</strong><small>${sub}</small></button>`;
+    const optsMkt = MARKET.map((q) => `<label class="ri-ck"><input type="checkbox" data-ri-mkt="${q.id}" ${m.market.some((x) => x.id === q.id) ? 'checked' : ''}> ${esc(q.name)} <small>${k(q.p[2])}</small></label>`).join('');
+    return `<section class="jf-card ri-root" aria-labelledby="riTitle" style="margin-top:14px">
+      <div class="ri-head"><div><div class="jf-kicker">Role & pay intelligence</div><h3 id="riTitle">Who it reports to · team size · what it pays</h3><p class="jf-sub">Read from the posting, then checked against Harvard’s published grade table and Boston-area market wages. <b>Solid</b> = from the posting or confirmed by you · <b>dashed</b> = typical-pattern estimate to confirm.</p></div>
+      <div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-ri="research">🔎 Research this role</button><button type="button" class="jf-btn" data-ri="method">How pay is estimated</button></div></div>
+      <div class="ri-kpis">
+        ${kpi('Reports to', esc(m.reportsTo || 'Not stated'), m.reportsTo ? (m.rtFrom === 'you' ? 'confirmed by you' : 'from the posting') : 'typical: ' + esc(m.level.boss), 'box-rt')}
+        ${kpi('Direct reports', m.direct == null ? '?' : m.direct, m.direct == null ? `typical ${m.level.fte[0]}–${m.level.fte[1]} · confirm` : (m.total != null ? m.total + ' total unit FTEs' : m.directFrom === 'you' ? 'confirmed by you' : 'from the posting'), 'box-team')}
+        ${kpi(m.range ? 'Grade ' + esc(m.grade) : m.grade ? 'Grade ' + esc(m.grade) : 'Grade', m.range ? k(m.range[0]) + '–' + k(m.range[2]) : m.grade ? 'Range not loaded' : 'Not posted', m.range ? 'midpoint ' + k(m.range[1] || (m.range[0] + m.range[2]) / 2) : m.x.isHarvard ? 'typical ' + m.estGrades.join('–') + ' (estimate)' : m.grade ? 'enter its range below' : 'not posted · ask HR', 'pay-grade')}
+        ${kpi('Boston market median', k(m.mktMed), esc(m.market[0].name), 'pay-mkt')}
+        ${kpi('Suggested anchor', k(m.anchor), `${Math.round(m.pos * 100)}% into the ${esc(m.anchorBasis)}${comp ? ' · ' + comp + '% of mid' : ''}`, 'pay-anchor')}
+      </div>
+      <div class="ri-grid">
+        <div class="ri-panel"><h4>Organization diagram ${chip(m.rtFrom)}</h4>${orgSvg(job, m)}
+          ${m.x.rtSrc || m.x.directSrc ? `<div class="ri-quote">${m.x.rtSrc ? `<div><b>Posting:</b> “${esc(m.x.rtSrc)}”</div>` : ''}${m.x.directSrc && m.directFrom === 'posting' ? `<div><b>Posting:</b> “${esc(m.x.directSrc)}”</div>` : ''}</div>` : ''}</div>
+        <div class="ri-panel"><h4>Pay: posting · grade · market ${chip(m.posted || m.range ? (m.postedFrom === 'you' || m.gradeFrom === 'you' ? 'you' : 'posting') : 'estimate')}</h4>${paySvg(m)}
+          <ul class="ri-notes">
+            ${m.posted ? '' : m.range ? `<li><b>The posting gives a grade, not dollars.</b> Harvard’s published Grade ${esc(m.grade)} range is used. If the job is in Massachusetts, employers with 25+ employees must also state a pay range in the posting (since Oct 29, 2025) — ask HR for the hiring range within the grade.</li>` : `<li><b>No range in the posting.</b> If the job is in Massachusetts, employers with 25+ employees must include a pay range in job postings (since Oct 29, 2025) — ask HR or the recruiter for it.</li>`}
+            ${gapMkt ? `<li><b>The range tops out below the market median</b> (${k(m.mktMed)}). At universities the grade, not negotiation, usually caps base pay — weigh benefits, tuition, hybrid work and title.</li>` : `<li>The market median for ${esc(m.market[0].name.toLowerCase())} sits ${m.range || m.posted ? 'inside the range — there is room to ask above the minimum' : 'here because no range was found'}.</li>`}
+            <li>New staff are often hired between the minimum and the midpoint; above the midpoint usually needs documented depth. Your anchor (${k(m.anchor)}) reflects ${a.span || 0} documented years vs. ${a.yearsAsk || 0}+ asked — a heuristic, not an offer prediction.</li>
+          </ul></div>
+      </div>
+      <details class="ri-edit" ${o.open ? 'open' : ''}><summary>✎ Confirm or correct what you learned (saved with this job)</summary>
+        <div class="ri-form">
+          <label>Reports to<input data-ri-f="reportsTo" value="${esc(o.reportsTo || '')}" placeholder="${esc(m.x.reportsTo || 'e.g. Senior Director, Data & Analytics')}"></label>
+          <label>Dotted line / key partners<input data-ri-f="dotted" value="${esc((o.dotted || []).join(', '))}" placeholder="${esc((m.dotted || []).join(', ') || 'e.g. CFO, CIO')}"></label>
+          <label>Direct reports (count)<input data-ri-f="direct" type="number" min="0" max="400" value="${esc(o.direct ?? '')}" placeholder="${m.x.direct ?? '?'}"></label>
+          <label>Total FTEs in the unit<input data-ri-f="total" type="number" min="0" max="5000" value="${esc(o.total ?? '')}" placeholder="${m.x.total ?? '?'}"></label>
+          <label class="wide">Team roles (comma-separated)<input data-ri-f="roles" value="${esc((o.roles || []).join(', '))}" placeholder="${esc(m.x.roles.join(', ') || 'e.g. Data Analyst, BI Developer, Data Engineer')}"></label>
+          <label>Salary grade<input data-ri-f="grade" value="${esc(o.grade || '')}" placeholder="${esc(m.x.grade || 'e.g. 059')}"></label>
+          <label>Posted minimum ($)<input data-ri-f="postedMin" type="number" min="0" step="1000" value="${esc(o.postedMin ?? '')}" placeholder="${m.x.posted ? m.x.posted[0] : ''}"></label>
+          <label>Posted maximum ($)<input data-ri-f="postedMax" type="number" min="0" step="1000" value="${esc(o.postedMax ?? '')}" placeholder="${m.x.posted ? m.x.posted[1] : ''}"></label>
+          <fieldset class="wide"><legend>Market comparators (Boston metro, May 2025)</legend><div class="ri-cks">${optsMkt}</div></fieldset>
+        </div>
+        <div class="jf-actions"><button type="button" class="jf-btn" data-ri="reset">Reset to what the posting says</button></div>
+      </details>
+      <p class="jf-foot">Sources: <a href="${GRADES.harvardAP.url}" target="_blank" rel="noopener">${esc(GRADES.harvardAP.src)}</a> · <a href="${MKT_URL}" target="_blank" rel="noopener">${esc(MKT_SRC)}</a>. Market figures are metro-wide for all employers, not university-only. Typical-pattern boxes are estimates — never present them as facts in an application.</p>
+    </section>`;
+  }
+
+  function researchPrompt(job, m) {
+    return `Research the "${job.title || 'role'}" position at ${job.org || 'the organization'}${job.url ? ' (posting: ' + job.url + ')' : ''}.
+Use the organization's own website, published org charts, staff directories, annual reports, LinkedIn and the posting itself. Find:
+1. The exact title (and name, if public) of the person this role reports to, plus that person's own manager.
+2. Any dotted-line relationships or key partner offices.
+3. The number of direct reports and the total FTEs in the unit, with their job titles.
+4. The salary grade and the posted pay range. If Harvard, map the grade to https://hr.harvard.edu/salary-ranges.
+5. The unit's annual budget, if published.
+Cite a source URL for every fact. Write "not found" instead of guessing. Do not infer names.
+Return only this JSON:
+{"reportsTo":"","dotted":[],"direct":null,"total":null,"roles":[],"grade":"","postedMin":null,"postedMax":null,"sources":[]}
+Already known from the posting: reports to = ${m.x.reportsTo || 'not stated'}; direct reports = ${m.x.direct ?? 'not stated'}; grade = ${m.x.grade || 'not stated'}; posted range = ${m.x.posted ? money(m.x.posted[0]) + '–' + money(m.x.posted[1]) : 'not stated'}.`;
+  }
+
+  let cur = null;
+  function click(e, a, job, ctx) {
+    const el = e.target.closest('[data-ri]'); if (!el) return false;
+    const act = el.dataset.ri, m = model(a, job); cur = { a, job, ctx };
+    const ri = job.roleIntel || (job.roleIntel = {});
+    if (act === 'research') {
+      const p = researchPrompt(job, m), q = encodeURIComponent;
+      const org = job.org || '', ttl = job.title || '';
+      ctx.openDlg('Role & pay intelligence', 'Research this role', ctx.cj({
+        lead: 'The studio runs offline, so it cannot browse. Use the prompt with an AI assistant that has web search (or do the searches yourself), then paste the JSON back. Only confirmed, sourced facts belong here.',
+        bad: 'Guessing the hiring manager or team size from LinkedIn titles alone and quoting it to the hiring team as fact.',
+        good: 'Confirm reporting line and team size from the posting, the org’s own directory or the recruiter — and cite where each fact came from.',
+        badEx: '“I look forward to managing your team of 12.” (never confirmed)', goodEx: '“The posting notes four analysts; I’d welcome hearing how the team is structured today.”',
+        rule: 'Sourced fact → state it. Typical pattern → ask about it.',
+        fixes: ['Copy the research prompt and run it with web search.', 'Open the quick searches below to check the org chart and directory.', 'Paste the JSON and press Apply — or type facts into “Confirm or correct”.', 'Ask the recruiter the two questions in the box below if anything is still unknown.'],
+        after: `<h3>Research prompt</h3><textarea class="ri-ta" readonly rows="9">${esc(p)}</textarea><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-ri="copy-prompt">Copy prompt</button></div>
+          <h3>Quick searches</h3><div class="ri-links">
+            <a class="jf-chip" target="_blank" rel="noopener" href="https://www.google.com/search?q=${q(`"${org}" organizational chart ${ttl}`)}">Org chart</a>
+            <a class="jf-chip" target="_blank" rel="noopener" href="https://www.google.com/search?q=${q(`"${org}" staff directory`)}">Staff directory</a>
+            <a class="jf-chip" target="_blank" rel="noopener" href="https://www.google.com/search?q=${q(`"${org}" "${m.reportsTo || m.level.boss.split(',')[0]}"`)}">Who holds the reports-to role</a>
+            <a class="jf-chip" target="_blank" rel="noopener" href="https://www.linkedin.com/search/results/people/?keywords=${q(org + ' ' + (m.reportsTo || ''))}">LinkedIn people</a>
+            <a class="jf-chip" target="_blank" rel="noopener" href="https://www.google.com/search?q=${q(`"${org}" "${ttl}" salary grade`)}">Grade / salary</a>
+            <a class="jf-chip" target="_blank" rel="noopener" href="${GRADES.harvardAP.url}">Harvard grade table</a>
+            <a class="jf-chip" target="_blank" rel="noopener" href="${MKT_URL}">BLS wages (Boston)</a></div>
+          <h3>Paste research JSON</h3><textarea class="ri-ta" id="riPaste" rows="6" placeholder='{"reportsTo":"Senior Director, ...","direct":4,"grade":"059","sources":["https://..."]}'></textarea><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-ri="apply-json">Apply to this job</button></div>
+          <h3>Still unknown? Ask the recruiter</h3><ol class="jf-list"><li>“Who would this role report to, and how is the team structured today?”</li><li>“What is the salary grade and the hiring range for this position?”</li></ol>` }));
+      return true;
+    }
+    if (act === 'copy-prompt') { const t = document.querySelector('#jfDlgBody .ri-ta'); const v = t ? t.value : researchPrompt(job, m); (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject()).then(() => ctx.toast('Research prompt copied.'), () => { if (t) { t.select(); document.execCommand('copy'); } ctx.toast('Prompt selected — press Ctrl/Cmd+C if it did not copy.'); }); return true; }
+    if (act === 'apply-json') {
+      const t = document.getElementById('riPaste'); let j;
+      try { const raw = (t.value.match(/\{[\s\S]*\}/) || [''])[0]; j = JSON.parse(raw); } catch (err) { ctx.toast('That does not look like valid JSON — check the braces and quotes.'); return true; }
+      const num = (v) => (v === null || v === '' || v === undefined || isNaN(Number(v)) ? undefined : Number(v));
+      const arr = (v) => (Array.isArray(v) ? v.map(String).filter((x) => x && !/not found/i.test(x)) : typeof v === 'string' && v && !/not found/i.test(v) ? v.split(/\s*,\s*/) : undefined);
+      const str = (v) => (typeof v === 'string' && v.trim() && !/not found/i.test(v) ? v.trim().slice(0, 120) : undefined);
+      const upd = { reportsTo: str(j.reportsTo), dotted: arr(j.dotted), direct: num(j.direct), total: num(j.total), roles: arr(j.roles), grade: str(j.grade), postedMin: num(j.postedMin), postedMax: num(j.postedMax), sources: arr(j.sources) };
+      let n = 0; Object.entries(upd).forEach(([key, v]) => { if (v !== undefined && !(Array.isArray(v) && !v.length)) { ri[key] = v; n++; } });
+      ctx.save(); document.getElementById('jfDialog').close(); ctx.render(); ctx.toast(n ? `Applied ${n} researched field${n > 1 ? 's' : ''}.` : 'No usable fields found — everything was empty or “not found”.');
+      return true;
+    }
+    if (act === 'reset') { if (!confirm('Clear your confirmed values and go back to what the posting says?')) return true; job.roleIntel = {}; ctx.save(); ctx.render(); ctx.toast('Back to the posting’s facts.'); return true; }
+    if (act === 'method' || act.startsWith('pay')) {
+      ctx.openDlg('Role & pay intelligence', 'How pay is estimated', ctx.cj({
+        lead: `Three lenses: what the posting says, what the employer’s grade allows, and what the Boston market pays similar work. Primary comparator: <b>${esc(m.market[0].name)}</b> (median ${money(m.mktMed)}).`,
+        bad: 'Quoting a national average or a single salary website number, or asking for the market median when the grade tops out below it.',
+        good: 'Anchor inside the employer’s range using your documented depth, and use market data to argue position within the range — not above it.',
+        badEx: '“Glassdoor says $190k, so I want $190k.”', goodEx: `“Given ${a.span || 'my'} years of directly relevant work, I’d target around ${k(m.anchor)}, within the posted range.”`,
+        rule: 'Range sets the ceiling; evidence sets your position in it; market data explains why.',
+        fixes: [`Range used: ${esc(m.anchorBasis)}${m.range ? ` (Grade ${esc(m.grade)}: ${money(m.range[0])} – ${money(m.range[2])})` : m.posted ? ` (${money(m.posted[0])} – ${money(m.posted[1])})` : ''}.`, `Position: ${Math.round(m.pos * 100)}% into the range = 40% baseline, +1.2 points per documented year beyond the ask (${a.span || 0} vs ${a.yearsAsk || 0}), ±6–8 points for evidence match (${a.score}/100), held between 20% and 60% (just above the midpoint).`, 'Market lens: BLS May 2025 wages for the Boston-Cambridge-Newton metro, all employers. Universities often pay below private-sector medians for the same title.', 'Grade tables: Harvard Administrative & Professional and HUCTW ranges effective July 1, 2026. Other employers: enter their grade range yourself.', 'Always confirm the hiring range with HR before naming a number.'],
+        after: `<h3>Market detail (Boston metro, annual)</h3><table class="jf-mini-t"><thead><tr><th>Occupation (SOC)</th><th>P10</th><th>P25</th><th>Median</th><th>P75</th><th>P90</th></tr></thead><tbody>${m.market.map((q) => `<tr><td>${esc(q.name)} (${q.soc})</td>${q.p.map((v) => `<td>${k(v)}</td>`).join('')}</tr>`).join('')}</tbody></table><p class="jf-sub">Source: <a href="${MKT_URL}" target="_blank" rel="noopener">${esc(MKT_SRC)}</a>.</p>` }));
+      return true;
+    }
+    if (act === 'box-rt' || act === 'box-dot') {
+      ctx.openDlg('Organization diagram', act === 'box-rt' ? 'Reporting line' : 'Dotted-line & partner offices', ctx.cj({
+        lead: act === 'box-rt' ? (m.reportsTo ? `Reports to: <b>${esc(m.reportsTo)}</b> (${m.rtFrom === 'you' ? 'confirmed by you' : 'from the posting'}).` : `The posting does not say. For a ${esc(m.level.name.toLowerCase())}, the boss is typically a ${esc(m.level.boss)} — an estimate to confirm.`) : `Shown: ${esc((m.dotted || []).join(', ') || 'none found')}.`,
+        bad: 'Writing a cover letter to “the hiring committee” without knowing whose priorities the role serves.',
+        good: 'Name the reporting line’s goals: tailor your 30-60-90 plan to what that leader is measured on.',
+        rule: 'Know your boss’s scorecard before the interview.',
+        fixes: ['Look up the reports-to leader’s recent announcements or strategic plan.', 'Mirror their priorities in the first paragraph of your letter.', 'Ask in the interview: “What would success look like for you in the first year?”'] }));
+      return true;
+    }
+    if (act === 'box-team' || act === 'box-role') {
+      ctx.openDlg('Organization diagram', act === 'box-role' ? 'This role' : 'Span of control', ctx.cj({
+        lead: m.direct == null ? `Team size is not in the posting. Typical for a ${esc(m.level.name.toLowerCase())}: ${m.level.fte[0]}–${m.level.fte[1]} FTEs (estimate).` : `${m.direct} direct report${m.direct === 1 ? '' : 's'}${m.total != null ? ', ' + m.total + ' FTEs in the unit' : ''} — ${m.directFrom === 'you' ? 'confirmed by you' : 'from the posting'}.`,
+        bad: 'Claiming “large team leadership” in general terms, or overstating the size of teams you led.',
+        good: 'Match the span you will manage with the spans you have managed — and state yours exactly.',
+        badEx: '“Extensive people-management experience.”', goodEx: '“Oversaw two teams of three (workflow and quality control), including hiring and performance reviews.”',
+        rule: 'Same-size proof beats bigger-sounding claims.',
+        fixes: ['Find your closest matching span of control on your résumé.', 'Add hiring, coaching and review responsibilities if true.', 'If the new team is larger than any you led, say how you will scale (managers-of-managers, cadences, dashboards).'] }));
+      return true;
+    }
+    return false;
+  }
+
+  function change(e, a, job, ctx) {
+    const t = e.target, ri = job.roleIntel || (job.roleIntel = {});
+    if (t.dataset.riF) {
+      const f = t.dataset.riF, v = t.value.trim();
+      if (['dotted', 'roles'].includes(f)) { if (v) ri[f] = v.split(/\s*,\s*/).filter(Boolean); else delete ri[f]; }
+      else if (['direct', 'total', 'postedMin', 'postedMax'].includes(f)) { if (v === '') delete ri[f]; else ri[f] = Math.max(0, Number(v)); }
+      else { if (v) ri[f] = v; else delete ri[f]; }
+      ri.open = true; ctx.save(); ctx.render(); return true;
+    }
+    if (t.dataset.riMkt) {
+      const ids = [...document.querySelectorAll('[data-ri-mkt]')].filter((x) => x.checked).map((x) => x.dataset.riMkt).slice(0, 4);
+      ri.market = ids; ri.open = true; ctx.save(); ctx.render(); return true;
+    }
+    return false;
+  }
+
+  return { html, click, change, extract, model, MARKET, GRADES };
+})();
+
 window.EPSmarter = (() => {
   'use strict';
   const UI_KEY = 'ep_smarter_ui_v1';
@@ -9279,7 +9694,7 @@ window.EPSmarter = (() => {
     const start = sm.start || nextMonday();
     const fte = sm.fte != null ? Number(sm.fte) : 1.5;
     const baseWeeks = [3, 3, 6, 4, 4, 2];
-    const wbs = A.wbs.map(([ph, pkgs], pi) => ({ ph, pkgs: pkgs.map((n, k) => { const m = Math.max(1, Math.round((baseWeeks[pi] || 3) * (0.6 + R() * 0.5) * (k === 0 ? 1 : 0.8))); return { id: `${pi + 1}.${k + 1}`, n, m, o: Math.max(1, Math.round(m * 0.7)), p: Math.round(m * 1.7 + 0.5) }; }) }));
+    const wbs = withAssurance(A.wbs).map(([ph, pkgs], pi) => ({ ph, pkgs: pkgs.map(({ n, as, sh }, k) => { const m = Math.max(1, Math.round((baseWeeks[pi] || 3) * (0.6 + R() * 0.5) * (k === 0 ? 1 : 0.8))); return { id: `${pi + 1}.${k + 1}`, n, as, sh, m, o: Math.max(1, Math.round(m * 0.7)), p: Math.round(m * 1.7 + 0.5) }; }) }));
     let wk = 0; wbs.forEach((p) => { p.start = wk; let mx = 0; p.pkgs.forEach((q, k) => { q.start = wk + (k ? Math.min(1, Math.floor(p.pkgs[0].m / 2)) : 0); q.end = q.start + q.m; mx = Math.max(mx, q.end); }); p.end = mx; const crit = p.pkgs.reduce((x, y) => (y.end > x.end ? y : x)); crit.crit = true; wk = mx; });
     const planned = wk;
     // Monte Carlo
@@ -9339,7 +9754,7 @@ window.EPSmarter = (() => {
       T: ['Competing priorities for staff time', 'Data access and definition disputes', a.kws.filter((k) => !k.have).length > 5 ? 'Screeners may filter on missing keywords' : 'Budget tightening'],
     };
     // actions
-    const actions = wbs.slice(0, 3).flatMap((ph) => ph.pkgs.map((q) => ({ id: q.id, t: q.n, owner: q.crit ? 'Program lead' : ['Data owner', 'Unit lead', 'Analyst', 'Executive sponsor'][hash(q.n) % 4], due: iso(addDays(start, (q.end) * 7)), ph: ph.ph })));
+    const actions = wbs.slice(0, 3).flatMap((ph) => ph.pkgs.map((q) => ({ id: q.id, t: q.n, owner: q.as ? ASSURE.find((x) => x.k === q.as).owner : q.crit ? 'Program lead' : ['Data owner', 'Unit lead', 'Analyst', 'Executive sponsor'][hash(q.n) % 4], due: iso(addDays(start, (q.end) * 7)), ph: ph.ph })));
     const model = { a, job, r, P, cands, order, pick, W, sumW, A, start, fte, wbs, planned, sorted, pct, deadline, pOnTime, rate, tools, hoursSaved, valueHr, disc, cost, annual, yrs, npv, roi, payback, p80cost, kpis, trend, fc, anomalies, reg, regFit, riskModel, bench, risks, swot, actions, gapShare };
     memo.set(key, model);
     return model;
@@ -9412,7 +9827,7 @@ window.EPSmarter = (() => {
     g += `<line x1="${L + m.deadline * sc}" x2="${L + m.deadline * sc}" y1="${T - 6}" y2="${H}" stroke="#b4533f" stroke-dasharray="4 3"/><text x="${L + m.deadline * sc - 4}" y="${H - 2}" text-anchor="end" font-size="9.5" fill="#b4533f" font-weight="700" ${F}>deadline</text>`;
     m.wbs.forEach((ph, pi) => {
       const y = T + r * rowH; g += `<text x="6" y="${y + 15}" font-size="11.5" font-weight="700" fill="#1f425a" ${F}>${pi + 1} · ${E(ph.ph)}</text><rect x="${L + ph.start * sc}" y="${y + 7}" width="${(ph.end - ph.start) * sc}" height="7" rx="3" fill="${cols[pi]}" opacity=".35"/><polygon points="${L + ph.end * sc},${y + 4} ${L + ph.end * sc + 6},${y + 10} ${L + ph.end * sc},${y + 16} ${L + ph.end * sc - 6},${y + 10}" fill="${cols[pi]}"/>`; r++;
-      ph.pkgs.forEach((q) => { const yy = T + r * rowH; g += `<text x="18" y="${yy + 14}" font-size="10.5" fill="#3e5a6b" ${F}>${q.id} ${E(short(q.n, 30))}</text><rect x="${L + q.start * sc}" y="${yy + 4}" width="${Math.max(4, q.m * sc)}" height="13" rx="4" fill="${cols[pi]}" ${q.crit ? 'stroke="#b4533f" stroke-width="2"' : ''}/><text x="${L + q.end * sc + 5}" y="${yy + 14}" font-size="9.5" fill="#6b8190" ${F}>${q.m}w${q.crit ? ' · critical' : ''}</text>`; r++; });
+      ph.pkgs.forEach((q) => { const yy = T + r * rowH; g += `${q.as ? `<rect x="7" y="${yy + 6}" width="8" height="8" rx="2" fill="#8a5fa8" transform="rotate(45 11 ${yy + 10})"/>` : ''}<text x="18" y="${yy + 14}" font-size="10.5" fill="${q.as ? '#5d3f78' : '#3e5a6b'}" ${F}>${q.id} ${E(short(q.sh || q.n, 30))}</text><rect x="${L + q.start * sc}" y="${yy + 4}" width="${Math.max(4, q.m * sc)}" height="13" rx="4" fill="${cols[pi]}" ${q.crit ? 'stroke="#b4533f" stroke-width="2"' : ''}/><text x="${L + q.end * sc + 5}" y="${yy + 14}" font-size="9.5" fill="#6b8190" ${F}>${q.m}w${q.crit ? ' · critical' : ''}</text>`; r++; });
     });
     return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gantt chart: ${m.wbs.length} phases over ${m.planned} weeks; critical-path work packages outlined in red">${g}</svg>`;
   }
@@ -9464,7 +9879,7 @@ window.EPSmarter = (() => {
     ['r', 'R', 'Relevant', 'Decision matrix · recommendations · best practice'],
     ['t', 'T', 'Time-bound', 'Roadmap · Gantt · action plan'],
     ['e', 'E', 'Evaluate (AI/ML)', 'Regression · forecast · Monte Carlo · anomaly · predictive'],
-    ['v', 'R', 'Review', 'Risk register · SOP · smoke test'],
+    ['v', 'R', 'Review & assure', 'QA/UAT · security · value audit · Lean Six Sigma · risks · smoke test'],
   ];
   const card = (title, sub, body, prov) => `<div class="jf-card"><h3>${title} ${prov || ''}</h3>${sub ? `<p class="jf-sub">${sub}</p>` : ''}${body}</div>`;
 
@@ -9484,7 +9899,7 @@ window.EPSmarter = (() => {
     const k = m.kpis; const vals = String(m.r.values || '').split('\n').map((x) => x.trim()).filter(Boolean);
     const exec = `<div class="sm-exec">${[['Problem', m.A.problem, '#b4533f'], ['Proposal', m.P.name + (m.P.src === 'published' ? ' — builds on a published initiative.' : ' — derived from the posting; match it to a published plan.'), '#2f6aa8'], ['Outcome', m.A.outcome, '#2f8a6b'], ['Ask', `Approve a ${m.planned}-week program (P80 ${m.pct(0.8).toFixed(0)} weeks) at about ${money(m.cost)}; review at each gate.`, '#8a5fa8']].map(([t, d, c]) => `<div style="border-top:4px solid ${c}"><b style="color:${c}">${t}</b><p>${E(d)}</p></div>`).join('')}</div>`;
     const big = `<div class="sm-big">${[[m.planned + ' wks', 'planned duration'], [Math.round(m.pOnTime * 100) + '%', 'chance on time (Monte Carlo)'], [money(m.cost), 'estimated investment'], [Math.round(m.roi) + '%', '3-year ROI'], [k.length, 'KPIs with targets'], [m.risks.length, 'risks owned']].map(([v, l]) => `<div><strong>${v}</strong><span>${l}</span></div>`).join('')}</div>`;
-    const charter = `<table class="jf-track sm-charter"><tbody>${[['Project', E(m.P.name) + (m.P.url ? ` · <a href="${E(m.P.url)}" target="_blank" rel="noopener noreferrer">source ↗</a>` : '')], ['Organization', E(m.r.org || m.job.org || '—')], ['Role leading it', E(m.job.title || '—')], ['Executive sponsor', 'Named in the posting’s reporting line — verify'], ['Objective', E(m.A.outcome)], ['In scope', E(m.wbs.map((p) => p.ph).join(' → '))], ['Out of scope', 'Replacing systems of record; new data collection without approval; personnel decisions from model output'], ['Deliverables', E(m.wbs.flatMap((p) => p.pkgs.slice(0, 1).map((q) => q.n)).join(' · '))], ['Success measures', E(k.map((x) => x.name).join(' · '))], ['Budget (estimate)', money(m.cost) + ' ' + EST], ['Timeline', `${m.start} · ${m.planned} weeks · gates at every phase end`], ['Mission link', m.r.mission ? E(short(m.r.mission.split('\n')[0], 160)) : '<span class="sm-miss">Add researched mission text (Step 0)</span>']].map(([a, b]) => `<tr><th>${a}</th><td>${b}</td></tr>`).join('')}</tbody></table>`;
+    const charter = `<table class="jf-track sm-charter"><tbody>${[['Project', E(m.P.name) + (m.P.url ? ` · <a href="${E(m.P.url)}" target="_blank" rel="noopener noreferrer">source ↗</a>` : '')], ['Organization', E(m.r.org || m.job.org || '—')], ['Role leading it', E(m.job.title || '—')], ['Executive sponsor', 'Named in the posting’s reporting line — verify'], ['Objective', E(m.A.outcome)], ['In scope', E(m.wbs.map((p) => p.ph).join(' → '))], ['Out of scope', 'Replacing systems of record; new data collection without approval; personnel decisions from model output'], ['Deliverables', E(m.wbs.flatMap((p) => p.pkgs.slice(0, 1).map((q) => q.n)).join(' · '))], ['Success measures', E(k.map((x) => x.name).join(' · '))], ['Quality & assurance', E(ASSURE.map((x) => x.n).join(' · ')) + ' — every area has a WBS package, owner, target and gate (see Review & assure)'], ['Budget (estimate)', money(m.cost) + ' ' + EST], ['Timeline', `${m.start} · ${m.planned} weeks · gates at every phase end`], ['Mission link', m.r.mission ? E(short(m.r.mission.split('\n')[0], 160)) : '<span class="sm-miss">Add researched mission text (Step 0)</span>']].map(([a, b]) => `<tr><th>${a}</th><td>${b}</td></tr>`).join('')}</tbody></table>`;
     const align = vals.length ? `<div class="sm-values">${vals.slice(0, 6).map((v, i) => `<div><b>${E(short(v, 40))}</b><small>→ ${E(['governed definitions & one source of truth', 'leaders see impact, not just activity', 'access, privacy & human review built in', 'self-service for every unit', 'measured outcomes reviewed monthly', 'transparent decisions & change log'][i % 6])}</small></div>`).join('')}</div>` : '<p class="sm-miss">No values loaded. Research them in Step 0 — the platform maps each value to a design choice.</p>';
     return `<div class="sm-visual">${flowStrip(m)}</div>${big}<div class="jf-grid2">${card('Executive summary', 'Problem → proposal → outcome → ask.', exec)}${card('Mission & values alignment', m.r.mission ? E(short(m.r.mission.split('\n')[0], 260)) : 'Mission not yet researched.', align, m.r.origin === 'ai' ? AID : m.r.mission ? PUB : '')}</div><div style="margin-top:14px">${card('Project charter', 'One page, signed before build starts.', charter)}</div>`;
   }
@@ -9533,7 +9948,7 @@ window.EPSmarter = (() => {
   function stageT(m) {
     const st = m.job.smarter.actions || {};
     const rows = m.actions.map((x) => `<tr><td>${x.id}</td><td>${E(x.t)}</td><td>${E(x.ph)}</td><td>${E(x.owner)}</td><td>${x.due}</td><td><select data-sm-action="${x.id}" aria-label="Status for ${E(x.t)}">${['Not started', 'In progress', 'Done', 'Blocked'].map((s) => `<option${(st[x.id] || 'Not started') === s ? ' selected' : ''}>${s}</option>`).join('')}</select></td></tr>`).join('');
-    return `<div class="jf-fieldrow" style="margin:0 0 12px"><label>Start date<input type="date" data-sm-start value="${m.start}"></label><label>Deadline (weeks)<input type="number" min="4" max="104" data-sm-num="deadline" value="${m.deadline}"></label></div>${card('Roadmap', 'Phases and gates on the calendar.', `<div class="jf-wrap-x">${roadmap(m)}</div>`)}<div style="margin-top:14px">${card('Gantt chart', `${m.planned} planned weeks. Diamonds = phase gates; red outline = critical path; red dashed line = deadline.`, `<div class="jf-wrap-x">${gantt(m)}</div>`)}</div><div style="margin-top:14px">${card('Action plan · first three phases', 'Owner, due date and status — saved in this browser.', `<div class="jf-wrap-x"><table class="jf-track"><thead><tr><th>WBS</th><th>Action</th><th>Phase</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></div>`)}</div>`;
+    return `<div class="jf-fieldrow" style="margin:0 0 12px"><label>Start date<input type="date" data-sm-start value="${m.start}"></label><label>Deadline (weeks)<input type="number" min="4" max="104" data-sm-num="deadline" value="${m.deadline}"></label></div>${card('Roadmap', 'Phases and gates on the calendar.', `<div class="jf-wrap-x">${roadmap(m)}</div>`)}<div style="margin-top:14px">${card('Gantt chart', `${m.planned} planned weeks. Diamonds = phase gates; purple ◆ = delivery-assurance work (QA/QC, testing, security, value audit, Lean Six Sigma, PIMS); red outline = critical path; red dashed line = deadline.`, `<div class="jf-wrap-x">${gantt(m)}</div>`)}</div><div style="margin-top:14px">${card('Action plan · first three phases', 'Owner, due date and status — saved in this browser.', `<div class="jf-wrap-x"><table class="jf-track"><thead><tr><th>WBS</th><th>Action</th><th>Phase</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></div>`)}</div>`;
   }
 
   function stageE(m) {
@@ -9543,6 +9958,101 @@ window.EPSmarter = (() => {
     <div class="jf-grid2">${card('Forecast & anomaly detection · ' + E(k0.name), `12-month forecast: grey dashed = trend without the project; blue = with the project, with 80% interval. Red circles = anomalies (rolling 6-month z-score > 2.2): <b>${m.anomalies.length}</b> found.`, lineChart(m), SAMPLE)}${card('Regression', `Linear regression of ${E(k0.name)} on ${E(m.A.driver[0].toLowerCase())}. Each +10 points is associated with ${effect >= 0 ? '+' : ''}${effect.toFixed(1)} ${E(k0.unit)} (R² ${m.regFit.r2.toFixed(2)}, n = 30). Association, not causation.`, scatterReg(m), SAMPLE)}</div>
     <div class="jf-grid2" style="margin-top:14px">${card('Monte Carlo schedule simulation', `3,000 runs with triangular (optimistic / likely / pessimistic) durations per work package. P50 ${m.pct(0.5).toFixed(0)} · P80 ${m.pct(0.8).toFixed(0)} · P95 ${m.pct(0.95).toFixed(0)} weeks. <b>${Math.round(m.pOnTime * 100)}%</b> finish by week ${m.deadline}.`, histogram(m), EST)}${card('Predictive delivery-risk model', 'Logistic score per work package from estimate spread, dependency on data access, critical path and your gap share. Highest risk first.', riskBars(m), EST)}</div>
     <div style="margin-top:14px">${card('Anomalies found', 'Investigate each before it reaches a leadership report.', m.anomalies.length ? `<table class="jf-track"><thead><tr><th>Month</th><th>Value</th><th>z-score</th><th>Next step</th></tr></thead><tbody>${m.anomalies.map((an) => `<tr><td>${an.i - 35 === 0 ? 'Now' : (an.i - 35) + ' mo'}</td><td>${fmt(an.v, k0.unit)}</td><td>${an.z.toFixed(1)}</td><td>Check source extract and definition change; confirm with the data owner</td></tr>`).join('')}</tbody></table>` : '<p>No anomalies above the threshold.</p>', SAMPLE)}</div>`;
+  }
+
+  /* ---------------- delivery assurance (8 required areas, built into every program) ---------------- */
+  const ASSURE = [
+    { k: 'pims', sh: ['PIMS intake, triage & SLA'], ic: '🎫', n: 'PIMS operations & service requests', ph: [0], pkg: ['PIMS service-request intake, triage & SLA baseline'], owner: 'Operations lead', deliv: 'Request catalog, triage rules, SLA targets and a PIMS run-book', metric: ['Requests closed within SLA', '≥ 95%'], gate: 'Discover gate: queue owner and SLAs agreed',
+      cj: { bad: 'Requests arrive by email and hallway asks; nobody can say how many are open or how long they take.', good: 'Every request enters PIMS with a category, priority and owner, and is measured against a published SLA.', badEx: '“Can you just pull this for me by tomorrow?” — untracked', goodEx: 'PIMS-1042 · Data fix · P2 · owner: analyst · SLA 3 business days', rule: 'If it is not in the queue, it is not work we can plan, staff or measure.', fixes: ['Publish a short request catalog (access, data fix, new report, question, defect).', 'Set priority rules and SLA targets per category.', 'Triage daily; review aging and SLA misses weekly.', 'Turn the top three repeat requests into self-service or automation.'] } },
+    { k: 'qa', sh: ['QA/QC plan & defect log'], ic: '🔍', n: 'QA/QC', ph: [1], pkg: ['QA/QC plan: peer review, checklists & defect log'], owner: 'QA lead', deliv: 'Quality plan, review checklists, defect-severity scale and defect log', metric: ['Defects escaping to production', '≤ 5% of all defects'], gate: 'Design gate: QA plan approved',
+      cj: { bad: 'Quality is checked once, at the end, by the person who built the work.', good: 'Quality assurance designs the checks up front; quality control runs them at every hand-off, by a second person.', rule: 'QA prevents defects; QC finds them. Plan both before you build.', fixes: ['Write the QA plan at the design gate: what is checked, by whom, when.', 'Use a checklist for every deliverable (numbers tie out, definitions match, labels correct).', 'Log every defect with severity and the stage it was found.', 'Track the escape rate — defects found after release ÷ all defects.'] } },
+    { k: 'stress', sh: ['Stress & data-integrity tests'], ic: '🧪', n: 'Stress testing & data integrity', ph: [2], pkg: ['Stress tests & data-integrity reconciliation'], owner: 'Data engineer', deliv: 'Load and volume test results; reconciliation to the system of record', metric: ['Control totals reconciled to source', '100% · 0 critical breaks'], gate: 'Build gate: integrity checks pass at 2× peak volume',
+      cj: { bad: 'Testing with a small, clean extract — then launching on a month-end peak with real, messy data.', good: 'Test at twice the expected peak and reconcile counts and totals to the system of record before anyone sees a number.', rule: 'A dashboard is only as trustworthy as its last reconciliation.', fixes: ['Define peak load (users, rows, refresh window) and test at 2×.', 'Reconcile row counts and control totals to the source every load.', 'Check duplicates, orphan keys, required fields and freshness automatically.', 'Block publication when a critical check fails; alert the data steward.'] } },
+    { k: 'uat', sh: ['UAT & sign-off'], ic: '✅', n: 'Acceptance testing', ph: [3], pkg: ['User acceptance testing (UAT) & sign-off'], owner: 'Business owner', deliv: 'Acceptance criteria, UAT scripts and a signed acceptance', metric: ['UAT cases passed', '≥ 95% · 0 open critical'], gate: 'Pilot gate: business owner signs acceptance',
+      cj: { bad: 'Asking users “does it look OK?” in a demo and calling that acceptance.', good: 'Real users run written scripts against acceptance criteria agreed at design, and the business owner signs.', badEx: '“Looks great!” — no criteria, no record', goodEx: 'UAT-07: Dean filters to her school in ≤ 3 clicks → PASS (signed 3/14)', rule: 'Acceptance criteria are written before build and signed after test.', fixes: ['Write testable acceptance criteria for each deliverable at the design gate.', 'Recruit 5–8 real users from the pilot unit.', 'Run scripts; log pass, fail or blocked with evidence.', 'Fix critical defects, retest, then get written sign-off.'] } },
+    { k: 'smoke', sh: ['Smoke tests & CUJs'], ic: '💨', n: 'Smoke tests & critical user journeys', ph: [3], pkg: ['Smoke tests & critical user journeys (CUJs)'], owner: 'QA lead', deliv: 'CUJ list and a 10-minute smoke script run after every release or refresh', metric: ['CUJs passing before each release', '100%'], gate: 'Release gate: every CUJ green',
+      cj: { bad: 'Releasing a change and waiting for a leader to report that the dashboard is broken.', good: 'Run a 10-minute smoke script over the handful of journeys that matter most, after every release and refresh.', rule: 'If a critical journey fails, the release stops.', fixes: ['List 5–7 critical user journeys with the user, the steps and the expected result.', 'Script them so anyone can run them in 10 minutes.', 'Run after every release, refresh or access change.', 'Record results; a red CUJ blocks the release.'] } },
+    { k: 'sec', sh: ['Security, delivery & handoff'], ic: '🔐', n: 'Security, delivery & handoff', ph: [4], pkg: ['Security review, delivery & handoff (runbook, hypercare)'], owner: 'Information security + program lead', deliv: 'Access matrix, security sign-off, runbook, training and 30-day hypercare', metric: ['Access review complete · critical findings', '100% · 0'], gate: 'Scale gate: security sign-off and operations accepts the handoff',
+      cj: { bad: 'Giving broad access to “get it working”, then handing over with no runbook — the builder becomes the help desk.', good: 'Least-privilege roles, a security review before scale, and a staged handoff with a runbook, training and hypercare.', rule: 'Not delivered until operations can run it without the builder.', fixes: ['Classify the data; map roles to the least access they need.', 'Run access, logging and encryption checks with information security.', 'Write the runbook: refresh, failure recovery, escalation, contacts.', 'Train the operating team, shadow them, then 30 days of hypercare and a signed handoff.'] } },
+    { k: 'value', sh: ['Value audit & decision use'], ic: '🎯', n: 'Value audit & decision usefulness', ph: [5], pkg: ['Value audit & decision-usefulness review'], owner: 'Executive sponsor', deliv: 'Benefits vs. baseline, decisions informed, user survey and an extend / fix / close decision', metric: ['Leaders rating outputs useful for decisions', '≥ 4 / 5'], gate: 'Measure gate: extend, fix or close',
+      cj: { bad: 'Measuring success by dashboards built or logins counted.', good: 'Audit whether the outputs changed or sped up real decisions, against the baseline, and act on the answer.', badEx: '“We launched 14 dashboards.”', goodEx: '“Budget decisions now use one forecast; time to decide fell from 9 to 3 days.”', rule: 'Usage is not value. Better decisions are.', fixes: ['Name 3–5 decisions the program is meant to improve, at the start.', 'At 90 days, ask the decision-makers: used? trusted? faster? different?', 'Compare KPIs with the baseline and the benefit case.', 'Decide in writing: extend, fix or close — and retire what is not used.'] } },
+    { k: 'lss', sh: ['Lean Six Sigma: Define–Measure', 'Lean Six Sigma: Control plan'], ic: '⚙️', n: 'Process improvement (Lean Six Sigma)', ph: [0, 5], pkg: ['Lean Six Sigma Define–Measure: SIPOC, value-stream map, baseline sigma', 'Lean Six Sigma Control: control chart, control plan & next DMAIC cycle'], owner: 'Process improvement lead', deliv: 'Project charter, SIPOC, value-stream map, control chart and control plan', metric: ['Process sigma level', 'baseline → +0.5σ'], gate: 'Control: chart stable for 8 weeks before close',
+      cj: { bad: 'Automating a broken process — the waste just runs faster.', good: 'Map and measure first (DMAIC), remove waste (Lean), then automate and hold the gain with a control plan.', rule: 'Fix the process, then the tool. Then prove the gain holds.', fixes: ['Define: charter and SIPOC for the process in scope.', 'Measure: baseline cycle time, defect rate and sigma level.', 'Analyze: value-stream map; find the top waste and root causes.', 'Improve: pilot the change; Control: control chart and owner for 8+ weeks.'] } },
+  ];
+  const DMAIC = [['D', 'Define', 'Discover', 'Charter · SIPOC · voice of the customer'], ['M', 'Measure', 'Discover', 'Baseline · data collection plan · sigma'], ['A', 'Analyze', 'Design', 'Value-stream map · root cause · Pareto'], ['I', 'Improve', 'Build → Pilot', 'Pilot the change · mistake-proofing'], ['C', 'Control', 'Scale → Measure', 'Control chart · control plan · owner']];
+  const invN = (p) => { const a = [-39.69683028665376, 220.9460984245205, -275.9285104469687, 138.357751867269, -30.66479806614716, 2.506628277459239], b = [-54.47609879822406, 161.5858368580409, -155.6989798598866, 66.80131188771972, -13.28068155288572], c = [-0.007784894002430293, -0.3223964580411365, -2.400758277161838, -2.549732539343734, 4.374664141464968, 2.938163982698783], d = [0.007784695709041462, 0.3224671290700398, 2.445134137142996, 3.754408661907416], pl = 0.02425; let q, r; if (p < pl) { q = Math.sqrt(-2 * Math.log(p)); return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); } if (p <= 1 - pl) { q = p - 0.5; r = q * q; return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1); } q = Math.sqrt(-2 * Math.log(1 - p)); return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); };
+  const sigmaOf = (p) => invN(1 - clamp(p, 1e-6, 0.5)) + 1.5;
+  function withAssurance(def) {
+    const last = def.length - 1;
+    return def.map(([ph, pkgs], pi) => {
+      const list = pkgs.map((n) => ({ n, as: null }));
+      list.forEach((q) => { if (/user acceptance|\buat\b|acceptance test/i.test(q.n)) { q.n = ASSURE[3].pkg[0]; q.as = 'uat'; q.sh = ASSURE[3].sh[0]; } else if (/hand-?over|hand-?off/i.test(q.n)) { q.n = ASSURE[5].pkg[0]; q.as = 'sec'; q.sh = ASSURE[5].sh[0]; } });
+      ASSURE.forEach((x) => x.ph.forEach((p, j) => { if (Math.min(p, last) !== pi) return; const nm = x.pkg[j]; if (!list.some((q) => q.as === x.k && q.n === nm)) list.push({ n: nm, as: x.k, sh: x.sh[j] }); }));
+      return [ph, list];
+    });
+  }
+  function assureModel(m) {
+    if (m._as) return m._as;
+    const ar = rng(hash('as' + m.job.id));
+    const areas = ASSURE.map((x) => { const pk = m.wbs.flatMap((ph) => ph.pkgs.filter((q) => q.as === x.k)); return { ...x, pk, wk: pk.length ? [Math.min(...pk.map((q) => q.start)), Math.max(...pk.map((q) => q.end))] : null }; });
+    const covered = areas.filter((x) => x.pk.length && x.owner && x.metric && x.gate).length;
+    const k0 = m.kpis[0];
+    const errK = m.kpis.find((k) => k.unit === '%' && k.dir < 0 && /error|exception|defect|fail|rework|incomplete/i.test(k.name));
+    const pB = errK ? clamp(errK.base / 100, 0.002, 0.4) : 0.048, pT = errK ? clamp(errK.target / 100, 0.0005, pB) : 0.015;
+    const nWk = 200, pchart = []; for (let w = 0; w < 26; w++) { const p = w < 13 ? pB : pB + (pT - pB) * Math.min(1, (w - 12) / 6); const v = clamp(p + gauss(ar) * Math.sqrt(p * (1 - p) / nWk), 0, 1); pchart.push(v); }
+    const ucl = pB + 3 * Math.sqrt(pB * (1 - pB) / nWk), lcl = Math.max(0, pB - 3 * Math.sqrt(pB * (1 - pB) / nWk));
+    const pims = ['Access', 'Data fix', 'New report', 'Question', 'Defect'].map((c, i) => ({ c, n: Math.round(18 + ar() * 60), sla: clamp(0.72 + ar() * 0.25 - (i === 2 ? 0.12 : 0), 0.4, 0.99) }));
+    const qa = ['Design', 'Build', 'UAT', 'Production'].map((s, i) => ({ s, base: [6, 14, 18, 12][i], tgt: [14, 20, 9, 2][i] }));
+    const load = [25, 50, 100, 150, 200, 250, 300, 400].map((u) => ({ u, ms: Math.round(380 + u * 1.9 + Math.pow(Math.max(0, u - 200), 2) * 0.05 + ar() * 120) }));
+    const integ = [['Row counts match the source', 'pass', '0 rows off'], ['Control totals reconcile ($, headcount)', 'pass', '±0.00%'], ['No duplicate keys', 'warn', '3 duplicates routed to steward'], ['Referential integrity (no orphan IDs)', 'pass', '0 orphans'], ['Required fields complete', 'pass', '99.6% complete'], ['Data freshness within 24 h', 'pass', 'refreshed 06:10']];
+    const uat = { total: 60, pass: 54, fail: 3, blocked: 3 };
+    const cujs = [`Sign in with a role and see only the data that role is allowed`, `Submit a service request in PIMS and get an acknowledgement within SLA`, `Find “${k0.name}” and its definition in 3 clicks or fewer`, `Filter to one unit and drill from the summary to the detail`, `Export the view and match the total to the system of record`, `See the last refresh date and report a data issue in one step`];
+    const cujR = cujs.map((c, i) => ({ c, s: i === 4 ? 'warn' : 'pass', t: Math.round(20 + ar() * 70) }));
+    const secCtl = [['Least-privilege roles mapped to the access matrix', 'pass'], ['Quarterly access review scheduled', 'pass'], ['Encryption in transit and at rest', 'pass'], ['Personal data masked in test and demo copies', 'warn'], ['Audit log of views and exports', 'pass'], ['Multi-factor sign-in through the campus identity provider', 'pass']];
+    const handoff = ['Runbook', 'Training', 'Shadowing', 'Hypercare 30 days', 'Operations sign-off'];
+    const value = [['Leaders using it for a decision', '%', 35, 80], ['Time to decision', 'days', 9, 3], ['Trust in the numbers', '/5', 2.9, 4.3], ['Would miss it if removed', '/5', 2.6, 4.2], ['Ad-hoc requests avoided', '%', 0, 55]];
+    m._as = { areas, covered, total: ASSURE.length, pB, pT, sB: sigmaOf(pB), sT: sigmaOf(pT), errK, pchart, ucl, lcl, nWk, pims, qa, load, integ, uat, cujR, secCtl, handoff, value };
+    return m._as;
+  }
+  /* mini visuals for each area (all SAMPLE) */
+  function asViz(k, s) {
+    const W = 320, txt = (x, y, t, o = {}) => `<text x="${x}" y="${y}" font-size="${o.fs || 10}" fill="${o.c || '#3e5a6b'}" text-anchor="${o.a || 'start'}"${o.b ? ' font-weight="700"' : ''} ${F}>${E(t)}</text>`;
+    const svg = (h, body, label) => `<svg viewBox="0 0 ${W} ${h}" role="img" aria-label="${E(label)}">${body}</svg>`;
+    if (k === 'pims') { const L = 78, sc = (W - L - 40); return svg(118, s.pims.map((r, i) => { const y = 8 + i * 21; return txt(L - 6, y + 11, r.c, { a: 'end' }) + `<rect x="${L}" y="${y}" width="${sc}" height="14" rx="3" fill="#eef4f6"/><rect x="${L}" y="${y}" width="${(sc * r.sla).toFixed(1)}" height="14" rx="3" fill="${r.sla >= 0.95 ? '#2f8a6b' : r.sla >= 0.85 ? '#2f7f8a' : '#c48a2c'}"/>` + txt(L + sc + 4, y + 11, Math.round(r.sla * 100) + '%', { b: 1 }); }).join('') + `<path d="M${L + sc * 0.95} 4V112" stroke="#b4533f" stroke-dasharray="3 3"/>` + txt(L + sc * 0.95 - 3, 117, '95% SLA target', { a: 'end', fs: 9, c: '#b4533f' }), 'Requests closed within SLA by category'); }
+    if (k === 'qa') { const bw = 26, x0 = 30; return svg(120, s.qa.map((r, i) => { const x = x0 + i * 72, hB = r.base * 3.6, hT = r.tgt * 3.6; return `<rect x="${x}" y="${96 - hB}" width="${bw}" height="${hB}" fill="#c9d6da"/><rect x="${x + bw + 3}" y="${96 - hT}" width="${bw}" height="${hT}" fill="${i === 3 ? '#b4533f' : '#2f7f8a'}"/>` + txt(x + bw, 110, r.s, { a: 'middle' }); }).join('') + '<path d="M20 96H300" stroke="#b9c9ce"/>' + `<rect x="200" y="4" width="9" height="9" fill="#c9d6da"/>` + txt(212, 12, 'today', { fs: 9 }) + `<rect x="246" y="4" width="9" height="9" fill="#2f7f8a"/>` + txt(258, 12, 'target', { fs: 9 }) + txt(20, 12, 'Defects found by stage — shift left', { fs: 9.5, b: 1 }), 'Defects found by stage, today versus target'); }
+    if (k === 'stress') { const L = 34, B = 96, X = (u) => L + u / 400 * (W - L - 12), Y = (ms) => B - ms / 2400 * 84; return svg(118, `<path d="M${L} 8V${B}H${W - 8}" stroke="#b9c9ce" fill="none"/><path d="M${L} ${Y(2000)}H${W - 8}" stroke="#b4533f" stroke-dasharray="4 3"/>` + txt(W - 10, Y(2000) - 3, '2 s p95 limit', { a: 'end', fs: 9, c: '#b4533f' }) + `<path d="M${s.load.map((p) => X(p.u).toFixed(1) + ' ' + Y(p.ms).toFixed(1)).join('L')}" fill="none" stroke="#2f6aa8" stroke-width="2.4"/>${s.load.map((p) => `<circle cx="${X(p.u)}" cy="${Y(p.ms)}" r="2.8" fill="#2f6aa8"/>`).join('')}<path d="M${X(200)} 8V${B}" stroke="#2f8a6b" stroke-dasharray="2 3"/>` + txt(X(200) + 3, 18, '2× peak', { fs: 9, c: '#2f8a6b', b: 1 }) + txt(L, 112, '0', { fs: 9 }) + txt(W - 10, 112, '400 concurrent users', { a: 'end', fs: 9 }) + txt(L - 4, Y(2000) + 3, '2s', { a: 'end', fs: 9 }), 'Response time as load rises, with the 2-second limit'); }
+    if (k === 'uat') { const t = s.uat.total, sc = (W - 20) / t; let x = 10; const seg = [['pass', s.uat.pass, '#2f8a6b'], ['fail', s.uat.fail, '#b4533f'], ['blocked', s.uat.blocked, '#c48a2c']].map(([l, v, c]) => { const r = `<rect x="${x}" y="22" width="${v * sc}" height="22" fill="${c}"/>`; x += v * sc; return r; }).join(''); return svg(96, txt(10, 14, `${s.uat.pass}/${t} UAT cases passed (${Math.round(s.uat.pass / t * 100)}%)`, { b: 1 }) + seg + txt(12, 60, `✓ ${s.uat.pass} passed`, { c: '#2f8a6b', b: 1 }) + txt(112, 60, `✗ ${s.uat.fail} failed`, { c: '#b4533f', b: 1 }) + txt(200, 60, `■ ${s.uat.blocked} blocked`, { c: '#c48a2c', b: 1 }) + txt(10, 82, 'Sign-off when ≥ 95% pass and 0 critical open', { fs: 9.5 }), 'User acceptance test results'); }
+    if (k === 'lss') { const L = 30, B = 94, mx = Math.max(s.ucl, ...s.pchart) * 1.15, X = (i) => L + i / 25 * (W - L - 10), Y = (v) => B - v / mx * 82; return svg(114, `<path d="M${L} 8V${B}H${W - 6}" stroke="#b9c9ce" fill="none"/><path d="M${L} ${Y(s.ucl)}H${W - 6}M${L} ${Y(s.lcl)}H${W - 6}" stroke="#b4533f" stroke-dasharray="4 3"/><path d="M${L} ${Y(s.pB)}H${W - 6}" stroke="#7a8f99"/><path d="M${X(13)} 8V${B}" stroke="#2f8a6b" stroke-dasharray="2 3"/>` + `<path d="M${s.pchart.map((v, i) => X(i).toFixed(1) + ' ' + Y(v).toFixed(1)).join('L')}" fill="none" stroke="#2f6aa8" stroke-width="2"/>${s.pchart.map((v, i) => `<circle cx="${X(i)}" cy="${Y(v)}" r="2.3" fill="${v > s.ucl ? '#b4533f' : '#2f6aa8'}"/>`).join('')}` + txt(W - 8, Y(s.ucl) - 3, 'UCL', { a: 'end', fs: 9, c: '#b4533f' }) + txt(W - 8, Y(s.pB) - 3, 'baseline p̄', { a: 'end', fs: 9 }) + txt(X(13) + 3, 18, 'change', { fs: 9, c: '#2f8a6b', b: 1 }) + txt(L, 110, `p-chart · ${s.nWk}/wk · σ ${s.sB.toFixed(2)} → ${s.sT.toFixed(2)}`, { fs: 9.5, b: 1 }), 'Control chart of the defect rate with control limits'); }
+    if (k === 'value') { const L = 150, sc = W - L - 36; return svg(118, s.value.map(([n, u, b, t], i) => { const y = 6 + i * 22, mx = u === '/5' ? 5 : u === '%' ? 100 : Math.max(b, t) * 1.1, wB = (b / mx) * sc, wT = (t / mx) * sc; return txt(L - 6, y + 11, n, { a: 'end', fs: 9.5 }) + `<rect x="${L}" y="${y + 1}" width="${sc}" height="12" rx="3" fill="#eef4f6"/><rect x="${L}" y="${y + 1}" width="${Math.max(2, wB)}" height="12" rx="3" fill="#c9d6da"/><path d="M${L + wT} ${y - 1}V${y + 15}" stroke="#2f8a6b" stroke-width="3"/>` + txt(L + sc + 4, y + 11, `${b}→${t}${u === '%' ? '%' : u === '/5' ? '' : 'd'}`, { fs: 9, b: 1 }); }).join(''), 'Decision-usefulness scorecard: baseline bars and target marks'); }
+    return '';
+  }
+  const asList = (rows) => `<ul class="sm-aslist">${rows.map(([t, st, note]) => `<li data-s="${st}"><i>${st === 'pass' ? '✓' : st === 'warn' ? '!' : '✗'}</i><span>${E(t)}${note ? `<small>${E(note)}</small>` : ''}</span></li>`).join('')}</ul>`;
+  function assureBoard(m) {
+    const s = assureModel(m);
+    const wkTxt = (x) => (x.wk ? `wk ${x.wk[0]}–${x.wk[1]}` : '—');
+    const tiles = s.areas.map((x, i) => `<button type="button" class="sm-astile" data-sm-as="${x.k}"><span class="sm-asn">${i + 1}</span><b>${x.ic} ${E(x.n)}</b><small>${x.pk.map((q) => q.id).join(' · ')} · ${wkTxt(x)} · ${E(x.owner)}</small><span class="sm-asm">${E(x.metric[0])}: <strong>${E(x.metric[1])}</strong></span><em>${E(x.gate)}</em></button>`).join('');
+    const matrix = `<div class="jf-wrap-x"><table class="jf-track sm-asmatrix"><thead><tr><th>#</th><th>Required area</th><th>WBS package(s)</th><th>When</th><th>Deliverable</th><th>Metric · target</th><th>Gate</th><th>Owner</th><th>Covered</th></tr></thead><tbody>${s.areas.map((x, i) => `<tr><td>${i + 1}</td><td><b>${E(x.n)}</b></td><td>${x.pk.map((q) => `${q.id} ${E(short(q.n, 46))}`).join('<br>')}</td><td>${wkTxt(x)}</td><td>${E(x.deliv)}</td><td>${E(x.metric[0])} · <b>${E(x.metric[1])}</b></td><td>${E(x.gate)}</td><td>${E(x.owner)}</td><td><span class="jf-pill ${x.pk.length ? 'strong' : 'gap'}">${x.pk.length ? '✓ Yes' : '✗ No'}</span></td></tr>`).join('')}</tbody></table></div>`;
+    const dmaic = `<div class="sm-dmaic">${DMAIC.map(([L, n, ph, t]) => `<div><b>${L}</b><strong>${n}</strong><small>${ph}</small><span>${t}</span></div>`).join('')}</div><div class="sm-big small" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div><strong>${(s.pB * 100).toFixed(1)}%</strong><span>baseline defect rate${s.errK ? ' (' + E(s.errK.name) + ')' : ''}</span></div><div><strong>${s.sB.toFixed(2)}σ → ${s.sT.toFixed(2)}σ</strong><span>process sigma, baseline → target</span></div><div><strong>${Math.round(s.pB * 1e6).toLocaleString('en-US')} → ${Math.round(s.pT * 1e6).toLocaleString('en-US')}</strong><span>defects per million opportunities</span></div></div>`;
+    const cuj = `<ul class="sm-aslist">${s.cujR.map((c, i) => `<li data-s="${c.s}"><i>${c.s === 'pass' ? '✓' : '!'}</i><span><b>CUJ-${i + 1}</b> ${E(c.c)}<small>${c.s === 'pass' ? 'pass' : 'pass with a note — export total off by rounding; fix before release'} · ${c.t}s</small></span></li>`).join('')}</ul>`;
+    const handoff = `<div class="sm-handoff">${s.handoff.map((h, i) => `<span>${i + 1}. ${E(h)}</span>`).join('<i>→</i>')}</div>`;
+    return `<div class="sm-asbanner ${s.covered === s.total ? 'ok' : ''}"><strong>Delivery assurance: ${s.covered}/${s.total} required areas planned</strong><span>Each area has WBS work, a week window on the Gantt, an owner, a measurable target and a gate. Click a tile for the common mistake, best practice and steps.</span></div>
+      <div class="sm-astiles">${tiles}</div>
+      <div style="margin-top:14px">${card('Assurance coverage matrix', 'Proof that every required area is in the plan — use this as the checklist in your proposal.', matrix)}</div>
+      <div class="jf-grid2" style="margin-top:14px">
+        ${card('1 · PIMS operations & service requests', 'Share of requests closed within SLA, by category.', asViz('pims', s), SAMPLE)}
+        ${card('2 · QA/QC — find defects earlier', 'Today most defects surface in UAT and production; the target moves them to design and build.', asViz('qa', s), SAMPLE)}
+        ${card('3 · Stress test', 'p95 response time as concurrent users rise; pass = under 2 s at 2× peak.', asViz('stress', s), SAMPLE)}
+        ${card('3 · Data-integrity checks', 'Automatic checks before every publish; a critical failure blocks release.', asList(s.integ), SAMPLE)}
+        ${card('4 · Acceptance testing (UAT)', 'Scripts run by real users against criteria agreed at design.', asViz('uat', s), SAMPLE)}
+        ${card('5 · Smoke tests & critical user journeys', 'A 10-minute script run after every release, refresh or access change.', cuj, SAMPLE)}
+        ${card('6 · Security controls', 'Reviewed with information security before scale.', asList(s.secCtl.map(([t, st]) => [t, st, st === 'warn' ? 'open item — mask before the pilot demo' : ''])) + '<h4 class="sm-h4">Delivery & handoff path</h4>' + handoff, SAMPLE)}
+        ${card('7 · Value audit & decision usefulness', 'Baseline (grey bar) and target (green mark) for each decision measure.', asViz('value', s), SAMPLE)}
+      </div>
+      <div style="margin-top:14px">${card('8 · Process improvement — Lean Six Sigma (DMAIC)', 'DMAIC mapped onto the program phases, with a control chart to prove the gain holds.', `<div class="jf-grid2"><div>${dmaic}</div><div>${asViz('lss', s)}</div></div>`, SAMPLE)}</div>`;
+  }
+  function assurePopup(m, k, ctx) {
+    const s = assureModel(m), x = s.areas.find((y) => y.k === k); if (!x) return;
+    ctx.openDlg('Delivery assurance', x.ic + ' ' + x.n, ctx.cj({ ...x.cj, lead: `<b>Where it sits:</b> ${x.pk.map((q) => `WBS ${q.id} “${E(q.n)}” (weeks ${q.start}–${q.end})`).join('; ') || 'not yet in the plan'} · <b>Owner:</b> ${E(x.owner)} · <b>Target:</b> ${E(x.metric[0])} ${E(x.metric[1])} · <b>Gate:</b> ${E(x.gate)}.`, after: `<p class="jf-sub"><b>Deliverable:</b> ${E(x.deliv)}.</p>` }));
   }
 
   function smokeChecks(m) {
@@ -9556,6 +10066,7 @@ window.EPSmarter = (() => {
       ['Decision-matrix weights total 100', m.sumW === 100],
       ['Schedule P80 within the deadline', m.pct(0.8) <= m.deadline],
       ['Every risk has an owner and a trigger', m.risks.every((r) => r.o && r.tr)],
+      ['Delivery assurance: all 8 required areas planned with owner, metric and gate', assureModel(m).covered === ASSURE.length],
     ];
     const manual = [['popups', 'Every popup opens and closes with Escape'], ['numbers', 'SAMPLE numbers replaced or labelled in what you send'], ['mobile', 'Checked on a phone-width screen'], ['print', 'Printed pack reviewed end to end'], ['human', 'A second person reviewed the proposal']];
     return { auto, manual, qa, pass: auto.filter((x) => x[1]).length + manual.filter(([id]) => qa[id]).length, total: auto.length + manual.length };
@@ -9565,7 +10076,7 @@ window.EPSmarter = (() => {
     const regRows = m.risks.map((r, k) => `<tr><td><button type="button" class="jf-reqbtn" data-sm-risk="${k}">${r.id}</button></td><td>${E(r.t)}</td><td>${r.l}</td><td>${r.i}</td><td><span class="jf-pill ${r.l * r.i >= 15 ? 'gap' : r.l * r.i >= 8 ? 'partial' : 'strong'}">${r.l * r.i}</span></td><td>${E(r.o)}</td><td>${E(r.m)}</td><td>${E(r.tr)}</td></tr>`).join('');
     const sop = `<ol class="jf-fixes">${m.A.sop.map((s, i) => `<li><span><b>${E(s)}</b><br><small>Role: ${['Data owner', 'Analyst', 'Data steward', 'Program lead', 'Executive sponsor'][i % 5]} · Control: ${['extract log', 'rule results', 'reconciliation sign-off', 'change note', 'review minutes'][i % 5]}</small></span></li>`).join('')}</ol>`;
     const smoke = `<div class="sm-verdict ${ready ? 'ok' : ''}"><strong>${ready ? 'READY FOR REVIEWER SIGN-OFF' : 'NOT READY'}</strong><span>${sm.pass}/${sm.total} checks pass</span></div><div class="jf-checks">${sm.auto.map(([l, ok]) => `<div class="jf-check" data-s="${ok ? 'pass' : 'fail'}" style="cursor:default"><span class="ico">${ok ? '✓' : '✗'}</span><span><strong>${E(l)}</strong><small>automatic check</small></span><em></em></div>`).join('')}${sm.manual.map(([id, l]) => `<label class="jf-check" data-s="${sm.qa[id] ? 'pass' : 'warn'}"><span class="ico">${sm.qa[id] ? '✓' : '!'}</span><span><strong>${E(l)}</strong><small>manual check — tick when done</small></span><input type="checkbox" data-sm-qa="${id}" ${sm.qa[id] ? 'checked' : ''} style="width:18px;height:18px"></label>`).join('')}</div>`;
-    return `<div class="jf-grid2">${card('Risk heat map', 'Click a dot for the mitigation and trigger.', riskHeat(m))}${card('Smoke test & release gate', 'Stays NOT READY until every check passes.', smoke)}</div><div style="margin-top:14px">${card('Risk register', 'Likelihood × impact (1–5).', `<div class="jf-wrap-x"><table class="jf-track"><thead><tr><th>ID</th><th>Risk</th><th>L</th><th>I</th><th>Score</th><th>Owner</th><th>Mitigation</th><th>Trigger</th></tr></thead><tbody>${regRows}</tbody></table></div>`)}</div><div style="margin-top:14px">${card('Standard operating procedure', 'The recurring process the program hands over.', sop)}</div>`;
+    return `${assureBoard(m)}<h3 class="sm-sect">Risk, SOP & release gate</h3><div class="jf-grid2">${card('Risk heat map', 'Click a dot for the mitigation and trigger.', riskHeat(m))}${card('Smoke test & release gate', 'Stays NOT READY until every check passes.', smoke)}</div><div style="margin-top:14px">${card('Risk register', 'Likelihood × impact (1–5).', `<div class="jf-wrap-x"><table class="jf-track"><thead><tr><th>ID</th><th>Risk</th><th>L</th><th>I</th><th>Score</th><th>Owner</th><th>Mitigation</th><th>Trigger</th></tr></thead><tbody>${regRows}</tbody></table></div>`)}</div><div style="margin-top:14px">${card('Standard operating procedure', 'The recurring process the program hands over.', sop)}</div>`;
   }
 
   function html(a, job) {
@@ -9573,7 +10084,7 @@ window.EPSmarter = (() => {
     const sm = smokeChecks(m);
     const nav = `<div class="sm-stages" role="tablist" aria-label="SMARTER stages">${STAGES.map(([k, L, n, sub]) => `<button type="button" role="tab" class="sm-stage${ui.stage === k ? ' on' : ''}" aria-selected="${ui.stage === k}" data-sm-stage="${k}"><b>${L}</b><span>${n}</span><small>${sub}</small></button>`).join('')}</div>`;
     const body = { s: stageS, m: stageM, a: stageA, r: stageR, t: stageT, e: stageE, v: stageV }[ui.stage](m);
-    return `${researchCard(m)}<div class="sm-head"><div><div class="jf-kicker">SMARTER program · ${m.P.src === 'published' ? 'built on a published initiative' : 'derived from the posting'}</div><h3>${E(m.P.name)}</h3></div><div class="jf-actions"><span class="jf-chip ${sm.pass === sm.total ? 'ok' : 'warn'}">Smoke test ${sm.pass}/${sm.total}</span><button type="button" class="jf-btn jf-primary" data-sm-act="pack">⇩ Download SMARTER program pack</button><button type="button" class="jf-btn" data-sm-act="csv">⇩ Sample data CSV</button></div></div>${nav}<div class="sm-body">${body}</div><p class="jf-foot">Provenance labels: <span class="sm-prov pub">PUBLISHED · VERIFY</span> came from research you supplied · <span class="sm-prov ai">AI DRAFT · VERIFY</span> came from Claude without browsing · <span class="sm-prov est">PLANNING ESTIMATE</span> uses your editable assumptions · <span class="sm-prov sample">SAMPLE</span> is synthetic and must never be reported as real.</p>`;
+    return `${researchCard(m)}<div class="sm-head"><div><div class="jf-kicker">SMARTER program · ${m.P.src === 'published' ? 'built on a published initiative' : 'derived from the posting'}</div><h3>${E(m.P.name)}</h3></div><div class="jf-actions"><button type="button" class="jf-chip ${assureModel(m).covered === ASSURE.length ? 'ok' : 'warn'}" data-sm-stage="v" title="Open the delivery-assurance board">Assurance ${assureModel(m).covered}/${ASSURE.length}</button><span class="jf-chip ${sm.pass === sm.total ? 'ok' : 'warn'}">Smoke test ${sm.pass}/${sm.total}</span><button type="button" class="jf-btn jf-primary" data-sm-act="pack">⇩ Download SMARTER program pack</button><button type="button" class="jf-btn" data-sm-act="csv">⇩ Sample data CSV</button></div></div>${nav}<div class="sm-body">${body}</div><p class="jf-foot">Provenance labels: <span class="sm-prov pub">PUBLISHED · VERIFY</span> came from research you supplied · <span class="sm-prov ai">AI DRAFT · VERIFY</span> came from Claude without browsing · <span class="sm-prov est">PLANNING ESTIMATE</span> uses your editable assumptions · <span class="sm-prov sample">SAMPLE</span> is synthetic and must never be reported as real.</p>`;
   }
 
   /* ---------------- popups ---------------- */
@@ -9609,7 +10120,7 @@ window.EPSmarter = (() => {
 
   /* ---------------- events (called by Job Fit Studio) ---------------- */
   function click(e, a, job, ctx) {
-    const el = e.target.closest('[data-sm-stage],[data-sm-act],[data-sm-pick],[data-sm-kpi],[data-sm-risk],[data-sm-bp]');
+    const el = e.target.closest('[data-sm-stage],[data-sm-act],[data-sm-pick],[data-sm-kpi],[data-sm-risk],[data-sm-bp],[data-sm-as]');
     if (!el || !job) return false;
     const d = el.dataset; const sm = job.smarter || (job.smarter = {});
     if (d.smStage) { ui.stage = d.smStage; saveUi(); ctx.render(); const b = document.querySelector(`[data-sm-stage="${d.smStage}"]`); if (b) b.focus(); return true; }
@@ -9617,6 +10128,7 @@ window.EPSmarter = (() => {
     const m = build(a, job);
     if (d.smKpi) { kpiPopup(m, Number(d.smKpi), ctx); return true; }
     if (d.smRisk) { riskPopup(m, Number(d.smRisk), ctx); return true; }
+    if (d.smAs) { assurePopup(m, d.smAs, ctx); return true; }
     if (d.smBp) { ctx.openDlg('Best practice', el.querySelector('strong').textContent, ctx.cj(BP[d.smBp])); return true; }
     switch (d.smAct) {
       case 'rprompt': copyText(researchPrompt(job), 'Research prompt'); return true;
@@ -9645,7 +10157,7 @@ window.EPSmarter = (() => {
     return false;
   }
   function toggle(e) { if (e.target.matches && e.target.matches('[data-sm-rdetails]')) { ui.researchOpen = e.target.open; saveUi(); } }
-  const SMCSS = `.sm-prov{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.6px;border-radius:5px;padding:2px 6px;vertical-align:2px;margin-left:4px}.sm-prov.sample{background:#fff3e0;color:#8a5a12;border:1px solid #ecd29e}.sm-prov.est{background:#eef2fb;color:#2f5a95;border:1px solid #c8d7ef}.sm-prov.pub{background:#e9f6f0;color:#236246;border:1px solid #c5e3d3}.sm-prov.ai{background:#f6edf9;color:#6e3d86;border:1px solid #dcc6e8}.sm-big{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin:12px 0}.sm-big div{background:#fff;border:1px solid #e0e9ee;border-radius:12px;padding:10px;text-align:center}.sm-big strong{display:block;font-size:22px;color:#1d4f64;line-height:1.15}.sm-big span{display:block;font-size:10.5px;color:#6b8190}.sm-big.small strong{font-size:17px}.sm-exec{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sm-exec div{background:#fbfdfe;border:1px solid #e3ebef;border-radius:10px;padding:9px 10px}.sm-exec b{font-size:12px;letter-spacing:.6px;text-transform:uppercase}.sm-exec p{margin:4px 0 0;font-size:12.5px;line-height:1.45}.sm-values{display:grid;grid-template-columns:1fr 1fr;gap:7px}.sm-values div{border:1px solid #d6e6ea;background:#f2f8f9;border-radius:10px;padding:8px 10px}.sm-values b{display:block;font-size:12.5px;color:#1f5560}.sm-values small{font-size:11px;color:#5d7383}.sm-swot{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sm-swot div{border:1px solid;border-top-width:4px;border-radius:10px;padding:8px 10px;background:#fff}.sm-swot ul{margin:5px 0 0;padding-left:16px;font-size:12px;line-height:1.45}.sm-dash{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}.sm-kpi{text-align:left;border:1px solid #e0e9ee;border-radius:12px;padding:10px;background:#fbfdfe;font:inherit;color:inherit;display:flex;flex-direction:column;gap:2px;min-width:0}.sm-kpi span{font-size:11px;color:#5d7383;font-weight:700}.sm-kpi strong{font-size:22px;color:#1d4f64}.sm-kpi small{font-size:10.5px;color:#6b8190}.sm-kpi svg{width:100%;height:30px;margin:4px 0}.sm-kpi i{font-style:normal;align-self:flex-start}.sm-verdict{display:flex;justify-content:space-between;align-items:center;border-radius:10px;padding:10px 12px;margin:0 0 9px;background:#fcefeb;color:#8b3a2a;border:1px solid #efcfc6}.sm-verdict.ok{background:#e9f6f0;color:#236246;border-color:#c5e3d3}.sm-charter th{width:170px}.sm-miss{color:#b4533f;font-weight:700}`;
+  const SMCSS = `.sm-sect{font-size:16px;color:#18374d;margin:20px 0 10px;border-top:1px solid #e3ebef;padding-top:14px}.sm-asbanner{display:flex;flex-direction:column;gap:3px;border-radius:12px;padding:10px 14px;background:#fbf3e4;border:1px solid #ecd29e;color:#6b4a12;margin:0 0 12px}.sm-asbanner.ok{background:#e9f6f0;border-color:#c5e3d3;color:#1f5a3f}.sm-asbanner strong{font-size:15px}.sm-asbanner span{font-size:12px}.sm-astiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.sm-astile{position:relative;display:flex;flex-direction:column;gap:4px;text-align:left;font:inherit;cursor:pointer;background:#fff;border:1px solid #e0e9ee;border-left:5px solid #8a5fa8;border-radius:12px;padding:10px 12px 10px 14px}.sm-astile:hover,.sm-astile:focus-visible{border-color:#8a5fa8;box-shadow:0 0 0 3px rgba(138,95,168,.15)}.sm-astile b{font-size:13.5px;color:#1f2d40;padding-right:24px}.sm-astile small{font-size:11px;color:#6b8190}.sm-asm{font-size:12px;color:#2c4a56}.sm-asm strong{color:#5d3f78}.sm-astile em{font-style:normal;font-size:11px;color:#2f6aa8;background:#eef4fb;border-radius:6px;padding:3px 6px}.sm-asn{position:absolute;top:8px;right:9px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#8a5fa8;color:#fff;font-size:11px;font-weight:700}.sm-asmatrix td,.sm-asmatrix th{font-size:11.5px}.sm-aslist{list-style:none;margin:0;padding:0;display:grid;gap:5px}.sm-aslist li{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start;font-size:12.5px;border:1px solid #e9f0f3;border-radius:8px;padding:5px 8px;background:#fff}.sm-aslist i{font-style:normal;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:11px;background:#2f8a6b}.sm-aslist li[data-s=warn] i{background:#c48a2c}.sm-aslist li[data-s=fail] i{background:#b4533f}.sm-aslist small{display:block;color:#6b8190;font-size:11px}.sm-h4{font-size:12.5px;margin:10px 0 6px;color:#18374d}.sm-handoff{display:flex;flex-wrap:wrap;align-items:center;gap:4px}.sm-handoff span{font-size:11.5px;background:#eef4f6;border:1px solid #d8e5e9;border-radius:999px;padding:3px 9px;color:#22465b}.sm-handoff i{font-style:normal;color:#8aa0aa}.sm-dmaic{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}.sm-dmaic div{background:#f6f2fa;border:1px solid #e3d8ee;border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:2px;min-width:0}.sm-dmaic b{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:#8a5fa8;color:#fff}.sm-dmaic strong{font-size:12.5px;color:#3e2a55}.sm-dmaic small{font-size:10.5px;color:#2f6aa8;font-weight:700}.sm-dmaic span{font-size:11px;color:#4c5f6a;line-height:1.3}@media(max-width:700px){.sm-dmaic{grid-template-columns:1fr 1fr}}.sm-prov{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.6px;border-radius:5px;padding:2px 6px;vertical-align:2px;margin-left:4px}.sm-prov.sample{background:#fff3e0;color:#8a5a12;border:1px solid #ecd29e}.sm-prov.est{background:#eef2fb;color:#2f5a95;border:1px solid #c8d7ef}.sm-prov.pub{background:#e9f6f0;color:#236246;border:1px solid #c5e3d3}.sm-prov.ai{background:#f6edf9;color:#6e3d86;border:1px solid #dcc6e8}.sm-big{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin:12px 0}.sm-big div{background:#fff;border:1px solid #e0e9ee;border-radius:12px;padding:10px;text-align:center}.sm-big strong{display:block;font-size:22px;color:#1d4f64;line-height:1.15}.sm-big span{display:block;font-size:10.5px;color:#6b8190}.sm-big.small strong{font-size:17px}.sm-exec{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sm-exec div{background:#fbfdfe;border:1px solid #e3ebef;border-radius:10px;padding:9px 10px}.sm-exec b{font-size:12px;letter-spacing:.6px;text-transform:uppercase}.sm-exec p{margin:4px 0 0;font-size:12.5px;line-height:1.45}.sm-values{display:grid;grid-template-columns:1fr 1fr;gap:7px}.sm-values div{border:1px solid #d6e6ea;background:#f2f8f9;border-radius:10px;padding:8px 10px}.sm-values b{display:block;font-size:12.5px;color:#1f5560}.sm-values small{font-size:11px;color:#5d7383}.sm-swot{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sm-swot div{border:1px solid;border-top-width:4px;border-radius:10px;padding:8px 10px;background:#fff}.sm-swot ul{margin:5px 0 0;padding-left:16px;font-size:12px;line-height:1.45}.sm-dash{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}.sm-kpi{text-align:left;border:1px solid #e0e9ee;border-radius:12px;padding:10px;background:#fbfdfe;font:inherit;color:inherit;display:flex;flex-direction:column;gap:2px;min-width:0}.sm-kpi span{font-size:11px;color:#5d7383;font-weight:700}.sm-kpi strong{font-size:22px;color:#1d4f64}.sm-kpi small{font-size:10.5px;color:#6b8190}.sm-kpi svg{width:100%;height:30px;margin:4px 0}.sm-kpi i{font-style:normal;align-self:flex-start}.sm-verdict{display:flex;justify-content:space-between;align-items:center;border-radius:10px;padding:10px 12px;margin:0 0 9px;background:#fcefeb;color:#8b3a2a;border:1px solid #efcfc6}.sm-verdict.ok{background:#e9f6f0;color:#236246;border-color:#c5e3d3}.sm-charter th{width:170px}.sm-miss{color:#b4533f;font-weight:700}`;
 
   try { const st = document.createElement('style'); st.textContent = SMCSS; document.head.append(st); } catch (e) { /* ignore */ }
   return { html, click, change, toggle, build, packHtml, research, CSS: SMCSS };
@@ -10205,6 +10717,7 @@ window.EPSmarter = (() => {
     const filt = state.reqFilter;
     const rows = a.reqs.filter((r) => filt === 'all' || r.status === filt);
     return `<div class="jf-kpis"><div class="jf-kpi"><span>Evidence match</span><strong style="color:${bandColor(a.band)}">${a.score}<small style="display:inline;font-size:13px"> /100</small></strong><small>${esc(bandText(a.band))}</small></div><button type="button" class="jf-kpi" data-jf-filter="gap"><span>Requirements</span><strong>${s}<small style="display:inline;font-size:12px"> strong · </small>${p}<small style="display:inline;font-size:12px"> partial · </small>${g}<small style="display:inline;font-size:12px"> gap</small></strong>${stack(a.reqs)}<small>${n} found in the posting — click to see gaps</small></button><div class="jf-kpi"><span>Keyword coverage</span><strong>${Math.round(a.kwCov)}%</strong><small>${a.kws.filter((k) => k.have).length} of ${a.kws.length} top terms in your words</small></div><div class="jf-kpi"><span>ATS readiness</span><strong>${atsPass}/${a.ats.length}</strong><small>résumé format checks passed</small></div><div class="jf-kpi"><span>Cover letter</span><strong>${a.coverRes ? a.coverRes.score + '%' : '—'}</strong><small>${a.coverRes ? 'checks passed — see Cover letter tab' : 'none added — a draft is ready'}</small></div></div>
+    ${window.EPRoleIntel ? window.EPRoleIntel.html(a, a.job) : ''}
     <div class="jf-grid3"><div class="jf-card jf-gauge"><h3>Evidence-match score</h3>${gauge(a.score, a.band)}<div class="jf-verdict" style="color:${bandColor(a.band)}">${esc(bandText(a.band))}</div><p class="jf-sub">75% requirement coverage (required ×1.25, duties ×1, preferred ×0.5) + 25% keyword coverage${a.degreeGap ? ', −8 for a required degree not shown' : ''}. Heuristic only.</p><button type="button" class="jf-btn" data-jf-act="method">How it is scored</button></div>
     <div class="jf-card"><h3>What the job asks vs. what you show</h3><p class="jf-sub">Emphasis by area. Red labels = the job leans on it more than your résumé does.</p>${radar(a.ask, a.show)}<div class="jf-legend"><span><i style="background:rgba(196,138,44,.35);border:2px dashed #c48a2c"></i>Job emphasis</span><span><i style="background:rgba(47,127,138,.45)"></i>Your résumé</span></div></div>
     <div class="jf-card"><h3>Top job keywords</h3><p class="jf-sub">Most-repeated terms in the posting. Add a missing one only where a true example exists.</p>${kwBars(a.kws)}</div></div>
@@ -10339,7 +10852,7 @@ Location: Boston, MA · Hybrid
 Salary range: $120,000 – $145,000
 
 Position summary
-The Director leads institutional reporting and analytics for academic and faculty affairs, partnering with deans, finance and IT to turn data into decisions.
+The Director leads institutional reporting and analytics for academic and faculty affairs, partnering with deans, finance and IT to turn data into decisions. Reports to the Vice Provost for Academic Affairs, with a dotted line to the Chief Financial Officer. The Office of Institutional Analytics is a team of 9 staff with an annual budget of $1.8 million.
 
 Responsibilities
 - Lead the reporting and analytics team, including hiring, supervision and performance reviews for four analysts.
@@ -10408,6 +10921,7 @@ Example University is an equal opportunity employer.`;
   root.addEventListener('toggle', (e) => { if (window.EPSmarter) window.EPSmarter.toggle(e); }, true);
   root.addEventListener('change', (e) => {
     if (window.EPSmarter && e.target.closest('.sm-root')) { const c = smCurrent(); if (c && window.EPSmarter.change(e, c.a, c.j, ctx)) return; }
+    if (window.EPRoleIntel && e.target.closest('.ri-root')) { const c = smCurrent(); if (c && window.EPRoleIntel.change(e, c.a, c.j, ctx)) return; }
     const t = e.target;
     if (t.dataset.jfKind) { const it = state.items.find((i) => i.id === t.dataset.jfKind); if (it) { it.kind = t.value; if (it.kind === 'job') { const m = jobMeta(it.text); it.title = it.title || m.title; it.org = it.org || m.org; state.sel = it.id; } if (it.kind === 'resume') state.resumeId = it.id; if (it.kind === 'cover') state.coverId = it.id; memo.clear(); save(); render(); } }
     if (t.dataset.jfEdit) { const j = curJob(); if (j) { j[t.dataset.jfEdit] = t.value.trim(); if (t.dataset.jfEdit === 'title') j.name = j.title || j.name; save(); render(); } }
@@ -10419,6 +10933,7 @@ Example University is an equal opportunity employer.`;
   root.addEventListener('input', (e) => { if (e.target.id === 'jfCoverEdit') { state.coverDraft = e.target.value; state.coverDraftFor = (curJob() || {}).id; clearTimeout(root._t); root._t = setTimeout(save, 400); } });
 
   root.addEventListener('click', (e) => {
+    if (window.EPRoleIntel && e.target.closest('[data-ri]') && (e.target.closest('.ri-root') || e.target.closest('.jf-dialog'))) { const c = smCurrent(); if (c && window.EPRoleIntel.click(e, c.a, c.j, ctx)) return; }
     if (window.EPSmarter && e.target.closest('.sm-root') && !e.target.closest('.jf-dialog')) { const c = smCurrent(); if (c && window.EPSmarter.click(e, c.a, c.j, ctx)) return; }
     const el = e.target.closest('button,[data-jf-sel],[data-jf-plan]');
     if (!el) return;
