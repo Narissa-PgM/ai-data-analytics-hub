@@ -1486,6 +1486,40 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
 .ri-ta{width:100%;box-sizing:border-box;font:12.5px/1.45 ui-monospace,Menlo,Consolas,monospace;padding:8px;border:1px solid #cfdfe3;border-radius:8px;background:#f8fbfc}
 .ri-links{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 6px}
 .jf-mini-t{width:100%;border-collapse:collapse;font-size:12.5px}.jf-mini-t th,.jf-mini-t td{border-bottom:1px solid #e3ecef;padding:5px 6px;text-align:right}.jf-mini-t th:first-child,.jf-mini-t td:first-child{text-align:left}
+
+/* grouped workspaces */
+.primary-nav{gap:2px}
+.nav-group{display:flex;flex-direction:column;gap:2px;margin:0 0 4px}
+.nav-group-head{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:7px;cursor:pointer;padding:6px 11px 3px;font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5f7380;border-radius:8px}
+.nav-group-head.static{cursor:default}
+.nav-group-head:hover:not(.static),.nav-group-head:focus-visible{background:#f3f7f8;color:#22465b}
+.nav-group-head i{width:8px;height:8px;border-radius:50%;background:var(--ng);flex:none}
+.nav-group-head span{flex:1}
+.nav-group-head small{font-size:10px;font-weight:700;color:#8a9ca5;letter-spacing:0;background:#eef3f5;border-radius:999px;padding:1px 6px}
+.nav-group-head b{font-size:10px;color:#8a9ca5;transition:transform .15s}
+.nav-group.collapsed .nav-group-head b{transform:rotate(-90deg)}
+.nav-group.collapsed .nav-group-items{display:none}
+.nav-group-items{display:flex;flex-direction:column;gap:2px;padding-left:6px;border-left:2px solid color-mix(in srgb,var(--ng) 22%,transparent);margin-left:14px}
+.nav-group[data-ng="start"] .nav-group-items{border-left:0;margin-left:0;padding-left:0}
+.nav-group-items .view-toggle{padding-top:6px;padding-bottom:6px;font-size:12.5px}
+.nav-group-items .view-toggle.active{box-shadow:inset 3px 0 var(--ng)}
+@media (max-height:860px) and (min-width:761px){.nav-group-items .view-toggle{padding-top:6px;padding-bottom:6px}.nav-group-head{padding-top:4px;padding-bottom:2px}.nav-group{margin-bottom:2px}}
+@media (max-width:760px){.nav-group,.nav-group-items{display:contents!important}.nav-group-head{display:none}}
+
+.jf-auto{border:1px solid #d5e6ea;background:linear-gradient(180deg,#f4fafb,#fff);border-radius:14px;padding:12px 14px;margin:14px 0 4px}
+.jf-auto-head{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.jf-auto-head strong{display:block;font-size:17px;color:#18374d}.jf-auto-head small{font-size:12px;color:#5a7480}
+.jf-auto-steps{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;counter-reset:s}
+.jf-auto-steps li{position:relative}
+.jf-auto-steps li:not(:last-child)::after{content:'';position:absolute;top:50%;right:-6px;width:6px;height:2px;background:#c9dbe0}
+.jf-auto-steps button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;align-items:center;gap:7px;padding:7px 9px;border-radius:10px;border:1px solid #dbe8ec;background:#fff;font-size:12.5px;font-weight:700;color:#22465b}
+.jf-auto-steps button:hover,.jf-auto-steps button:focus-visible{border-color:#267589;box-shadow:0 0 0 3px rgba(38,117,137,.12)}
+.jf-auto-steps b{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;color:#fff;background:#9aa9ae}
+.jf-auto-steps li.ok b{background:#2f8a6b}.jf-auto-steps li.warn b{background:#c48a2c}.jf-auto-steps li.todo b{background:#b4533f}
+.jf-auto-steps span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:900px){.jf-auto-steps{grid-template-columns:repeat(4,minmax(0,1fr))}.jf-auto-steps li::after{display:none}}
+@media(max-width:480px){.jf-auto-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.jf-ready td,.jf-ready th{font-size:12.5px;vertical-align:middle}
 </style>
 </head>
 <body>
@@ -1494,21 +1528,51 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
   <div class="logo"><span class="logo-mark">/</span><div><div class="logo-title">ExecutivePilot AI</div><div class="logo-note">AI Executive Co-worker</div></div></div>
   <div class="rail-title">Workspaces</div>
   <nav class="primary-nav" aria-label="Main workspaces">
-    <button class="view-toggle active" id="viewJobFit" type="button" aria-current="page"><span class="symbol">★</span> Job Fit Studio · Start here</button>
-    <button class="view-toggle" id="viewLibrary" type="button"><span class="symbol">⌘</span> Command Library</button>
-    <button class="view-toggle" id="viewGallery" type="button"><span class="symbol">◫</span> Visual Samples</button>
-    <button class="view-toggle" id="viewAnalyzer" type="button"><span class="symbol">◇</span> Platform Analyzer</button>
-    <button class="view-toggle" id="viewQA" type="button"><span class="symbol">✓</span> Pre-Launch QA Gate</button>
-    <button class="view-toggle" id="viewPilot" type="button"><span class="symbol">✦</span> ExecutivePilot AI · Co-worker</button>
-    <button class="view-toggle" id="viewEnterprise" type="button"><span class="symbol">▤</span> Enterprise Delivery &amp; C-Suite</button>
-    <button class="view-toggle" id="viewFit" type="button"><span class="symbol">◎</span> Career Fit &amp; Demo Gaps</button>
-    <button class="view-toggle" id="viewAudit" type="button"><span class="symbol">⚑</span> Platform Audit Lab</button>
-    <button class="view-toggle" id="viewCareer" type="button"><span class="symbol">▣</span> Resume + Cover Letter</button>
-    <button class="view-toggle" id="viewMAJobs" type="button"><span class="symbol">⌕</span> Massachusetts Jobs</button>
-    <button class="view-toggle" id="viewContract" type="button"><span class="symbol">⌂</span> Remote / Consulting</button>
-    <button class="view-toggle" id="viewJobRadar" type="button"><span class="symbol">⌖</span> Job Match Radar</button>
-    <button class="view-toggle" id="viewAdmiss" type="button"><span class="symbol">⌗</span> Admissibility Protocol</button>
-    <button class="view-toggle" id="viewWorkSample" type="button"><span class="symbol">▦</span> Work Sample Studio</button>
+    <div class="nav-group" data-ng="start" style="--ng:#267589">
+      <div class="nav-group-head static"><i aria-hidden="true"></i><span>Start here</span></div>
+      <div class="nav-group-items" id="ng-start" role="group" aria-label="Start here">
+        <button class="view-toggle active" id="viewJobFit" type="button" aria-current="page"><span class="symbol">★</span> Job Fit Studio</button>
+      </div>
+    </div>
+    <div class="nav-group" data-ng="find" style="--ng:#2f6aa8">
+      <button type="button" class="nav-group-head" aria-expanded="true" aria-controls="ng-find"><i aria-hidden="true"></i><span>Find jobs</span><small>3</small><b aria-hidden="true">▾</b></button>
+      <div class="nav-group-items" id="ng-find" role="group" aria-label="Find jobs">
+        <button class="view-toggle" id="viewJobRadar" type="button"><span class="symbol">⌖</span> Job Match Radar</button>
+        <button class="view-toggle" id="viewMAJobs" type="button"><span class="symbol">⌕</span> Massachusetts Jobs</button>
+        <button class="view-toggle" id="viewContract" type="button"><span class="symbol">⌂</span> Remote / Consulting</button>
+      </div>
+    </div>
+    <div class="nav-group" data-ng="apply" style="--ng:#2f8a6b">
+      <button type="button" class="nav-group-head" aria-expanded="true" aria-controls="ng-apply"><i aria-hidden="true"></i><span>Apply</span><small>3</small><b aria-hidden="true">▾</b></button>
+      <div class="nav-group-items" id="ng-apply" role="group" aria-label="Apply">
+        <button class="view-toggle" id="viewCareer" type="button"><span class="symbol">▣</span> Resume + Cover Letter</button>
+        <button class="view-toggle" id="viewFit" type="button"><span class="symbol">◎</span> Career Fit &amp; Demo Gaps</button>
+        <button class="view-toggle" id="viewWorkSample" type="button"><span class="symbol">▦</span> Work Sample Studio</button>
+      </div>
+    </div>
+    <div class="nav-group" data-ng="plan" style="--ng:#8a5fa8">
+      <button type="button" class="nav-group-head" aria-expanded="true" aria-controls="ng-plan"><i aria-hidden="true"></i><span>Plan &amp; deliver</span><small>4</small><b aria-hidden="true">▾</b></button>
+      <div class="nav-group-items" id="ng-plan" role="group" aria-label="Plan &amp; deliver projects">
+        <button class="view-toggle" id="viewPilot" type="button"><span class="symbol">✦</span> ExecutivePilot AI · Co-worker</button>
+        <button class="view-toggle" id="viewEnterprise" type="button"><span class="symbol">▤</span> Enterprise Delivery &amp; C-Suite</button>
+        <button class="view-toggle" id="viewAdmiss" type="button"><span class="symbol">⌗</span> Admissibility Protocol</button>
+        <button class="view-toggle" id="viewAnalyzer" type="button"><span class="symbol">◇</span> Platform Analyzer</button>
+      </div>
+    </div>
+    <div class="nav-group" data-ng="test" style="--ng:#c0632b">
+      <button type="button" class="nav-group-head" aria-expanded="true" aria-controls="ng-test"><i aria-hidden="true"></i><span>Test &amp; audit</span><small>2</small><b aria-hidden="true">▾</b></button>
+      <div class="nav-group-items" id="ng-test" role="group" aria-label="Test &amp; audit">
+        <button class="view-toggle" id="viewQA" type="button"><span class="symbol">✓</span> Pre-Launch QA Gate</button>
+        <button class="view-toggle" id="viewAudit" type="button"><span class="symbol">⚑</span> Platform Audit Lab</button>
+      </div>
+    </div>
+    <div class="nav-group" data-ng="prompts" style="--ng:#5d7181">
+      <button type="button" class="nav-group-head" aria-expanded="true" aria-controls="ng-prompts"><i aria-hidden="true"></i><span>Prompts &amp; visuals</span><small>2</small><b aria-hidden="true">▾</b></button>
+      <div class="nav-group-items" id="ng-prompts" role="group" aria-label="Prompts &amp; visuals">
+        <button class="view-toggle" id="viewLibrary" type="button"><span class="symbol">⌘</span> Command Library</button>
+        <button class="view-toggle" id="viewGallery" type="button"><span class="symbol">◫</span> Visual Samples</button>
+      </div>
+    </div>
   </nav>
   <div class="rail-title">Browse commands</div>
   <nav class="navlist" id="navigation" aria-label="Command categories"></nav>
@@ -1535,8 +1599,8 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
    <div class="jf-drop-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></div>
    <strong>Drop files here — or click to browse</strong>
    <span id="jfDropHelp">Drop several at once: résumés, cover letters, job descriptions. Each file is sorted automatically; you can correct the label.</span>
-   <div class="jf-filetypes" aria-hidden="true"><i>PDF</i><i>DOCX</i><i>HTML</i><i>TXT</i><i>MD</i></div>
-   <input type="file" id="jfFile" multiple accept=".pdf,.docx,.html,.htm,.txt,.md,.text,text/plain,text/html,application/pdf" hidden>
+   <div class="jf-filetypes" aria-hidden="true"><i>PDF</i><i>DOCX</i><i>HTML</i><i>TXT</i><i>MD</i><i>JSON bundle</i></div>
+   <input type="file" id="jfFile" multiple accept=".pdf,.docx,.html,.htm,.txt,.md,.text,.json,text/plain,text/html,application/pdf,application/json" hidden>
   </div>
   <div class="jf-paste">
    <label for="jfPaste">…or paste job links (one per line) or any text</label>
@@ -9549,7 +9613,13 @@ Already known from the posting: reports to = ${m.x.reportsTo || 'not stated'}; d
     return false;
   }
 
-  return { html, click, change, extract, model, MARKET, GRADES };
+  const PACK_CSS = '.ri-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:#3d5d66;margin-top:4px}.ri-legend i{display:inline-block;width:14px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}.ri-legend .lg-post{background:#267589}.ri-legend .lg-grade{background:#528fa1}.ri-legend .lg-mkt{background:#94beca}.ri-legend .lg-dot{background:#1d5e6e;border-radius:50%;width:9px}.ri-legend .lg-whisk{height:2px;background:#a9bcc2}.ri-legend .lg-anchor{height:0;border-top:2px dashed #c0632b}.ri-org,.ri-pay{display:block;width:100%;max-width:820px;height:auto;margin:0 auto}';
+  function packSection(a, job) {
+    const m = model(a, job), src = (f) => (f === 'you' ? 'confirmed' : f === 'posting' ? 'posting' : 'estimate — confirm');
+    const rows = [['Reports to', (m.reportsTo || 'Not stated — typical: ' + m.level.boss), src(m.rtFrom)], ['Dotted line / partners', (m.dotted || []).join(', ') || '—', m.dottedFrom === 'none' ? '—' : src(m.dottedFrom === 'partners' ? 'posting' : m.dottedFrom)], ['Direct reports', m.direct == null ? 'Not stated — typical ' + m.level.fte[0] + '–' + m.level.fte[1] : String(m.direct), src(m.directFrom)], ['Total unit FTEs', m.total == null ? '—' : String(m.total), m.total == null ? '—' : 'posting'], ['Grade & range', m.range ? 'Grade ' + m.grade + ': ' + money(m.range[0]) + ' – ' + money(m.range[2]) + (m.range[1] ? ' (mid ' + money(m.range[1]) + ')' : '') : m.grade ? 'Grade ' + m.grade : 'Not posted', m.grade ? src(m.gradeFrom) : '—'], ['Posted range', m.posted ? money(m.posted[0]) + ' – ' + money(m.posted[1]) : 'Not posted', m.posted ? src(m.postedFrom) : '—'], ['Boston market median', money(m.mktMed) + ' · ' + m.market[0].name, 'BLS May 2025'], ['Suggested anchor', money(m.anchor) + ' (' + Math.round(m.pos * 100) + '% into the ' + m.anchorBasis + ')', 'heuristic']];
+    return `<div class="jf-card"><table><thead><tr><th>Item</th><th>Value</th><th>Source</th></tr></thead><tbody>${rows.map((r) => `<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join('')}</tbody></table></div><div class="jf-grid2"><div class="jf-card"><h3>Organization diagram</h3>${orgSvg(job, m)}</div><div class="jf-card"><h3>Pay: posting · grade · market</h3>${paySvg(m)}</div></div><p class="jf-foot">Sources: ${esc(GRADES.harvardAP.src)} (${GRADES.harvardAP.url}) · ${esc(MKT_SRC)}. Estimates are typical patterns, not facts about this employer.</p>`;
+  }
+  return { html, click, change, extract, model, packSection, PACK_CSS, MARKET, GRADES };
 })();
 
 window.EPSmarter = (() => {
@@ -10170,7 +10240,7 @@ window.EPSmarter = (() => {
   const SMCSS = `.sm-aswhen{font-size:11.5px;color:#5d3f78;font-weight:700}.sm-aspath{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}.sm-aspath>div{flex:1 1 180px;background:#f8f5fb;border:1px solid #e3d8ee;border-radius:12px;padding:9px;display:flex;flex-direction:column;gap:5px;min-width:0}.sm-aspath>div>b{font-size:14px;color:#3e2a55}.sm-aspath>div>small{font-size:11px;color:#6b8190;margin-top:-4px}.sm-aspath>i{font-style:normal;align-self:center;color:#8a5fa8;font-size:18px}.sm-aspath button{display:flex;gap:7px;align-items:center;text-align:left;font:inherit;font-size:12px;cursor:pointer;background:#fff;border:1px solid #e0d4ec;border-radius:8px;padding:5px 7px;color:#1f2d40}.sm-aspath button:hover,.sm-aspath button:focus-visible{border-color:#8a5fa8}.sm-aspath button span{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#8a5fa8;color:#fff;font-size:10.5px;font-weight:700}@media(max-width:700px){.sm-aspath>i{display:none}}.sm-sect{font-size:16px;color:#18374d;margin:20px 0 10px;border-top:1px solid #e3ebef;padding-top:14px}.sm-asbanner{display:flex;flex-direction:column;gap:3px;border-radius:12px;padding:10px 14px;background:#fbf3e4;border:1px solid #ecd29e;color:#6b4a12;margin:0 0 12px}.sm-asbanner.ok{background:#e9f6f0;border-color:#c5e3d3;color:#1f5a3f}.sm-asbanner strong{font-size:15px}.sm-asbanner span{font-size:12px}.sm-astiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.sm-astile{position:relative;display:flex;flex-direction:column;gap:4px;text-align:left;font:inherit;cursor:pointer;background:#fff;border:1px solid #e0e9ee;border-left:5px solid #8a5fa8;border-radius:12px;padding:10px 12px 10px 14px}.sm-astile:hover,.sm-astile:focus-visible{border-color:#8a5fa8;box-shadow:0 0 0 3px rgba(138,95,168,.15)}.sm-astile b{font-size:13.5px;color:#1f2d40;padding-right:24px}.sm-astile small{font-size:11px;color:#6b8190}.sm-asm{font-size:12px;color:#2c4a56}.sm-asm strong{color:#5d3f78}.sm-astile em{font-style:normal;font-size:11px;color:#2f6aa8;background:#eef4fb;border-radius:6px;padding:3px 6px}.sm-asn{position:absolute;top:8px;right:9px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#8a5fa8;color:#fff;font-size:11px;font-weight:700}.sm-asmatrix td,.sm-asmatrix th{font-size:11.5px}.sm-aslist{list-style:none;margin:0;padding:0;display:grid;gap:5px}.sm-aslist li{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start;font-size:12.5px;border:1px solid #e9f0f3;border-radius:8px;padding:5px 8px;background:#fff}.sm-aslist i{font-style:normal;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:11px;background:#2f8a6b}.sm-aslist li[data-s=warn] i{background:#c48a2c}.sm-aslist li[data-s=fail] i{background:#b4533f}.sm-aslist small{display:block;color:#6b8190;font-size:11px}.sm-h4{font-size:12.5px;margin:10px 0 6px;color:#18374d}.sm-handoff{display:flex;flex-wrap:wrap;align-items:center;gap:4px}.sm-handoff span{font-size:11.5px;background:#eef4f6;border:1px solid #d8e5e9;border-radius:999px;padding:3px 9px;color:#22465b}.sm-handoff i{font-style:normal;color:#8aa0aa}.sm-dmaic{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}.sm-dmaic div{background:#f6f2fa;border:1px solid #e3d8ee;border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:2px;min-width:0}.sm-dmaic b{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:#8a5fa8;color:#fff}.sm-dmaic strong{font-size:12.5px;color:#3e2a55}.sm-dmaic small{font-size:10.5px;color:#2f6aa8;font-weight:700}.sm-dmaic span{font-size:11px;color:#4c5f6a;line-height:1.3}@media(max-width:700px){.sm-dmaic{grid-template-columns:1fr 1fr}}.sm-prov{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.6px;border-radius:5px;padding:2px 6px;vertical-align:2px;margin-left:4px}.sm-prov.sample{background:#fff3e0;color:#8a5a12;border:1px solid #ecd29e}.sm-prov.est{background:#eef2fb;color:#2f5a95;border:1px solid #c8d7ef}.sm-prov.pub{background:#e9f6f0;color:#236246;border:1px solid #c5e3d3}.sm-prov.ai{background:#f6edf9;color:#6e3d86;border:1px solid #dcc6e8}.sm-big{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin:12px 0}.sm-big div{background:#fff;border:1px solid #e0e9ee;border-radius:12px;padding:10px;text-align:center}.sm-big strong{display:block;font-size:22px;color:#1d4f64;line-height:1.15}.sm-big span{display:block;font-size:10.5px;color:#6b8190}.sm-big.small strong{font-size:17px}.sm-exec{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sm-exec div{background:#fbfdfe;border:1px solid #e3ebef;border-radius:10px;padding:9px 10px}.sm-exec b{font-size:12px;letter-spacing:.6px;text-transform:uppercase}.sm-exec p{margin:4px 0 0;font-size:12.5px;line-height:1.45}.sm-values{display:grid;grid-template-columns:1fr 1fr;gap:7px}.sm-values div{border:1px solid #d6e6ea;background:#f2f8f9;border-radius:10px;padding:8px 10px}.sm-values b{display:block;font-size:12.5px;color:#1f5560}.sm-values small{font-size:11px;color:#5d7383}.sm-swot{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sm-swot div{border:1px solid;border-top-width:4px;border-radius:10px;padding:8px 10px;background:#fff}.sm-swot ul{margin:5px 0 0;padding-left:16px;font-size:12px;line-height:1.45}.sm-dash{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}.sm-kpi{text-align:left;border:1px solid #e0e9ee;border-radius:12px;padding:10px;background:#fbfdfe;font:inherit;color:inherit;display:flex;flex-direction:column;gap:2px;min-width:0}.sm-kpi span{font-size:11px;color:#5d7383;font-weight:700}.sm-kpi strong{font-size:22px;color:#1d4f64}.sm-kpi small{font-size:10.5px;color:#6b8190}.sm-kpi svg{width:100%;height:30px;margin:4px 0}.sm-kpi i{font-style:normal;align-self:flex-start}.sm-verdict{display:flex;justify-content:space-between;align-items:center;border-radius:10px;padding:10px 12px;margin:0 0 9px;background:#fcefeb;color:#8b3a2a;border:1px solid #efcfc6}.sm-verdict.ok{background:#e9f6f0;color:#236246;border-color:#c5e3d3}.sm-charter th{width:170px}.sm-miss{color:#b4533f;font-weight:700}`;
 
   try { const st = document.createElement('style'); st.textContent = SMCSS; document.head.append(st); } catch (e) { /* ignore */ }
-  return { html, click, change, toggle, build, packHtml, research, CSS: SMCSS };
+  return { html, click, change, toggle, build, packHtml, research, applyJson, smoke: (a, j) => smokeChecks(build(a, j)), assure: (a, j) => assureModel(build(a, j)), CSS: SMCSS };
 })();
 
 /* ===== Job Fit Studio =====
@@ -10341,6 +10411,7 @@ window.EPSmarter = (() => {
     const files = [...list];
     for (const f of files) {
       try {
+        if (/\.json$/i.test(f.name)) { const n = importBundle(await f.text()); toast(n > 0 ? `Imported ${n} job${n > 1 ? 's' : ''} from ${f.name}.` : 'No jobs found in ' + f.name); continue; }
         const got = await readFile(f);
         if (!got.text || wc(got.text) < 25) throw new Error('little readable text was found (a scanned PDF?)');
         const it = addText(got.text, f.name, 'file');
@@ -10692,6 +10763,7 @@ window.EPSmarter = (() => {
   function render() {
     renderTray(); renderJobs();
     const j = curJob(), r = curResume(), c = curCover();
+    if (j && !r && j.status === 'ok' && !state.noAuto && autoProfile()) { save(); return render(); }
     const out = $('jfResult');
     if (!j || !r) {
       renderSteps(null);
@@ -10704,7 +10776,7 @@ window.EPSmarter = (() => {
     const tabs = [['fit', 'Fit dashboard'], ['program', '★ SMARTER program'], ['resume', 'Résumé & evidence'], ['cover', 'Cover letter'], ['plan', '30-60-90 plan'], ['search', 'Job search & tracker']];
     if (jobs().filter((x) => x.status === 'ok').length > 1) tabs.push(['compare', 'Compare jobs']);
     if (!tabs.some((t) => t[0] === state.tab)) state.tab = 'fit';
-    out.innerHTML = `<section class="jf-result" aria-labelledby="jfResTitle"><div class="jf-result-head"><div style="min-width:0;flex:1 1 380px"><div class="jf-kicker">Analysis · ${esc(bandText(a.band))}</div><h2 id="jfResTitle">${esc(j.title || 'Untitled job')}${j.org ? ' · ' + esc(j.org) : ''}</h2><div class="jf-meta">${a.salary ? `<span class="jf-chip">💲 ${esc(a.salary)}</span>` : '<span class="jf-chip">Salary not posted</span>'}<span class="jf-chip">${esc(a.mode)}</span>${a.yearsAsk ? `<span class="jf-chip ${a.span >= a.yearsAsk ? 'ok' : 'warn'}">${a.yearsAsk}+ yrs asked · ${a.span} yr documented span</span>` : ''}<span class="jf-chip ${a.degreeGap ? 'bad' : a.jdPref.lvl > a.rd.lvl ? 'warn' : 'ok'}">Degree: asks ${esc(a.jd.note)}${a.jdPref.lvl > a.jd.lvl ? ' (prefers ' + esc(a.jdPref.note) + ')' : ''} · you ${esc(a.rd.note)}</span>${j.url ? `<a class="jf-chip" href="${esc(j.url)}" target="_blank" rel="noopener noreferrer">Posting ↗</a>` : ''}</div><div class="jf-fieldrow"><label>Job title<input data-jf-edit="title" value="${esc(j.title || '')}"></label><label>Organization<input data-jf-edit="org" value="${esc(j.org || '')}"></label>${resumes().length > 1 ? `<label>Résumé<select data-jf-pick="resume">${resumes().map((x) => `<option value="${x.id}"${x.id === r.id ? ' selected' : ''}>${esc(short(x.name, 40))}</option>`).join('')}</select></label>` : ''}${covers().length > 1 ? `<label>Cover letter<select data-jf-pick="cover">${covers().map((x) => `<option value="${x.id}"${x.id === (c || {}).id ? ' selected' : ''}>${esc(short(x.name, 40))}</option>`).join('')}</select></label>` : ''}</div></div><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-act="pack">⇩ Download application pack</button><button type="button" class="jf-btn" data-jf-act="prompt">Copy AI tailoring prompt</button><button type="button" class="jf-btn" data-jf-act="track">＋ Save to tracker</button><button type="button" class="jf-btn" data-jf-act="worksample">Build work sample →</button></div></div><div class="jf-tabs" role="tablist" aria-label="Analysis views">${tabs.map(([k, l]) => `<button type="button" class="jf-tab" role="tab" aria-selected="${state.tab === k}" data-jf-tab="${k}">${l}</button>`).join('')}</div><div id="jfTabBody" class="${state.tab === 'program' ? 'sm-root' : ''}">${tabBody(a)}</div></section>`;
+    out.innerHTML = `<section class="jf-result" aria-labelledby="jfResTitle"><div class="jf-result-head"><div style="min-width:0;flex:1 1 380px"><div class="jf-kicker">Analysis · ${esc(bandText(a.band))}</div><h2 id="jfResTitle">${esc(j.title || 'Untitled job')}${j.org ? ' · ' + esc(j.org) : ''}</h2><div class="jf-meta">${a.salary ? `<span class="jf-chip">💲 ${esc(a.salary)}</span>` : '<span class="jf-chip">Salary not posted</span>'}<span class="jf-chip">${esc(a.mode)}</span>${a.yearsAsk ? `<span class="jf-chip ${a.span >= a.yearsAsk ? 'ok' : 'warn'}">${a.yearsAsk}+ yrs asked · ${a.span} yr documented span</span>` : ''}<span class="jf-chip ${a.degreeGap ? 'bad' : a.jdPref.lvl > a.rd.lvl ? 'warn' : 'ok'}">Degree: asks ${esc(a.jd.note)}${a.jdPref.lvl > a.jd.lvl ? ' (prefers ' + esc(a.jdPref.note) + ')' : ''} · you ${esc(a.rd.note)}</span>${j.url ? `<a class="jf-chip" href="${esc(j.url)}" target="_blank" rel="noopener noreferrer">Posting ↗</a>` : ''}</div><div class="jf-fieldrow"><label>Job title<input data-jf-edit="title" value="${esc(j.title || '')}"></label><label>Organization<input data-jf-edit="org" value="${esc(j.org || '')}"></label>${resumes().length > 1 ? `<label>Résumé<select data-jf-pick="resume">${resumes().map((x) => `<option value="${x.id}"${x.id === r.id ? ' selected' : ''}>${esc(short(x.name, 40))}</option>`).join('')}</select></label>` : ''}${covers().length > 1 ? `<label>Cover letter<select data-jf-pick="cover">${covers().map((x) => `<option value="${x.id}"${x.id === (c || {}).id ? ' selected' : ''}>${esc(short(x.name, 40))}</option>`).join('')}</select></label>` : ''}</div></div><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-act="pack">⇩ Download application pack</button><button type="button" class="jf-btn" data-jf-act="prompt">Copy AI tailoring prompt</button><button type="button" class="jf-btn" data-jf-act="track">＋ Save to tracker</button><button type="button" class="jf-btn" data-jf-act="worksample">Build work sample →</button></div></div>${autoStrip(a)}<div class="jf-tabs" role="tablist" aria-label="Analysis views">${tabs.map(([k, l]) => `<button type="button" class="jf-tab" role="tab" aria-selected="${state.tab === k}" data-jf-tab="${k}">${l}</button>`).join('')}</div><div id="jfTabBody" class="${state.tab === 'program' ? 'sm-root' : ''}">${tabBody(a)}</div></section>`;
   }
 
   function tabBody(a) {
@@ -10841,8 +10913,107 @@ window.EPSmarter = (() => {
     return `You are an expert résumé writer and hiring-committee reviewer. Tailor my application to the job below.\n\nRULES: Use only facts in my résumé. Do not invent employers, titles, dates, numbers, credentials or degrees. Do not imply continuous service across breaks. Keep any incomplete degree described as incomplete. Mark anything you need me to confirm with [CONFIRM].\n\nDELIVER:\n1. A two-page ATS-friendly résumé (single column, standard headings, reverse-chronological), leading with the bullets that prove the job's top requirements.\n2. A one-page cover letter: role named in the first sentence, three proofs mapped to requirements, any gap addressed honestly, a short close.\n3. A table: requirement → my evidence → strength → what to say in the interview.\n4. Five likely interview questions with STAR outlines from my real experience.\n\nJOB: ${a.job.title || ''}${a.job.org ? ' — ' + a.job.org : ''}${a.job.url ? '\nPOSTING URL: ' + a.job.url : ''}\n\nJOB DESCRIPTION:\n${a.job.text.slice(0, 12000)}\n\nMY RÉSUMÉ:\n${a.resume.text.slice(0, 14000)}\n\nGAPS AND PARTIAL MATCHES FOUND BY A KEYWORD HEURISTIC (verify; do not over-trust):\n${gaps || '- none'}\n\nKEYWORDS MISSING FROM MY RÉSUMÉ (add only where true):\n${a.kws.filter((k) => !k.have).map((k) => k.term).join(', ') || 'none'}`;
   }
 
+  /* ---------------- Autopilot: one pipeline from job to complete pack ---------------- */
+  function readiness(a) {
+    const j = a.job, S = window.EPSmarter, RI = window.EPRoleIntel;
+    const r = S ? S.research(j) : {};
+    const m = RI ? RI.model(a, j) : null;
+    const asr = S && S.assure ? S.assure(a, j) : null;
+    const sk = S && S.smoke ? S.smoke(a, j) : null;
+    const gaps = a.reqs.filter((q) => q.status === 'gap').length, atsFail = a.ats.filter((c) => c.s === 'fail').length;
+    const st = (ok, warn) => (ok ? 'ok' : warn ? 'warn' : 'todo');
+    return [
+      { k: 'read', step: 'Read', label: 'Job description read', s: st(j.status === 'ok'), d: (wc(j.text) || 0) + ' words' + (j.url ? ' · link saved' : ''), go: 'fit' },
+      { k: 'score', step: 'Score', label: 'Evidence match scored', s: st(a.score >= 55, true), d: a.score + '/100 · ' + bandText(a.band), go: 'fit' },
+      { k: 'role', step: 'Role & pay', label: 'Reporting line known', s: m ? st(m.rtFrom !== 'estimate', true) : 'todo', d: m ? (m.reportsTo || 'not stated — typical: ' + m.level.boss) : '', go: 'fit', ri: 1 },
+      { k: 'team', step: 'Role & pay', label: 'Team size known', s: m ? st(m.directFrom !== 'estimate', true) : 'todo', d: m ? (m.direct == null ? 'not stated' : m.direct + ' direct reports' + (m.total != null ? ' · ' + m.total + ' FTEs' : '')) : '', go: 'fit', ri: 1 },
+      { k: 'pay', step: 'Role & pay', label: 'Pay range known', s: m ? st(!!(m.posted || m.range), true) : 'todo', d: m ? (m.posted ? 'posted $' + Math.round(m.posted[0] / 1000) + 'k–$' + Math.round(m.posted[1] / 1000) + 'k' : m.range ? 'Grade ' + m.grade + ' $' + Math.round(m.range[0] / 1000) + 'k–$' + Math.round(m.range[2] / 1000) + 'k' : 'not posted — ask HR') + (m ? ' · anchor $' + Math.round(m.anchor / 1000) + 'k' : '') : '', go: 'fit', ri: 1 },
+      { k: 'research', step: 'Research', label: 'Organization researched (mission, values, plans)', s: st(!!(r.mission && r.sources), !!r.mission), d: r.mission ? (r.origin === 'ai' ? 'AI draft — verify' : 'loaded with sources') : 'not yet — paste a weekly bundle or run the research prompt', go: 'program' },
+      { k: 'program', step: 'Program', label: 'SMARTER program drafted', s: S ? 'ok' : 'todo', d: S ? 'built from ' + (r.initiatives ? 'published initiatives' : 'the posting') : '', go: 'program' },
+      { k: 'assure', step: 'Assure', label: 'Delivery assurance planned', s: asr ? st(asr.covered === asr.total) : 'todo', d: asr ? asr.covered + '/' + asr.total + ' areas' : '', go: 'program' },
+      { k: 'smoke', step: 'Assure', label: 'Program smoke test (automatic checks)', s: sk ? st(sk.auto.every((x) => x[1]), sk.auto.filter((x) => x[1]).length >= sk.auto.length - 3) : 'todo', d: sk ? sk.auto.filter((x) => x[1]).length + '/' + sk.auto.length + ' automatic checks pass' : '', go: 'program' },
+      { k: 'gaps', step: 'Pack', label: 'Gaps handled honestly', s: st(gaps === 0, gaps <= 3), d: gaps ? gaps + ' gap' + (gaps > 1 ? 's' : '') + ' — address the top two in the letter; never claim them' : 'no gaps found', go: 'resume' },
+      { k: 'ats', step: 'Pack', label: 'Résumé format checks', s: st(atsFail === 0, atsFail <= 1), d: atsFail ? atsFail + ' failing check' + (atsFail > 1 ? 's' : '') : 'all pass or warn', go: 'fit' },
+      { k: 'letter', step: 'Pack', label: 'Cover letter draft ready — edit before sending', s: 'warn', d: 'drafted from your evidence', go: 'cover' },
+    ];
+  }
+  const AP_STEPS = ['Read', 'Score', 'Role & pay', 'Research', 'Program', 'Assure', 'Pack'];
+  function autoStrip(a) {
+    const R = readiness(a);
+    const stepState = (s) => { const xs = R.filter((x) => x.step === s); return xs.every((x) => x.s === 'ok') ? 'ok' : xs.some((x) => x.s === 'todo') ? 'todo' : 'warn'; };
+    const okN = R.filter((x) => x.s === 'ok').length;
+    const multi = jobs().filter((x) => x.status === 'ok').length > 1;
+    return `<div class="jf-auto" aria-label="Autopilot"><div class="jf-auto-head"><div><div class="jf-kicker">⚡ Autopilot · runs automatically when you add a job</div><strong>${okN}/${R.length} ready</strong><small>${R.length - okN ? 'Items marked ! need you — click a step.' : 'Everything is ready for your final read-through.'}</small></div><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-act="autopack">⇩ Download complete pack</button>${multi ? `<button type="button" class="jf-btn" data-jf-act="shortlist">Shortlist all ${jobs().filter((x) => x.status === 'ok').length} jobs</button>` : ''}<button type="button" class="jf-btn" data-jf-act="autohelp">What runs?</button></div></div>
+      <ol class="jf-auto-steps">${AP_STEPS.map((s, i) => { const v = stepState(s); return `<li class="${v}"><button type="button" data-jf-act="apstep" data-jf-step="${esc(s)}"><b>${v === 'ok' ? '✓' : v === 'warn' ? '!' : i + 1}</b><span>${esc(s)}</span></button></li>`; }).join('')}</ol></div>`;
+  }
+  function readinessHtml(a, forPack) {
+    const R = readiness(a);
+    return `<table class="${forPack ? '' : 'jf-track '}jf-ready"><thead><tr><th>Status</th><th>Check</th><th>Detail</th>${forPack ? '' : '<th></th>'}</tr></thead><tbody>${R.map((x) => `<tr><td><span class="jf-pill ${x.s === 'ok' ? 'strong' : x.s === 'warn' ? 'partial' : 'gap'}">${x.s === 'ok' ? '✓ Ready' : x.s === 'warn' ? '! Needs you' : '○ To do'}</span></td><td><b>${esc(x.label)}</b></td><td>${esc(x.d)}</td>${forPack ? '' : `<td><button type="button" class="jf-btn" data-jf-apgo="${x.go}"${x.ri ? ' data-jf-apri="1"' : ''}>Open</button></td>`}</tr>`).join('')}</tbody></table>`;
+  }
+  function completePackHtml(a) {
+    const S = window.EPSmarter, RI = window.EPRoleIntel;
+    const app = packHtml(a);
+    const appCss = (app.match(/<style>([\s\S]*?)<\/style>/) || ['', ''])[1].replace(/@media[^{]*\{(?:[^{}]*\{[^{}]*\})*\s*\}/g, '');
+    const appBody = (app.match(/<body>([\s\S]*?)<\/body>/) || ['', ''])[1];
+    const scoped = appCss.split('}').map((rule) => { const p = rule.split('{'); if (p.length < 2) return ''; const sel = p[0].trim(); if (!sel || sel === 'body') return ''; return sel.split(',').map((x) => '.ap ' + x.trim()).join(',') + '{' + p[1] + '}'; }).join('') + '.ap h2{break-before:auto!important}.ap .row svg{max-width:420px;max-height:380px;display:block;margin:0 auto}.ap h2 b{display:none}.ap{background:#fff;border:1px solid #e0e9ee;border-radius:14px;padding:18px 20px}';
+    const ready = `<h2 id="sec-ready"><b>✓</b>Readiness checklist</h2><p class="jf-sub">Generated by Autopilot. “Needs you” items must be confirmed before you send anything.</p>${readinessHtml(a, true)}`;
+    const role = RI && RI.packSection ? `<h2 id="sec-role"><b>$</b>Role &amp; pay</h2>${RI.packSection(a, a.job)}` : '';
+    const appSec = `<h2 id="sec-app"><b>A</b>Application pack</h2><section class="ap">${appBody}</section>`;
+    if (!S) return app.replace('<body>', '<body>' + ready).replace('</body>', role + '</body>');
+    let doc = S.packHtml(S.build(a, a.job));
+    doc = doc.replace('</style>', scoped + (RI && RI.PACK_CSS ? RI.PACK_CSS : '') + '.jf-ready td,.jf-ready th{font-size:12px}</style>');
+    doc = doc.replace(/<title>[^<]*<\/title>/, `<title>Complete application pack — ${esc(a.job.title || 'Job')}</title>`);
+    doc = doc.replace('SMARTER PROGRAM INDEX</div>', `COMPLETE APPLICATION PACK</div><a href="#sec-ready"><b>✓</b>Readiness checklist</a><a href="#sec-app"><b>A</b>Application pack</a>${role ? '<a href="#sec-role"><b>$</b>Role &amp; pay</a>' : ''}<div style="font-size:11px;letter-spacing:1.3px;color:#2c7d86;font-weight:700;margin:14px 0 8px">SMARTER PROGRAM</div>`);
+    doc = doc.replace('<main>', `<main><div style="font-size:11px;letter-spacing:1.3px;color:#2c7d86;font-weight:700">COMPLETE APPLICATION PACK · Autopilot · ${new Date().toLocaleDateString('en-US')}</div><h1>${esc(a.job.title || 'Job')}${a.job.org ? ' · ' + esc(a.job.org) : ''}</h1><p class="jf-sub">Fit, evidence, cover letter, 30-60-90 plan, role &amp; pay, and a SMARTER program with delivery assurance — in one file. Scores are heuristics, not hiring predictions; SAMPLE figures are synthetic.</p>${ready}${appSec}${role}<h2 style="margin-top:34px"><b>★</b>SMARTER program</h2>`);
+    return doc;
+  }
+  function shortlistDlg() {
+    const r = curResume(); if (!r) { toast('Add your résumé first.'); return; }
+    const rows = jobs().filter((x) => x.status === 'ok').map((j) => { const a = analyze(j, r, curCover()); const R = readiness(a); const m = window.EPRoleIntel ? window.EPRoleIntel.model(a, j) : null; return { j, a, m, ok: R.filter((x) => x.s === 'ok').length, n: R.length }; }).sort((x, y) => y.a.score - x.a.score);
+    const k = (v) => (v == null ? '—' : '$' + Math.round(v / 1000) + 'k');
+    openDlg('Autopilot', 'Shortlist — all jobs ranked', `<p>Ranked by evidence match. Pay anchor and reporting line come from each posting plus any research you applied; “—” means not stated yet.</p><div class="jf-wrap-x"><table class="jf-track"><thead><tr><th>#</th><th>Job</th><th>Fit</th><th>Reports to</th><th>Team</th><th>Pay range</th><th>Anchor</th><th>Ready</th><th></th></tr></thead><tbody>${rows.map((x, i) => `<tr><td>${i + 1}</td><td><b>${esc(short(x.j.title || x.j.name, 60))}</b><br><small>${esc(x.j.org || '')}</small></td><td><span class="jf-band ${x.a.band}">${x.a.score}</span></td><td>${esc(x.m && x.m.rtFrom !== 'estimate' ? short(x.m.reportsTo, 40) : '—')}</td><td>${x.m && x.m.direct != null ? x.m.direct : '—'}</td><td>${x.m ? (x.m.posted ? k(x.m.posted[0]) + '–' + k(x.m.posted[1]) : x.m.range ? 'G' + x.m.grade + ' ' + k(x.m.range[0]) + '–' + k(x.m.range[2]) : '—') : '—'}</td><td>${x.m ? k(x.m.anchor) : '—'}</td><td>${x.ok}/${x.n}</td><td style="white-space:nowrap"><button type="button" class="jf-btn" data-jf-apopen="${x.j.id}">Open</button> <button type="button" class="jf-btn jf-primary" data-jf-appack="${x.j.id}">⇩ Pack</button></td></tr>`).join('')}</tbody></table></div><div class="jf-actions" style="margin-top:10px"><button type="button" class="jf-btn" data-jf-apcsv="1">⇩ Shortlist CSV</button></div>`);
+  }
+  function importBundle(raw) {
+    let o; try { const t = String(raw); o = JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}') + 1)); } catch (e) { return -1; }
+    const list = Array.isArray(o.jobs) ? o.jobs : o.text ? [o] : [];
+    let n = 0, first = null;
+    const str = (v) => (typeof v === 'string' && v.trim() && !/not found|unknown/i.test(v) ? v.trim().slice(0, 140) : undefined);
+    const num = (v) => (v === null || v === '' || v === undefined || isNaN(Number(v)) ? undefined : Number(v));
+    const arr = (v) => (Array.isArray(v) ? v.map(String).filter((x) => x && !/not found/i.test(x)) : undefined);
+    list.forEach((b) => {
+      if (!b || wc(b.text || '') < 25) return;
+      if (b.url && state.items.some((i) => i.url === b.url)) return;
+      const it = addText(b.text, b.title, 'bundle', 'job'); if (!it) return;
+      if (b.title) { it.title = short(b.title, 120); it.name = it.title; }
+      if (b.org) it.org = short(b.org, 120);
+      if (b.url && /^https?:/i.test(b.url)) it.url = b.url;
+      if (b.research && window.EPSmarter && window.EPSmarter.applyJson) { try { window.EPSmarter.applyJson(it, JSON.stringify(b.research), 'json'); } catch (e) { /* research optional */ } }
+      if (b.roleIntel) { const ri = {}; const R = b.roleIntel; [['reportsTo', str], ['grade', str], ['direct', num], ['total', num], ['postedMin', num], ['postedMax', num], ['dotted', arr], ['roles', arr], ['sources', arr]].forEach(([key, f]) => { const v = f(R[key]); if (v !== undefined && !(Array.isArray(v) && !v.length)) ri[key] = v; }); it.roleIntel = ri; }
+      if (!first) first = it.id; n++;
+    });
+    if (n) { if (first) state.sel = first; if (!curResume()) autoProfile(); state.tab = 'fit'; save(); render(); }
+    return n;
+  }
+  function autoProfile() {
+    const p = window.EPCandidateProfile;
+    if (!p || !p.evidenceBank || curResume()) return false;
+    const ex = state.items.find((i) => i.source === 'profile');
+    if (ex) state.resumeId = ex.id; else addText(p.evidenceBank, 'Saved profile — ' + p.identity.name, 'profile', 'resume');
+    toast('Autopilot used your saved résumé — drop a newer one any time.');
+    return true;
+  }
+  function autoHelp() {
+    openDlg('Autopilot', 'What runs automatically', cj({
+      lead: 'Add a job (link, text, file, or a weekly bundle) and Autopilot runs every step in this browser — nothing is uploaded.',
+      bad: 'Letting automation write and send applications on its own, including claims nobody checked.',
+      good: 'Automate the reading, scoring, research loading, drafting and packaging — keep the facts, the letter and the send button with you.',
+      rule: 'Automate the work, not the judgment.',
+      fixes: ['Read: the job text is parsed; a link that blocks reading asks you to paste the text.', 'Score: evidence match, gaps, keywords and résumé checks against your saved or dropped résumé.', 'Role & pay: reporting line, team size, grade, Boston market pay and a suggested anchor.', 'Research: mission, values and published initiatives load from a weekly bundle (or the research prompt).', 'Program + Assure: SMARTER program, WBS, Gantt, risks and all 8 delivery-assurance areas.', 'Pack: one HTML file with a readiness checklist, application pack, role & pay and the program.'],
+      after: '<h3>Weekly bundles</h3><p class="jf-sub">A scheduled Claude task can search for new roles each week and give you a <b>job bundle</b> (JSON). Paste it into the box above or drop the .json file — every job, its research and its role facts load at once, then Autopilot runs.</p>' }));
+  }
+
   function packHtml(a) {
-    const letter = ($('jfCoverEdit') && $('jfCoverEdit').value) || (state.coverDraftFor === a.job.id && state.coverDraft) || coverDraft(a);
+    const letter = (a.job.id === (curJob() || {}).id && $('jfCoverEdit') && $('jfCoverEdit').value) || (state.coverDraftFor === a.job.id && state.coverDraft) || coverDraft(a);
     const css = `body{font-family:Cambria,Georgia,serif;color:#1f2d40;max-width:960px;margin:0 auto;padding:28px;background:#fff}h1{font-size:26px;margin:0 0 4px;color:#17364e}h2{font-size:17px;color:#22465b;border-bottom:2px solid #dbe6eb;padding-bottom:4px;margin:26px 0 10px}.k{font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:#2c7d86;font-weight:700}.row{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:center}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}svg{max-width:100%;height:auto}table{width:100%;border-collapse:collapse;font-size:12.5px}td,th{border-bottom:1px solid #e6edf1;padding:7px;text-align:left;vertical-align:top}th{background:#f3f7f9;font-size:11px;text-transform:uppercase;letter-spacing:.5px}.s{font-weight:700}.strong{color:#236246}.partial{color:#80591a}.gap{color:#8b3a2a}pre{white-space:pre-wrap;font:13px/1.6 Cambria,Georgia,serif;border:1px solid #e1e9ee;border-radius:10px;padding:16px;background:#fffefb}.note{font-size:11.5px;color:#6b8190}@media print{body{padding:0}h2{break-after:avoid}.cards,table,pre{break-inside:avoid}}@media(max-width:700px){.row,.cards{grid-template-columns:1fr}}`;
     return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Application pack — ${esc(a.job.title || 'Job')}</title><style>${css}</style></head><body><div class="k">Application pack · generated ${new Date().toLocaleDateString('en-US')}</div><h1>${esc(a.job.title || 'Job')}${a.job.org ? ' · ' + esc(a.job.org) : ''}</h1><p class="note">${esc(a.name || '')} · Evidence-match score is a keyword-overlap heuristic, not a hiring prediction.${a.job.url ? ' · Posting: ' + esc(a.job.url) : ''}</p>
     <h2>1 · Fit at a glance</h2><div class="row"><div>${gauge(a.score, a.band)}<p style="text-align:center;font-weight:700;color:${bandColor(a.band)}">${esc(bandText(a.band))}</p></div><div>${radar(a.ask, a.show)}</div></div><div class="cards"><div><h3 style="font-size:14px">Top job keywords</h3>${kwBars(a.kws)}</div><div><h3 style="font-size:14px">Format checks</h3><table>${a.ats.map((c) => `<tr><td class="s ${c.s === 'pass' ? 'strong' : c.s === 'warn' ? 'partial' : 'gap'}">${c.s.toUpperCase()}</td><td>${esc(c.label)}<br><span class="note">${esc(c.detail)}</span></td></tr>`).join('')}</table></div></div>
@@ -10901,6 +11072,7 @@ Example University is an equal opportunity employer.`;
     if (t) ingestPaste(t);
   });
   function ingestPaste(text) {
+    if (/^\s*\{/.test(String(text)) && /"(epJobBundle|jobs)"\s*:/.test(String(text))) { const n = importBundle(text); toast(n > 0 ? `Imported ${n} job${n > 1 ? 's' : ''} from the bundle — Autopilot ran on each.` : n === 0 ? 'The bundle had no jobs with full description text.' : 'That bundle is not valid JSON.'); if (n >= 0) return; }
     const lines = String(text).split('\n');
     const urls = lines.map((l) => l.trim()).filter((l) => /^https?:\/\/\S+$/i.test(l));
     const rest = lines.filter((l) => !/^\s*https?:\/\/\S+\s*$/i.test(l)).join('\n').trim();
@@ -10948,9 +11120,13 @@ Example University is an equal opportunity employer.`;
     const el = e.target.closest('button,[data-jf-sel],[data-jf-plan]');
     if (!el) return;
     if (el.matches('#jfDlgClose')) { closeDlg(); return; }
+    if (el.dataset.jfApopen) { state.sel = el.dataset.jfApopen; state.tab = 'fit'; closeDlg(); save(); render(); return; }
+    if (el.dataset.jfAppack) { const jj = state.items.find((i) => i.id === el.dataset.jfAppack), rr = curResume(); if (jj && rr) { download('complete-pack-' + slug(jj.title || jj.name) + '.html', completePackHtml(analyze(jj, rr, curCover())), 'text/html'); toast('Complete pack downloaded.'); } return; }
+    if (el.dataset.jfApcsv) { const rr = curResume(); const q = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"'; const rows = jobs().filter((x) => x.status === 'ok').map((jj) => { const aa = analyze(jj, rr, curCover()); const mm = window.EPRoleIntel ? window.EPRoleIntel.model(aa, jj) : {}; return [jj.title || jj.name, jj.org, aa.score, mm.reportsTo || '', mm.direct ?? '', mm.posted ? mm.posted.join('-') : mm.range ? mm.range[0] + '-' + mm.range[2] : '', mm.anchor ? Math.round(mm.anchor) : '', jj.url || '']; }).sort((x, y) => y[2] - x[2]); download('job-shortlist.csv', '\ufeff' + [['Job', 'Organization', 'Fit', 'Reports to', 'Direct reports', 'Pay range', 'Anchor', 'URL'], ...rows].map((r0) => r0.map(q).join(',')).join('\n'), 'text/csv;charset=utf-8'); return; }
+    if (el.dataset.jfApgo) { state.tab = el.dataset.jfApgo; closeDlg(); save(); render(); if (el.dataset.jfApri) { const x = root.querySelector('.ri-root'); if (x) x.scrollIntoView({ behavior: 'smooth', block: 'start' }); } return; }
     if (el.closest('.jf-dialog')) return;
     const d = el.dataset;
-    if (d.jfDel) { e.stopPropagation(); state.items = state.items.filter((i) => i.id !== d.jfDel); if (state.sel === d.jfDel) state.sel = null; memo.clear(); save(); render(); return; }
+    if (d.jfDel) { e.stopPropagation(); if ((state.items.find((i) => i.id === d.jfDel) || {}).source === 'profile') state.noAuto = true; state.items = state.items.filter((i) => i.id !== d.jfDel); if (state.sel === d.jfDel) state.sel = null; memo.clear(); save(); render(); return; }
     if (d.jfFillbtn) { e.stopPropagation(); const ta = root.querySelector(`[data-jf-fill="${d.jfFillbtn}"]`); const it = state.items.find((i) => i.id === d.jfFillbtn); if (it && ta && wc(ta.value) >= 25) { it.text = ta.value.trim(); it.status = 'ok'; const m = jobMeta(it.text); if (!it.title || it.title === it.url) it.title = m.title; if (m.org && !it.org) it.org = m.org; state.sel = it.id; memo.clear(); save(); render(); } else toast('Paste the full description (at least a few lines).'); return; }
     if (e.target.closest('[data-stop]')) return;
     if (d.jfSel) { state.sel = d.jfSel; save(); render(); return; }
@@ -10967,6 +11143,10 @@ Example University is an equal opportunity employer.`;
       case 'profile': useProfile(); break;
       case 'method': methodPopup(); break;
       case 'prompt': if (a) { copyText(aiPrompt(a), 'AI tailoring prompt'); state.downloaded = true; save(); renderSteps(a); } break;
+      case 'autopack': if (a) { download('complete-pack-' + slug(a.job.title) + '.html', completePackHtml(a), 'text/html'); state.downloaded = true; save(); renderSteps(a); toast('Complete pack downloaded — check the readiness list at the top.'); } break;
+      case 'shortlist': shortlistDlg(); break;
+      case 'autohelp': autoHelp(); break;
+      case 'apstep': if (a) openDlg('Autopilot · ' + (el.dataset.jfStep || ''), 'Readiness checklist', `<p>Everything Autopilot did for this job, and what still needs you. “Open” jumps to the right place.</p><div class="jf-wrap-x">${readinessHtml(a)}</div>`); break;
       case 'pack': if (a) { download('application-pack-' + slug(a.job.title) + '.html', packHtml(a), 'text/html'); state.downloaded = true; save(); renderSteps(a); toast('Application pack downloaded — open it and print to PDF if needed.'); } break;
       case 'track': if (a) { const tr = tracker.get(); const ex = tr.find((x) => x.title === (a.job.title || a.job.name) && x.org === (a.job.org || '')); if (ex) { ex.fit = a.score; toast('Already tracked — fit updated.'); } else { tr.unshift({ title: a.job.title || a.job.name, org: a.job.org || '', url: a.job.url || '', fit: a.score, status: 'Saved', date: new Date().toISOString().slice(0, 10) }); toast('Saved to tracker.'); } tracker.set(tr); if (state.tab === 'search') render(); } break;
       case 'trackcsv': { const q = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"'; download('job-tracker.csv', '﻿' + [['Job', 'Organization', 'Fit', 'Status', 'Updated', 'URL'], ...tracker.get().map((x) => [x.title, x.org, x.fit, x.status, x.date, x.url])].map((row) => row.map(q).join(',')).join('\r\n'), 'text/csv;charset=utf-8'); break; }
@@ -10992,6 +11172,19 @@ Example University is an equal opportunity employer.`;
   window.EPJobFit = { analyze: (jt, rt, ct) => analyze({ id: 'x', text: jt, title: jobMeta(jt).title, org: jobMeta(jt).org }, { id: 'r', text: rt }, ct ? { id: 'c', text: ct } : null), classify, extractReqs, jobMeta, addText, render };
 })();
 
+
+/* ===== Grouped workspace rail: collapsible groups, remembered per browser ===== */
+(() => {
+  const KEY = 'ep_navgroups_v1';
+  let st = {}; try { st = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { st = {}; }
+  const groups = [...document.querySelectorAll('.primary-nav .nav-group')];
+  const set = (g, collapsed) => { g.classList.toggle('collapsed', collapsed); const hd = g.querySelector('button.nav-group-head'); if (hd) hd.setAttribute('aria-expanded', String(!collapsed)); };
+  const keepActiveOpen = () => groups.forEach((g) => { if (g.querySelector('.view-toggle.active')) set(g, false); });
+  groups.forEach((g) => { if (st[g.dataset.ng]) set(g, true); const hd = g.querySelector('button.nav-group-head'); if (hd) hd.addEventListener('click', () => { const c = !g.classList.contains('collapsed'); set(g, c); st[g.dataset.ng] = c; try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { /* storage blocked */ } }); });
+  keepActiveOpen();
+  const nav = document.querySelector('.primary-nav');
+  if (nav && typeof MutationObserver !== 'undefined') new MutationObserver(keepActiveOpen).observe(nav, { subtree: true, attributes: true, attributeFilter: ['class'] });
+})();
 </script>
 <noscript><p style="background:#fff5dc;padding:20px;font:16px Georgia,serif">ExecutivePilot AI requires JavaScript for dashboards, popups, and analysis tools. Enable JavaScript in your browser to use this local HTML application.</p></noscript>
 
