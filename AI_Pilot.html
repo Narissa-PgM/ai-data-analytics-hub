@@ -1532,6 +1532,63 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
 @keyframes cxflash{0%{background:#fff6d8;box-shadow:0 0 0 3px rgba(196,138,44,.25)}100%{background:#fff;box-shadow:none}}
 .cx-flash{animation:cxflash 1.6s ease-out}
 .jf-rs-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-top:10px;padding:8px 10px;border:1px dashed #c9dbe0;border-radius:10px;background:#fbfdfd;font-size:12.5px;color:#2c4a56}
+
+/* ExecutivePilot Simple Mode — match Job Fit Studio's approachable light UI. */
+.sim-workspace{--sim-ink:#233f54;--sim-teal:#2e7e8c;--sim-line:#d7e5e9;--sim-bg:#f8fbfc;color:#263f51;max-width:1540px;min-width:0}
+.sim-workspace .sim-hero{border:1px solid #d6e5e8!important;border-radius:19px!important;background:linear-gradient(115deg,#fff 0%,#fff 56%,#e8f4f3 100%)!important;padding:20px 24px!important;box-shadow:0 3px 16px #294a5c09!important;margin-bottom:0!important}
+.sim-workspace .sim-hero h1{font:700 clamp(25px,2.8vw,32px)/1.2 Cambria,Georgia,serif!important;letter-spacing:-.45px!important;margin:6px 0 9px!important;color:#203d55!important}
+.sim-workspace .sim-hero p{font:14px/1.55 Cambria,Georgia,serif!important;color:#5a7081!important;max-width:840px;margin:0!important}
+.sim-workspace :is(.career-card,.ed-card,.xp-card,.fit-card,.jr-card,.panel-card,.qa-stage,.gallery-card,.command-card,.ad-card,.ws-card){border-radius:13px;border-color:#dae6eb;box-shadow:0 2px 9px #203b5005}
+.sim-workspace :is(.btn,.ed-action,.xp-buttons button,.career-tab,.fit-tab,.jr-btn,.ws-btn,.ad-btn){border-radius:9px}
+.sim-workspace :is(.ed-tabs,.xp-tabs,.fit-tabs,.ws-tabs,.career-panel-tabs,.output-tabs,.jr-tabs){scroll-margin-top:95px}
+.sim-workspace :is(button,input,textarea,select):focus-visible{outline:3px solid #db9b49;outline-offset:2px}
+.sim-workspace :is(button,input,select,textarea){max-width:100%}
+.sim-workspace :is(.career-field,.field,.ed-field,.fit-field-grid>label,.jr-field,.ws-field){min-width:0}
+.sim-workspace .sim-context{margin:8px 0 0;color:#60798a;font-size:12px}
+.sim-context>summary{cursor:pointer;list-style:none;color:#426f80;font-weight:700;display:inline-flex;align-items:center;gap:5px;padding:4px 2px}
+.sim-context>summary:before{content:'▸';color:#2e8792}
+.sim-context[open]>summary:before{content:'▾'}
+.sim-context-body{padding:9px 14px;margin:5px 0 7px;background:#fff;border:1px solid #dbe7eb;border-radius:9px;line-height:1.55;max-width:1040px}
+.sim-flow{margin:13px 0 19px;padding:13px 15px 15px;background:#fff;border:1px solid var(--sim-line);border-radius:15px;box-shadow:0 2px 12px #294d5c07}
+.sim-flow-title{display:flex;gap:13px;justify-content:space-between;align-items:center;margin:0 2px 10px;flex-wrap:wrap}
+.sim-flow-title strong{font-size:13px;color:#285268}
+.sim-flow-title span{font-size:11px;color:#6a7d88}
+.sim-flow-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.sim-step{border:1px solid #dbe6eb;border-radius:11px;background:#fbfdfe;padding:10px 11px;display:flex;gap:10px;text-align:left;align-items:center;min-width:0;min-height:64px;cursor:pointer;color:#294657;font-family:Cambria,Georgia,serif;transition:border-color .15s,background .15s,box-shadow .15s}
+.sim-step:hover{border-color:#85b9c4;background:#f4fafb}
+.sim-step.selected{border-color:#6ea8b7;background:#eaf6f7;box-shadow:inset 3px 0 #3b909e}
+.sim-step-number{flex:0 0 30px;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#edf3f5;color:#3a7180;font-size:14px;font-weight:700}
+.sim-step.selected .sim-step-number{background:#2c7788;color:#fff}
+.sim-step-content{display:grid;gap:2px;min-width:0}
+.sim-step-content strong{font-size:13.5px;line-height:1.15;color:#264c61}
+.sim-step-content small{font-size:11px;line-height:1.3;color:#677e8b}
+.sim-details{grid-column:1/-1;min-width:0;background:#f8fbfc;border:1px dashed #afc8d1;border-radius:11px;margin-top:3px;overflow:visible}
+.sim-details>summary,.sim-fold>summary{cursor:pointer;color:#315e71;font-weight:700;font-size:13px;padding:12px 14px;list-style:none;display:flex;align-items:center;gap:8px;line-height:1.4}
+.sim-details>summary:before,.sim-fold>summary:before{content:'+';display:grid;place-items:center;flex:0 0 21px;width:21px;height:21px;border-radius:7px;background:#e2f0f1;color:#17677a;font:700 15px Cambria,Georgia,serif}
+.sim-details[open]>summary:before,.sim-fold[open]>summary:before{content:'−'}
+.sim-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:4px 14px 14px}
+.sim-detail-grid :is(.full,.wide,.xp-wide,.fit-wide,.jr-field-wide){grid-column:1/-1}
+.sim-fold{margin:12px 0;border:1px solid #dce8ed;border-radius:12px;background:#fff;min-width:0}
+.sim-fold>summary{background:#f6fafb;border-radius:12px}
+.sim-fold[open]>summary{border-bottom:1px solid #dce8ed;border-radius:12px 12px 0 0}
+.sim-fold>:not(summary){margin:12px!important}
+.sim-wide-details{margin:13px 0}
+.sim-ws-fields{padding:6px 12px 12px;display:grid;gap:10px}
+.sim-ws-fields>fieldset{min-width:0}
+.sim-mode-toggle{background:#f0f7f8;border:1px solid #c8dfe4;color:#26677b;font-weight:700;font:700 12px Cambria,Georgia,serif;border-radius:9px;min-height:37px;width:100%;margin:5px 0 8px;padding:8px 9px;cursor:pointer;text-align:left}
+.sim-mode-toggle:before{content:'▣';margin-right:8px}
+.sim-mode-toggle:hover{background:#e1f0f2}
+.sim-workspace .sim-step{font-family:Cambria,Georgia,serif}
+.sim-workspace [id]{scroll-margin-top:90px}
+/* Do not change Job Fit Studio itself: the visual reference remains untouched. */
+@media(max-width:850px){.sim-flow-steps{grid-template-columns:1fr 1fr 1fr}.sim-step{flex-direction:column;align-items:flex-start;gap:6px}.sim-flow{padding:12px}.sim-step-content small{font-size:10.5px}}
+@media(max-width:590px){.sim-flow-steps{grid-template-columns:1fr}.sim-step{min-height:0;flex-direction:row;align-items:center;padding:9px}.sim-workspace .sim-hero{padding:17px!important}.sim-flow-title span{display:none}.sim-detail-grid{grid-template-columns:1fr}}
+@media print{.sim-flow,.sim-context,.sim-mode-toggle{display:none!important}.sim-details,.sim-fold{border:0!important;background:none!important}}
+/* Generated one-page specifications contain wide evidence tables: scroll them locally, not the page. */
+#workSamplePanel #wsSpec{max-width:100%;min-width:0;overflow-x:auto;overscroll-behavior-x:contain}
+#workSamplePanel #wsSpec table{max-width:none}
+@media(max-width:590px){#workSamplePanel .ws-page,#workSamplePanel .ws-card{min-width:0;max-width:100%}}
+
 </style>
 </head>
 <body>
@@ -4319,7 +4376,24 @@ function fallbackCopy(t){const a=document.createElement('textarea');a.value=t;do
 function download(text,file,type='text/plain'){const u=URL.createObjectURL(new Blob([text],{type:type+';charset=utf-8'})),a=document.createElement('a');a.href=u;a.download=file;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}
 function csv(rows){return rows.map(row=>row.map(x=>'"'+String(x??'').replaceAll('"','""')+'"').join(',')).join('\r\n')}
 function icsEscape(t){return String(t).replaceAll('\\','\\\\').replaceAll(';','\\;').replaceAll(',','\\,').replaceAll('\n','\\n')}
-function exportICS(){const sched=computeSchedule();const entries=sched.map((s,i)=>{const d0=s.start.replaceAll('-',''),d1=iso(addDays(dateObj(s.end),1)).replaceAll('-','');return `BEGIN:VEVENT\r\nUID:executivepilot-${s.id}-${d0}@local.example\r\nDTSTAMP:${new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'')}\r\nDTSTART;VALUE=DATE:${d0}\r\nDTEND;VALUE=DATE:${d1}\r\nSUMMARY:${icsEscape((i+1)+'. '+s.title)}\r\nDESCRIPTION:${icsEscape('Owner: '+s.owner+' | Deliverable: '+s.deliver+' | Gate: '+s.gate+' | Draft planning schedule; verify institutional calendars before acceptance.')}\r\nEND:VEVENT`}).join('\r\n');download(`BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//ExecutivePilot AI//Planning//EN\r\nCALSCALE:GREGORIAN\r\n${entries}\r\nEND:VCALENDAR`,'ExecutivePilot_Project_Gates.ics','text/calendar')}
+// RFC 5545 requires iCalendar content lines to be folded at 75 UTF-8 octets.
+function foldICSLine(line){
+  const encoder=new TextEncoder();let out=[],part='',bytes=0;
+  for(const ch of line){const size=encoder.encode(ch).length;
+    if(bytes+size>75){out.push(part);part=' '+ch;bytes=1+size;}
+    else{part+=ch;bytes+=size;}
+  }
+  out.push(part);return out.join('\r\n');
+}
+function exportICS(){
+  const sched=computeSchedule();
+  const entries=sched.map((s,i)=>{
+    const d0=s.start.replaceAll('-',''),d1=iso(addDays(dateObj(s.end),1)).replaceAll('-','');
+    return `BEGIN:VEVENT\r\nUID:executivepilot-${s.id}-${d0}@local.example\r\nDTSTAMP:${new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'')}\r\nDTSTART;VALUE=DATE:${d0}\r\nDTEND;VALUE=DATE:${d1}\r\nSUMMARY:${icsEscape((i+1)+'. '+s.title)}\r\nDESCRIPTION:${icsEscape('Owner: '+s.owner+' | Deliverable: '+s.deliver+' | Gate: '+s.gate+' | Draft planning schedule; verify institutional calendars before acceptance.')}\r\nEND:VEVENT`;
+  }).join('\r\n');
+  const raw=`BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//ExecutivePilot AI//Planning//EN\r\nCALSCALE:GREGORIAN\r\n${entries}\r\nEND:VCALENDAR`;
+  download(raw.split('\r\n').map(foldICSLine).join('\r\n')+'\r\n','ExecutivePilot_Project_Gates.ics','text/calendar');
+}
 function reset(){TRACK.forEach(id=>{let x=$(id);if(x){if(x.tagName==='TEXTAREA')x.value='';else if(x.tagName==='INPUT'&&x.type==='number')x.value=id==='xpWeeks'?8:id==='xpHours'?12:id==='xpBudget'?6500:id==='xpRate'?45:id==='xpResearchCost'?15:id==='xpFixedCost'?30:0;else if(id==='xpStart')x.value=new Date().toLocaleDateString('en-CA');else if(id==='xpTitle')x.value='Executive analytics & reporting platform';else if(id==='xpAcademic')x.value=new Date().getFullYear()+'-09-01';else if(x.tagName==='SELECT')x.selectedIndex=0;else x.value=''}});$('xpComplexity').value='2.5';$('xpIterations').value='3';state.questions={};state.release={};state.evidence={};state.projects={};state.projectKey=xpIdentity();state.stage=defaultStage();state.prices={};applyPreset();updateAll()}
 function applyPreset(){const p=HOLIDAY_URLS[val('xpSchool')]||HOLIDAY_URLS.custom;$('xpFiscal').value=String(p.fiscal);$('xpCalURL').value=p.cal;$('xpFiscalURL').value=p.budget}
 function updateAll(){saveLocal();renderStages();renderBudget();renderCalendar();renderDiscovery();renderSWOT();renderPrompts()}
@@ -8599,10 +8673,33 @@ Every number in the project's materials carries exactly one label:
   }
 
   function specText(brief) {
-    const html = specHtml(brief);
-    const tmp = (typeof document !== 'undefined' && document.createElement) ? document.createElement('div') : null;
-    if (tmp) { tmp.innerHTML = html; return (tmp.textContent || '').replace(/\n{3,}/g, '\n\n').trim(); }
-    return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    // Preserve the visual spec's block structure when copied/exported as Markdown.
+    // textContent alone concatenates every table cell, heading and list item.
+    const tmp = document.createElement('div');
+    tmp.innerHTML = specHtml(brief);
+    const plain = node => (node.textContent || '').replace(/\s+/g, ' ').trim();
+    const mdCell = node => plain(node).replace(/\|/g, '\\|');
+    const parts = [];
+    tmp.querySelectorAll('h1,h2,h3,h4,p,table,ul,ol').forEach(node => {
+      const tag = node.tagName.toLowerCase();
+      if (/^h[1-4]$/.test(tag)) {
+        parts.push('## ' + plain(node));
+      } else if (tag === 'p') {
+        parts.push(plain(node));
+      } else if (tag === 'ul' || tag === 'ol') {
+        const items = Array.from(node.children).filter(li => li.tagName === 'LI');
+        parts.push(items.map((li, i) => (tag === 'ol' ? (i+1) + '. ' : '- ') + plain(li)).join('\n'));
+      } else if (tag === 'table') {
+        const rows = Array.from(node.querySelectorAll('tr')).map(tr =>
+          Array.from(tr.children).filter(cell => /^(TH|TD)$/.test(cell.tagName)).map(mdCell));
+        if (rows.length) {
+          const width = Math.max(...rows.map(r => r.length));
+          const toRow = row => '| ' + Array.from({length: width}, (_,i) => row[i] || '').join(' | ') + ' |';
+          parts.push([toRow(rows[0]), toRow(Array(width).fill('---')),...rows.slice(1).map(toRow)].join('\n'));
+        }
+      }
+    });
+    return parts.filter(Boolean).join('\n\n').trim();
   }
 
   /* ---------- the build prompt (the product) ---------- */
@@ -12196,5 +12293,149 @@ window.EPProfileClone = (() => {
 </script>
 <noscript><p style="background:#fff5dc;padding:20px;font:16px Georgia,serif">ExecutivePilot AI requires JavaScript for dashboards, popups, and analysis tools. Enable JavaScript in your browser to use this local HTML application.</p></noscript>
 
+<script>
+/* ExecutivePilot Simple Mode — progressive disclosure without modifying the underlying engines. */
+(()=>{
+'use strict';
+const steps = [
+ {id:'libraryPanel',title:'Command Library',intro:'Find a command, preview its example, then copy or export the prompt.',st:[['Find','Search 111 commands','#search'],['Preview','Open any command card','#catalog'],['Export','Copy a prompt or export CSV','#csvBtn']]},
+ {id:'visualPanel',title:'Visual Samples',intro:'Choose a visual pattern, see its details, and copy a ready-to-use design prompt.',st:[['Choose','Browse the example gallery','#visualGallery'],['Review','Open a visual example','.gallery-card button'],['Copy','Copy all visual prompts','#copyVisualAll']]},
+ {id:'analyzerPanel',title:'Platform Analyzer',intro:'Describe the project, generate a blueprint, then review its diagrams and prompts.',st:[['Describe','Enter the project and audience','#projectTitle'],['Generate','Run the platform analyzer','#runAnalyzer'],['Use','Review blueprint and prompts','#outputTabs']]},
+ {id:'qaPanel',title:'Pre-Launch QA Gate',intro:'Check release readiness, document real test evidence, and export a transparent go/no-go report.',st:[['Inspect','See the current release verdict','#qaVerdict'],['Test','Record evidence for each check','#qaTests'],['Export','Download the release report','#qaExportMd']]},
+ {id:'careerPanel',title:'Résumé & Cover Letter',intro:'Add your résumé and the job description, generate an application pack, and download it.',st:[['Add','Upload résumé and paste the job','#cFile'],['Generate','Create your tailored package','#cGenerate'],['Download','Review and save the outputs','#cExportActions']]},
+ {id:'maJobsPanel',title:'MA Job Search',intro:'Set your location and role, create targeted search links, and review real postings externally.',st:[['Set','Enter roles and location','#mKeywords'],['Search','Build search links','#mBuild'],['Review','Open the discovery plan','#mOutput']]},
+ {id:'contractPanel',title:'Remote Consulting',intro:'Describe your services, generate a project proposal, and review the illustrative fee.',st:[['Scope','Enter your consulting focus','#rFocus'],['Generate','Create a proposal and search prompts','#rBuild'],['Review','Read, copy, or search','#rOutput']]},
+ {id:'jobRadarPanel',title:'Job Match Radar',intro:'Add your experience, rank suitable role patterns, then save a shortlist or track applications.',st:[['Profile','Enter target roles and skills','#jrTargetTitles'],['Rank','Generate the role ranking','#jrRankNow'],['Save','Export the role shortlist','#jrDownloadCsv']]},
+ {id:'admissPanel',title:'Admissibility Protocol',intro:'Enter the project’s evidence, run the five-layer gate, and export its decision record.',st:[['Intake','Enter the project requirements','#adProject','#adTabGate'],['Evaluate','Run the governance gate','#adEvaluate','#adTabGate'],['Decide','Read verdict and export memo','#adVerdict','#adTabGate']]},
+ {id:'workSamplePanel',title:'Work Sample Studio',intro:'Describe a real role and mission, build a one-page spec, then export a prompt or QA record.',st:[['Brief','Paste role and mission','#wsRole','#wsTabBrief'],['Build','Generate spec and prompt','#wsBuild','#wsTabBrief'],['Export','Review and download the spec','#wsDownloadSpec','#wsTabSpec']]},
+ {id:'enterprisePanel',title:'Enterprise Delivery',intro:'Define the organization and management scope, build the suite, then export its playbooks.',st:[['Define','Enter organization and role','#edOrg'],['Build','Generate the enterprise suite','#edBuild'],['Download','Export the deliverables','#edDownload']]},
+ {id:'auditPanel',title:'Platform Audit Lab',intro:'Import an HTML platform, run a static audit, and export the findings with clear limitations.',st:[['Import','Upload or paste platform HTML','#audFile'],['Audit','Run static and alignment checks','#audRun'],['Export','Download the findings','#audExport']]},
+ {id:'pilotPanel',title:'ExecutivePilot AI',intro:'Define your initiative, create a roadmap, and review calendar, spending, and launch evidence.',st:[['Plan','Define the core project','#xpTitle','#xpTabs .xp-tab[data-xptab="plan"]'],['Generate','Recalculate roadmap and gates','#xpRebuild','#xpTabs .xp-tab[data-xptab="plan"]'],['Deliver','Export the delivery playbook','#xpExportPlaybook','#xpTabs .xp-tab[data-xptab="handoff"]']]},
+ {id:'fitPanel',title:'Career Fit & Demo Optimizer',intro:'Compare a job with your work sample, identify verified gaps, and export an improvement plan.',st:[['Compare','Enter role and demo evidence','#fitRole','#fitTabs [data-ftab="score"]'],['Analyze','Create coverage and gap scores','#fitAnalyzeMain','#fitTabs [data-ftab="score"]'],['Improve','Download the gap plan','#fitExportMD','#fitTabs [data-ftab="exports"]']]}
+];
+function byId(id){return document.getElementById(id)}
+function node(tag, className, label){const n=document.createElement(tag);if(className)n.className=className;if(label!==undefined)n.textContent=label;return n}
+function shortenLead(root,config){
+ const hero=Array.from(root.children).find(n=>n.matches?.('header, .hero'));
+ if(!hero)return null;
+ const text=hero.querySelector('p');
+ if(text){
+  const original=text.innerHTML;
+  text.textContent=config.intro;
+  // Keep the original detailed description reachable, including limitations.
+  let detail=root.querySelector(':scope > .sim-context');
+  if(!detail){detail=node('details','sim-context');const summary=node('summary','','About this workspace & limitations');detail.append(summary);const panel=node('div','sim-context-body');panel.innerHTML=original;detail.append(panel)}
+  hero.insertAdjacentElement('afterend',detail);
+ }
+ hero.classList.add('sim-hero');
+ return hero;
+}
+function activateStep(root,cfg,idx){
+ const [,,target,tab]=cfg.st[idx];
+ if(tab){const action=root.querySelector(tab);if(action && !action.closest('[hidden]')) action.click();}
+ root.querySelectorAll('.sim-step').forEach((b,i)=>{b.classList.toggle('selected',i===idx);b.setAttribute('aria-current',i===idx?'step':'false')});
+ const jump=()=>{
+  const element=root.querySelector(target);
+  if(!element){return}
+  element.scrollIntoView({behavior:'auto',block:'start'});
+  // Keep the user's context: this is a navigation action, not a form submission.
+  if(['INPUT','TEXTAREA','SELECT'].includes(element.tagName)) {try{element.focus({preventScroll:true})}catch(_){}}
+ };
+ requestAnimationFrame(()=>requestAnimationFrame(jump));
+}
+function createSteps(root,cfg){
+ const group=node('div','sim-flow');group.setAttribute('aria-label',cfg.title+' workflow');
+ const label=node('div','sim-flow-title');label.innerHTML='<strong>Three easy steps</strong><span>Choose a step to jump to its controls</span>';
+ group.append(label);
+ const track=node('div','sim-flow-steps');
+ cfg.st.forEach(([name,hint],i)=>{
+  const button=node('button','sim-step'+(i===0?' selected':''));button.type='button';button.setAttribute('aria-current',i===0?'step':'false');
+  const mark=node('span','sim-step-number',String(i+1));const desc=node('span','sim-step-content');desc.append(node('strong','',name),node('small','',hint));
+  button.append(mark,desc);button.addEventListener('click',()=>activateStep(root,cfg,i));track.append(button)
+ });
+ group.append(track);
+ const context=root.querySelector(':scope > .sim-context');
+ if(context) context.insertAdjacentElement('afterend',group);
+ else root.insertBefore(group,root.children[1]||null);
+}
+function foldFields(containerSelector,keepIds,label){
+ const box=document.querySelector(containerSelector);if(!box)return;
+ const keep=new Set(keepIds);
+ const fields=Array.from(box.children);
+ const extra=fields.filter(x=>{
+   const f=x.querySelector?.('input[id],select[id],textarea[id]');
+   return f && !keep.has(f.id) && !x.matches('.sim-details');
+ });
+ if(extra.length<2)return;
+ const wrap=node('details','sim-details');
+ const summary=node('summary','',label+' · '+extra.length+' fields');
+ const content=node('div','sim-detail-grid');extra.forEach(n=>content.append(n));wrap.append(summary,content);box.append(wrap);
+}
+function foldWs(){
+ const form=byId('wsForm');if(!form)return;
+ const optional=Array.from(form.querySelectorAll(':scope > fieldset.ws-fieldset')).slice(3);
+ if(!optional.length)return;
+ const wrap=node('details','sim-details sim-wide-details');wrap.append(node('summary','','Customize life cycle, AI models, charts & provenance'));
+ const area=node('div','sim-ws-fields');optional.forEach(x=>area.append(x));wrap.append(area);
+ const actions=form.querySelector(':scope > .ws-actions');form.insertBefore(wrap,actions);
+}
+function foldSection(selector,label){
+ const item=document.querySelector(selector);if(!item||!item.parentNode)return;
+ if(item.parentElement.matches('.sim-fold'))return;
+ const wrap=node('details','sim-fold');const sum=node('summary','',label);wrap.append(sum);item.parentNode.insertBefore(wrap,item);wrap.append(item);
+}
+function foldAdmiss(){
+ const root=byId('adPanelGate');if(!root)return;
+ const gate=root.querySelector('.ad-gate-cols');if(!gate)return;
+ const cards=Array.from(gate.querySelectorAll('.ad-card'));
+ // Keep first project-identification card visible; other layers remain reachable.
+ cards.slice(1).forEach(card=>{
+  if(card.closest('.sim-fold'))return;
+  const h=card.querySelector('h2,h3,.ad-card-head');const label=h?h.textContent.replace(/\s+/g,' ').trim().slice(0,90):'Review gate evidence';
+  const wrap=node('details','sim-fold sim-ad-fold');wrap.append(node('summary','',label));card.parentNode.insertBefore(wrap,card);wrap.append(card)
+ });
+}
+function tuneHelp(){
+ foldFields('#analyzerPanel .form-grid',['projectTitle','projectDescription','projectIndustry','projectAudience'],'More settings');
+ foldFields('#careerPanel .career-form-grid',['cFile','cResume','cRole','cCompany','cJob','cJobUrl'],'Contact, portfolio & preferences');
+ foldFields('#maJobsPanel .career-form-grid',['mKeywords','mRegion','mSector'],'Schedule & search radius');
+ foldFields('#contractPanel .career-form-grid',['rFocus','rMode','rHours','rPortfolio'],'Project term & fee assumptions');
+ foldFields('#enterprisePanel .ed-form',['edOrg','edIndustry','edMode','edRole','edMission','edStrategic'],'Supporting strategy, sources & assumptions');
+ foldFields('#auditPanel .ed-form',['audOrg','audRole','audMission'],'Audience, scope & mandatory modules');
+ foldFields('#pilotPanel #xp-plan .xp-fields',['xpTitle','xpOrg','xpType','xpStart','xpWeeks','xpMission','xpRequirements'],'Budget, capacity & cost assumptions');
+ foldFields('#fitPanel #fit-score .fit-field-grid',['fitRole','fitOrg','fitDemoTitle','fitScope','fitJD','fitFile'],'Strategy, evidence URLs & manual HTML');
+ foldFields('#jobRadarPanel #jrProfileForm .jr-field-grid',['jrTargetTitles','jrSkills','jrYears','jrLocation','jrRemotePref'],'Pay, employers & network context');
+ foldWs(); foldAdmiss();
+ foldSection('#jobRadarPanel .jr-method','How the ranking and probability scenarios are calculated');
+ foldSection('#jobRadarPanel .jr-pipeline','Track applications and interviews');
+ foldSection('#visualPanel .panel-card','Visual storytelling methodology');
+ foldSection('#libraryPanel #recipes','Ready-to-use command combinations');
+ foldSection('#qaPanel #qaScope','Detailed scope coverage register');
+}
+function makeToggle(){
+ const rail=document.querySelector('.rail');if(!rail)return;
+ const link=node('button','sim-mode-toggle','Show all details');link.type='button';link.id='simModeToggle';link.setAttribute('aria-pressed','false');
+ link.setAttribute('title','Expand or collapse optional settings across workspaces');
+ const nav=rail.querySelector('.primary-nav');if(nav)nav.insertAdjacentElement('afterend',link);else rail.append(link);
+ link.addEventListener('click',()=>{
+  const all=link.getAttribute('aria-pressed')!=='true';link.setAttribute('aria-pressed',String(all));link.textContent=all?'Use simple view':'Show all details';
+  document.querySelectorAll('.sim-details,.sim-fold,.sim-context').forEach(el=>el.open=all);
+ });
+}
+function boot(){
+ if(document.documentElement.classList.contains('sim-booted'))return;
+ document.documentElement.classList.add('sim-booted');
+ steps.forEach(cfg=>{
+  const root=byId(cfg.id);if(!root)return;
+  root.classList.add('sim-workspace');shortenLead(root,cfg);createSteps(root,cfg);
+ });
+ tuneHelp();makeToggle();
+ // Open the usable form instead of the lengthy policy exhibit on initial visit.
+ const gate=byId('adTabGate');if(gate)gate.click();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+})();
+
+</script>
 </body>
 </html>
