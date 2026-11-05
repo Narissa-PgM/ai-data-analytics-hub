@@ -9393,7 +9393,7 @@ window.EPRoleIntel = (() => {
   const SRCCOL = { posting: '#267589', you: '#3c7a4f', estimate: '#9aa9ae', partners: '#c58a3e', none: '#9aa9ae' };
   const tagOf = (f) => ({ posting: 'FROM POSTING', you: 'CONFIRMED BY YOU', estimate: 'ESTIMATE · CONFIRM', partners: 'PARTNERS (POSTING)' }[f] || '');
 
-  function orgSvg(job, m) {
+  function orgSvg(job, m, opt = {}) {
     const W = 680, cx = W / 2;
     const box = (x, y, w, h, kick, title, opt = {}) => {
       const dashed = opt.dashed, fill = opt.fill || '#fff', stroke = opt.stroke || '#267589', col = opt.col || '#18374d';
@@ -9409,7 +9409,7 @@ window.EPRoleIntel = (() => {
     // this role
     const rY = 128, rW = 320, rH = 70;
     s += `<path d="M${cx} ${rtY + rtH}V${rY}" stroke="#267589" stroke-width="2"/>`;
-    const gradeSub = m.grade ? `Grade ${m.grade}${m.range ? ' · ' + k(m.range[0]) + '–' + k(m.range[2]) : ''}` : m.posted ? 'Posted ' + k(m.posted[0]) + '–' + k(m.posted[1]) : 'Grade not posted';
+    const gradeSub = opt.noPay ? (m.grade ? 'Grade ' + m.grade : m.level.name) : m.grade ? `Grade ${m.grade}${m.range ? ' · ' + k(m.range[0]) + '–' + k(m.range[2]) : ''}` : m.posted ? 'Posted ' + k(m.posted[0]) + '–' + k(m.posted[1]) : 'Grade not posted';
     s += box(cx - rW / 2, rY, rW, rH, 'THIS ROLE · ' + m.level.name.toUpperCase(), job.title || 'This role', { fill: '#267589', stroke: '#1d5e6e', col: '#fff', kc: '#cfe6ec', sub: gradeSub, subc: '#e6f3f6', act: 'box-role', sw: 2 });
     // dotted partners
     const dots = (m.dotted || []).slice(0, 2);
@@ -9633,7 +9633,7 @@ Already known from the posting: reports to = ${m.x.reportsTo || 'not stated'}; d
     const rows = [['Reports to', (m.reportsTo || 'Not stated — typical: ' + m.level.boss), src(m.rtFrom)], ['Dotted line / partners', (m.dotted || []).join(', ') || '—', m.dottedFrom === 'none' ? '—' : src(m.dottedFrom === 'partners' ? 'posting' : m.dottedFrom)], ['Direct reports', m.direct == null ? 'Not stated — typical ' + m.level.fte[0] + '–' + m.level.fte[1] : String(m.direct), src(m.directFrom)], ['Total unit FTEs', m.total == null ? '—' : String(m.total), m.total == null ? '—' : 'posting'], ['Grade & range', m.range ? 'Grade ' + m.grade + ': ' + money(m.range[0]) + ' – ' + money(m.range[2]) + (m.range[1] ? ' (mid ' + money(m.range[1]) + ')' : '') : m.grade ? 'Grade ' + m.grade : 'Not posted', m.grade ? src(m.gradeFrom) : '—'], ['Posted range', m.posted ? money(m.posted[0]) + ' – ' + money(m.posted[1]) : 'Not posted', m.posted ? src(m.postedFrom) : '—'], ['Boston market median', money(m.mktMed) + ' · ' + m.market[0].name, 'BLS May 2025'], ['Suggested anchor', money(m.anchor) + ' (' + Math.round(m.pos * 100) + '% into the ' + m.anchorBasis + ')', 'heuristic']];
     return `<div class="jf-card"><table><thead><tr><th>Item</th><th>Value</th><th>Source</th></tr></thead><tbody>${rows.map((r) => `<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join('')}</tbody></table></div><div class="jf-grid2"><div class="jf-card"><h3>Organization diagram</h3>${orgSvg(job, m)}</div><div class="jf-card"><h3>Pay: posting · grade · market</h3>${paySvg(m)}</div></div><p class="jf-foot">Sources: ${esc(GRADES.harvardAP.src)} (${GRADES.harvardAP.url}) · ${esc(MKT_SRC)}. Estimates are typical patterns, not facts about this employer.</p>`;
   }
-  return { html, click, change, extract, model, packSection, PACK_CSS, MARKET, GRADES, orgSvgFor: (a, job) => orgSvg(job, model(a, job)) };
+  return { html, click, change, extract, model, packSection, PACK_CSS, MARKET, GRADES, orgSvgFor: (a, job) => orgSvg(job, model(a, job), { noPay: true }) };
 })();
 
 window.EPSmarter = (() => {
@@ -10781,6 +10781,7 @@ window.EPSmarter = (() => {
     renderTray(); renderJobs();
     const j = curJob(), r = curResume(), c = curCover();
     if (j && !r && j.status === 'ok' && !state.noAuto && autoProfile()) { save(); return render(); }
+    { const rid = r ? r.id : null; if (rid && state.lastRid && state.lastRid !== rid) { state.coverDraft = null; state.coverDraftFor = null; state.coverPolished = null; jobs().forEach((x) => { if (x.coverLetter) { x.coverLetterOld = x.coverLetter; delete x.coverLetter; } }); memo.clear(); setTimeout(() => toast('New résumé in use — fit, cover letter, private briefing and hiring-team page now come from it.'), 50); } if (rid && state.lastRid !== rid) { state.lastRid = rid; save(); } }
     const out = $('jfResult');
     if (!j || !r) {
       renderSteps(null);
@@ -11171,7 +11172,7 @@ ${String((rr || {}).text || '').slice(0, 6000)}`;
     const stepState = (s) => { const xs = R.filter((x) => x.step === s); return xs.every((x) => x.s === 'ok') ? 'ok' : xs.some((x) => x.s === 'todo') ? 'todo' : 'warn'; };
     const okN = R.filter((x) => x.s === 'ok').length;
     const multi = jobs().filter((x) => x.status === 'ok').length > 1;
-    return `<div class="jf-auto" aria-label="Autopilot"><div class="jf-auto-head"><div><div class="jf-kicker">⚡ Autopilot · runs automatically when you add a job</div><strong>${okN}/${R.length} ready</strong><small>${R.length - okN ? 'Items marked ! need you — click a step.' : 'Everything is ready for your final read-through.'}</small></div><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-act="autopack" title="Part 1 for me (private) + Part 2 for the hiring team">⇩ Communication pack (2 parts)</button><button type="button" class="jf-btn" data-jf-act="ghprofile" title="Part 2 only — the page to share or publish on GitHub Pages">⇩ Hiring-team page (GitHub)</button>${multi ? `<button type="button" class="jf-btn" data-jf-act="shortlist">Shortlist all ${jobs().filter((x) => x.status === 'ok').length} jobs</button>` : ''}<button type="button" class="jf-btn" data-jf-act="autohelp">What runs?</button></div></div>
+    return `<div class="jf-auto" aria-label="Autopilot"><div class="jf-auto-head"><div><div class="jf-kicker">⚡ Autopilot · runs automatically when you add a job</div><strong>${okN}/${R.length} ready</strong><small>${R.length - okN ? 'Items marked ! need you — click a step.' : 'Everything is ready for your final read-through.'}</small></div><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-act="ghprofile" title="The page you send — no scores, gaps or pay">⇩ Hiring-team page · send this</button><button type="button" class="jf-btn" data-jf-act="briefing" title="For you only — checklist, fit, gaps, pay, letter, interview prep">⇩ My private briefing</button><button type="button" class="jf-btn" data-jf-act="autopack" title="Both files, separately named, in one zip">⇩ Both (.zip)</button>${multi ? `<button type="button" class="jf-btn" data-jf-act="shortlist">Shortlist all ${jobs().filter((x) => x.status === 'ok').length} jobs</button>` : ''}<button type="button" class="jf-btn" data-jf-act="autohelp">What runs?</button></div></div>
       <div class="jf-rs-row"><span id="jfRsStatus">${RS.run[a.job.id] || (a.job.researched ? '✓ Researched online · ' + esc(a.job.researched.at) + (a.job.researched.mode === 'ai' ? ' (AI draft — verify)' : '') : 'Online research: not run yet for this job.')}</span><button type="button" class="jf-btn" data-jf-act="research">🔎 Research online</button></div>
       <ol class="jf-auto-steps">${AP_STEPS.map((s, i) => { const v = stepState(s); return `<li class="${v}"><button type="button" data-jf-act="apstep" data-jf-step="${esc(s)}"><b>${v === 'ok' ? '✓' : v === 'warn' ? '!' : i + 1}</b><span>${esc(s)}</span></button></li>`; }).join('')}</ol></div>`;
   }
@@ -11200,7 +11201,7 @@ ${String((rr || {}).text || '').slice(0, 6000)}`;
     const r = curResume(); if (!r) { toast('Add your résumé first.'); return; }
     const rows = jobs().filter((x) => x.status === 'ok').map((j) => { const a = analyze(j, r, curCover()); const R = readiness(a); const m = window.EPRoleIntel ? window.EPRoleIntel.model(a, j) : null; return { j, a, m, ok: R.filter((x) => x.s === 'ok').length, n: R.length }; }).sort((x, y) => y.a.score - x.a.score);
     const k = (v) => (v == null ? '—' : '$' + Math.round(v / 1000) + 'k');
-    openDlg('Autopilot', 'Shortlist — all jobs ranked', `<p>Ranked by evidence match. Pay anchor and reporting line come from each posting plus any research you applied; “—” means not stated yet.</p><div class="jf-wrap-x"><table class="jf-track"><thead><tr><th>#</th><th>Job</th><th>Fit</th><th>Reports to</th><th>Team</th><th>Pay range</th><th>Anchor</th><th>Ready</th><th></th></tr></thead><tbody>${rows.map((x, i) => `<tr><td>${i + 1}</td><td><b>${esc(short(x.j.title || x.j.name, 60))}</b><br><small>${esc(x.j.org || '')}</small></td><td><span class="jf-band ${x.a.band}">${x.a.score}</span></td><td>${esc(x.m && x.m.rtFrom !== 'estimate' ? short(x.m.reportsTo, 40) : '—')}</td><td>${x.m && x.m.direct != null ? x.m.direct : '—'}</td><td>${x.m ? (x.m.posted ? k(x.m.posted[0]) + '–' + k(x.m.posted[1]) : x.m.range ? 'G' + x.m.grade + ' ' + k(x.m.range[0]) + '–' + k(x.m.range[2]) : '—') : '—'}</td><td>${x.m ? k(x.m.anchor) : '—'}</td><td>${x.ok}/${x.n}</td><td style="white-space:nowrap"><button type="button" class="jf-btn" data-jf-apopen="${x.j.id}">Open</button> <button type="button" class="jf-btn jf-primary" data-jf-appack="${x.j.id}">⇩ Pack</button></td></tr>`).join('')}</tbody></table></div><div class="jf-actions" style="margin-top:10px"><button type="button" class="jf-btn" data-jf-apcsv="1">⇩ Shortlist CSV</button></div>`);
+    openDlg('Autopilot', 'Shortlist — all jobs ranked', `<p>Ranked by evidence match. Pay anchor and reporting line come from each posting plus any research you applied; “—” means not stated yet.</p><div class="jf-wrap-x"><table class="jf-track"><thead><tr><th>#</th><th>Job</th><th>Fit</th><th>Reports to</th><th>Team</th><th>Pay range</th><th>Anchor</th><th>Ready</th><th></th></tr></thead><tbody>${rows.map((x, i) => `<tr><td>${i + 1}</td><td><b>${esc(short(x.j.title || x.j.name, 60))}</b><br><small>${esc(x.j.org || '')}</small></td><td><span class="jf-band ${x.a.band}">${x.a.score}</span></td><td>${esc(x.m && x.m.rtFrom !== 'estimate' ? short(x.m.reportsTo, 40) : '—')}</td><td>${x.m && x.m.direct != null ? x.m.direct : '—'}</td><td>${x.m ? (x.m.posted ? k(x.m.posted[0]) + '–' + k(x.m.posted[1]) : x.m.range ? 'G' + x.m.grade + ' ' + k(x.m.range[0]) + '–' + k(x.m.range[2]) : '—') : '—'}</td><td>${x.m ? k(x.m.anchor) : '—'}</td><td>${x.ok}/${x.n}</td><td style="white-space:nowrap"><button type="button" class="jf-btn" data-jf-apopen="${x.j.id}">Open</button> <button type="button" class="jf-btn jf-primary" data-jf-appack="${x.j.id}">⇩ Files (.zip)</button></td></tr>`).join('')}</tbody></table></div><div class="jf-actions" style="margin-top:10px"><button type="button" class="jf-btn" data-jf-apcsv="1">⇩ Shortlist CSV</button></div>`);
   }
   function importBundle(raw) {
     let o; try { const t = String(raw); o = JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}') + 1)); } catch (e) { return -1; }
@@ -11241,15 +11242,7 @@ ${String((rr || {}).text || '').slice(0, 6000)}`;
   }
 
   /* ---------------- Communication pack: Part 1 for me (private) + Part 2 for the hiring team ---------------- */
-  const PART_CSS = `.ep-parts{position:sticky;top:calc(var(--header-h,66px) + 8px);z-index:30;display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--paper,#fff);border:1px solid var(--line,#E1E5EA);border-radius:14px;padding:8px 10px;margin:16px 0 18px;box-shadow:var(--shadow-sm)}
-.ep-parts button{font:700 13px/1.2 var(--ui);border:1px solid var(--line,#E1E5EA);background:var(--paper-2,#F7F9FA);color:var(--slate,#3B4754);border-radius:10px;padding:9px 14px;cursor:pointer}
-.ep-parts button[aria-selected="true"]{background:var(--crimson,#A51C30);border-color:var(--crimson,#A51C30);color:#fff}
-.ep-parts button[data-part="team"][aria-selected="true"]{background:var(--blue-d,#1C4266);border-color:var(--blue-d,#1C4266)}
-.ep-parts span{font-size:12px;color:var(--muted,#5C6774);flex:1 1 240px}
-body[data-part="me"] #main > :not(#me):not(.ep-parts){display:none!important}
-body[data-part="team"] #me{display:none!important}
-body[data-part="me"] .topbar .nav{visibility:hidden}
-.ep-private{display:flex;gap:10px;align-items:flex-start;background:#FBEEF0;border:1px solid #EFC9D0;color:#751422;border-radius:12px;padding:10px 14px;font-size:13px;margin:0 0 14px}
+  const PART_CSS = `.ep-private{display:flex;gap:10px;align-items:flex-start;background:#FBEEF0;border:1px solid #EFC9D0;color:#751422;border-radius:12px;padding:10px 14px;font-size:13px;margin:0 0 14px}
 .ep-pill{display:inline-block;font:700 10.5px/1 var(--ui);letter-spacing:.04em;padding:5px 8px;border-radius:999px;white-space:nowrap}
 .ep-pill.ok{background:#E8F4ED;color:#2F6B4F}.ep-pill.warn{background:#F9F2E3;color:#8A651F}.ep-pill.todo{background:#FBEEF0;color:#A51C30}
 .ep-letter{white-space:pre-wrap;font:14px/1.65 var(--serif);background:#fff;border:1px solid var(--line,#E1E5EA);border-radius:12px;padding:20px 22px;max-width:760px}
@@ -11258,7 +11251,7 @@ body[data-part="me"] .topbar .nav{visibility:hidden}
 .ep-fitrow svg{max-width:100%;height:auto}
 .jf-card{background:#fff;border:1px solid var(--line,#E1E5EA);border-radius:14px;padding:14px;margin:0 0 12px}.jf-card h3{margin:0 0 6px;font-size:15px}.jf-grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:12px}.jf-card table{width:100%;border-collapse:collapse;font-size:12.5px}.jf-card td,.jf-card th{border-bottom:1px solid var(--line-soft,#EDF0F3);padding:6px;text-align:left;vertical-align:top}.jf-foot{font-size:11.5px;color:var(--muted,#5C6774)}
 .ep-check{list-style:none;padding:0;margin:0;display:grid;gap:6px}.ep-check li{display:flex;gap:10px;align-items:flex-start;font-size:13px;border:1px solid var(--line,#E1E5EA);border-radius:10px;padding:8px 10px;background:#fff}.ep-check input{margin-top:2px}`;
-  const PART_JS = `<script>(function(){var b=document.body,btns=document.querySelectorAll('.ep-parts [data-part]');function set(p){b.setAttribute('data-part',p);btns.forEach(function(x){x.setAttribute('aria-selected',String(x.getAttribute('data-part')===p))});try{location.hash=p==='me'?'me':'top'}catch(e){}window.scrollTo(0,0);setTimeout(function(){window.dispatchEvent(new Event('resize'))},60)}btns.forEach(function(x){x.addEventListener('click',function(){set(x.getAttribute('data-part'))})});var cp=document.getElementById('epCopyLetter');if(cp)cp.addEventListener('click',function(){var t=document.getElementById('epLetter').textContent;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){cp.textContent='Copied ✓'},function(){var r=document.createRange();r.selectNodeContents(document.getElementById('epLetter'));var s=getSelection();s.removeAllRanges();s.addRange(r);cp.textContent='Selected — press Ctrl/⌘+C'})});if(location.hash==='#top')set('team')})();<\/script>`;
+  const PART_JS = `<script>(function(){var cp=document.getElementById('epCopyLetter');if(cp)cp.addEventListener('click',function(){var t=document.getElementById('epLetter').textContent;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){cp.textContent='Copied ✓'},function(){var r=document.createRange();r.selectNodeContents(document.getElementById('epLetter'));var s=getSelection();s.removeAllRanges();s.addRange(r);cp.textContent='Selected — press Ctrl/⌘+C'})})})();<\/script>`;
   function applicantPart(a) {
     const j = a.job, R = readiness(a), RI = window.EPRoleIntel, m = RI ? RI.model(a, j) : null;
     const okN = R.filter((x) => x.s === 'ok').length;
@@ -11270,42 +11263,71 @@ body[data-part="me"] .topbar .nav{visibility:hidden}
     const qs = a.reqs.filter((q) => q.kind !== 'preferred').slice(0, 6);
     const ranked = a.ranked.slice(0, 6);
     const atsFix = j.atsNotes && j.atsNotes.fixes.length ? j.atsNotes.fixes : [];
-    return `<div class="ep-parts" role="tablist" aria-label="Pack parts"><button type="button" role="tab" data-part="me" aria-selected="true">Part 1 · For me (private)</button><button type="button" role="tab" data-part="team" aria-selected="false">Part 2 · For the hiring team</button><span>Part 2 is the page to share. To send it on its own, use “⇩ GitHub profile page” in ExecutivePilot — never send this two-part file.</span></div>
+    return `
   <section class="part" id="me" aria-labelledby="me-title"><div class="card">
-    <div class="part-head"><p class="part-kicker"><span>A</span> For me · private</p><h2 id="me-title">Application control room · ${esc(j.title || 'this role')}</h2><p class="part-dek">${esc(j.org || '')} · what is ready, what still needs me, my pay position, my gaps and how I will talk about them.</p></div>
-    <div class="ep-private"><b>Private.</b> This part holds my scores, gaps and pay anchor. It is hidden when Part 2 is open and is never included in the hiring-team page.</div>
+    <div class="part-head"><p class="part-kicker"><span>A</span> My private briefing · do not send</p><h2 id="me-title">Application control room · ${esc(j.title || 'this role')}</h2><p class="part-dek">${esc(j.org || '')} · what is ready, what still needs me, my pay position, my gaps and how I will talk about them.</p></div>
+    <div class="ep-private"><b>Private — keep this file to myself.</b> It holds my scores, gaps, pay anchor and interview notes. The file I send is the separate hiring-team page.</div>
     <div class="metrics-row" aria-label="Application at a glance">
       <div class="metric" style="--mc:${bandColor(a.band)}"><b>${a.score}/100</b><span>Evidence match · ${esc(bandText(a.band))}</span></div>
       <div class="metric" style="--mc:#2F6B4F"><b>${okN}/${R.length}</b><span>Checklist items ready</span></div>
       <div class="metric" style="--mc:#A51C30"><b>${gaps.length}</b><span>Gaps to handle honestly</span></div>
       <div class="metric" style="--mc:#8A651F"><b>${m ? k(m.anchor) : '—'}</b><span>Suggested pay anchor${m ? ' · ' + esc(m.anchorBasis) : ''}</span></div>
     </div>
-    <p class="section-label" style="margin-top:16px">1 · Readiness checklist</p>
+    <p class="section-label" id="me-ready" style="margin-top:16px">1 · Readiness checklist</p>
     <div class="dtable-wrap"><table class="dtable"><thead><tr><th>Status</th><th>Check</th><th>Detail</th></tr></thead><tbody>${R.map((x) => `<tr><td>${pill(x.s)}</td><td><b>${esc(x.label)}</b></td><td>${esc(x.d)}</td></tr>`).join('')}</tbody></table></div>
-    <p class="section-label" style="margin-top:18px">2 · Fit at a glance</p>
+    <p class="section-label" id="me-fit" style="margin-top:18px">2 · Fit at a glance</p>
     <figure class="viz"><div class="ep-fitrow"><div>${gauge(a.score, a.band)}</div><div>${radar(a.ask, a.show)}</div><div>${kwBars(a.kws)}</div></div><figcaption class="viz-foot">Evidence match is a keyword-overlap heuristic, not a hiring prediction. Radar: dashed gold = what the job stresses; teal = what my résumé shows.</figcaption></figure>
-    <p class="section-label" style="margin-top:18px">3 · Requirement evidence map</p>
+    <p class="section-label" id="me-map" style="margin-top:18px">3 · Requirement evidence map</p>
     <div class="dtable-wrap"><table class="dtable"><thead><tr><th>Status</th><th>Requirement</th><th>Closest evidence in my résumé</th></tr></thead><tbody>${a.reqs.map((q) => `<tr><td>${pill(q.status === 'strong' ? 'ok' : q.status === 'partial' ? 'warn' : 'todo').replace(/✓ Ready|! Needs me|○ To do/, q.status === 'strong' ? 'Strong' : q.status === 'partial' ? 'Partial' : 'Gap')}</td><td>${esc(q.text)}</td><td>${esc(q.evidence || '—')}</td></tr>`).join('')}</tbody></table></div>
-    <p class="section-label" style="margin-top:18px">4 · Gaps and how I will address them</p>
+    <p class="section-label" id="me-gaps" style="margin-top:18px">4 · Gaps and how I will address them</p>
     <div class="dtable-wrap"><table class="dtable"><thead><tr><th>Requirement</th><th>Closest real evidence</th><th>Honest line for letter or interview</th></tr></thead><tbody>${gapRows.map((g) => `<tr><td>${esc(g[0])}</td><td>${esc(g[1])}</td><td>${esc(g[2])}</td></tr>`).join('') || '<tr><td colspan="3">No gaps found.</td></tr>'}</tbody></table></div>
-    ${RI && RI.packSection ? `<p class="section-label" style="margin-top:18px">5 · Role &amp; pay (private)</p>${RI.packSection(a, j)}` : ''}
+    ${RI && RI.packSection ? `<p class="section-label" id="me-pay" style="margin-top:18px">5 · Role &amp; pay (private)</p>${RI.packSection(a, j)}` : ''}
     ${m ? `<div class="callout" style="margin-top:12px"><strong>How I will talk about pay:</strong> “I’m targeting around ${k(m.anchor)}, which sits within the ${esc(m.anchorBasis)} and reflects ${a.span || 'my'} years of directly relevant work. I’m flexible on the mix of base, title and benefits.” Ask first: “What is the hiring range for this position?”${!m.posted ? ' (Massachusetts employers with 25+ staff must disclose the range.)' : ''}</div>` : ''}
-    <p class="section-label" style="margin-top:18px">6 · Résumé (ATS) fixes</p>
+    <p class="section-label" id="me-ats" style="margin-top:18px">6 · Résumé (ATS) fixes</p>
     <div class="dtable-wrap"><table class="dtable"><thead><tr><th>Status</th><th>Check</th><th>Detail</th></tr></thead><tbody>${a.ats.map((c) => `<tr><td>${pill(c.s === 'pass' ? 'ok' : c.s === 'warn' ? 'warn' : 'todo').replace(/✓ Ready|! Needs me|○ To do/, c.s.toUpperCase())}</td><td>${esc(c.label)}</td><td>${esc(c.detail)}</td></tr>`).join('')}</tbody></table></div>
     ${atsFix.length ? `<ol class="ep-fix" style="margin-top:10px">${atsFix.map((f) => `<li><span>${esc(f)}</span></li>`).join('')}</ol>` : ''}
-    <p class="section-label" style="margin-top:18px">7 · Cover letter</p>
+    <p class="section-label" id="me-letter" style="margin-top:18px">7 · Cover letter</p>
     <div style="display:flex;gap:8px;margin:0 0 8px"><button type="button" class="btn small" id="epCopyLetter">Copy letter</button></div>
     <div class="ep-letter" id="epLetter">${esc(letter)}</div>
-    <p class="section-label" style="margin-top:18px">8 · Interview prep</p>
+    <p class="section-label" id="me-interview" style="margin-top:18px">8 · Interview prep</p>
     <div class="dtable-wrap"><table class="dtable"><thead><tr><th>Likely question</th><th>Story to use</th></tr></thead><tbody>${qs.map((q, i) => `<tr><td>Walk us through your experience with: “${esc(short(q.text.replace(/\.$/, ''), 120))}”${q.status === 'gap' ? ' <b style="color:#A51C30">(gap — prepare a transferable story)</b>' : ''}</td><td>${esc(q.evidence || (ranked[i] && ranked[i].text) || 'Choose a quantified example from my résumé.')}</td></tr>`).join('')}</tbody></table></div>
-    <p class="section-label" style="margin-top:18px">9 · Before I send</p>
-    <ul class="ep-check">${['Every fact in the letter and Part 2 matches my résumé', 'Research items are checked against their sources', 'SAMPLE figures are labelled in Part 2', 'Master’s coursework is described as incomplete (15 credit hours)', 'Part 2 is sent on its own — this two-part file stays private', 'A second person has read the letter'].map((t, i) => `<li><input type="checkbox" id="epc${i}"><label for="epc${i}">${esc(t)}</label></li>`).join('')}</ul>
+    <p class="section-label" id="me-send" style="margin-top:18px">9 · Before I send</p>
+    <ul class="ep-check">${['Every fact in the letter and the hiring-team page matches my résumé', 'Research items are checked against their sources', 'SAMPLE figures are labelled on the hiring-team page', 'Master’s coursework is described as incomplete (15 credit hours)', 'I send only the hiring-team page — this briefing stays with me', 'A second person has read the letter'].map((t, i) => `<li><input type="checkbox" id="epc${i}"><label for="epc${i}">${esc(t)}</label></li>`).join('')}</ul>
   </div></section>`;
   }
-  function communicationPackHtml(a) {
+  const BRIEF_NAV = '<nav class="nav" aria-label="Briefing sections"><a href="#me-ready"><b>1</b>Checklist</a><a href="#me-fit"><b>2</b>Fit</a><a href="#me-map"><b>3</b>Evidence</a><a href="#me-gaps"><b>4</b>Gaps</a><a href="#me-pay"><b>5</b>Pay</a><a href="#me-ats"><b>6</b>Résumé</a><a href="#me-letter"><b>7</b>Letter</a><a href="#me-interview"><b>8</b>Interview</a><a href="#me-send"><b>9</b>Send</a></nav>';
+  function teamPageHtml(a) { return window.EPProfileClone.build(a, a.job, { resumeText: (curResume() || {}).text || '' }); }
+  function privateBriefingHtml(a) {
     if (!window.EPProfileClone) return completePackHtml(a);
-    return window.EPProfileClone.build(a, a.job, { resumeText: (curResume() || {}).text || '', applicant: applicantPart(a), css: PART_CSS + (window.EPRoleIntel && window.EPRoleIntel.PACK_CSS ? window.EPRoleIntel.PACK_CSS : ''), bodyAttr: 'data-part="me"', tail: PART_JS });
+    return window.EPProfileClone.build(a, a.job, { resumeText: (curResume() || {}).text || '', privateMain: applicantPart(a), privateNav: BRIEF_NAV, privateTitle: 'PRIVATE briefing — ' + (a.job.title || 'Job'), css: PART_CSS + (window.EPRoleIntel && window.EPRoleIntel.PACK_CSS ? window.EPRoleIntel.PACK_CSS : ''), tail: PART_JS });
   }
+  function zipStore(files) {
+    const enc = new TextEncoder(), T = new Uint32Array(256);
+    for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; T[n] = c >>> 0; }
+    const crc = (u) => { let c = 0xFFFFFFFF; for (let i = 0; i < u.length; i++) c = T[(c ^ u[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+    const d = new Date(), time = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1), date = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+    const parts = [], cen = []; let off = 0;
+    files.forEach((f) => {
+      const nm = enc.encode(f.name), data = enc.encode(f.data), c = crc(data);
+      const L = new DataView(new ArrayBuffer(30)); L.setUint32(0, 0x04034b50, true); L.setUint16(4, 20, true); L.setUint16(6, 0x0800, true); L.setUint16(8, 0, true); L.setUint16(10, time, true); L.setUint16(12, date, true); L.setUint32(14, c, true); L.setUint32(18, data.length, true); L.setUint32(22, data.length, true); L.setUint16(26, nm.length, true); L.setUint16(28, 0, true);
+      parts.push(new Uint8Array(L.buffer), nm, data);
+      const C = new DataView(new ArrayBuffer(46)); C.setUint32(0, 0x02014b50, true); C.setUint16(4, 20, true); C.setUint16(6, 20, true); C.setUint16(8, 0x0800, true); C.setUint16(10, 0, true); C.setUint16(12, time, true); C.setUint16(14, date, true); C.setUint32(16, c, true); C.setUint32(20, data.length, true); C.setUint32(24, data.length, true); C.setUint16(28, nm.length, true); C.setUint16(30, 0, true); C.setUint16(32, 0, true); C.setUint16(34, 0, true); C.setUint16(36, 0, true); C.setUint32(38, 0, true); C.setUint32(42, off, true);
+      cen.push(new Uint8Array(C.buffer), nm);
+      off += 30 + nm.length + data.length;
+    });
+    const cenLen = cen.reduce((s, u) => s + u.length, 0);
+    const E2 = new DataView(new ArrayBuffer(22)); E2.setUint32(0, 0x06054b50, true); E2.setUint16(8, files.length, true); E2.setUint16(10, files.length, true); E2.setUint32(12, cenLen, true); E2.setUint32(16, off, true);
+    return new Blob([...parts, ...cen, new Uint8Array(E2.buffer)], { type: 'application/zip' });
+  }
+  function packZip(a) {
+    const s = slug(a.job.title || a.job.name || 'job');
+    return zipStore([
+      { name: `SEND-to-hiring-team_${s}.html`, data: teamPageHtml(a) },
+      { name: `PRIVATE-my-briefing_${s}.html`, data: privateBriefingHtml(a) },
+      { name: 'README.txt', data: `Application files for: ${a.job.title || ''} — ${a.job.org || ''}\r\n\r\nSEND-to-hiring-team_${s}.html\r\n  The page for the hiring team: profile, proposal, role scope, program detail. No scores, gaps or pay. Send this or publish it on GitHub Pages.\r\n\r\nPRIVATE-my-briefing_${s}.html\r\n  For you only: readiness checklist, fit score, gaps, pay anchor, résumé fixes, cover letter and interview prep. Never send it.\r\n` },
+    ]);
+  }
+
 
   function packHtml(a) {
     const letter = (a.job.id === (curJob() || {}).id && $('jfCoverEdit') && $('jfCoverEdit').value) || (state.coverDraftFor === a.job.id && state.coverDraft) || coverDraft(a);
@@ -11422,7 +11444,7 @@ Example University is an equal opportunity employer.`;
     if (el.dataset.jfRsgo) { const jj = state.items.find((i) => i.id === el.dataset.jfRsgo); closeDlg(); if (jj) { state.sel = jj.id; rsRun(jj); } return; }
     if (el.dataset.jfRsstop) { const c = RS.ctl[el.dataset.jfRsstop]; if (c) c.abort(); closeDlg(); return; }
     if (el.dataset.jfApopen) { state.sel = el.dataset.jfApopen; state.tab = 'fit'; closeDlg(); save(); render(); return; }
-    if (el.dataset.jfAppack) { const jj = state.items.find((i) => i.id === el.dataset.jfAppack), rr = curResume(); if (jj && rr) { download('communication-pack-' + slug(jj.title || jj.name) + '.html', communicationPackHtml(analyze(jj, rr, curCover())), 'text/html'); toast('Communication pack downloaded.'); } return; }
+    if (el.dataset.jfAppack) { const jj = state.items.find((i) => i.id === el.dataset.jfAppack), rr = curResume(); if (jj && rr) { download('application-files-' + slug(jj.title || jj.name) + '.zip', packZip(analyze(jj, rr, curCover())), 'application/zip'); toast('Zip downloaded: SEND file + PRIVATE briefing.'); } return; }
     if (el.dataset.jfApcsv) { const rr = curResume(); const q = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"'; const rows = jobs().filter((x) => x.status === 'ok').map((jj) => { const aa = analyze(jj, rr, curCover()); const mm = window.EPRoleIntel ? window.EPRoleIntel.model(aa, jj) : {}; return [jj.title || jj.name, jj.org, aa.score, mm.reportsTo || '', mm.direct ?? '', mm.posted ? mm.posted.join('-') : mm.range ? mm.range[0] + '-' + mm.range[2] : '', mm.anchor ? Math.round(mm.anchor) : '', jj.url || '']; }).sort((x, y) => y[2] - x[2]); download('job-shortlist.csv', '\ufeff' + [['Job', 'Organization', 'Fit', 'Reports to', 'Direct reports', 'Pay range', 'Anchor', 'URL'], ...rows].map((r0) => r0.map(q).join(',')).join('\n'), 'text/csv;charset=utf-8'); return; }
     if (el.dataset.jfApgo) { state.tab = el.dataset.jfApgo; closeDlg(); save(); render(); if (el.dataset.jfApri) { const x = root.querySelector('.ri-root'); if (x) x.scrollIntoView({ behavior: 'smooth', block: 'start' }); } return; }
     if (el.closest('.jf-dialog')) return;
@@ -11444,11 +11466,12 @@ Example University is an equal opportunity employer.`;
       case 'profile': useProfile(); break;
       case 'method': methodPopup(); break;
       case 'prompt': if (a) { copyText(aiPrompt(a), 'AI tailoring prompt'); state.downloaded = true; save(); renderSteps(a); } break;
-      case 'autopack': if (a) { download('communication-pack-' + slug(a.job.title) + '.html', communicationPackHtml(a), 'text/html'); state.downloaded = true; save(); renderSteps(a); toast('Communication pack downloaded — Part 1 is private; share only Part 2 (the hiring-team page).'); } break;
+      case 'autopack': if (a) { download('application-files-' + slug(a.job.title) + '.zip', packZip(a), 'application/zip'); state.downloaded = true; save(); renderSteps(a); toast('Zip downloaded: one file to SEND, one PRIVATE briefing for you.'); } break;
+      case 'briefing': if (a) { download('PRIVATE-my-briefing-' + slug(a.job.title) + '.html', privateBriefingHtml(a), 'text/html'); toast('Private briefing downloaded — keep it to yourself.'); } break;
       case 'research': if (a) rsDialog(a); break;
       case 'coverreset': if (a) { state.coverDraft = null; state.coverDraftFor = null; save(); render(); toast('Fresh draft built from your evidence and the research.'); } break;
       case 'coverai': if (a) { rsCaps().then(async (c) => { const st = $('jfCoverAiStatus'); if (!c.sample) { toast('“Polish with Claude” works when ExecutivePilot is opened from its Claude link.'); return; } const ed = $('jfCoverEdit'); if (!ed) return; if (st) st.textContent = '✨ Claude is polishing the letter — no new facts will be added…'; const R = window.EPSmarter ? window.EPSmarter.research(a.job) || {} : {}; const prompt = `Rewrite this cover letter in a polished, warm, confident executive style: open with a clear statement of strong interest in the role, connect to the organization's mission, keep a short bulleted list of accomplishments, keep any honest paragraph about gaps, and close graciously. Keep the header, date and signature lines. STRICT RULES: use only facts that appear in the letter, the résumé or the research below; add no new numbers, employers, degrees, titles or claims; never call incomplete coursework a degree; keep it under 420 words. Return only the letter text.\n\nLETTER:\n${ed.value}\n\nRÉSUMÉ (facts allowed):\n${String((curResume() || {}).text || '').slice(0, 9000)}\n\nRESEARCH (facts allowed):\nMission: ${R.mission || ''}\nValues: ${R.values || ''}\nInitiatives: ${R.initiatives || ''}\n\nJOB:\n${String(a.job.text || '').slice(0, 5000)}`; try { const res = await c.sample(prompt, { modelTier: 'default', cache: false }); const t = String(res.text || '').trim(); if (t.length > 200) { ed.value = t; state.coverDraft = t; state.coverDraftFor = a.job.id; state.coverPolished = a.job.id; save(); if (st) st.textContent = '✓ Polished by Claude — read it once against your résumé before sending.'; } else if (st) st.textContent = 'Claude returned too little text — try again.'; } catch (err) { if (st) st.textContent = err && err.code === 'not_granted' ? 'Claude was not allowed for this page.' : 'Could not polish (' + ((err && err.code) || 'error') + ').'; } }); } break;
-      case 'ghprofile': if (a && window.EPProfileClone) { try { download('executive-profile-' + slug(a.job.title) + '.html', window.EPProfileClone.build(a, a.job, { resumeText: (curResume() || {}).text || '' }), 'text/html'); toast('Hiring-team page downloaded — rename it index.html (or link it) in your GitHub Pages repo.'); } catch (err) { toast('Could not build the profile page: ' + err.message); } } break;
+      case 'ghprofile': if (a && window.EPProfileClone) { try { download('SEND-to-hiring-team_' + slug(a.job.title) + '.html', window.EPProfileClone.build(a, a.job, { resumeText: (curResume() || {}).text || '' }), 'text/html'); toast('Hiring-team page downloaded — this is the one to send — rename it index.html (or link it) in your GitHub Pages repo.'); } catch (err) { toast('Could not build the profile page: ' + err.message); } } break;
       case 'shortlist': shortlistDlg(); break;
       case 'autohelp': autoHelp(); break;
       case 'apstep': if (a && el.dataset.jfStep === 'Research') { rsDialog(a); break; } if (a) openDlg('Autopilot · ' + (el.dataset.jfStep || ''), 'Readiness checklist', `<p>Everything Autopilot did for this job, and what still needs you. “Open” jumps to the right place.</p><div class="jf-wrap-x">${readinessHtml(a)}</div>`); break;
@@ -11638,10 +11661,91 @@ Example University is an equal opportunity employer.`;
   }
   $c('cxSync').addEventListener('click', () => syncFromStudio(false));
   const view = $c('viewCareer');
-  if (view) view.addEventListener('click', () => setTimeout(() => { if (!($c('cResume').value || '').trim() || !($c('cJob').value || '').trim()) syncFromStudio(true); }, 60));
+  let lastSync = ''; if (view) view.addEventListener('click', () => setTimeout(() => { const cur = window.EPJobFit && window.EPJobFit.current ? window.EPJobFit.current() : {}; const key = ((cur.resume || {}).id || '') + '|' + ((cur.job || {}).id || '') + '|' + ((cur.resume || {}).text || '').length; if (key !== lastSync || !($c('cResume').value || '').trim() || !($c('cJob').value || '').trim()) { lastSync = key; syncFromStudio(true); } }, 60));
   window.EPCareerIntake = { parseResume, parseJob, syncFromStudio, handleFiles };
 })();
 
+/* ===== Résumé parser: roles, dates, contact, education, certifications, skills ===== */
+window.EPResumeParse = (() => {
+  const MON = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, sept: 9, oct: 10, nov: 11, dec: 12 };
+  const MN = 'Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?';
+  const RANGE = new RegExp('(?:(' + MN + ')\\.?\\s+)?((?:19|20)\\d{2})\\s*(?:–|—|-|to)\\s*(?:(?:(' + MN + ')\\.?\\s+)?((?:19|20)\\d{2})|(present|current|now|today))', 'i');
+  const HEAD = /^(professional\s+)?(experience|work experience|employment|career history|education|certifications?|licenses?|skills|technical skills|core competencies|summary|profile|professional summary|about|selected achievements|achievements|awards|languages|publications|projects)\s*:?$/i;
+  const TITLE_W = /\b(director|manager|analyst|practitioner|assistant|associate|coordinator|specialist|consultant|officer|lead|head|engineer|owner|support|professional|administrator|architect|scientist|advisor|adviser|president|dean|chief|writer|developer|intern|fellow)\b/i;
+  const BUL = /^\s*(?:[-•*·▪◦●►✓]|\d+[.)])\s+/;
+  const clean = (s) => String(s || '').replace(/\s+/g, ' ').trim();
+  function section(lines) {
+    const out = { _: [] }; let cur = '_';
+    lines.forEach((l) => { const m = l.trim().match(HEAD); if (m && l.trim().length < 40) { const k = m[2].toLowerCase(); cur = /educ/.test(k) ? 'education' : /certif|licens/.test(k) ? 'certs' : /skill|competenc/.test(k) ? 'skills' : /summary|profile|about/.test(k) ? 'summary' : /experience|employment|career/.test(k) ? 'experience' : k; out[cur] = out[cur] || []; return; } (out[cur] = out[cur] || []).push(l); });
+    return out;
+  }
+  function parse(text) {
+    const raw = String(text || '').replace(/\r/g, '');
+    const lines = raw.split('\n').map((l) => l.replace(/ /g, ' ').trimEnd()).filter((l) => l.trim());
+    const S = section(lines);
+    const ci = window.EPCareerIntake && window.EPCareerIntake.parseResume ? window.EPCareerIntake.parseResume(raw, {}) : { name: '', contact: '', portfolio: [] };
+    const email = (raw.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i) || [''])[0];
+    const phone = (lines.slice(0, 15).join(' ').match(/(?:\+?1[\s.-]?)?\(?\b\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}\b/) || [''])[0];
+    const linkedin = (raw.match(/(?:https?:\/\/)?(?:www\.)?linkedin\.com\/in\/[A-Za-z0-9_-]+\/?/i) || [''])[0];
+    const city = (ci.contact.match(/^[^·]*?,\s*[A-Z]{2}(?:\s+\d{5})?/) || [''])[0];
+    // roles
+    const exp = S.experience && S.experience.length ? S.experience : lines;
+    const roles = []; let cur = null;
+    for (let i = 0; i < exp.length; i++) {
+      const l = exp[i].trim(); const m = l.match(RANGE);
+      if (m && !BUL.test(l) && l.length < 220) {
+        if (cur) roles.push(cur);
+        let head = clean(l.replace(m[0], ' ').replace(/[|·•,–—-]\s*$/, '').replace(/^\s*[|·•,–—-]\s*/, ''));
+        const prev = i > 0 ? exp[i - 1].trim() : '';
+        const prevOk = prev && !BUL.test(prev) && !RANGE.test(prev) && prev.length < 120 && !(cur && cur.bullets.length === 0 && cur.orgLine === prev);
+        if ((!head || !TITLE_W.test(head)) && prevOk && TITLE_W.test(prev) && !(cur && cur.bullets.includes(prev))) head = clean(prev + (head ? ' | ' + head : ''));
+        const parts = head.split(/\s+[|·•—–]\s+|\s+-\s+|\s*\|\s*/).map(clean).filter(Boolean);
+        let k0 = parts.findIndex((p) => TITLE_W.test(p)); if (k0 < 0) k0 = 0; let k1 = k0 + 1; while (k1 < parts.length && TITLE_W.test(parts[k1]) && !/\b(university|college|academy|institute|hospital|school|practice|inc|llc|office|department|center|centre|foundation|trade point)\b/i.test(parts[k1])) k1++;
+        let title = parts.slice(k0, k1).join(' · ') || 'Role';
+        let org = parts.filter((p, q) => q < k0 || q >= k1).join(' · ');
+        const next = exp[i + 1] ? exp[i + 1].trim() : '';
+        if (next && !BUL.test(next) && !RANGE.test(next) && next.length < 140 && !/[.;]$/.test(next) && !TITLE_W.test(next.split(/[,—–|·]/)[0] || '')) { org = org ? org + ' · ' + clean(next) : clean(next); i++; cur = { orgLine: next }; } else cur = {};
+        const sm = m[1] ? MON[m[1].slice(0, 3).toLowerCase()] : 1, sy = +m[2];
+        const present = !!m[5];
+        const em = present ? null : m[3] ? MON[m[3].slice(0, 3).toLowerCase()] : 12, ey = present ? null : +m[4];
+        Object.assign(cur, { smon: !!m[1], emon: !!m[3], title: title.slice(0, 120), org: org.slice(0, 160), start: { y: sy, m: sm }, end: present ? null : { y: ey, m: em }, dates: clean(m[0]).replace(/\s*(–|—|-|to)\s*/, ' – ').replace(/\b(present|current|now|today)\b/i, 'Present'), bullets: [] });
+        continue;
+      }
+      if (cur) { if (HEAD.test(l)) { roles.push(cur); cur = null; continue; } const t = l.replace(BUL, '').trim(); if (t.length > 12) cur.bullets.push(t); }
+    }
+    if (cur) roles.push(cur);
+    const now = new Date();
+    roles.forEach((r) => { const e = r.end || { y: now.getFullYear(), m: now.getMonth() + 1 }; r.months = Math.max(1, (e.y - r.start.y) * 12 + (e.m - r.start.m) + 1); r.current = !r.end; });
+    const edu = (S.education || []).map((l) => l.replace(BUL, '').trim()).filter((l) => l.length > 4).slice(0, 6).map((l) => { const p = l.split(/\s+[—–|·]\s+|\s*;\s*/); return { deg: clean(p[0]), note: clean(p.slice(1).join(' · ')) }; });
+    const certs = (S.certs || []).flatMap((l) => l.replace(BUL, '').split(/\s*;\s*/)).map(clean).filter((l) => l.length > 3).slice(0, 10).map((l) => { const p = l.split(/\s+[—–]\s+|\s*\(\s*/); return { name: clean(p[0]).replace(/\)$/, ''), note: clean(p.slice(1).join(' ')).replace(/\)$/, '') }; });
+    const skills = [...new Set((S.skills || []).flatMap((l) => l.replace(BUL, '').replace(/^[^:]{0,30}:\s*/, '').split(/\s*[,;|·•]\s*/)).map(clean).filter((x) => x.length > 1 && x.length < 40))].slice(0, 40);
+    const summary = clean((S.summary || []).filter((l) => !BUL.test(l)).join(' ')).slice(0, 700);
+    return { name: ci.name || '', email, phone, linkedin, city, portfolio: ci.portfolio || [], summary, roles, edu, certs, skills, ok: roles.length >= 2 };
+  }
+  const THEMES = [
+    ['Data & reporting', /\b(sql|report|dashboard|analytic|tableau|power bi|crystal|bi\b|query|queries|data model|visuali)/i],
+    ['Governance & quality', /\b(governance|quality|integrity|control|reconcil|audit|complian|validat|stewardship)/i],
+    ['Process & delivery', /\b(process|workflow|lean|six sigma|sop|redesign|streamlin|test|acceptance|smoke|release|handoff|deliver)/i],
+    ['Leadership & people', /\b(led|lead|supervis|team|hire|hiring|train|mentor|performance review|staff)/i],
+    ['Stakeholder support', /\b(dean|committee|board|stakeholder|chairs|leadership|present|advis|client)/i],
+    ['Finance & budget', /\b(budget|financ|ledger|gift accounting|cost|\$\d)/i],
+    ['Advancement & giving', /\b(donor|gift|campaign|prospect|advancement|fundrais|constituent|giving)/i],
+    ['AI & technology', /\b(ai\b|generative|automation|system|technolog|platform|prompt)/i],
+    ['Faculty affairs', /\b(faculty|appointment|promotion|search|offer letter|tenure)/i],
+    ['Research & grants', /\b(grant|sponsor|award|\bpi\b|research|gmas|proposal)/i],
+  ];
+  const COLS = ['#A51C30', '#2B5C8A', '#85611F', '#2F6B4F', '#6D4E8C', '#465D75'];
+  function shares(r) {
+    if (!r.bullets.length) return [{ pct: 100, name: 'Role duties', color: COLS[0], text: r.title }];
+    const cnt = {}, ex = {};
+    r.bullets.forEach((b) => { let best = null, bs = 0; THEMES.forEach(([n, re]) => { const s = (b.match(new RegExp(re.source, 'gi')) || []).length; if (s > bs) { bs = s; best = n; } }); best = best || 'Core duties'; cnt[best] = (cnt[best] || 0) + 1; if (!ex[best]) ex[best] = b; });
+    const top = Object.entries(cnt).sort((a, b) => b[1] - a[1]).slice(0, 4), tot = top.reduce((s, x) => s + x[1], 0);
+    let pcts = top.map(([, c]) => Math.max(5, Math.round(c / tot * 20) * 5));
+    const diff = 100 - pcts.reduce((s, x) => s + x, 0); pcts[0] += diff;
+    return top.map(([n], i) => ({ pct: pcts[i], name: n, color: COLS[i % COLS.length], text: ex[n].length > 200 ? ex[n].slice(0, 197).replace(/\s+\S*$/, '') + '…' : ex[n] }));
+  }
+  return { parse, shares, RANGE };
+})();
 /* ===== Role scope benchmark: what a role like this should own, named in the posting or not ===== */
 window.EPRoleScope = (() => {
   /* d: [id, duty, postingRegex, resumeRegex, why, peer, bad, good, [actions], risk, kpi] */
@@ -11965,6 +12069,53 @@ window.EPProfileClone = (() => {
   const POP_CSS = `.ep-dlg{border:0;padding:0;border-radius:var(--r-lg,16px);box-shadow:var(--shadow-lg,0 30px 60px rgba(0,0,0,.3));width:min(760px,calc(100vw - 24px));max-height:calc(100vh - 32px);background:var(--paper,#fff);color:var(--ink,#13171C)}.ep-dlg::backdrop{background:rgba(19,23,28,.45)}.ep-dlg-in{padding:20px 22px 22px;overflow:auto;max-height:calc(100vh - 32px)}.ep-x{position:sticky;top:0;float:right;border:1px solid var(--line,#E1E5EA);background:var(--paper,#fff);border-radius:9px;padding:6px 10px;font:600 12px var(--ui);cursor:pointer}.ep-kick{font:700 10.5px/1.3 var(--ui);letter-spacing:.1em;text-transform:uppercase;color:var(--crimson,#A51C30);margin:0 0 4px}.ep-dlg h2{font:700 22px/1.2 var(--serif);margin:0 0 10px;text-wrap:balance}.ep-lead{font-size:13.5px;line-height:1.55;margin:0 0 8px;color:var(--slate,#3B4754)}.ep-cj{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.ep-cj>div{border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.5}.ep-cj .bad{background:#FBEEF0;border:1px solid #EFC9D0}.ep-cj .good{background:#EAF2F9;border:1px solid #C9DCEE}.ep-cj h3{margin:0 0 6px;font:700 11px var(--ui);letter-spacing:.08em;text-transform:uppercase}.ep-cj .bad h3{color:#A51C30}.ep-cj .good h3{color:#1C4266}.ep-cj p{margin:0}.ep-rule{border:2px solid var(--ink,#13171C);border-radius:10px;padding:9px 12px;font-size:13px;font-weight:600;margin:0 0 12px;display:flex;gap:10px;align-items:center}.ep-rule b{background:var(--ink,#13171C);color:#fff;border-radius:5px;padding:2px 7px;font-size:10.5px;letter-spacing:.08em}.ep-h3{font:700 12px var(--ui);letter-spacing:.06em;text-transform:uppercase;color:var(--slate,#3B4754);margin:12px 0 6px}.ep-fix{list-style:none;padding:0;margin:0;counter-reset:f;display:grid;gap:6px}.ep-fix li{counter-increment:f;display:grid;grid-template-columns:26px 1fr;gap:8px;font-size:13px;line-height:1.45}.ep-fix li::before{content:counter(f);width:24px;height:24px;border-radius:50%;background:var(--crimson,#A51C30);color:#fff;display:grid;place-items:center;font:700 11px var(--ui)}.ep-ul{margin:0;padding-left:18px;font-size:13px;line-height:1.5}.ep-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ep-two p{font-size:13px;margin:0}.ep-ev{margin-top:12px;background:var(--green-l,#E8F4ED);border:1px solid #CBE4D5;border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.5}.ep-ev.muted{background:var(--paper-2,#F7F9FA);border-color:var(--line,#E1E5EA)}.ep-facts{width:100%;border-collapse:collapse;font-size:12.5px;margin:6px 0 4px}.ep-facts th{width:30%;text-align:left;vertical-align:top;color:var(--muted,#5C6774);font:700 10.5px/1.5 var(--ui);letter-spacing:.06em;text-transform:uppercase;padding:6px 8px 6px 0;border-bottom:1px solid var(--line-soft,#EDF0F3)}.ep-facts td{padding:6px 0;border-bottom:1px solid var(--line-soft,#EDF0F3)}.ep-row{cursor:pointer}.ep-row:hover td{background:var(--paper-2,#F7F9FA)}.ep-card{text-decoration:none;color:inherit;display:block}.ep-card small{color:var(--blue,#2B5C8A);font-weight:600}.ep-svg svg{max-width:100%;height:auto;display:block;margin:0 auto}.ep-svg.w-m svg{max-width:760px}.ep-svg.w-s svg{max-width:500px}[data-ep]{cursor:pointer}@media(max-width:640px){.ep-cj,.ep-two{grid-template-columns:1fr}}`;
   const POP_JS = `(function(){var D={};try{D=JSON.parse(document.getElementById('epData').textContent)}catch(e){}var dlg=document.getElementById('epDlg'),body=document.getElementById('epDlgBody');function open(k){if(!D[k])return false;body.innerHTML=D[k];if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');var c=dlg.querySelector('.ep-x');if(c)c.focus();return true}document.addEventListener('click',function(e){var t=e.target.closest('[data-ep],[data-sm-risk],[data-sm-kpi]');if(!t||t.closest('.ep-dlg'))return;var k=t.getAttribute('data-ep')||(t.hasAttribute('data-sm-risk')?'risk-'+t.getAttribute('data-sm-risk'):'kpi-'+t.getAttribute('data-sm-kpi'));if(open(k))e.preventDefault()});document.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.matches&&e.target.matches('[data-ep]:not(a):not(button)')){e.preventDefault();e.target.click()}});dlg.addEventListener('click',function(e){if(e.target===dlg||e.target.closest('.ep-x'))dlg.close()});document.querySelectorAll('tr[data-ep]').forEach(function(r){r.tabIndex=0;r.setAttribute('role','button')})})();`;
 
+  const RCOLS = ['#2F6B4F', '#A51C30', '#8A651F', '#2B5C8A', '#626D7A', '#5A6371', '#6D4E8C', '#465D75'];
+  const MNAME = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function applyResume(h, text) {
+    const RP = window.EPResumeParse; if (!RP || !text) return { h, ok: false };
+    const P = RP.parse(text); if (!P.ok) return { h, ok: false, P };
+    const rep = (a, b) => { h = h.split(a).join(b); };
+    // hero identity + contact
+    if (P.name && P.name.split(' ').length >= 2) { h = h.replace(/(<h1 id="hero-name">)[^<]*(<\/h1>)/, `$1${E(P.name)}$2`); h = h.replace(/(<span class="brand-txt"><strong>)[^<]*(<\/strong>)/, `$1${E(P.name)}$2`); h = h.replace(/<title>Narissara Khomkhai/, '<title>' + E(P.name)); }
+    if (P.email) rep('Narissa.K9@proton.me', E(P.email));
+    if (P.phone) { const d = P.phone.replace(/\D/g, '').replace(/^1(?=\d{10}$)/, ''); rep('tel:+16178529805', 'tel:+1' + d); rep('617-852-9805', E(P.phone.trim())); }
+    if (P.city) h = h.replace(/(<ul class="contact">\s*<li>[\s\S]*?<\/svg>)Cambridge, Massachusetts/, `$1${E(P.city)}`);
+    if (P.linkedin) rep('https://www.linkedin.com/in/narissara/', E(/^https?:/i.test(P.linkedin) ? P.linkedin : 'https://www.' + P.linkedin.replace(/^www\./i, '')));
+    if (P.summary && P.summary.length > 80) h = h.replace(/(<p class="lede">)[\s\S]*?(The accompanying [\s\S]*?<\/p>)/, (m0, a, b) => a + E(P.summary.length > 520 ? P.summary.slice(0, 517).replace(/\s+\S*$/, '') + '…' : P.summary) + ' ' + b);
+    const when = (r) => (r.smon ? MNAME[r.start.m] + ' ' : '') + r.start.y + ' – ' + (r.end ? (r.emon ? MNAME[r.end.m] + ' ' : '') + r.end.y : 'Present');
+    const byNew = [...P.roles].sort((a, b) => (b.end ? b.end.y * 12 + b.end.m : 1e9) - (a.end ? a.end.y * 12 + a.end.m : 1e9) || (b.start.y * 12 + b.start.m) - (a.start.y * 12 + a.start.m));
+    const ids = new Map(byNew.map((r, i) => [r, 'r' + i]));
+    const cur = byNew.filter((r) => r.current), last = byNew.find((r) => !r.current);
+    if (last) h = h.replace(/(<p class="idcard-k">Most recent institutional role<\/p>\s*<p class="idcard-v">)[\s\S]*?(<\/p>)/, `$1${E(last.title)}<small>${E([last.org, when(last)].filter(Boolean).join(' · '))}</small>$2`);
+    if (cur.length) h = h.replace(/(<p class="idcard-k">Now<\/p>\s*<p class="idcard-v">)[\s\S]*?(<\/p>)/, `$1${E(cur.map((r) => r.title).join(' · '))}<small>${E(cur.map((r) => [r.org, when(r)].filter(Boolean).join(', ')).join(' · '))}</small>$2`);
+    // positions list
+    const btns = byNew.map((r, i) => `<button class="role" type="button" data-job="${ids.get(r)}" aria-haspopup="dialog" aria-controls="roleDialog" aria-pressed="false" style="--rc:${RCOLS[i % RCOLS.length]}"><span class="role-when">${E(when(r))}</span><span><span class="role-title">${E(r.title)}</span><span class="role-org">${E(r.org || '')}</span></span><span class="role-open">Role mix</span></button>`).join('');
+    h = h.replace(/(<div class="roles">)[\s\S]*?(<\/div>\s*<div class="print-roles")/, `$1${btns}$2`);
+    const y0 = Math.min(...P.roles.map((r) => r.start.y));
+    h = h.replace(/Career timeline · \d{4} to present/, `Career timeline · ${y0} to present`);
+    // chart + dialog data
+    const base = y0 * 12 + 1, now = new Date(), nowM = now.getFullYear() * 12 + now.getMonth() + 1;
+    const chrono = [...P.roles].sort((a, b) => (a.start.y * 12 + a.start.m) - (b.start.y * 12 + b.start.m));
+    const short = (s, n) => { s = String(s || ''); return s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : s; };
+    const CAREER = chrono.map((r) => { const i = byNew.indexOf(r); const s0 = r.start.y * 12 + r.start.m - base, e0 = (r.end ? r.end.y * 12 + r.end.m : nowM) - base; return { id: ids.get(r), label: short(r.org ? r.org.split(' · ')[0] : r.title, 26), dates: r.start.y + ' – ' + (r.end ? r.end.y : 'present'), start: Math.max(0, s0), end: Math.max(s0 + 1, e0), color: RCOLS[i % RCOLS.length], caption: short(r.title, 30), title: r.title, org: r.org || '' }; });
+    const MONTHS = nowM - base;
+    const JOBS = {}; byNew.forEach((r, i) => { JOBS[ids.get(r)] = { when: when(r), title: r.title, org: r.org || '', months: r.months, shares: RP.shares(r) }; });
+    const J2 = (v) => JSON.stringify(v).replace(/</g, '\\u003c');
+    h = h.replace(/var CAREER = \[[\s\S]*?\];\s*var MONTHS = \d+;/, `var CAREER = ${J2(CAREER)};\n  var MONTHS = ${MONTHS};`);
+    h = h.replace(/var JOBS = \{[\s\S]*?\n  \};/, `var JOBS = ${J2(JOBS)};`);
+    h = h.replace(/var order = \[[^\]]*\];/, `var order = ${J2(byNew.map((r) => ids.get(r)))};`);
+    h = h.replace(/var shortName = \{[^}]*\};/, `var shortName = ${J2(Object.fromEntries(byNew.map((r) => [ids.get(r), short(r.org ? r.org.split(' · ')[0] : r.title, 20)])))};`);
+    h = h.replace(/'aria-label': 'Career timeline, 2002 to present\.[^']*'/, `'aria-label': ${J2('Career timeline, ' + y0 + ' to present, ' + P.roles.length + ' roles.')}`);
+    // skills
+    if (P.skills.length >= 6) h = h.replace(/(<h3>Systems and analytics<\/h3>\s*<ul class="chips">)[\s\S]*?(<\/ul>)/, `$1${P.skills.slice(0, 24).map((s) => `<li>${E(s)}</li>`).join('')}$2`);
+    // credentials
+    if (P.certs.length) h = h.replace(/(<div class="cred-grid">)[\s\S]*?(<\/div>\s*<p class="section-label" style="margin-top:20px">Education)/, `$1${P.certs.map((c) => `<div class="cred"><b>${E(c.name)}</b><span>${E(c.note || 'Certification')}</span></div>`).join('')}$2`);
+    if (P.edu.length) h = h.replace(/(<div class="edu-grid">)[\s\S]*?(<\/div>\s*(?:<details|<\/div>))/, (m0, a, b) => a + P.edu.map((d) => `<div class="edu"><b>${E(d.deg)}</b><span>${E(d.note)}</span></div>`).join('') + b.replace(/^<\/div>/, ''));
+    // career record table
+    h = h.replace(/(<caption[^>]*>Career record<\/caption>\s*<thead>[\s\S]*?<\/thead>\s*<tbody>)[\s\S]*?(<\/tbody>)/, `$1${chrono.map((r) => `<tr><td>${E(r.title)}${r.org ? ' · ' + E(r.org) : ''}</td><td>${E(when(r))}</td><td>${r.months} months</td><td>${E(r.bullets.slice(0, 2).map((b) => short(b, 90)).join('; '))}</td></tr>`).join('')}$2`);
+    return { h, ok: true, P };
+  }
+
   function build(a, job, opts = {}) {
     const x = model(a, job), { m, ws, V, orgShort, title, isH } = x;
     let h = TPL;
@@ -12012,6 +12163,8 @@ window.EPProfileClone = (() => {
     h = h.replace(/'Sankey diagram: six HMS BEACON priorities mapped to four DBMI programs[^']*'/, J('Sankey diagram: ' + V.length + ' values mapped to ' + ws.length + ' proposed workstreams.'));
     h = h.replace(/'Heatmap of proposed BEACON-to-program mappings[^']*'/, J('Heatmap of proposed value-to-workstream mappings.'));
     h = h.replace(/href: 'https:\/\/narissa-pgm\.github\.io\/HMS_DBMI\/index\.html#\/[a-z]+'/g, "href: '#concept'");
+    const RA = opts.noResume ? { ok: false } : applyResume(h, opts.resumeText || (a.resume && a.resume.text) || '');
+    if (RA.ok) h = RA.h;
     // 06 role scope + 07 program detail, credentials becomes 08
     const sc = window.EPRoleScope ? window.EPRoleScope.assess(job, opts.resumeText || (a.resume && a.resume.text) || '') : null;
     const extra = (sc ? section06(x, sc) : '') + section07(x);
@@ -12026,6 +12179,14 @@ window.EPProfileClone = (() => {
     const data = JSON.stringify(P).replace(/</g, '\\u003c');
     h = h.replace(/<\/body>(?![\s\S]*<\/body>)/, `<dialog class="ep-dlg" id="epDlg" aria-label="Details"><div class="ep-dlg-in"><button type="button" class="ep-x" aria-label="Close details">Close ×</button><div id="epDlgBody"></div></div></dialog>\n<script type="application/json" id="epData">${data}<\/script>\n<script>${POP_JS}<\/script>\n${opts.tail || ''}</body>`);
     if (opts.applicant) h = h.replace('<main class="shell" id="main">', '<main class="shell" id="main">' + opts.applicant);
+    if (opts.privateMain) {
+      const a0 = h.indexOf('<main class="shell" id="main">'), a1 = h.indexOf('</main>', a0);
+      if (a0 > 0 && a1 > a0) h = h.slice(0, a0) + '<main class="shell" id="main">' + opts.privateMain + h.slice(a1);
+      h = h.replace(/<nav class="nav" aria-label="Page sections">[\s\S]*?<\/nav>/, opts.privateNav || '');
+      h = h.replace(/<title>[^<]*<\/title>/, '<title>' + E(opts.privateTitle || 'Private briefing') + '</title>');
+      h = h.replace(/<meta name="description" content="[^"]*"/, '<meta name="robots" content="noindex"><meta name="description" content="Private application briefing — not for distribution"');
+      h = h.replace(/<footer class="footer">[\s\S]*?<\/footer>/, '<footer class="footer"><p>Private briefing generated by ExecutivePilot AI. Scores are heuristics, not hiring predictions. Do not send or publish this file; send the separate hiring-team page.</p></footer>');
+    }
     if (opts.bodyAttr) h = h.replace(/<body([^>]*)>/, '<body$1 ' + opts.bodyAttr + '>');
     return h;
   }
