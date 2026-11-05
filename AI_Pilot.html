@@ -1520,6 +1520,17 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
 @media(max-width:900px){.jf-auto-steps{grid-template-columns:repeat(4,minmax(0,1fr))}.jf-auto-steps li::after{display:none}}
 @media(max-width:480px){.jf-auto-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .jf-ready td,.jf-ready th{font-size:12.5px;vertical-align:middle}
+
+.cx-drop{display:flex;gap:14px;align-items:center;border:2px dashed #9cc3cc;background:#f4fafb;border-radius:14px;padding:14px 16px;cursor:pointer;transition:background .15s,border-color .15s}
+.cx-drop:hover,.cx-drop:focus-visible,.cx-drop.over{border-color:#267589;background:#e8f4f6;outline:none}
+.cx-drop strong{display:block;color:#18374d;font-size:14.5px;margin-bottom:3px}.cx-drop span{display:block;font-size:12px;color:#4f6873;line-height:1.45}
+.cx-ico{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:#267589;color:#fff}
+.cx-bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:8px;font-size:12.5px}
+.cx-auto{display:inline-flex!important;flex-direction:row!important;align-items:center;gap:6px;color:#3d5d66;font-weight:700;white-space:nowrap}.cx-auto input{width:auto!important;min-width:0!important;height:auto;margin:0;padding:0;accent-color:#267589}
+.career-field.cx-old{display:none}
+#cxStatus{flex:1 1 260px;color:#2c4a56;line-height:1.45}
+@keyframes cxflash{0%{background:#fff6d8;box-shadow:0 0 0 3px rgba(196,138,44,.25)}100%{background:#fff;box-shadow:none}}
+.cx-flash{animation:cxflash 1.6s ease-out}
 </style>
 </head>
 <body>
@@ -3920,7 +3931,7 @@ async function carDocxText(arrayBuffer){
 }
 async function carPdfText(file){
  if(!window.pdfjsLib){try{await new Promise((resolve,reject)=>{const js=document.createElement('script');js.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';js.onload=resolve;js.onerror=reject;document.head.append(js);});}catch{throw Error('PDF reader unavailable (offline or blocked). Paste resume text, or upload DOCX / HTML / TXT.');}}
- const lib=window.pdfjsLib;lib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';const pdf=await lib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;const pages=[];for(let i=1;i<=Math.min(pdf.numPages,15);i++){const pg=await pdf.getPage(i),tc=await pg.getTextContent();pages.push(tc.items.map(i=>i.str).join(' '));}return pages.join('\n');
+ const lib=window.pdfjsLib;lib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';const pdf=await lib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;const pages=[];for(let i=1;i<=Math.min(pdf.numPages,15);i++){const pg=await pdf.getPage(i),tc=await pg.getTextContent();let out='',lastY=null;for(const it of tc.items){const y=it.transform?it.transform[5]:null;if(lastY!==null&&y!==null&&Math.abs(y-lastY)>2)out+='\n';else if(out&&!/[\s\n]$/.test(out)&&it.str&&!/^\s/.test(it.str))out+=' ';out+=it.str;if(it.hasEOL){out+='\n';lastY=null;}else lastY=y;}pages.push(out.replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n'));}return pages.join('\n');
 }
 function carHtmlToText(html){const d=new DOMParser().parseFromString(html,'text/html');for(const n of d.querySelectorAll('style,script,nav,canvas,svg,.pie-popup,.data-src,[aria-hidden="true"]'))n.remove();const selections=[];
  if(!d.querySelector('.exp-tile')){const main=d.querySelector('main,[role="main"],article,.resume,.cv')||d.body;return (main?.innerText||main?.textContent||'').replace(/\s+/g,' ').trim();}
@@ -11169,7 +11180,7 @@ Example University is an equal opportunity employer.`;
   state.items.filter((i) => i.status === 'loading').forEach((i) => { i.status = 'needs-text'; i.note = 'Reading was interrupted. Open the link and paste the description.'; });
   render();
   if (typeof activateView === 'function') activateView('jobfit');
-  window.EPJobFit = { analyze: (jt, rt, ct) => analyze({ id: 'x', text: jt, title: jobMeta(jt).title, org: jobMeta(jt).org }, { id: 'r', text: rt }, ct ? { id: 'c', text: ct } : null), classify, extractReqs, jobMeta, addText, render };
+  window.EPJobFit = { current: () => ({ job: curJob(), resume: curResume(), cover: curCover() }), addDoc: (t, n, k) => { const tt = String(t || '').trim(); if (!tt || state.items.some((i) => String(i.text || '').trim() === tt)) return null; const it = addText(tt, n, 'career', k); if (it) { save(); render(); } return it; }, analyze: (jt, rt, ct) => analyze({ id: 'x', text: jt, title: jobMeta(jt).title, org: jobMeta(jt).org }, { id: 'r', text: rt }, ct ? { id: 'c', text: ct } : null), classify, extractReqs, jobMeta, addText, render };
 })();
 
 
@@ -11184,6 +11195,157 @@ Example University is an equal opportunity employer.`;
   keepActiveOpen();
   const nav = document.querySelector('.primary-nav');
   if (nav && typeof MutationObserver !== 'undefined') new MutationObserver(keepActiveOpen).observe(nav, { subtree: true, attributes: true, attributeFilter: ['class'] });
+})();
+
+/* ===== Resume + Cover Letter: drop-and-fill intake (same flow as Job Fit Studio) ===== */
+(() => {
+  const panel = document.getElementById('careerPanel'); if (!panel) return;
+  const $c = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const wcount = (s) => (String(s || '').match(/\S+/g) || []).length;
+  const anchor = panel.querySelector('.career-field.wide');
+  if (!anchor) return;
+  const box = document.createElement('div');
+  box.className = 'career-field wide cx-drop-wrap';
+  box.innerHTML = `<div class="cx-drop" id="cxDrop" tabindex="0" role="button" aria-label="Drop or choose your résumé, cover letter or job description" aria-describedby="cxHelp">
+      <div class="cx-ico" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></div>
+      <div><strong>Drop your résumé, cover letter and job description — the fields fill themselves</strong>
+      <span id="cxHelp">PDF, DOCX, HTML, TXT or MD · several at once · each file is sorted automatically. Name, contact line, portfolio links, job title, organization, link and work type are read for you; the package builds when a résumé and a job are both in.</span></div>
+      <input type="file" id="cxFiles" multiple accept=".pdf,.docx,.html,.htm,.txt,.md,.text" hidden></div>
+    <div class="cx-bar"><button type="button" class="btn" id="cxSync">↻ Use the job &amp; résumé from Job Fit Studio</button><label class="cx-auto"><input type="checkbox" id="cxAutoGen" checked> Build the package automatically</label><span id="cxStatus" role="status" aria-live="polite"></span></div>`;
+  anchor.parentNode.insertBefore(box, anchor);
+  const status = (m) => { $c('cxStatus').innerHTML = m; };
+
+  /* ---- readers ---- */
+  async function readAny(f) {
+    if (f.size > 8e6) throw Error('file too large (8 MB max)');
+    const ext = f.name.split('.').pop().toLowerCase();
+    if (ext === 'docx') return { text: await carDocxText(await f.arrayBuffer()) };
+    if (ext === 'pdf') return { text: await carPdfText(f) };
+    if (['html', 'htm', 'txt', 'text', 'md'].includes(ext)) {
+      const raw = await f.text();
+      if (/<html[\s>]|<!doctype html/i.test(raw.slice(0, 400))) { const d = new DOMParser().parseFromString(raw, 'text/html'); const h1 = d.querySelector('h1'); const links = [...d.querySelectorAll('a[href^="http"]')].map((a) => a.href); return { text: carHtmlToText(raw), name: h1 ? h1.textContent.replace(/\s+/g, ' ').trim() : '', links, mail: [...d.querySelectorAll('a[href^="mailto:"]')].map((a) => a.href.slice(7))[0] || '' }; }
+      return { text: raw };
+    }
+    throw Error('use PDF, DOCX, HTML, TXT or MD');
+  }
+  const classify = (t) => { try { return window.EPJobFit && window.EPJobFit.classify ? window.EPJobFit.classify(t) : /responsibilit|qualification|we are seeking|apply/i.test(t) ? 'job' : 'resume'; } catch (e) { return 'resume'; } };
+
+  /* ---- parsers ---- */
+  const HEAD = /^(resume|résumé|curriculum vitae|cv|profile|summary|professional summary|experience|contact|education|skills|objective)\b/i;
+  const tcase = (s) => (s === s.toUpperCase() ? s.toLowerCase().replace(/\b([a-z])/g, (m) => m.toUpperCase()) : s);
+  function parseResume(text, meta = {}) {
+    const lines = String(text).split(/\n+/).map((l) => l.trim()).filter(Boolean);
+    let name = (meta.name || '').trim();
+    if (!name || name.split(/\s+/).length > 6) {
+      name = '';
+      for (const l0 of lines.slice(0, 8)) { const l = l0.split(/\s[|·•]\s|\s{2,}|\t/)[0].trim(); if (HEAD.test(l) || /\d|@|https?:|www\./.test(l)) continue; const w = l.split(/\s+/); if (w.length >= 2 && w.length <= 5 && l.length <= 48 && /^[A-Za-zÀ-ÿ.'’()\- ]+$/.test(l) && w.filter((x) => /^[A-ZÀ-Ý(]/.test(x)).length >= 2) { name = tcase(l); break; } }
+    }
+    const top = lines.slice(0, 14).join(' \n ').split(name || '\u0000').join(' \n ');
+    const email = (text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i) || [meta.mail || ''])[0];
+    const phone = (top.match(/(?:\+?1[\s.-]?)?\(?\b\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}\b/) || [''])[0];
+    const city = (top.match(/\b([A-Z][a-zA-Z.]+(?:\s[A-Z][a-zA-Z.]+){0,2},\s*(?:A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|PA|RI|S[CD]|T[NX]|UT|V[AT]|W[AIVY])(?:\s+\d{5})?)\b/) || [''])[0];
+    const urlsAll = [...new Set([...(meta.links || []), ...(String(text).match(/\b(?:https?:\/\/|www\.)[^\s<>()"',;]+/gi) || []), ...(String(text).match(/\b[a-z0-9-]+\.github\.io(?:\/[^\s<>()"',;]*)?/gi) || []), ...(String(text).match(/\blinkedin\.com\/in\/[A-Za-z0-9_-]+/gi) || [])].map((u) => u.replace(/[.)]+$/, '')).map((u) => (/^https?:/i.test(u) ? u : 'https://' + u.replace(/^www\./i, 'www.'))))];
+    const linkedin = urlsAll.find((u) => /linkedin\.com/i.test(u)) || '';
+    const portfolio = urlsAll.filter((u) => !/linkedin\.com|mailto:|google\.com\/search|fonts\.googleapis/i.test(u)).slice(0, 8);
+    const contact = [city, phone, email, linkedin.replace(/^https?:\/\/(www\.)?/i, '')].filter(Boolean).join(' · ');
+    return { name, contact, portfolio };
+  }
+  function parseJob(text) {
+    const meta = window.EPJobFit && window.EPJobFit.jobMeta ? window.EPJobFit.jobMeta(text) : { title: '', org: '' };
+    const url = (String(text).match(/https?:\/\/[^\s<>"')]+/) || [''])[0];
+    const loc = (String(text).match(/\b(?:location|work location|campus)\s*[:\-–]\s*([^\n]{3,80})/i) || [, ''])[1].trim();
+    const mode = /\bremote\b/i.test(text) ? (/\bhybrid\b/i.test(text) ? 'hybrid / remote' : 'remote') : /\bhybrid\b/i.test(text) ? 'hybrid' : '';
+    const type = /\b(consultant|consulting|contract(or)?|independent contractor|fixed[- ]term project|statement of work)\b/i.test(text) ? 'contract' : /\bpart[- ]time\b/i.test(text) ? 'part' : 'full';
+    let org = meta.org || '';
+    if (!org) { const L = String(text).split(/\n+/).map((l) => l.trim()).filter(Boolean); const lab = String(text).match(/\b(?:organization|employer|company|department|school|unit)\s*[:\-–]\s*([^\n]{3,100})/i); org = lab ? lab[1].trim() : (L.slice(1, 5).find((l) => l.length <= 110 && !/[:.]$/.test(l) && /\b(university|college|school|institute|hospital|health|medical|center|centre|foundation|academy|office|department|inc\.?|llc|corporation|museum|library|trust|council)\b/i.test(l) && !/^(location|salary|responsibilities|required|about)\b/i.test(l)) || ''); }
+    const locOut = mode && !new RegExp('\\b' + mode.split(' ')[0] + '\\b', 'i').test(loc) ? [loc, mode].filter(Boolean).join(' · ') : loc || mode;
+    return { title: meta.title || '', org, url, loc: locOut, type };
+  }
+
+  /* ---- fill fields (never overwrite what you typed; refresh what we filled) ---- */
+  function put(id, v) {
+    const el = $c(id); if (!el) return false;
+    if (!v) { if (el.dataset.cxAuto === '1' && el.value && id !== 'cResume' && id !== 'cJob') { el.value = ''; } return false; }
+    if (el.value.trim() && el.dataset.cxAuto !== '1' && el.value.trim() !== String(v).trim()) return false;
+    el.value = v; el.dataset.cxAuto = '1'; el.classList.remove('cx-flash'); void el.offsetWidth; el.classList.add('cx-flash');
+    el.dispatchEvent(new Event('input', { bubbles: true })); return true;
+  }
+  ['cName', 'cContact', 'cPortfolio', 'cJobUrl', 'cCompany', 'cRole', 'cLocation', 'cResume', 'cJob'].forEach((id) => { const el = $c(id); if (el) el.addEventListener('input', (e) => { if (e.isTrusted) delete el.dataset.cxAuto; }); });
+  function fillResume(text, meta) {
+    const p = parseResume(text, meta), got = [];
+    if (put('cResume', text.slice(0, 60000))) got.push('résumé text');
+    if (put('cName', p.name)) got.push('name');
+    if (put('cContact', p.contact)) got.push('contact line');
+    if (p.portfolio.length && put('cPortfolio', p.portfolio.join('\n'))) got.push(p.portfolio.length + ' link' + (p.portfolio.length > 1 ? 's' : ''));
+    return got;
+  }
+  function fillJob(text) {
+    const p = parseJob(text), got = [];
+    if (put('cJob', text.slice(0, 60000))) got.push('job description');
+    if (put('cRole', p.title)) got.push('job title');
+    if (put('cCompany', p.org)) got.push('organization');
+    if (put('cJobUrl', p.url)) got.push('job link');
+    const loc = $c('cLocation'); if (p.loc && loc && (loc.dataset.cxAuto === '1' || !loc.value.trim() || loc.value === loc.defaultValue)) { loc.dataset.cxAuto = '1'; if (put('cLocation', p.loc)) got.push('location'); }
+    const wt = $c('cWorkType'); if (wt && p.type && wt.value !== p.type && wt.dataset.cxTouched !== '1') { wt.value = p.type; got.push('work type'); }
+    return got;
+  }
+  const wt0 = $c('cWorkType'); if (wt0) wt0.addEventListener('change', (e) => { if (e.isTrusted) wt0.dataset.cxTouched = '1'; });
+  let genTimer = null;
+  function maybeGenerate(why) {
+    if (!$c('cxAutoGen').checked) return;
+    if (($c('cResume').value || '').trim().length < 80 || ($c('cJob').value || '').trim().length < 100) return;
+    clearTimeout(genTimer); genTimer = setTimeout(() => { const g = $c('cGenerate'); if (g) { g.click(); status(`${esc(why)} <b>Career package built automatically.</b> Review every line before sending.`); } }, 250);
+  }
+  const shareToStudio = (text, name, kind) => { try { if (window.EPJobFit && window.EPJobFit.addDoc) return window.EPJobFit.addDoc(text, name, kind); } catch (e) { /* studio optional */ } return null; };
+
+  async function handleFiles(list) {
+    const files = [...list], done = [];
+    for (const f of files) {
+      try {
+        const r = await readAny(f);
+        if (!r.text || wcount(r.text) < 25) throw Error('very little readable text (a scanned PDF?) — paste its text instead');
+        const kind = classify(r.text);
+        if (kind === 'job') { const g = fillJob(r.text); done.push(`<b>${esc(f.name)}</b> → job description${g.length ? ': ' + esc(g.join(', ')) : ''}`); }
+        else if (kind === 'cover') { done.push(`<b>${esc(f.name)}</b> → cover letter (kept for the Job Fit Studio)`); }
+        else { const g = fillResume(r.text, r); done.push(`<b>${esc(f.name)}</b> → résumé${g.length ? ': ' + esc(g.join(', ')) : ''}`); const m = $c('cFileMessage'); if (m) m.textContent = 'Loaded ' + f.name + ' (' + r.text.length.toLocaleString() + ' characters).'; }
+        shareToStudio(r.text, f.name, kind);
+      } catch (err) { done.push(`<b>${esc(f.name)}</b> — could not read: ${esc(err.message)}`); }
+    }
+    status('Filled from your files — ' + done.join(' · ') + '.');
+    maybeGenerate('Filled from your files.');
+  }
+
+  /* ---- wire the drop zone, the original file input, and paste ---- */
+  const drop = $c('cxDrop'), fi = $c('cxFiles');
+  drop.addEventListener('click', () => fi.click());
+  drop.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fi.click(); } });
+  fi.addEventListener('change', () => { if (fi.files.length) handleFiles(fi.files).then(() => { fi.value = ''; }); });
+  ['dragenter', 'dragover'].forEach((ev) => panel.addEventListener(ev, (e) => { if (e.dataTransfer && [...(e.dataTransfer.types || [])].includes('Files')) { e.preventDefault(); drop.classList.add('over'); } }));
+  ['dragleave', 'drop'].forEach((ev) => panel.addEventListener(ev, (e) => { if (ev === 'dragleave' && panel.contains(e.relatedTarget)) return; drop.classList.remove('over'); }));
+  panel.addEventListener('drop', (e) => { if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) { e.preventDefault(); handleFiles(e.dataTransfer.files); } });
+  const oldFile = $c('cFile');
+  if (oldFile && oldFile.closest('.career-field')) oldFile.closest('.career-field').classList.add('cx-old');
+  if (oldFile) { const nu = oldFile.cloneNode(true); nu.multiple = true; oldFile.replaceWith(nu); nu.addEventListener('change', () => { if (nu.files.length) handleFiles(nu.files).then(() => { nu.value = ''; }); }); }
+  const onPaste = (id, fn, label) => { const el = $c(id); if (!el) return; el.addEventListener('paste', () => setTimeout(() => { const t = el.value; if (wcount(t) < 25) return; el.dataset.cxAuto = '1'; const g = fn(t); status(`Read your pasted ${label}${g.length ? ' — filled ' + esc(g.join(', ')) : ''}.`); maybeGenerate(`Read your pasted ${label}.`); }, 0)); };
+  onPaste('cResume', (t) => fillResume(t, {}).filter((x) => x !== 'résumé text'), 'résumé');
+  onPaste('cJob', (t) => fillJob(t).filter((x) => x !== 'job description'), 'job description');
+
+  /* ---- pull from Job Fit Studio ---- */
+  function syncFromStudio(silent) {
+    const cur = window.EPJobFit && window.EPJobFit.current ? window.EPJobFit.current() : null;
+    if (!cur || (!cur.job && !cur.resume)) { if (!silent) status('Nothing in Job Fit Studio yet — drop files here instead.'); return false; }
+    const got = [];
+    if (cur.resume) got.push(...fillResume(cur.resume.text, {}));
+    if (cur.job && cur.job.status === 'ok') { got.push(...fillJob(cur.job.text)); if (cur.job.url) put('cJobUrl', cur.job.url); if (cur.job.title) put('cRole', cur.job.title); if (cur.job.org) put('cCompany', cur.job.org); }
+    if (got.length || !silent) status(got.length ? `Pulled from Job Fit Studio — ${esc(got.join(', '))}.` : 'Already in sync with Job Fit Studio.');
+    if (got.length) maybeGenerate('Pulled from Job Fit Studio.');
+    return got.length > 0;
+  }
+  $c('cxSync').addEventListener('click', () => syncFromStudio(false));
+  const view = $c('viewCareer');
+  if (view) view.addEventListener('click', () => setTimeout(() => { if (!($c('cResume').value || '').trim() || !($c('cJob').value || '').trim()) syncFromStudio(true); }, 60));
+  window.EPCareerIntake = { parseResume, parseJob, syncFromStudio, handleFiles };
 })();
 </script>
 <noscript><p style="background:#fff5dc;padding:20px;font:16px Georgia,serif">ExecutivePilot AI requires JavaScript for dashboards, popups, and analysis tools. Enable JavaScript in your browser to use this local HTML application.</p></noscript>
