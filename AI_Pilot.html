@@ -3105,7 +3105,7 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
         <button type="button" class="ws-btn" id="wsDownloadMd">Download .md</button>
       </div>
     </div>
-    <p class="ws-help">Paste this into an AI assistant (or hand it to a developer). It contains the brief, the ten required sections, the model definitions, the HITL and provenance rules, the anti-fabrication rules, the technical constraints and an acceptance checklist. The prompt is deterministic: the same brief always produces the same text.</p>
+    <p class="ws-help">Paste this into an AI assistant (or hand it to a developer). It asks for a working program playbook — Command center, Initiate, Plan (WBS, Gantt, RACI, budget), Execute, Monitor &amp; control (scorecard, EVM, KRIs, what-if), Close &amp; hand over, AI and Governance — with a popup behind every visual. It carries your program model as a JSON data pack (phases, gates, KPIs, risks, RACI, budget), so the AI builds from your numbers instead of inventing them.</p>
     <pre class="ws-prompt" id="wsPrompt" tabindex="0" aria-label="Generated build prompt">Fill the brief and select &ldquo;Build spec &amp; prompt&rdquo; to generate the build prompt.</pre>
   </div>
 </section>
@@ -3113,7 +3113,7 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
 <section class="ws-page" id="wsPanelQa" role="tabpanel" aria-labelledby="wsTabQa" hidden>
   <div class="ws-card">
     <div class="ws-card-head">
-      <h2>4 &middot; QA gate</h2>
+      <h2>5 &middot; QA gate &mdash; your read-through</h2>
       <div class="ws-actions-inline">
         <button type="button" class="ws-btn" id="wsQaCopy">Copy QA report</button>
         <button type="button" class="ws-btn ws-btn-quiet" id="wsQaReset">Reset checks</button>
@@ -3123,7 +3123,7 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
       <strong id="wsQaVerdict">NOT READY</strong>
       <span id="wsQaScore">0/0 checks recorded</span>
     </div>
-    <p class="ws-help">This gate records <em>your</em> inspection of the HTML that came back &mdash; it does not test the page. The verdict stays NOT READY until every row is marked Pass.</p>
+    <p class="ws-help">The automatic check above marks the rows it can measure (console errors, phone width, missing provenance) with an &ldquo;Auto-check&rdquo; note. The other rows record <em>your</em> inspection. The verdict stays NOT READY until every row is marked Pass.</p>
     <div id="wsQaList" class="ws-qa-list"></div>
   </div>
 </section>
@@ -8275,22 +8275,32 @@ Every number in the project's materials carries exactly one label:
   ];
 
   const QA_ROWS = [
-    { id: 'cascade', label: 'Mission cascade shows all five levels, and nothing is presented as a quote without a source', help: 'Look for VERIFY WITH OFFICIAL SOURCE wherever no published text was supplied.' },
-    { id: 'smarter', label: 'SMARTER strip is complete (7/7) with no MISSING marker', help: 'A verb, an assumption, or a name with no role fails the test.' },
-    { id: 'stages', label: 'Every life-cycle stage states a gate, an owner and the evidence required', help: 'Six stages if all are selected.' },
-    { id: 'dates', label: 'Stage dates are internally consistent (each start is on or before its finish)', help: 'Check the gantt and the stage table agree.' },
-    { id: 'models', label: 'At least one AI/ML model card names its guardrails and an owner', help: 'Guardrails and owner are mandatory on every card.' },
-    { id: 'uncertainty', label: 'Every model states its uncertainty and at least one failure mode', help: 'A model without an interval is a claim, not a model.' },
-    { id: 'charts', label: 'Every chart is a focusable button that opens a detail popup', help: 'Tab to each chart and press Enter.' },
-    { id: 'esc', label: 'ESC closes every popup and returns focus to the chart that opened it', help: 'Focus must not fall to the page body.' },
-    { id: 'hitl', label: 'Human-in-the-loop rule is shown, a named human decides, and overrides are logged', help: 'If the page says advisory-only, it must not claim human-in-the-loop.' },
-    { id: 'provenance', label: 'Provenance labels are present and SAMPLE is never reported as real', help: 'Four labels: PUBLISHED, SYSTEM OF RECORD, PLANNING ESTIMATE, SAMPLE.' },
-    { id: 'verdict', label: 'An admissibility verdict is present with its conditions listed', help: 'ADMISSIBLE WITH CONDITIONS must name the conditions.' },
-    { id: 'reviewer', label: 'Reviewer block is present (name, role, date) and cannot be empty', help: 'A work sample with no reviewer is not a decision record.' },
-    { id: 'console', label: 'No console errors or uncaught exceptions on load or interaction', help: 'Open DevTools and interact with every control once.' },
-    { id: 'width', label: 'No horizontal overflow at 360 px wide', help: 'Check on a phone or with device emulation.' },
-    { id: 'print', label: 'Print keeps the substance (at most three pages) and hides the controls', help: 'Ctrl+P and read the preview.' },
-    { id: 'sample', label: 'Every synthetic number carries the SAMPLE label', help: 'Anything not traceable to a cited source is synthetic.' },
+    { id: 'yearwheel', label: 'Year plan: a calendar wheel of the fiscal year with published annual events (linked), the operating cycle, the project phases and gates, a workload ring and freeze windows; Year / Quarter / Month / Week views; gates in a freeze are flagged with a proposed new date', help: 'Change the start date: the project ring, the gate list and the conflicts must move.' },
+    { id: 'analysis', label: 'Analyze and predict: 4-5 live models (sliders re-run them), each with a P10-P90 band, a published base rate, a formula popup, a validation plan and a predictions register with resolve-by dates', help: 'Move a slider: the tiles, the chart and the numbered findings must all change.' },
+    { id: 'starthere', label: 'Start here: big-picture loop, who-you-work-with hub, Day 1 to final-gate roadmap, four-month calendar with .ics download, and a standup with Week 1 checklist — each item opens a popup', help: 'Change the start date: every date, the calendar and the .ics must move.' },
+    { id: 'chapters', label: 'All eight chapters are present (Command center, Initiate, Plan, Execute, Monitor & control, Close, AI, Governance) with question headlines', help: 'Click every chapter in the rail.' },
+    { id: 'command', label: 'Command center shows five RAG tiles computed from the data, and the next decision with its date and decider', help: 'Hover a tile: the RAG rule must be shown.' },
+    { id: 'charter', label: 'Charter shows scope in / out / awaiting authorization, and the G0 checklist', help: 'This is how the program starts.' },
+    { id: 'wbs', label: 'WBS has three levels and the Gantt shows the critical path, gates and a today line', help: 'Use the phase filter once.' },
+    { id: 'raci', label: 'RACI has exactly one A per activity (validated on the page) and the role filter works', help: 'Pick a role and check its column lights up.' },
+    { id: 'kpis', label: 'Each KPI card shows baseline, target, amber/red thresholds, sparkline and owner', help: 'SAMPLE baselines must be labeled.' },
+    { id: 'evm', label: 'EVM shows PV, EV and AC with SPI, CPI and EAC, and the formulas in its popup', help: 'Monitoring values are demonstrations and say so.' },
+    { id: 'risk', label: 'Risk heat map and KRI table show thresholds, owners and responses; the RAG filter works', help: 'Every risk needs an owner and a trigger.' },
+    { id: 'whatif', label: 'The what-if slider moves the finish date and the gate dates', help: 'Delay the critical package by two weeks.' },
+    { id: 'close', label: 'Close chapter shows acceptance, handover, benefits to month 36 and the closure checklist', help: 'This is how the program ends.' },
+    { id: 'popups', label: 'Every visual opens a popup with common mistake, best practice, rule and improvement steps', help: 'Open at least five different popups.' },
+    { id: 'esc', label: 'Escape closes every popup and returns focus to the element that opened it', help: 'Focus must not fall to the page body.' },
+    { id: 'hitl', label: 'Human-in-the-loop rule is shown, a named role decides, and overrides are logged', help: 'Advisory-only pages must not claim human-in-the-loop.' },
+    { id: 'provenance', label: 'Every number carries one provenance label and SAMPLE is never reported as real', help: 'PUBLISHED, SYSTEM OF RECORD, PLANNING ESTIMATE, SAMPLE, PROPOSED.' },
+    { id: 'nolists', label: 'No chapter is a plain bulleted list; each has at least one chart and one interaction', help: 'If it reads like a document, it fails.' },
+    { id: 'console', label: 'No console errors on load or interaction', help: 'Open DevTools and use every control once.' },
+    { id: 'width', label: 'No horizontal page overflow at 360 px (wide views scroll inside their box)', help: 'Check with device emulation.' },
+    { id: 'selfcheck', label: 'The startup self-check reports zero failures (Command center badge and console)', help: 'It checks dead controls, gate dates, RACI A and R, package count and provenance badges.' },
+    { id: 'derived', label: 'No hard-coded measurement: tiles, scope counts, G0 count and the status report all change if DATA changes', help: 'Change one value in DATA and reload.' },
+    { id: 'bands', label: 'Every chapter opens with its question and a 3-4 tile summary band with plain-language sublines', help: 'SPI 0.92 should read "8% behind plan".' },
+    { id: 'tour', label: 'Start here tour: six numbered, ringed steps with Back / Next / Exit, announced to screen readers', help: 'Exit must clear every ring.' },
+    { id: 'contrast', label: 'Amber text and provenance badges pass WCAG AA contrast', help: 'Amber text #7A4F00 on light amber.' },
+    { id: 'reviewer', label: 'Verdict with conditions and an empty reviewer block are present', help: 'A work sample with no reviewer is not a decision record.' },
   ];
 
   const DEFAULTS = {
@@ -8618,6 +8628,55 @@ Every number in the project's materials carries exactly one label:
   }
 
   /* ---------- the build prompt (the product) ---------- */
+  /* ---------- data pack: the platform's own program model, so the AI builds from numbers, not prose ---------- */
+  function dataPack(brief) {
+    let s = null, B = null, ri = null;
+    try { s = window.EPJobFit && window.EPJobFit.analysis ? window.EPJobFit.analysis() : null; } catch (e) { s = null; }
+    if (!s || !window.EPSmarter) return null;
+    try { B = window.EPSmarter.build(s.a, s.j); } catch (e) { return null; }
+    try { ri = window.EPRoleIntel ? window.EPRoleIntel.model(s.a, s.j) : null; } catch (e) { ri = null; }
+    const start = new Date(brief.startDate || B.start || Date.now());
+    const day = (w) => { const d = new Date(start); d.setDate(d.getDate() + Math.round(w * 7)); return d.toISOString().slice(0, 10); };
+    const k = (v) => Math.round(v);
+    const sponsor = (ri && ri.reportsTo) || 'Executive sponsor (verify)';
+    const lead = usable(brief.role) || s.j.title || 'Program lead';
+    const phases = B.wbs.map((p, i) => {
+      const st = Math.min(...p.pkgs.map((x) => x.start)), en = Math.max(...p.pkgs.map((x) => x.end));
+      return { id: 'P' + (i + 1), name: p.ph, startWeek: st, endWeek: en, start: day(st), finish: day(en), gate: 'G' + (i + 1),
+        packages: p.pkgs.map((x) => ({ id: x.id, name: x.n, startWeek: x.start, endWeek: x.end, start: day(x.start), finish: day(x.end), criticalPath: !!x.crit, owner: x.owner || (x.crit ? lead : 'Workstream owner (assign at G0)') })) };
+    });
+    const gates = [{ id: 'G0', name: 'Charter & authorization', week: 0, date: day(0), exit: ['Signed charter with scope in/out', 'Named sponsor and program lead', 'Data access requested for pilot sources', 'Staff time released (' + B.fte + ' FTE)'], decides: sponsor }]
+      .concat(phases.map((p, i) => ({ id: p.gate, name: p.name + ' complete', week: p.endWeek, date: p.finish, exit: ['Phase deliverables accepted by their owners', 'Scorecard measures updated against baseline', 'Risk register reviewed; no unowned red risk', i === phases.length - 1 ? 'Benefits owner named; handover runbook signed' : 'Next phase plan and budget re-forecast (P50/P80)'], decides: i >= phases.length - 2 ? sponsor : lead })));
+    const kpis = B.kpis.map((m) => ({ name: m.name, unit: m.unit || '', direction: m.dir === -1 || /down|lower/i.test(String(m.dir)) ? 'lower is better' : 'higher is better', baseline: m.base, target: m.target, history: m.hist || [], owner: m.owner || 'Data owner (verify)', cadence: 'monthly', amberIf: 'misses target trajectory by more than 10%', redIf: 'misses by more than 20% or two consecutive ambers', provenance: 'SAMPLE until measured at G1' }));
+    const risks = B.risks.map((r) => ({ id: r.id, risk: r.t, likelihood: r.l, impact: r.i, score: r.l * r.i, owner: r.o, response: r.m, kri: { indicator: r.tr, amber: 'first occurrence, or trend worsening for two weeks', red: 'recurs in two consecutive reviews or threatens a gate date' } }));
+    const roles = [sponsor, lead, 'Data owners (systems of record)', 'IT & security', 'Finance', 'Unit leaders', 'End users', 'Assurance / QA reviewer'];
+    const acts = ['Charter & scope', 'Requirements & metric definitions', 'Build & test', 'Data access & security review', 'Pilot sign-off', 'Release & handover', 'Benefits review', 'Closure & lessons learned'];
+    const R = [['A', 'C', 'I', 'C', 'A', 'A', 'A', 'A'], ['R', 'A', 'A', 'R', 'R', 'R', 'R', 'R'], ['C', 'R', 'C', 'A', 'C', 'C', 'C', 'I'], ['I', 'C', 'R', 'R', 'C', 'R', 'I', 'I'], ['C', 'I', 'I', 'I', 'I', 'C', 'R', 'C'], ['C', 'R', 'I', 'I', 'R', 'C', 'R', 'C'], ['I', 'C', 'C', 'I', 'R', 'I', 'C', 'C'], ['I', 'C', 'R', 'C', 'C', 'R', 'C', 'R']];
+    const raci = { roles, activities: acts, matrix: roles.map((r, i) => ({ role: r, cells: R[i] })), rule: 'Exactly one A per activity; R does the work; C before, I after.', provenance: 'PROPOSED' };
+    const planned = B.planned, wk = Math.max(1, Math.round(planned * 0.4)), pkgs = phases.flatMap((p) => p.packages);
+    const pvShare = pkgs.filter((p) => p.endWeek <= wk).length / Math.max(1, pkgs.length);
+    const pv = B.cost * pvShare, ev = pv * 0.92, ac = ev * 1.06;
+    const evm = { statusWeek: wk, BAC: k(B.cost), PV: k(pv), EV: k(ev), AC: k(ac), SPI: +(ev / Math.max(1, pv)).toFixed(2), CPI: +(ev / Math.max(1, ac)).toFixed(2), EAC: k(B.cost / Math.max(0.01, ev / Math.max(1, ac))), formulas: 'SPI = EV/PV; CPI = EV/AC; EAC = BAC/CPI', provenance: 'SAMPLE status to demonstrate monitoring' };
+    const budget = { P50: k(B.cost), P80: k(B.p80cost), NPV3yr: k(B.npv), ROIpct: k(B.roi), paybackMonths: +B.payback.toFixed(1), annualValue: k(B.annual), staffFTE: B.fte, scheduleP50Weeks: +(B.pct ? B.pct(0.5) : planned).toFixed(1), scheduleP80Weeks: +(B.pct ? B.pct(0.8) : planned).toFixed(1), onTimeProbability: +B.pOnTime.toFixed(2), provenance: 'PLANNING ESTIMATE (three-point estimates, Monte Carlo 3,000 runs, blended rate)' };
+    const actions = (B.actions || []).slice(0, 14).map((x) => ({ id: x.id, action: x.t, owner: x.owner, due: x.due, phase: x.ph, status: 'Not started' }));
+    const assurance = ((B._as && B._as.areas) || []).map((x) => ({ area: x.n, owner: x.owner, deliverable: x.deliv, measure: (x.metric || [])[0], target: (x.metric || [])[1], gate: x.gate }));
+    const stakeholders = [[sponsor, 'high', 'high', 'Manage closely'], [lead, 'high', 'high', 'Manage closely'], ['Data owners', 'high', 'medium', 'Keep satisfied'], ['IT & security', 'high', 'medium', 'Keep satisfied'], ['Finance', 'high', 'low', 'Keep satisfied'], ['Unit leaders', 'medium', 'high', 'Keep informed'], ['End users', 'low', 'high', 'Keep informed']].map(([n, p, i, s]) => ({ name: n, power: p, interest: i, strategy: s, provenance: 'PROPOSED' }));
+    const plan90 = (s.a.plan || []).slice(0, 8).map((p) => ({ window: ['Days 1-30', 'Days 31-60', 'Days 61-90'][p.start] || '', focus: p.name, deliverable: p.deliverable, evidence: p.evidence }));
+    const asOf = day(wk);
+    evm.asOf = asOf;
+    const scope = { in: phases.map((p) => p.name + ': ' + p.packages.slice(0, 2).map((x) => x.name).join(', ')), out: ['Changes to systems of record without the data owner’s approval', 'Personnel and hiring decisions', 'New funding commitments', 'Policy changes owned by other offices'], awaiting: ['Data access for the pilot sources (G0)', 'Charter and sponsor sign-off (' + sponsor + ')', 'Security and privacy review before release', 'Staff time released: ' + B.fte + ' FTE'], provenance: 'PROPOSED' };
+    const months = [6, 12, 24, 36];
+    const benefits = kpis.map((m, i) => ({ benefit: m.name, owner: m.owner, from: m.baseline, to: m.target, unit: m.unit, firstReadingMonth: months[Math.min(i, 3)], firstReadingDate: day((months[Math.min(i, 3)]) * 4.33), finalReadingDate: day(36 * 4.33), provenance: 'SAMPLE until measured at G1' })).concat([{ benefit: 'Annual value of staff time released', owner: 'Finance', from: 0, to: k(B.annual), unit: '$ a year', firstReadingMonth: 12, firstReadingDate: day(12 * 4.33), finalReadingDate: day(36 * 4.33), provenance: 'PLANNING ESTIMATE' }]);
+    const wantDemand = brief.charts && brief.charts.forecast;
+    const forecast = wantDemand ? (() => { const base = 40, med = [], lo = [], hi = [], act = []; for (let w = 1; w <= 12; w++) { const v = Math.round(base * (1 + 0.18 * Math.sin(w / 2)) * (1 - 0.02 * w)); med.push(v); lo.push(Math.round(v * 0.85)); hi.push(Math.round(v * 1.15)); if (w <= 6) act.push(Math.round(v * (w % 2 ? 1.05 : 0.94))); } return { unit: 'requests a week', weeks: 12, median: med, low80: lo, high80: hi, actuals: act, backtestError: '±10% of weekly volume', refresh: 'monthly', provenance: 'SAMPLE' }; })() : null;
+    const overrides = { schema: ['date', 'model', 'what the AI proposed', 'decision', 'decided by (role)', 'reason'], entries: [{ date: asOf, model: (MODELS.find((m) => brief.models[m.key]) || MODELS[0]).name, proposed: 'Auto-approve the top-ranked request', decision: 'Rejected — routed to committee review', decidedBy: lead, reason: 'Capacity input older than 30 days', provenance: 'SAMPLE (format demonstration)' }] };
+    const tb = String(brief.smarter && brief.smarter.timebox || ''), tbDate = (tb.match(/\b20\d{2}-\d{2}-\d{2}\b/) || [])[0];
+    const missing = conditionsOf(brief).map((x) => ({ gap: x, reviewerAction: 'Supply or verify before this page is used as evidence' }));
+    if (tbDate && brief.startDate && tbDate !== brief.startDate) missing.unshift({ gap: 'The Time-bound statement names ' + tbDate + ' but the planned start is ' + brief.startDate, reviewerAction: 'Use the planned start for every date, and correct the Time-bound statement' });
+    return { asOf, program: { name: B.P.name, problem: B.A.problem, outcome: B.A.outcome, start: day(0), plannedWeeks: planned, deadlineWeek: B.deadline, scope }, phases, gates, kpis, risks, raci, budget, evm, actions, assurance, stakeholders, plan90, benefits, forecast, overrides, missing,
+      cadence: [{ forum: 'Weekly status', who: lead + ' + workstream owners', output: 'RAG status, blocked actions, next-week plan' }, { forum: 'Monthly steering', who: sponsor + ' + data owners + finance', output: 'Scorecard, EVM, top risks, decisions logged' }, { forum: 'Quarterly portfolio review', who: 'Sponsor and portfolio governance', output: 'Re-prioritize, re-forecast P50/P80, continue/pause' }, { forum: 'Gate reviews G0-G' + phases.length, who: 'Per gate decider', output: 'Proceed / rework / stop with evidence pack' }] };
+  }
+
   function buildPrompt(brief) {
     const c = completeness(brief);
     const rows = stageRows(brief);
@@ -8625,115 +8684,104 @@ Every number in the project's materials carries exactly one label:
     const selectedCharts = CHARTS.filter((ch) => brief.charts[ch.key]);
     const smarter = smarterRows(brief);
     const conds = conditionsOf(brief);
-    const lines = [];
+    const pack = dataPack(brief);
+    const L = [];
+    const H = (t) => { L.push(''); L.push('## ' + t); };
 
-    lines.push('You are a senior program director, data engineer, UX designer and AI risk reviewer.');
-    lines.push('Produce ONE self-contained HTML file: a one-page interactive project proposal / work sample that covers a full project life cycle and is honestly labeled as a demonstration.');
-    lines.push('');
-    lines.push('## 1. Role and objective');
-    lines.push('Target role: ' + (usable(brief.role) || MISSING));
-    lines.push('Organization: ' + (usable(brief.org) || MISSING));
-    lines.push('Unit to serve: ' + (usable(brief.unit) || MISSING));
-    lines.push('The page must let a hiring committee see, in one scroll, that the candidate can: translate the organization\'s mission and current plan into a unit-level contribution; specify the work with SMARTER; run the life cycle from discovery to operation with gates; propose AI/ML decision support with uncertainty, validation, failure modes and guardrails; keep a named human accountable for every consequential decision; and label every figure by provenance.');
-    lines.push('');
-    lines.push('## 2. Brief values (use these exactly; do not invent substitutes)');
-    lines.push('- Job description (authoritative for the role\'s responsibilities):');
-    lines.push(indent(usable(brief.jd) || MISSING));
-    lines.push('- Published mission and values:');
-    lines.push(indent(usable(brief.mission) || VERIFY));
-    lines.push('- Current plan / priorities:');
-    lines.push(indent(usable(brief.plan) || VERIFY));
-    lines.push('- Planned start date: ' + (brief.startDate || MISSING));
-    lines.push('- Human-in-the-loop rule: ' + HITL[brief.hitl].label + '.');
-    lines.push('- Brief completeness at generation time: ' + c.score + '/100.');
-    lines.push('');
-    lines.push('## 3. Ten required sections, in this order');
-    lines.push('1. Masthead: role, organization, unit; badges "WORK SAMPLE - NOT AN AUTHORIZED PLAN" and "PUBLIC DATA + LABELED SYNTHETIC"; prepared-by line; date.' );
-    lines.push('2. Mission cascade, five levels (enterprise, school/faculty, department, program, unit). For each level: the anchor, the decision owner and the contribution. Where no published text was supplied, print "VERIFY WITH OFFICIAL SOURCE" - never invent or paraphrase a mission or values statement.');
-    lines.push('3. SMARTER strip with seven items (Specific, Measurable, Attainable, Relevant, Time-bound, Evaluable, Reviewable), each with the brief value and a pass/fail test. A value that starts with a verb, is an assumption, or has no role behind it must be shown as a failed field, not silently accepted.');
-    lines.push('4. Life cycle table with six stages - Discover & listen, Charter & scope, Build & integrate, Pilot & validate, Scale & hand over, Operate & review - each with start and finish dates computed from the planned start, a named gate, an owner, and the evidence required to pass the gate.');
-    lines.push('5. AI/ML model cards for: ' + (selectedModels.length ? selectedModels.map((m) => m.name).join('; ') : MISSING) + '. Each card states purpose, features, output with uncertainty, validation, failure modes, guardrails and owner.');
-    lines.push('6. Interactive charts: ' + (selectedCharts.length ? selectedCharts.map((ch) => ch.name).join('; ') : MISSING) + '. Every chart is inline SVG, rendered as a focusable button (tabindex=0, role=button, accessible name) that opens a detail popup.');
-    lines.push('7. Human-in-the-loop decision rights: a table with the model, what the AI proposes, the named human who decides, and where the override is recorded. The rule in force is: ' + HITL[brief.hitl].label + '.');
-    lines.push('8. Provenance ledger: exactly one label per figure - [PUBLISHED], [SYSTEM OF RECORD], [PLANNING ESTIMATE], [SAMPLE] - with the rule that governs it, plus the signed attestation line.');
-    lines.push('9. Admissibility verdict: "ADMISSIBLE WITH CONDITIONS" with the conditions listed. Do not claim the page is finished or authorized.');
-    lines.push('10. Footer: assumptions, source register, and a reviewer block (name, role, date).');
-    lines.push('');
-    lines.push('## 4. SMARTER values to print');
-    smarter.forEach((row) => {
-      lines.push('- ' + row.field.letter + ' ' + row.field.name + ' (' + row.field.test + '): ' + (row.ok ? row.raw : 'MISSING - ' + row.problem));
-    });
-    lines.push('');
-    lines.push('## 5. Life-cycle stages to render (dates from ' + (brief.startDate || 'the planned start date; if missing, print MISSING instead of inventing dates') + ')');
-    if (rows.length) rows.forEach((r) => lines.push('- ' + r.stage.name + ': ' + (r.start || MISSING) + ' to ' + (r.end || MISSING) + '; gate "' + r.stage.gate + '"; owner ' + r.stage.owner + '; evidence: ' + r.stage.evidence + '.'));
-    else lines.push('- MISSING - no stage selected; print that the schedule cannot be shown.');
-    lines.push('');
-    lines.push('## 6. Model definitions (use verbatim)');
-    selectedModels.forEach((m, i) => {
-      lines.push('### Model ' + (i + 1) + ': ' + m.name);
-      lines.push('Purpose: ' + m.purpose + '.');
-      lines.push('Features: ' + m.features + '.');
-      lines.push('Output: ' + m.output + '.');
-      lines.push('Uncertainty: ' + m.uncertainty + '.');
-      lines.push('Validation: ' + m.validation + '.');
-      lines.push('Failure modes: ' + m.failureModes + '.');
-      lines.push('Guardrails: ' + m.guardrails + '.');
-      lines.push('Owner: ' + m.owner + '.');
-    });
-    if (!selectedModels.length) lines.push('No model selected - the page must not claim AI/ML capability.');
-    lines.push('');
-    lines.push('## 7. Chart specifications');
-    selectedCharts.forEach((ch) => lines.push('- ' + ch.name + ': ' + ch.what));
-    if (!selectedCharts.length) lines.push('No chart selected - the page must not claim interactive analytics.');
-    lines.push('');
-    lines.push('## 8. Human-in-the-loop rules');
-    lines.push('- The AI proposes; a named human decides. No consequential action may be executed by the model alone.');
-    lines.push('- Every override is recorded with the decision, the name, the date and the reason, in an override log visible on the page.');
-    lines.push('- Escalation: if the deciding role is absent, the item waits in the queue; it does not auto-approve.');
-    if (brief.hitl === 'none') lines.push('- The brief selected advisory-only. Print prominently that no human review step exists and remove any "human-in-the-loop" claim.');
-    lines.push('');
-    lines.push('## 9. Provenance rules');
-    lines.push('- [PUBLISHED] needs a citable source with URL and retrieval date.');
-    lines.push('- [SYSTEM OF RECORD] needs the system name and the extract date.');
-    lines.push('- [PLANNING ESTIMATE] needs its assumption printed next to the number.');
-    lines.push('- [SAMPLE] is synthetic, layout only, and never reported as an institutional figure.');
-    lines.push('- Every synthetic value in the page is labeled [SAMPLE]. No figure may appear twice with two different labels.');
-    lines.push('');
-    lines.push('## 10. Anti-fabrication rules (hard)');
-    lines.push('- Do not invent a mission, values, plan, priority, project name, system name, person, date or metric.');
-    lines.push('- Do not present an HMS/Harvard statement as a quote unless the brief supplies it; otherwise use a visible VERIFY WITH OFFICIAL SOURCE marker.');
-    lines.push('- Do not claim the plan is funded, approved or authorized. The masthead badge stays.');
-    lines.push('- Do not claim measured results. Model output is illustrative decision support.');
-    lines.push('- If a required value is MISSING in the brief, print "MISSING - not admissible until filled" and explain what the reviewer must supply. Never fill a gap with a plausible number.');
-    lines.push('');
-    lines.push('## 11. Technical constraints');
-    lines.push('- One HTML file, fully offline: no network requests, no external fonts, no CDN, no analytics.');
-    lines.push('- Inline SVG for every chart; no canvas-only charts (they must print and be screen-readable).');
-    lines.push('- Detail popups use the native <dialog> element: open with showModal(), close on Escape, return focus to the triggering chart, and include a labelled close button.');
-    lines.push('- Keyboard: every chart and control reachable by Tab, Enter/Space activates, visible focus ring, no focus traps.');
-    lines.push('- Contrast WCAG AA for all text; text alternatives for every chart summary; aria-live for changing status.');
-    lines.push('- Responsive to 360 px with no horizontal page overflow; print to at most three pages with controls hidden.');
-    lines.push('- Respect prefers-reduced-motion; no animation longer than 200 ms.');
-    lines.push('- Target size under 140 KB.');
-    lines.push('');
-    lines.push('## 12. Acceptance checklist (the page is not done until all are true)');
-    lines.push('1. All ten sections present in order.');
-    lines.push('2. Mission cascade has five levels; no unverified quote appears as fact.');
-    lines.push('3. SMARTER strip shows seven items and marks failures honestly.');
-    lines.push('4. Six life-cycle stages with gates, owners, evidence and consistent dates.');
-    lines.push('5. Each model card has uncertainty, validation, failure modes, guardrails and an owner.');
-    lines.push('6. Every chart opens a popup; Escape closes it and focus returns.');
-    lines.push('7. Human-in-the-loop table names a human for every model, and the override log exists.');
-    lines.push('8. Provenance labels present; SAMPLE never reported as real.');
-    lines.push('9. Verdict present with its conditions.');
-    lines.push('10. Reviewer block present and empty for signature.');
-    lines.push('11. No console errors; no horizontal overflow at 360 px; print keeps the substance.');
-    lines.push('');
-    lines.push('## 13. Known conditions from the brief (print them in the verdict block)');
-    conds.forEach((x, i) => lines.push((i + 1) + '. ' + x));
-    lines.push('');
-    lines.push('Return one complete HTML file; do not claim any figure is real; label synthetic values.');
-    return lines.join('\n');
+    L.push('You are a senior program and portfolio director (PMP/MSP), an information designer, and a front-end engineer. Build the best working program playbook you are capable of: an interactive, infographic, single-file HTML application that a hiring committee can click through as if it were a live program office — not a document, not a list.');
+    L.push('Audience: a hiring committee that will spend 3-5 minutes. They must see, without reading paragraphs, that the candidate can start a program, run it, measure and monitor it, control risk, and close it with benefits handed over.');
+
+    H('1. Role, organization and source facts (authoritative — use exactly, never substitute)');
+    L.push('- Target role: ' + (usable(brief.role) || MISSING));
+    L.push('- Organization: ' + (usable(brief.org) || MISSING) + ' · Unit served: ' + (usable(brief.unit) || MISSING));
+    L.push('- Planned start date: ' + (brief.startDate || MISSING) + ' · Human-in-the-loop rule: ' + HITL[brief.hitl].label + ' · Brief completeness: ' + c.score + '/100');
+    L.push('- Job description (defines the duties the playbook must serve):'); L.push(indent(usable(brief.jd) || MISSING));
+    L.push('- Published mission and values:'); L.push(indent(usable(brief.mission) || VERIFY));
+    L.push('- Current plan / priorities:'); L.push(indent(usable(brief.plan) || VERIFY));
+    L.push('- SMARTER statements:');
+    smarter.forEach((row) => L.push('  - ' + row.field.letter + ' ' + row.field.name + ': ' + (row.ok ? row.raw : 'MISSING - ' + row.problem)));
+
+    H('2. Data pack (JSON) — the single source of truth for every number on the page');
+    if (pack) {
+      L.push('Put this object in ONE `const DATA = {...}` at the top of the script. Every view, chart, table and popup must render from DATA, so editing one value updates the whole page. Keep each provenance label beside its figure.');
+      L.push('```json'); L.push(JSON.stringify(pack, null, 1)); L.push('```');
+    } else {
+      L.push('No program model is loaded (add a job and résumé in Job Fit Studio, then rebuild this prompt). Until then, create DATA with the same keys — program, phases[packages], gates, kpis, risks[kri], raci, budget, evm, actions, assurance, stakeholders, plan90, cadence — and label every value [SAMPLE].');
+    }
+
+    H('3. Information architecture — a program office, organised by the life cycle');
+    L.push('Sticky left rail (top tabs under 900 px) with these chapters, in order. Each chapter opens with a one-line question as its headline, a 3-4 tile summary band, then the working views.');
+    L.push('S. START HERE (the landing page, before Command center) — "What is this job, and what do I do on day one?" Written for a new hire. (a) Big-picture infographic: the work as a loop of 5-8 stations (SVG ring on desktop, numbered list under 700 px), each station showing a live count from DATA and opening a popup with what happens, owner role, system, time rule, numbered steps, a red Common mistake panel, a blue Best practice panel and a Rule box. (b) "Who you work with" hub: you in the centre, partner offices around, each popup = what you need from them / what they need from you / how often you meet. (c) Roadmap from Day 1 to the last gate: one start-date input (moves to the next Monday) drives every date; first-90-days bar (days 1-30 listen and learn, 31-60 measure and design, 61-90 first visible win), the phases from DATA with gate diamonds, fiscal-year and calendar-year peaks dashed, plus an ordered "every step" list with dates. (d) Calendar: four month grids generated from the start date and a working rhythm (daily standup, weekly 1:1, reconciliation or delivery huddle, Friday status note, month-end, Day 30/60/90 reviews, gates), weekends and U.S. holidays skipped; click a day for its events and preparation; a button downloads the first 90 days as an .ics file. (e) Standup: a working-day slider that writes Yesterday / Today / Blockers from the plan and the live exception list, a copy button, a Week 1 day-by-day checklist with a "how" line under each task, and a To do / Doing / Done board whose status follows the plan dates. All rhythms and dates are labeled PROPOSED.');
+    L.push('A0. YEAR PLAN (first page of Analyze and predict) — "When does the work happen, and when must the project stay out of the way?" Research the organization\u2019s annual activities for the coming fiscal year (signature events, commencement and reunions or their equivalent, giving days, fiscal year end, board and reporting cycles) with dates and links, and lay them out with the project plan on ONE CALENDAR WHEEL (SVG, fiscal year clockwise from month 1 at the top): ring 1 published events as numbered markers (clusters fanned out with leader lines), ring 2 the operating cycle of the role (close, audit, reporting seasons, peaks; ASSUMPTION unless published), ring 3 the project phases from the planned start with gate diamonds, ring 4 a predicted workload heat ring by month, hatched freeze windows across all rings, a "today" needle, and FY switch (this year / next). Views: Year wheel · Quarter (13 week rows: events, operations, project, load) · Month (dated items plus the monthly checklist with computed dates) · Week (the standard five-day template). Every marker and arc opens a popup (what, date, source, steps, red mistake, blue best practice, rule). Automatic guardrail: any gate or go-live inside a freeze window is listed with the proposed first business day after it (holidays skipped); the sponsor decides.');
+    L.push('A. ANALYZE AND PREDICT (second chapter) — "What will happen, how sure are we, and how will we know?" Pick the 4-5 models that fit THIS role and build each as its own page with: a question headline; 4 tiles (prediction with 80% range, a driver, a published base rate, the decision it informs); sliders for the 3-5 inputs a manager controls, re-running the model live; one chart with a P10-P90 band; a numbered "what the model says" list with the computed numbers inline; a "how to make it real" list ending in an illustrative query (schema names marked as placeholders); a popup with the formula, assumptions, the validation (back-test error target, calibration) and a red mistake / blue best practice / rule. Model menu: (1) demand and capacity — daily queue with calendar peaks, arrival lag, overdispersed arrivals (gamma-Poisson), FIFO service, Little’s law L = λW, staff needed for a service level, 200+ Monte Carlo runs; (2) customer or donor base — retention split new / repeat / reactivated, cohort survival heat map, next-year forecast built up from each group, lapse list ranked by expected value (for a conversation, never a rating of a person); (3) quality — weekly p-chart with limits p̄ ± 3√(p̄(1−p̄)/n), the 8-in-a-row rule, Pareto with cumulative line, DPMO and process sigma, the effect of fixing the top causes; (4) money timing — collection or spend forecast by quarter from an aging hazard table, P10/P50/P90, largest expected shortfalls; (5) research engine — published benchmarks graded (score = tier weight × 0.5^(months/18) × corroboration), source tiers, the query bank with operators, a predictions register (probability 3-97%, resolve-by date, measure; Brier score), the formulas, and the deep-research prompt with a copy button. Synthetic inputs are seeded so results are reproducible, labeled SAMPLE, and anchored to published base rates that carry their date and link.');
+    L.push('0. COMMAND CENTER — "Is the program healthy today?" A visible "Demonstration as of DATA.asOf" line. Five RAG tiles (Schedule SPI, Cost CPI, Scope, Risk exposure, Benefits) computed from DATA, each with a provenance badge and a plain-language subline (e.g. SPI 0.92 → "8% behind plan"; CPI 0.94 → "6% over budget for work done"); the RAG rule is part of the tile\'s accessible name and its popup (not a hover-only title); "Next decision" card (next gate, date, decider, evidence still missing); overdue/blocked actions count; top 3 KRIs breaching amber/red; a "Generate status report" button that writes the weekly RAG report from DATA (top KRIs, overdue actions and next gate all derived, nothing typed in) and prints in place with window.print() (no pop-up windows); a "Missing inputs" card listing every item in DATA.missing with the reviewer action, each shown as "MISSING — not admissible until filled".');
+    L.push('1. INITIATE — "Why this, and what is in and out?" Charter canvas (problem, objectives, scope in / out / awaiting authorization from DATA.program.scope — counts computed, never typed — assumptions, constraints); mission cascade enterprise → unit with decision owners (VERIFY markers where no published text); stakeholder power/interest grid (2×2, plotted, click for engagement strategy); SMARTER strip with pass/fail per letter; G0 exit checklist.');
+    L.push('2. PLAN — "How will the work get done, by whom, when?" WBS tree (program → phase → package; each phase node is a <button aria-expanded> that shows/hides its packages; each package opens its detail); interactive roadmap/Gantt that draws EVERY package as its own bar inside its phase swimlane (so a reviewer can count them), the critical path in crimson, dependency arrows between consecutive critical packages, focusable gate diamonds, and a today line at DATA.asOf; the phase filter must visibly change the chart (re-render or dim non-selected lanes to 25% opacity) and announce the result in aria-live; RACI matrix (roles × activities, colored R/A/C/I cells, role filter that highlights that role\'s column, validation badge (aria-live) that checks exactly one A AND at least one R per activity and reports both); budget panel (P50 vs P80 bars, cost breakdown waterfall, NPV/ROI/payback tiles); resourcing (FTE by phase stacked bars); communications cadence (weekly → quarterly ladder).');
+    L.push('3. EXECUTE — "What is moving this week?" Kanban per workstream (Not started / In progress / Blocked / Done) built from DATA.actions with role badges (roles, not people), due dates and phase tags; overdue = due before DATA.asOf and not done. Cards move between columns through "Move to…" buttons inside the card detail (keyboard-friendly; no drag cursor unless drag is actually implemented); change-request, decision and issue logs as focusable rows; state kept in memory with a reset button.');
+    L.push('4. MONITOR & CONTROL — "Are we on track, and what are we doing about it?" KPI scorecard: one card per KPI showing ON THE CARD baseline → target, the amber and red thresholds, a sparkline with the threshold bands, owner and cadence; EVM S-curve (PV, EV, AC to DATA.asOf) with SPI, CPI and EAC tiles showing their computed numbers (EAC = BAC/CPI) and the formulas in the popup; burndown of remaining packages vs plan; schedule risk histogram (P50/P80 markers) ; risk heat map 5×5 where every cell is a focusable <g role="button"> (aria-label "Likelihood 4, impact 4, 2 risks") and every risk dot opens its risk, plus a KRI table (indicator, current reading, amber/red thresholds, owner, response) with a RAG filter; a what-if slider ("delay a critical package by N weeks") that shifts that package and every later dependent package and gate, then recomputes the finish date, SPI and ALL downstream gate dates in the Gantt, the gate table and the Command center (output in aria-live). If DATA.forecast exists, show the demand forecast with its 80% band here as well, labelled [SAMPLE].');
+    L.push('5. CLOSE & HAND OVER — "How does it end, and who owns the value?" Acceptance criteria / UAT checklist; handover runbook (service owner, support model, SOP, training); benefits realization timeline to month 36 from DATA.benefits — markers at months 6, 12, 24 and 36, and a table of benefit, owner, first and final measurement date; lessons-learned template; G-final closure checklist (contracts, access removed, archive, final report). This chapter must make the END of the program explicit.');
+    L.push('6. AI & DECISION SUPPORT — model cards for: ' + (selectedModels.length ? selectedModels.map((m) => m.name).join('; ') : 'none selected (do not claim AI capability)') + '; each with purpose, features, output with uncertainty, validation, failure modes, guardrails, owner; human-in-the-loop decision table and the override log from DATA.overrides (show the schema and the [SAMPLE] format entry).');
+    L.push('7. GOVERNANCE & PROVENANCE — decision rights, escalation path (who, within how many days), review cadence, assurance areas with owners and gates, provenance ledger ([PUBLISHED] / [SYSTEM OF RECORD] / [PLANNING ESTIMATE] / [SAMPLE] / [PROPOSED]), admissibility verdict "ADMISSIBLE WITH CONDITIONS" with the conditions, reviewer block.');
+    L.push('Every chapter (not only the first two) opens with its question as the H2 (28-32 px) with the chapter name as a small kicker above, and a 3-4 tile summary band computed from DATA with plain-language sublines — e.g. Plan: packages · critical-path packages · gates · RACI checks; Execute: in progress · blocked · changes · decisions; Monitor: SPI · CPI · KRIs at amber/red · benefits on track; Close: UAT passed · handover items · closure items; AI: models · human decisions · overrides; Governance: decision rights · escalations · review forums.');
+    L.push('"Start here" guided tour: a fixed bottom bar "Step n/6 · <name>" with Back, Next and Exit; each step switches chapter, rings its target with a 3 px gold outline and a numbered badge, and announces the step in aria-live. The six targets: charter scope, RACI grid, Gantt, KPI scorecard, risk heat map, closure checklist. Exit clears every ring.');
+
+    H('4. Popups — one detail system, wired to everything');
+    L.push('- Build ONE <dialog id="detail" aria-labelledby="detailTitle"> and ONE function openDetail(kind, id, trigger). Do not create per-element dialogs. Every interactive element carries data-detail="kind:id" (kinds: gate, phase, package, kpi, risk, heatcell, raci, action, change, decision, issue, benefit, uat, handover, closure, cadence, assurance, decisionright, escalation, provenance, model, chart, tile, stakeholder).');
+    L.push('- A DETAIL registry maps each kind to a renderer that reads from DATA. At startup, run a self-check that every [data-detail] on the page resolves to a renderer AND a DATA record; log any failure with console.error and show a red "Self-check" badge in the Command center. Zero failures is an acceptance requirement.');
+    L.push('- Elements that must open details (no exceptions): every tile in every summary band; every Gantt package bar, phase lane and gate diamond; every WBS node; every heat-map cell (with the list of risks in it) and every risk dot; every RACI cell and every role/activity header; every kanban card; every row of every table (change, decision, issue, KRI, UAT, handover, closure, cadence, assurance, decision rights, escalation, provenance, overrides, benefits); every chart; every model card.');
+    L.push('- Each detail contains, in order: 1) title + provenance badge; 2) fact strip of 3-4 numbers from DATA; 3) "How it is computed / where it comes from" (show the formula when there is one); 4) owner and next action with a date; 5) side-by-side red "Common mistake" and blue "Best practice" written for that specific element; 6) black-bordered RULE box; 7) numbered "How to improve" steps (2-4); 8) risk factors when relevant.');
+    L.push('- Focus: open with showModal(); move focus to the close button; Escape and backdrop click close; return focus to the trigger, or — when opened by the guided tour with no trigger — to the current chapter heading. No focus trap beyond the native dialog.');
+    H('5. Visual design system (infographic, not document)');
+    L.push('- Clean, light palette: paper #FFFFFF on #F3F5F8; ink #16191D; crimson #A51C30 (primary); navy #1F3449; blue #2B5C8A; gold #85611F; green #2F6B4F; purple #6D4E8C; RAG = green #2F6B4F / amber #C48A2C / red #B42318 always paired with a text label and an icon shape (never color alone).');
+    L.push('- Typography: Cambria, Georgia, serif throughout; numbers large and tabular; chapter question headlines 28-32 px.');
+    L.push('- Components to use (build each as inline SVG or CSS, no images): KPI tile with sparkline, RAG pill, Gantt with critical path, 5×5 heat map, RACI grid, WBS tree, waterfall, S-curve, burndown, histogram, 2×2 grid, swimlane timeline, kanban, ladder/cadence diagram, progress ring for gate readiness.');
+    L.push('- Quality bar: no section may be a plain bulleted list; every chapter has at least one chart and one interaction. Minimums: 5 RAG tiles; ' + (pack ? pack.phases.reduce((n, p) => n + p.packages.length, 0) : 12) + ' packages on the Gantt; RACI ' + (pack ? pack.raci.roles.length + ' roles × ' + pack.raci.activities.length + ' activities' : '6 roles × 8 activities') + '; ' + (pack ? pack.risks.length : 8) + ' risks with KRIs; ' + (pack ? pack.kpis.length : 5) + ' KPI cards; EVM, burndown and benefits timeline present; closure checklist present.');
+    if (selectedCharts.length) L.push('- Charts requested in the brief (include all): ' + selectedCharts.map((ch) => ch.name + ' — ' + ch.what).join(' | '));
+
+    H('6. Life-cycle stages from the brief (map onto the phases in DATA; dates from the planned start)');
+    if (rows.length) rows.forEach((r) => L.push('- ' + r.stage.name + ': ' + (r.start || MISSING) + ' to ' + (r.end || MISSING) + '; gate "' + r.stage.gate + '"; owner ' + r.stage.owner + '; evidence: ' + r.stage.evidence + '.'));
+    else L.push('- MISSING - no stage selected; print that the schedule cannot be shown.');
+
+    H('7. AI model definitions (use verbatim)');
+    selectedModels.forEach((m, i) => L.push('- Model ' + (i + 1) + ' · ' + m.name + ' — purpose: ' + m.purpose + '; features: ' + m.features + '; output: ' + m.output + '; uncertainty: ' + m.uncertainty + '; validation: ' + m.validation + '; failure modes: ' + m.failureModes + '; guardrails: ' + m.guardrails + '; owner: ' + m.owner + '.'));
+    if (!selectedModels.length) L.push('- None selected: the page must not claim AI/ML capability.');
+    L.push('- Human-in-the-loop: ' + HITL[brief.hitl].detail);
+
+    H('8. Honesty rules (hard)');
+    L.push('- Masthead badges: "WORK SAMPLE — NOT AN AUTHORIZED PLAN" and "PUBLIC DATA + LABELED SYNTHETIC".');
+    L.push('- Never invent a mission, plan, priority, person\'s name, system, date or metric that is not in section 1 or DATA. People appear as roles, never names.');
+    L.push('- Every number carries exactly one provenance label. [SAMPLE] values are never described as results. Monitoring views (EVM, kanban status, KRI readings) are demonstrations and say so.');
+    L.push('- If a value is MISSING, show "MISSING — not admissible until filled" in place, with what the reviewer must supply.');
+
+    H('9. Build rules that prevent the usual failures');
+    L.push('- Derive, never type: no numeric literal outside DATA may appear in the page; every count, percentage, date and status shown is computed from DATA by a function. A tile whose value is a demonstration carries [SAMPLE] on the tile itself.');
+    L.push('- Reference only what exists: every DATA path the code reads must exist in DATA; do not mention fields you did not include.');
+    L.push('- Startup self-check (runs on load, results in the console and in the Command center): every [data-detail] resolves; every phase finish equals its gate date; RACI has one A and at least one R per activity; package count on the Gantt equals DATA package count; every number on a tile has a provenance badge; every chapter has a summary band, a chart and an interaction.');
+    L.push('- Filters, sliders and toggles must change what is drawn (re-render or dim) — setting an attribute alone does not count.');
+    L.push('- aria-live="polite" on every changing output: filter results, what-if output, RACI validation, kanban moves, report status, tour step.');
+    L.push('- Contrast: amber TEXT is #7A4F00 on light amber backgrounds; badge text is never lighter than #5A3400 on #FDF6E7. Inner chart <svg> elements inside a labelled button get aria-hidden="true".');
+    L.push('- Scrolling respects prefers-reduced-motion (instant when reduced). The <title> uses the exact badge text: "' + (usable(brief.unit) || 'Program') + ' Program Playbook — WORK SAMPLE — NOT AN AUTHORIZED PLAN".');
+    L.push('- Print: @page { margin: 12mm }; each chapter starts a new page; .gantt svg and wide tables shrink to 100% width (min-width: 0); controls, rail, tour bar and dialogs are hidden.');
+
+    H('10. Technical constraints');
+    L.push('- One self-contained HTML file; works offline; no external requests, fonts, CDNs, analytics or frameworks. Vanilla JS; all state in memory (no localStorage required).');
+    L.push('- Inline SVG for every chart; every chart has an accessible name and a text summary; WCAG AA contrast; visible focus; keyboard operable; aria-live for changing status.');
+    L.push('- Responsive from 360 px with no horizontal page overflow (wide tables and the Gantt scroll inside their own container). Print: one chapter per page, controls hidden, dialogs excluded.');
+    L.push('- prefers-reduced-motion respected; transitions ≤ 200 ms. Target size ≤ 400 KB.');
+
+    H('11. How to deliver (so nothing is truncated)');
+    L.push('- First return a 12-line build plan (chapters → components → interactions). Then return the COMPLETE HTML file in one code block.');
+    L.push('- If your output limit would cut the file, build in passes and say "Reply CONTINUE for pass N": pass 1 = DATA, shell, rail, Command center, Initiate; pass 2 = Plan; pass 3 = Execute, Monitor & control; pass 4 = Close, AI, Governance, QA. Each pass returns the whole file so far, never fragments.');
+    L.push('- Before returning, audit your own file against section 12 and the self-check. Return an honest table: item · PASS/FAIL · the function or element id that proves it. Never mark PASS for something not implemented; fix it instead, or list it as FAIL with the reason.');
+
+    H('12. Acceptance checklist (not done until all are true)');
+    ['Eight chapters, each with its question as the H2 and a 3-4 tile summary band computed from DATA.', 'Command center: five RAG tiles with provenance badges and plain-language sublines, as-of date, next decision with ALL missing evidence, Missing inputs card, self-check badge at zero failures.', 'Charter scope in / out / awaiting and the G0 checklist are computed from DATA.', 'WBS phase nodes expand and collapse; every package has its own Gantt bar; critical path, dependency arrows, gates and today line drawn; the phase filter visibly changes the chart.', 'RACI shows one A and at least one R per activity (validated on page, aria-live) and the role filter works.', 'KPI cards show baseline, target and amber/red thresholds on the card; EVM tiles show SPI, CPI and EAC numbers; formulas in the popup.', 'Every heat-map cell and risk dot is focusable and opens detail; KRI RAG filter works.', 'What-if shifts every downstream gate and the finish date everywhere.', 'Close chapter: UAT, handover, benefits to month 36 with owners and measurement dates, closure checklist.', 'Every element listed in section 4 opens the single detail dialog with mistake / best practice / rule / improvement steps; self-check finds no dead control.', 'No hard-coded measurement outside DATA; every number has one provenance label; nothing synthetic presented as real.', 'No console errors; no page overflow at 360 px; print keeps one chapter per page within the page width.'].forEach((x, i) => L.push((i + 1) + '. ' + x));
+
+    H('13. Conditions to print in the verdict');
+    conds.forEach((x, i) => L.push((i + 1) + '. ' + x));
+    L.push('');
+    L.push('Return the build plan, then the complete HTML file, then the smoke-test table.');
+    return L.join('\n');
   }
 
   function indent(text) {
@@ -9072,6 +9120,7 @@ Every number in the project's materials carries exactly one label:
   }
 
   window.EPWorkSampleStudio = {
+    renderQa: () => renderQa(readBrief()),
     build: build,
     prompt: () => buildPrompt(readBrief()),
     spec: () => specHtml(readBrief()),
@@ -11799,7 +11848,37 @@ ${cad.map(([n, s, c, rows], i) => `<div class="wrapx" data-cadp="${i}"${i ? ' hi
   function rsPrompt(job, web) {
     const open = rsOpenItems(job), rr = curResume();
     const gapsList = (() => { try { const a = analyze(job, rr, curCover()); return a.reqs.filter((q) => q.status !== 'strong').slice(0, 8).map((q) => '- ' + short(q.text, 160)); } catch (e) { return []; } })();
+    const yy = new Date().getFullYear(), org = job.org || '', unit = (window.EPPosting && job.unit) || '', ttl = job.title || '';
+    let dom = ''; try { dom = job.url ? new URL(job.url).hostname.replace(/^(www|careers|jobs|hr)\./, '') : ''; } catch (e) { dom = ''; }
+    const q = (s) => s.replace(/\s+/g, ' ').trim();
+    const core = q(ttl.replace(/\b(associate|assistant|senior|executive|deputy|director|manager|lead|head|officer|coordinator|specialist|of|the|and)\b/gi, ' ').replace(/[,()/&-]/g, ' ')) || ttl;
+    const QB = [
+      ['Unit facts', q(`${dom ? 'site:' + dom : ''} "${unit || org}" ("annual report" OR "strategic plan" OR "financial report") ${yy - 1}..${yy}`)],
+      ['Money and scale', q(`${dom ? 'site:' + dom : '"' + org + '"'} ("financial report" OR "fiscal year ${yy}") (gifts OR revenue OR budget OR enrollment)`)],
+      ['Recent news (last 12 months)', q(`"${org}" ${unit ? '"' + unit + '"' : ''} (announces OR launches OR restructuring OR "new initiative") after:${yy - 1}-${String(new Date().getMonth() + 1).padStart(2, '0')}-01`)],
+      ['Leadership priorities', q(`"${org}" ${unit ? '"' + unit + '"' : ''} (dean OR "vice president" OR director) priorities ${yy}`)],
+      ['The role itself', q(`"${ttl}" "${org}" responsibilities OR "reports to"`)],
+      ['Sector base rates', q(`"${core}" (benchmark OR survey OR "key findings") ${yy} (site:case.org OR site:nacubo.org OR site:afpglobal.org OR site:educause.edu OR site:bls.gov)`)],
+      ['Policy and law that changes the work', q(`"${org}" (regulation OR policy OR tax OR compliance) ${yy} ${unit || ''}`)],
+      ['Peer practice', q(`"${core}" ("best practice" OR "case study" OR peer) (university OR college) ${yy}`)],
+      ['Disconfirming evidence', q(`"${org}" (deficit OR cuts OR "hiring freeze" OR shortfall OR layoffs) ${yy}`)],
+      ['Annual calendar: signature events', q(`${dom ? 'site:' + dom : '"' + org + '"'} (commencement OR reunion OR "alumni day" OR "alumni weekend" OR "family weekend" OR homecoming OR "giving day" OR gala) ${yy}..${yy + 1} date`)],
+      ['Annual calendar: fiscal and reporting cycle', q(`"${org}" ("fiscal year" OR "fiscal year end" OR "financial report" OR "annual report" OR "budget cycle" OR "board meeting") ${yy}..${yy + 1}`)],
+      ['Annual calendar: the unit itself', q(`"${unit || org}" (calendar OR "key dates" OR "important dates" OR schedule OR deadline) ${yy}..${yy + 1}`)]
+    ];
+    const METHOD = `DEEP-RESEARCH METHOD (follow in order; today is ${new Date().toDateString()}; prefer sources from the last 18 months)
+S1 Frame: list the 5 questions the hiring team will ask about this role, and the number that would answer each.
+S2 Search: run every query below, then 2 of your own for any unanswered question. Keep publisher, date and URL.
+${QB.map((x, i) => '  Q' + (i + 1) + ' [' + x[0] + '] ' + x[1]).join('\n')}
+S3 Grade: tier A official primary (the organization's own domain, government) · B sector research with a stated method · C reputable press with named sources · D vendor/blog (leads only). score = w_tier(A1, B.85, C.65, D.3) × 0.5^(age_months/18) × min(1, 0.7 + 0.15 × independent corroborations). Drop under 0.35. Rules in force do not decay.
+S4 Triangulate: two independent sources per figure or label it SINGLE SOURCE; log every contradiction (both values, dates, which you used and why).
+S5 Base rates: for each question, the sector reference value with its source; never present a sector figure as the organization's.
+S6 Predict: 3–5 checkable predictions about the role's first year (statement, probability 3–97%, 80% interval if numeric, resolve-by date, how measured, what would prove it wrong). Score later with Brier = (p − outcome)².
+S7 Annual calendar: build the organization's year from Q10-Q12 — every recurring event and deadline for the next fiscal year with exact dates where published (start, end, recurs: weekly|monthly|quarterly|annual, unit, URL, tier). Add the operating cycle the role lives in (close, audit, reporting seasons, peaks) marked ASSUMPTION unless published. Then name the freeze windows (weeks when no go-live, training or system change should happen) and why.
+S8 Pre-mortem: three reasons a hiring team would reject a work sample built on this research, and the fix for each.`;
     return `You are researching one job posting for a candidate's application. Fill EVERYTHING below in ONE JSON answer so it can be pasted once. ${web ? 'Use web search and read official pages (the organization\'s own domain first, then the posting itself). In tool mode: search_web(query) returns result text with URLs; read_page(url) returns a page\'s text; make at most 12 tool calls, several at once when independent.' : 'If you cannot browse, answer only from what you reliably know, put the official URL you believe holds each fact, and write "unverified" in notes.'}
+
+${METHOD}
 
 OPEN ITEMS IN THE CANDIDATE'S CHECKLIST — resolve as many as research can:
 ${open.length ? open.map((x) => '- ' + x).join('\n') : '- (none flagged; still complete every field)'}
@@ -11824,6 +11903,13 @@ RULES: never guess or invent; leave a field "" or null when not found; give a UR
 "gaps":[{"requirement":"","resume_quote":"","honest_line":""}],
 "ats":{"missing_keywords":[],"fixes":[]},
 "cover_letter":"",
+"evidence":[{"claim":"","value":"","unit":"","period":"","as_of":"","source":"","url":"","tier":"A|B|C|D","score":0,"corroborated_by":[]}],
+"benchmarks":[{"measure":"","value":"","population":"","as_of":"","url":""}],
+"contradictions":[{"claim":"","value_a":"","source_a":"","value_b":"","source_b":"","used":"","why":""}],
+"predictions":[{"statement":"","probability":0.5,"interval":"","resolve_by":"","measured_by":"","would_be_wrong_if":""}],
+"annual_calendar":[{"event":"","start":"YYYY-MM-DD","end":"","recurs":"annual|quarterly|monthly|weekly","kind":"published|operating|deadline","unit":"","url":"","tier":"A|B|C|D"}],
+"freeze_windows":[{"start":"","end":"","why":""}],
+"premortem":[{"reason":"","fix":""}],
 "notes":""}
 
 JOB TITLE: ${job.title || ''}
@@ -11841,6 +11927,7 @@ ${String((rr || {}).text || '').slice(0, 6000)}`;
     if (!o || typeof o !== 'object') return 0;
     if (Array.isArray(o.jobs)) o = o.jobs[0] || {};
     if (!o.research && (o.mission || o.values || o.initiatives)) o = { research: o };
+    ['evidence', 'benchmarks', 'contradictions', 'predictions', 'premortem', 'annual_calendar', 'freeze_windows'].forEach((k) => { if (Array.isArray(o[k]) && o[k].length) { job[k] = o[k].slice(0, 40); n++; done.push(k); } });
     const str = (v, L = 140) => (typeof v === 'string' && v.trim() && !/^(not found|unknown|n\/a|none|unverified)$/i.test(v.trim()) ? v.trim().slice(0, L) : undefined);
     const num = (v) => (v === null || v === '' || v === undefined || isNaN(Number(v)) ? undefined : Number(v));
     const arr = (v) => (Array.isArray(v) ? v.map((x) => (typeof x === 'string' ? x : x && (x.text || x.name || x.title) || '')).map(String).filter((x) => x && !/not found|unknown/i.test(x)).slice(0, 10) : undefined);
@@ -11964,6 +12051,7 @@ ${String((rr || {}).text || '').slice(0, 6000)}`;
       { k: 'gaps', step: 'Pack', label: 'Gaps handled honestly', s: st(gaps <= 2 || (j.gapNotes || []).filter((g) => g.line).length >= gaps, gaps <= 4), d: gaps ? gaps + ' gap' + (gaps > 1 ? 's' : '') + ((j.gapNotes || []).filter((g) => g.line).length >= gaps && gaps > 2 ? ' — every gap has an honest note; the letter names the top two' : gaps <= 2 ? ' — named honestly in the cover letter, never claimed' : ' — the letter names the top two; prepare stories for the rest') : 'no gaps found', go: 'cover' },
       { k: 'ats', step: 'Pack', label: 'Résumé format checks', s: st(atsFail === 0, atsFail <= 1), d: atsFail ? atsFail + ' failing check' + (atsFail > 1 ? 's' : '') : 'all pass or warn', go: 'fit' },
       { k: 'letter', step: 'Pack', label: 'Cover letter drafted (polished style)', s: j.coverLetter || state.coverPolished === j.id || (state.coverDraftFor === j.id && state.coverDraft) ? 'ok' : 'warn', d: j.coverLetter ? 'written by Claude from your résumé and the research — read once before sending' : state.coverPolished === j.id ? 'polished by Claude — read once before sending' : state.coverDraftFor === j.id && state.coverDraft ? 'edited by you' : 'built from your evidence and the research — read once, or ✨ Polish with Claude', go: 'cover' },
+      (() => { const W = window.EPWsCheck, s = W && W.forJob(j); return { k: 'wsample', step: 'Pack', label: 'Work sample ready', s: 'ok', d: s ? s.name + ' — passed the automatic checks' + (s.warns ? ' with ' + s.warns + ' note' + (s.warns > 1 ? 's' : '') : '') : 'using the platform SMARTER sample · to send the one your AI built, check it in Work Sample Studio → 04', go: 'cover' }; })(),
     ];
   }
   const AP_STEPS = ['Read', 'Score', 'Role & pay', 'Research', 'Program', 'Assure', 'Pack'];
@@ -12133,7 +12221,7 @@ ${String((rr || {}).text || '').slice(0, 6000)}`;
       { name: `SEND-to-hiring-team_${s}.html`, data: teamPageHtml(a) },
       ...appDocs(a, s),
       { name: `PRIVATE-my-briefing_${s}.html`, data: privateBriefingHtml(a) },
-      { name: 'README.txt', data: `Application files for: ${a.job.title || ''} — ${a.job.org || ''}\r\n\r\nSEND-to-hiring-team_${s}.html\r\n  The page for the hiring team: profile, proposal, role scope, program detail. No scores, gaps or pay. Send this or publish it on GitHub Pages.\r\n\r\nSEND-work-sample_${s}.html\r\n  Your SMARTER work sample (Overview, S, M, A, R, T, E, R, Playbook). Publish it next to the profile page; add its link on the Cover letter tab.\r\n\r\nSEND-resume_${s}.docx / SEND-cover-letter_${s}.docx\r\n  Word files in your SMARTER format. Read both once before sending.\r\n\r\nPRIVATE-my-briefing_${s}.html\r\n  For you only: readiness checklist, fit score, gaps, pay anchor, résumé fixes, cover letter and interview prep. Never send it.\r\n` },
+      { name: 'README.txt', data: `Application files for: ${a.job.title || ''} — ${a.job.org || ''}\r\n\r\nSEND-to-hiring-team_${s}.html\r\n  The page for the hiring team: profile, proposal, role scope, program detail. No scores, gaps or pay. Send this or publish it on GitHub Pages.\r\n\r\nSEND-work-sample_${s}.html\r\n  ${window.EPWsCheck && window.EPWsCheck.forJob(a.job) ? 'The work sample you checked in Work Sample Studio (' + window.EPWsCheck.forJob(a.job).name + ').' : 'Your SMARTER work sample (Overview, S, M, A, R, T, E, R, Playbook).'} Publish it next to the profile page; add its link on the Cover letter tab.\r\n\r\nSEND-resume_${s}.docx / SEND-cover-letter_${s}.docx\r\n  Word files in your SMARTER format. Read both once before sending.\r\n\r\nPRIVATE-my-briefing_${s}.html\r\n  For you only: readiness checklist, fit score, gaps, pay anchor, résumé fixes, cover letter and interview prep. Never send it.\r\n` },
     ]);
   }
 
@@ -12577,10 +12665,11 @@ window.EPApplyAuto = (() => {
           if (k.name) n += put('wsMeasure', `${k.name}: baseline ${k.base}${u} → target ${k.target}${u} (SAMPLE baseline; replace with the unit’s real figure)`);
           n += put('wsAttain', `${B.fte} FTE for ${B.deadline} weeks${ri && ri.direct ? '; ' + ri.direct + ' direct reports (from the posting)' : ''}; budget ${money(B.cost)} (PLANNING ESTIMATE)`);
           if (link) n += put('wsRelevance', 'Linked to: ' + short(link.replace(/^[•\-\s]+/, ''), 150));
-          n += put('wsTimebox', `Start ${B.start}; finish within ${B.deadline} weeks (about ${Math.round(B.pOnTime * 100)}% chance on time in the simulation)`);
+          const sdEl = $('wsStartDate'), st0 = sdEl && sdEl.value && sdEl.dataset.apAuto !== '1' ? sdEl.value : B.start;
+          n += put('wsTimebox', `Start ${st0}; finish within ${B.deadline} weeks (about ${Math.round(B.pOnTime * 100)}% chance on time in the simulation)`);
           if (k.name) n += put('wsEvaluate', `Monthly KPI review; amber if ${k.name} misses target by more than 10%, red by more than 20%; forecast refreshed monthly`);
           n += put('wsReview', `Week ${B.deadline} gate: adopt / rework / stop, decided by ${(ri && ri.reportsTo) || 'the hiring manager'}`);
-          n += put('wsStartDate', B.start);
+          n += put('wsStartDate', st0);
         }
         check('wsProvPublished', !!c.R.mission); check('wsProvRecord', true); check('wsProvEstimate', true); check('wsProvSample', true);
         return n;
@@ -13229,6 +13318,319 @@ window.EPProfileClone = (() => {
   return { build, model };
 })();
 
+/* WC-BEGIN */
+/* ===== Work sample check: bring in the HTML an AI built, check it, fix what is safe, use it for this job =====
+   Static guardrails (self-contained, sample notice, privacy, job match, provenance, your mark),
+   a live test in a sandboxed frame at phone width (errors, overflow, every link and control once),
+   safe automatic fixes, and one stored copy per job that the zip, the Job Fit buttons and the
+   Apply bar use in place of the platform-generated sample. Nothing leaves the browser. */
+window.EPWsCheck = (() => {
+  'use strict';
+  const KEY = 'ep_ws_import_v1';
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  let cur = null; // { name, html, original, checks, live, fixes }
+
+  /* ---------- storage: one checked sample per job ---------- */
+  function loadAll() { try { const v = JSON.parse(localStorage.getItem(KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } }
+  function saveAll(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); return true; } catch (e) { return false; } }
+  function forJob(job) { if (!job || !job.id) return null; const s = loadAll()[job.id]; return s && s.html ? s : null; }
+  function detach(job) { const v = loadAll(); if (job && v[job.id]) { delete v[job.id]; saveAll(v); } }
+  function ctx() {
+    const J = window.EPJobFit; const c = J && J.current ? J.current() : {};
+    let a = null; try { const sm = J && J.analysis ? J.analysis() : null; a = sm && (sm.a || sm); } catch (e) { a = null; }
+    return { job: c.job || null, name: (a && a.name) || '' };
+  }
+
+  /* ---------- text helpers ---------- */
+  function textOf(html) {
+    return String(html).replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&#39;|&rsquo;|’/g, "'").replace(/&[a-z]+;/g, ' ').replace(/\s+/g, ' ');
+  }
+  const STOP = new Set(['the', 'and', 'for', 'with', 'from', 'that', 'this', 'university', 'college', 'school', 'office', 'senior', 'associate', 'assistant', 'director', 'manager', 'lead', 'head', 'specialist', 'officer', 'coordinator', 'program', 'position', 'role', 'job', 'full', 'time', 'department', 'services', 'center']);
+  const toks = (s) => String(s || '').toLowerCase().replace(/&/g, ' and ').split(/[^a-z0-9]+/).filter((w) => w.length >= 3 && !STOP.has(w));
+  const initials = (n) => String(n || '').split(/\s+/).filter(Boolean).map((w) => w[0].toUpperCase()).slice(0, 2).join('');
+  function luhn(d) { let s = 0, alt = false; for (let i = d.length - 1; i >= 0; i--) { let n = +d[i]; if (alt) { n *= 2; if (n > 9) n -= 9; } s += n; alt = !alt; } return s % 10 === 0; }
+
+  /* ---------- static guardrails ---------- */
+  function audit(html, c, rendered) {
+    const H = String(html), T = textOf(H), R = [];
+    const V = rendered || textOf(H.replace(/<scr[i]pt\b[\s\S]*?<\/scr[i]pt>/gi, ' '));
+    const add = (id, level, title, detail, fix) => R.push({ id, level, title, detail, fix: !!fix });
+    const ext = [];
+    H.replace(/<scr[i]pt\b[^>]*\bsrc\s*=\s*["']?(https?:)?\/\/([^"'\s>]+)/gi, (m, p, u) => { ext.push(['script', u]); return m; });
+    H.replace(/<link\b[^>]*\bhref\s*=\s*["']?(https?:)?\/\/([^"'\s>]+)[^>]*>/gi, (m, p, u) => { if (!/rel\s*=\s*["']?(canonical|author|me)\b/i.test(m)) ext.push([/fonts\.(googleapis|gstatic)/i.test(u) ? 'font' : 'link', u]); return m; });
+    H.replace(/@import\s+url\(\s*["']?(https?:)?\/\/([^"')]+)/gi, (m, p, u) => { ext.push([/fonts\./i.test(u) ? 'font' : 'css', u]); return m; });
+    H.replace(/<img\b[^>]*\bsrc\s*=\s*["']?(https?:)?\/\/([^"'\s>]+)/gi, (m, p, u) => { ext.push(['image', u]); return m; });
+    const scripts = ext.filter((x) => x[0] === 'script'), fonts = ext.filter((x) => x[0] === 'font' || x[0] === 'link' || x[0] === 'css'), imgs = ext.filter((x) => x[0] === 'image');
+    add('self', scripts.length ? 'fail' : fonts.length ? 'fail' : imgs.length ? 'warn' : 'pass', 'Self-contained: no outside scripts, fonts or styles',
+      scripts.length ? 'Loads outside script(s): ' + scripts.slice(0, 3).map((x) => x[1]).join(', ') + '. Ask the AI to inline it; this cannot be fixed safely here.'
+        : fonts.length ? 'Requests ' + fonts.slice(0, 3).map((x) => x[1].split('/')[0]).join(', ') + '. Auto-fix removes the request and uses Cambria.'
+          : imgs.length ? imgs.length + ' outside image(s) will not show offline or if the host moves them.' : 'Works offline; nothing is requested from another site.', !scripts.length && fonts.length);
+    const net = [];
+    if (/navigator\.sendBeacon|google-analytics|googletagmanager|gtag\(|\bfbq\(|hotjar|segment\.io|mixpanel/i.test(H)) net.push('analytics or tracking');
+    if (/\bfetch\s*\(|XMLHttpRequest|new\s+WebSocket|EventSource\s*\(/.test(H)) net.push('a network call');
+    add('net', net.includes('analytics or tracking') ? 'fail' : net.length ? 'warn' : 'pass', 'No tracking or network calls',
+      net.length ? 'The page contains ' + net.join(' and ') + '. A work sample should not report on the people who open it.' : 'No analytics, beacons or fetch calls.');
+    const hasSample = /\b(sample|illustrat|work sample|job[- ]application)/i.test(T);
+    const hasNot = /(not an? (official|actual|real)|not (a |an )?(plan|proposal)[^.]{0,60}(authori[sz]ed|adopted|approved)|has not (authori[sz]ed|adopted|approved)|unofficial|not affiliated)/i.test(T);
+    add('notice', hasSample && hasNot ? 'pass' : 'fail', 'Says it is a job-application sample, not an official system',
+      hasSample && hasNot ? 'The sample notice is on the page.' : 'No clear notice found. Auto-fix adds a fixed notice at the top that names you and says it is not an official or adopted plan.', !(hasSample && hasNot));
+    const vp = /<meta[^>]+name\s*=\s*["']?viewport/i.test(H);
+    add('viewport', vp ? 'pass' : 'fail', 'Phone layout is switched on (viewport tag)', vp ? 'Present.' : 'Missing, so phones show a shrunken desktop page. Auto-fix adds it.', !vp);
+    const tm = /<title>([^<]*)<\/title>/i.exec(H), title = tm ? tm[1].trim() : '';
+    add('title', title ? 'pass' : 'fail', 'Has a page title', title ? '“' + title + '”' : 'No title, so the tab and the shared link show a file name. Auto-fix adds one from the job.', !title);
+    const ni = /<meta[^>]+name\s*=\s*["']?robots[^>]+noindex/i.test(H);
+    add('noindex', ni ? 'pass' : 'warn', 'Kept out of search engines (noindex)', ni ? 'Present.' : 'A hiring sample is shared by link, not found by search. Auto-fix adds noindex.', !ni);
+    const lang = /<html[^>]*\blang\s*=/i.test(H);
+    add('lang', lang ? 'pass' : 'warn', 'Language is declared for screen readers', lang ? 'Present.' : 'Auto-fix adds lang="en".', !lang);
+    const kb = Math.round(new Blob([H]).size / 1024);
+    add('size', kb > 5120 ? 'fail' : kb > 400 ? 'warn' : 'pass', 'Size is reasonable to send', kb + ' KB' + (kb > 400 ? ' — above the 400 KB the build prompt asks for; check for embedded images that can be compressed.' : '.'));
+    const job = c.job;
+    if (!job) add('job', 'warn', 'Matches the job it will be sent with', 'No job is selected in Job Fit Studio, so the match cannot be checked and the file cannot be attached.');
+    else {
+      const tt = T.toLowerCase(), ot = toks(job.org), ti = toks(job.title);
+      const oh = ot.filter((w) => tt.includes(w)), th = ti.filter((w) => tt.includes(w));
+      const ok = (ot.length ? oh.length > 0 : true) && (ti.length ? th.length >= Math.min(2, ti.length) : true);
+      add('job', ok ? 'pass' : 'fail', 'Matches the job it will be sent with',
+        ok ? 'Mentions ' + oh.concat(th).slice(0, 5).join(', ') + ' from “' + (job.title || '') + (job.org ? ' — ' + job.org : '') + '”.'
+          : 'This file does not mention ' + (ot.length && !oh.length ? '“' + job.org + '”' : '') + (ot.length && !oh.length && ti.length && th.length < 2 ? ' or ' : '') + (ti.length && th.length < Math.min(2, ti.length) ? 'the role “' + job.title + '”' : '') + '. It may be the sample for a different job. Select the right job in Job Fit Studio, or rebuild the sample.');
+    }
+    const nm = c.name, last = nm ? nm.split(/\s+/).pop() : '';
+    add('author', !nm ? 'warn' : new RegExp('\\b' + last.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i').test(T) ? 'pass' : 'warn', 'Names you as the author', !nm ? 'Your name is not loaded yet (add your résumé in Job Fit Studio).' : new RegExp('\\b' + last + '\\b', 'i').test(T) ? nm + ' is named.' : nm + ' is not named. The sample notice from auto-fix names you.');
+    const mails = Array.from(new Set((H.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) || []))).filter((m) => !/example\.(com|org|edu)$/i.test(m) && !/\.(png|jpe?g|webp|svg|gif)$/i.test(m));
+    const phones = Array.from(new Set((T + ' ' + V).match(/\(?\b\d{3}\)?[-.\s]\d{3}[-.]\d{4}\b/g) || []));
+    const ssn = (T.match(/\b\d{3}-\d{2}-\d{4}\b/g) || []);
+    const cards = (T.match(/\b(?:\d[ -]?){15,16}\b/g) || []).map((x) => x.replace(/\D/g, '')).filter((d) => (d.length === 15 || d.length === 16) && luhn(d));
+    const pii = [];
+    if (mails.length) pii.push(mails.length + ' email address' + (mails.length > 1 ? 'es' : '') + ' (' + mails.slice(0, 2).join(', ') + ')');
+    if (phones.length) pii.push(phones.length + ' phone number' + (phones.length > 1 ? 's' : ''));
+    if (ssn.length) pii.push('a number shaped like a Social Security number');
+    if (cards.length) pii.push('a number shaped like a card number');
+    add('privacy', pii.length ? 'fail' : 'pass', 'No personal contact details or ID numbers', pii.length ? 'Found ' + pii.join(', ') + '. Remove them or replace them with codes; the hiring team must not receive other people’s details.' : 'No emails, phone numbers or ID-shaped numbers.');
+    const SELF = /\b(this|the) (page|sample|site|plan|proposal|playbook|dashboard|charter)\b[^.]{0,60}\b(is|has been|was|are)\s+(an?\s+)?(officially\s+)?(official|endorsed|approved|authori[sz]ed|adopted|sanctioned)\b|\bofficial (site|system|page|plan|dashboard|playbook) of\b|\bon behalf of\b|\bendorsed by\b/i;
+    const sents = V.split(/(?<=[.!?])\s+/).filter((s) => SELF.test(s) && !/\b(not|no|never|un\w*|isn't|is not|without|nor|whether|if)\b/i.test(s));
+    add('claims', sents.length ? 'warn' : 'pass', 'No claim that the employer approved or endorsed it', sents.length ? sents.length + ' sentence(s) to reread: “' + sents[0].slice(0, 140) + (sents[0].length > 140 ? '…' : '') + '”' : 'Nothing reads as an official or approved claim.');
+    const ini = initials(nm), lg = /<([a-z]+)\b[^>]*class\s*=\s*["'][^"']*\blogo\b[^"']*["'][^>]*>\s*([A-Z&]{2,5})\s*</.exec(H);
+    const fav = /<link[^>]+rel\s*=\s*["']?(?:shortcut )?icon[^>]+%3E([A-Z&]{2,5})%3C\/text/i.exec(H);
+    const mark = !!ini && ((lg && lg[2] !== ini) || (fav && fav[1] !== ini));
+    add('mark', mark ? 'warn' : 'pass', 'Uses your mark, not the employer’s', mark ? 'The logo or tab icon shows “' + ((lg && lg[2]) || fav[1]) + '”, which can read as the employer’s own mark. Auto-fix uses your initials' + (ini ? ' (' + ini + ')' : '') + '.' : 'No look-alike mark found.', mark && !!ini);
+    const labels = (T.match(/\b(SAMPLE|Sample|PLANNING ESTIMATE|Planning estimate|PROPOSED|Proposed|PUBLISHED|Published|SYSTEM OF RECORD|Assumption|Your data|Model)\b/g) || []).length;
+    const figs = (T.match(/\$\s?\d[\d,.]*\s?[KMB]?|\b\d+(?:\.\d+)?\s?%/g) || []).length;
+    add('prov', figs >= 5 && !labels ? 'fail' : figs > 20 && labels * 20 < figs ? 'warn' : 'pass', 'Figures carry provenance labels',
+      figs >= 5 && !labels ? figs + ' figures and no Sample, Published, Planning estimate or Proposed label. Ask the AI to label every number.' : labels + ' label(s) for about ' + figs + ' figures in the text' + (figs > 20 && labels * 20 < figs ? ' — fewer than one per twenty; check the charts.' : '.'));
+    const pop = /<dialog\b|role\s*=\s*["']dialog|showModal\(|data-(pop|detail|open)\b|popup|modal/i.test(H);
+    const road = /roadmap|timeline|gantt|milestone|phase/i.test(T), cal = /calendar|\bweek \d|\bday \d|\b(30|60|90)[- ]day/i.test(T), wheel = /fiscal year|quarter|annual (calendar|cycle)|year plan/i.test(T), viz = (H.match(/<svg\b|<canvas\b/gi) || []).length;
+    const model = /monte carlo|percentile|p10|p90|forecast|confidence|interval|regression|control limit|little.s law|brier/i.test(T), bench = /benchmark|base rate|sector|peer/i.test(T);
+    const miss = [!pop && 'popups for details', !road && 'a roadmap or timeline from start to end', !cal && 'a calendar or day/week plan', !wheel && 'a year plan (fiscal year, quarters, annual events)', viz < 3 && 'infographics (charts or diagrams)', !model && 'an analysis or prediction with a range', !bench && 'a published benchmark or base rate'].filter(Boolean);
+    add('shape', miss.length > 1 ? 'fail' : miss.length ? 'warn' : 'pass', 'Works as a playbook, not a document', miss.length ? 'Missing: ' + miss.join(', ') + '. Ask the AI for the Start here and Analyze and predict chapters (see the build prompt): big-picture infographic, roadmap, calendar, standup, and live models with ranges and benchmarks, each with a popup.' : 'Has popups, a roadmap, a calendar or day plan, a forecast with a range, a benchmark, and ' + viz + ' charts or diagrams.');
+    return R;
+  }
+
+  /* ---------- safe automatic fixes ---------- */
+  function autofix(html, c) {
+    let H = String(html); const did = [];
+    const job = c.job || {}, ini = initials(c.name);
+    const before = H;
+    H = H.replace(/<link\b[^>]*\bhref\s*=\s*["']?(https?:)?\/\/fonts\.(googleapis|gstatic)\.com[^>]*>\s*/gi, '').replace(/<link\b[^>]*rel\s*=\s*["']?(preconnect|dns-prefetch)["']?[^>]*>\s*/gi, '').replace(/@import\s+url\(\s*["']?(https?:)?\/\/fonts\.[^)]*\)\s*;?/gi, '');
+    if (H !== before) { did.push('Removed the outside font request; text falls back to Cambria.'); H = H.replace(/(<\/style>)/i, 'body{font-family:Cambria,Georgia,"Times New Roman",serif}$1'); }
+    if (!/<html[^>]*\blang\s*=/i.test(H)) { H = H.replace(/<html\b/i, '<html lang="en"'); did.push('Declared the language.'); }
+    if (!/<head\b/i.test(H)) H = H.replace(/<html\b[^>]*>/i, (m) => m + '<head></head>');
+    const addHead = (tag) => { H = /<head\b[^>]*>/i.test(H) ? H.replace(/<head\b[^>]*>/i, (m) => m + '\n' + tag) : tag + H; };
+    if (!/<meta[^>]+name\s*=\s*["']?viewport/i.test(H)) { addHead('<meta name="viewport" content="width=device-width, initial-scale=1">'); did.push('Added the phone-layout tag.'); }
+    if (!/<meta[^>]+name\s*=\s*["']?robots[^>]+noindex/i.test(H)) { addHead('<meta name="robots" content="noindex,nofollow">'); did.push('Added noindex.'); }
+    if (!/<title>[^<]*\S[^<]*<\/title>/i.test(H)) { H = H.replace(/<title>\s*<\/title>/i, ''); addHead('<title>' + esc('Work sample · ' + (job.title || 'program playbook')) + '</title>'); did.push('Added a page title.'); }
+    const A = audit(H, c), notice = A.find((x) => x.id === 'notice');
+    if (notice && notice.level === 'fail') {
+      const who = c.name ? esc(c.name) : 'the candidate';
+      const ban = '<div role="note" style="position:sticky;top:0;z-index:2147483000;background:#fff8e6;color:#3d2a00;border-bottom:1px solid #f3cf98;padding:8px 14px;font:13px/1.45 Cambria,Georgia,serif"><b>Job-application work sample</b> prepared by ' + who + (job.org ? ' for the ' + esc(job.org) + ' hiring team' : '') + '. Not an official system and not a plan the organization has authorized or adopted. Figures marked Sample or Planning estimate are illustrations.</div>';
+      H = /<body\b[^>]*>/i.test(H) ? H.replace(/<body\b[^>]*>/i, (m) => m + ban) : ban + H;
+      did.push('Added a sample notice that names you and says it is not an official or adopted plan.');
+    }
+    if (ini) {
+      const b2 = H;
+      H = H.replace(/(<([a-z]+)\b[^>]*class\s*=\s*["'][^"']*\blogo\b[^"']*["'][^>]*>\s*)([A-Z&]{2,5})(\s*<)/, (m, a, t, x, z) => (x === ini ? m : a + ini + z));
+      H = H.replace(/(<link[^>]+rel\s*=\s*["']?(?:shortcut )?icon[^>]+%3E)([A-Z&]{2,5})(%3C\/text)/i, (m, a, x, z) => (x === ini ? m : a + ini + z));
+      if (H !== b2) did.push('Replaced the look-alike logo and tab icon with your initials (' + ini + ').');
+    }
+    return { html: H, did };
+  }
+
+  /* ---------- live test: sandboxed frame, phone width, every link and control once ---------- */
+  const PROBE = '<scr' + 'ipt>' + `(function(){var E=[],send=function(d){try{parent.postMessage({__wsprobe:1,d:d},'*')}catch(x){}};
+window.addEventListener('error',function(e){E.push(String(e.message||e.type))});
+window.addEventListener('unhandledrejection',function(e){E.push('Unhandled promise: '+String(e.reason&&e.reason.message||e.reason))});
+var ce=console.error;console.error=function(){var a=[].map.call(arguments,function(x){return x&&x.message?x.message:String(x)}).join(' ');E.push(a);try{ce.apply(console,arguments)}catch(x){}};
+window.alert=function(){};window.confirm=function(){return false};window.prompt=function(){return null};window.print=function(){};window.open=function(){return null};
+var ac=HTMLAnchorElement.prototype.click;HTMLAnchorElement.prototype.click=function(){if(this.hasAttribute('download')||/^blob:|^data:/.test(this.href))return;return ac.call(this)};
+function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
+var W=0,over=[],TX=[],TL=0;function grab(){var t=document.body?document.body.innerText:'';if(t&&TL<600000&&TX.indexOf(t)<0){TX.push(t);TL+=t.length}}function ov(w){var sw=document.documentElement.scrollWidth;if(sw>W+1&&over.length<12)over.push([w,sw])}
+var DANGER=/download|export|\\.csv|csv\\b|print|reset|clear|delete|remove|upload|import|copy|save|\\u21e9|\\u2b07/i;
+function vis(b){var r=b.getBoundingClientRect();return r.width>0&&r.height>0}
+async function run(){W=document.documentElement.clientWidth;ov('first view');grab();var seen={},hs=[],clicked=0;
+var vi=0;for(var round=0;round<3;round++){[].forEach.call(document.querySelectorAll('a[href^="#"]'),function(a){var h=a.getAttribute('href');if(h.length>1&&!seen[h]&&hs.length<80){seen[h]=1;hs.push(h)}});
+for(;vi<hs.length;vi++){try{location.hash=hs[vi]}catch(x){}await wait(70);ov(hs[vi]);grab()}}
+try{location.hash=hs[0]||''}catch(x){}await wait(80);
+var bs=[].slice.call(document.querySelectorAll('button,[role="button"],summary,[data-go],[data-detail],[data-pop],[data-open]')).filter(vis).filter(function(b){return !DANGER.test((b.textContent||'')+' '+(b.getAttribute('aria-label')||'')+' '+(b.title||''))&&!(b.type==='submit'&&b.form)}).slice(0,90);
+for(var i=0;i<bs.length;i++){var b=bs[i];if(!b.isConnected)continue;try{b.click();clicked++}catch(x){E.push('Click failed: '+x.message)}await wait(35);
+[].forEach.call(document.querySelectorAll('dialog[open]'),function(d){try{d.close()}catch(x){}});try{document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))}catch(x){}}
+ov('after every control');
+send({errors:E.slice(0,30),over:over,hashes:hs.length,clicked:clicked,title:document.title,W:W,rtext:TX.join('\\n').slice(0,600000),text:(document.body&&document.body.innerText||'').length})}
+window.addEventListener('load',function(){setTimeout(function(){run().catch(function(e){E.push('Probe: '+e.message);send({errors:E,over:over,hashes:0,clicked:0,W:W})})},450)});})();<` + `/script>`;
+  function liveTest(html) {
+    return new Promise((resolve) => {
+      const fr = document.createElement('iframe');
+      fr.setAttribute('sandbox', 'allow-scripts');
+      fr.setAttribute('aria-hidden', 'true'); fr.tabIndex = -1;
+      fr.style.cssText = 'position:fixed;left:-12000px;top:0;width:390px;height:844px;border:0;visibility:hidden';
+      let done = false;
+      const fin = (r) => { if (done) return; done = true; window.removeEventListener('message', on); setTimeout(() => fr.remove(), 50); resolve(r); };
+      const on = (e) => { if (e.source === fr.contentWindow && e.data && e.data.__wsprobe) fin(e.data.d); };
+      window.addEventListener('message', on);
+      const H = String(html);
+      const doc = /<head\b[^>]*>/i.test(H) ? H.replace(/<head\b[^>]*>/i, (m) => m + PROBE) : PROBE + H;
+      fr.srcdoc = doc;
+      document.body.appendChild(fr);
+      setTimeout(() => fin({ timeout: true, errors: [], over: [], hashes: 0, clicked: 0 }), 25000);
+    });
+  }
+  function liveChecks(L) {
+    const R = [];
+    if (!L) return R;
+    if (L.timeout) { R.push({ id: 'live', level: 'warn', title: 'Live test finished', detail: 'The page did not report back within 25 seconds (it may navigate away or loop). Open it once yourself and use every control.' }); return R; }
+    R.push({ id: 'console', level: L.errors.length ? 'fail' : 'pass', title: 'No errors on load or when every link and control is used', detail: L.errors.length ? L.errors.length + ' error(s): ' + L.errors.slice(0, 3).join(' · ').slice(0, 300) : 'Visited ' + L.hashes + ' in-page link(s) and used ' + L.clicked + ' control(s) with no error (downloads, print and reset were skipped).' });
+    R.push({ id: 'width', level: L.over.length ? 'fail' : 'pass', title: 'No sideways scrolling on a phone (390 px)', detail: L.over.length ? 'Wider than the screen at ' + L.over.slice(0, 3).map((o) => esc(o[0]) + ' (' + o[1] + ' px)').join(', ') + '. Wide tables and charts should scroll inside their own box.' : 'Every view fits ' + (L.W || 390) + ' px.' });
+    if (L.text != null) R.push({ id: 'render', level: L.text > 400 ? 'pass' : 'fail', title: 'The page draws its content', detail: L.text > 400 ? 'About ' + Math.round(L.text / 100) * 100 + ' characters on the first screen set.' : 'Almost nothing drew (' + L.text + ' characters). A script may have stopped early.' });
+    return R;
+  }
+
+  /* ---------- run, attach ---------- */
+  async function check(html, name) {
+    const c = ctx();
+    cur = { name: name || 'work-sample.html', html: String(html), original: cur && cur.name === name ? cur.original : String(html), fixes: (cur && cur.name === name && cur.fixes) || [], checks: audit(html, c), live: null, running: true };
+    paint();
+    cur.live = await liveTest(html); cur.running = false;
+    cur.checks = audit(cur.html, c, cur.live && cur.live.rtext).concat(liveChecks(cur.live));
+    markQa();
+    paint();
+    return cur;
+  }
+  async function fix() {
+    if (!cur) return;
+    const r = autofix(cur.html, ctx());
+    cur.fixes = (cur.fixes || []).concat(r.did);
+    if (!r.did.length) { status('Nothing left that can be fixed safely here. The remaining items need the AI or you.'); return; }
+    await check(r.html, cur.name);
+    status('Fixed: ' + r.did.join(' '));
+  }
+  const fails = () => (cur ? cur.checks.filter((x) => x.level === 'fail') : []);
+  function use() {
+    const c = ctx();
+    if (!cur || cur.running) return;
+    if (!c.job) { status('Select the job in Job Fit Studio first, so the sample is attached to the right application.'); return; }
+    if (fails().length) { status('Fix the ' + fails().length + ' failing check(s) first. Auto-fix handles the ones marked “auto-fix”.'); return; }
+    const v = loadAll();
+    Object.keys(v).forEach((k) => { if (v[k] && v[k].at && Date.now() - v[k].at > 1000 * 60 * 60 * 24 * 120) delete v[k]; });
+    v[c.job.id] = { html: cur.html, name: cur.name, at: Date.now(), jobTitle: c.job.title || '', jobOrg: c.job.org || '', warns: cur.checks.filter((x) => x.level === 'warn').length, fixes: cur.fixes || [] };
+    if (!saveAll(v)) { status('This browser would not store the file (storage full or blocked). Download the checked copy and send that.'); return; }
+    status('Attached to “' + (c.job.title || 'this job') + '”. The zip, the ⇩ SMARTER work sample button and the Apply bar now use this file.');
+    paint();
+    try { if (window.EPJobFit && window.EPJobFit.render) window.EPJobFit.render(); } catch (e) { /* ignore */ }
+  }
+  function markQa() {
+    const K = 'ep_worksample_qa_v1'; let st = {};
+    try { st = JSON.parse(localStorage.getItem(K) || '{}') || {}; } catch (e) { st = {}; }
+    const d = new Date().toISOString().slice(0, 10);
+    const set = (id, ok, note) => { st[id] = Object.assign({}, st[id] || {}, { status: ok ? 'pass' : 'fail', note: 'Auto-check ' + d + ': ' + note }); };
+    const by = (id) => cur.checks.find((x) => x.id === id);
+    const con = by('console'), w = by('width'), pv = by('prov');
+    if (con) set('console', con.level === 'pass', con.detail.slice(0, 160));
+    if (w) set('width', w.level === 'pass', w.detail.slice(0, 160));
+    if (pv && pv.level === 'fail') set('provenance', false, pv.detail.slice(0, 160));
+    try { localStorage.setItem(K, JSON.stringify(st)); } catch (e) { /* blocked */ }
+    try { if (window.EPWorkSampleStudio && window.EPWorkSampleStudio.renderQa) window.EPWorkSampleStudio.renderQa(); } catch (e) { /* ignore */ }
+  }
+
+  /* ---------- panel ---------- */
+  function status(t) { const s = $('wcStatus'); if (s) s.textContent = t; }
+  function download(name, data) {
+    if (typeof saveFile === 'function') return saveFile(name, data, 'text/html');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([data], { type: 'text/html' })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800);
+  }
+  function paint() {
+    const box = $('wcBody'); if (!box) return;
+    const c = ctx(), att = forJob(c.job);
+    const head = c.job ? 'For: <b>' + esc(c.job.title || 'untitled job') + (c.job.org ? ' — ' + esc(c.job.org) : '') + '</b>' : '<b>No job selected</b> in Job Fit Studio — checks run, but the file cannot be attached.';
+    const attLine = att ? '<div class="wc-att">✓ Attached: <b>' + esc(att.name) + '</b> · checked ' + new Date(att.at).toLocaleDateString() + (att.warns ? ' · ' + att.warns + ' note(s)' : '') + ' <button type="button" class="ws-btn ws-btn-quiet" data-wc="detach">Detach</button></div>' : '<div class="wc-att wc-none">Nothing attached: the zip uses the platform-generated SMARTER sample.</div>';
+    if (!cur) { box.innerHTML = '<p class="wc-for">' + head + '</p>' + attLine; return; }
+    const F = cur.checks.filter((x) => x.level === 'fail').length, W = cur.checks.filter((x) => x.level === 'warn').length, P = cur.checks.length - F - W;
+    const canFix = cur.checks.some((x) => x.fix);
+    const order = { fail: 0, warn: 1, pass: 2 };
+    const rowOf = (x) => '<div class="wc-row wc-' + x.level + '"><span class="wc-st">' + x.level.toUpperCase() + '</span><div><b>' + esc(x.title) + '</b>' + (x.fix ? ' <span class="wc-fx">auto-fix</span>' : '') + '<small>' + esc(x.detail) + '</small></div></div>';
+    const open = cur.checks.filter((x) => x.level !== 'pass').sort((a, b) => order[a.level] - order[b.level]).map(rowOf).join(''), ok = cur.checks.filter((x) => x.level === 'pass');
+    const rows = open + (ok.length ? '<details class="wc-pass-all"' + (open ? '' : ' open') + '><summary>' + ok.length + ' check' + (ok.length > 1 ? 's' : '') + ' pass — show</summary>' + ok.map(rowOf).join('') + '</details>' : '');
+    box.innerHTML = '<p class="wc-for">' + head + '</p>' + attLine +
+      '<div class="ws-verdict ' + (cur.running ? 'ws-verdict-not' : F ? 'ws-verdict-not' : 'ws-verdict-ready') + '" role="status" aria-live="polite"><strong>' + (cur.running ? 'CHECKING…' : F ? 'FIX FIRST · ' + F + ' failing' : 'READY TO ATTACH') + '</strong><span>' + esc(cur.name) + ' · ' + P + ' pass · ' + W + ' note' + (W === 1 ? '' : 's') + ' · ' + F + ' fail' + (cur.running ? ' · live test running in a sealed frame' : '') + '</span></div>' +
+      '<div class="wc-actions"><button type="button" class="ws-btn" data-wc="fix"' + (canFix && !cur.running ? '' : ' disabled') + '>Auto-fix what is safe</button><button type="button" class="ws-btn ws-btn-primary" data-wc="use"' + (!F && !cur.running && c.job ? '' : ' disabled') + ' title="' + (F ? 'Fix the failing checks first' : !c.job ? 'Select the job first' : 'Use this file for this application') + '">Use for this job</button><button type="button" class="ws-btn" data-wc="dl">Download checked copy</button><button type="button" class="ws-btn" data-wc="rerun"' + (cur.running ? ' disabled' : '') + '>Run again</button></div>' +
+      (cur.fixes && cur.fixes.length ? '<div class="wc-fixed"><b>Fixed automatically</b><ul>' + cur.fixes.map((f) => '<li>' + esc(f) + '</li>').join('') + '</ul></div>' : '') +
+      '<div class="wc-list">' + rows + '</div>';
+  }
+  function readFile(f) {
+    if (!f) return;
+    if (!/\.html?$/i.test(f.name) && !/html/.test(f.type || '')) { status('Choose the .html file the AI returned.'); return; }
+    if (f.size > 8 * 1024 * 1024) { status('That file is over 8 MB. Ask the AI for a lighter build (compress images).'); return; }
+    const rd = new FileReader();
+    rd.onload = () => { cur = null; status(''); check(String(rd.result || ''), f.name); };
+    rd.readAsText(f);
+  }
+  const CSS = '.wc-card{margin-bottom:14px}.wc-drop{display:block;position:static;margin:10px 0 0;border:2px dashed #a8cdd2;border-radius:12px;padding:14px;text-align:center;background:#f6fbfb;cursor:pointer;color:#155f65;font-weight:700}.wc-drop.on{background:#e2f1f1}.wc-drop small{display:block;font-weight:400;color:#4b6779;margin-top:4px}' +
+    '.wc-for{margin:10px 0 6px;font-size:13px;color:#4b6779}.wc-att{font-size:13px;margin:0 0 10px;padding:8px 10px;border-radius:9px;background:#e7f4ec;color:#15803d;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.wc-att.wc-none{background:#f4f8fa;color:#4b6779}' +
+    '.wc-actions{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.wc-actions button[disabled]{opacity:.5;cursor:not-allowed}.wc-list{border:1px solid #dbe7ec;border-radius:10px}.wc-row{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:9px 12px;border-bottom:1px solid #e6eef1}.wc-row:last-child{border-bottom:0}' +
+    '.wc-row small{display:block;color:#4b6779;margin-top:2px;line-height:1.45}.wc-st{font:700 10.5px/1 Cambria,Georgia,serif;letter-spacing:.08em;padding:5px 7px;border-radius:4px;border:1px solid;align-self:start}' +
+    '.wc-pass .wc-st{background:#e7f4ec;color:#15803d;border-color:#bfe3cc}.wc-warn .wc-st{background:#fff1dc;color:#7A4F00;border-color:#f3cf98}.wc-fail .wc-st{background:#fbe9ec;color:#9d2235;border-color:#f1c2ca}.wc-fail{background:#fffafb}' +
+    '.wc-fx{font-size:10.5px;font-weight:700;color:#155f65;background:#e2f1f1;border-radius:999px;padding:2px 7px;margin-left:4px}.wc-fixed{font-size:13px;background:#f1f6fd;border:1px solid #c6d6f7;border-radius:10px;padding:8px 12px;margin:0 0 10px}.wc-pass-all summary{cursor:pointer;padding:9px 12px;font-size:13px;color:#15803d;font-weight:700}.wc-fixed ul{margin:4px 0 0;padding-left:18px}';
+  function mount() {
+    const panel = $('wsPanelQa'); if (!panel || $('wcCard')) return;
+    const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+    const card = document.createElement('div'); card.className = 'ws-card wc-card'; card.id = 'wcCard';
+    card.innerHTML = '<div class="ws-card-head"><h2>4 · Check the HTML your AI returned</h2></div>' +
+      '<p class="ws-help">Drop the file here. It is checked against the guardrails (self-contained, sample notice, privacy, the right job, provenance labels, your own mark), then opened in a sealed frame at phone width where every link and control is used once. Safe problems are fixed automatically; the rest are listed. A file with a failing check cannot be attached. Nothing leaves this browser.</p>' +
+      '<div class="wc-drop" id="wcDrop" role="button" tabindex="0" aria-label="Choose the work sample HTML file">⇪ Drop the work sample .html, or choose it<small>The rows the test can measure (errors, phone width, provenance) are marked in the QA gate below for you.</small></div><input type="file" id="wcFile" accept=".html,.htm,text/html" hidden>' +
+      '<div id="wcBody"></div><p class="ws-help" id="wcStatus" role="status" aria-live="polite"></p>';
+    const first = panel.querySelector('.ws-card'); panel.insertBefore(card, first || null);
+    const drop = $('wcDrop'), inp = $('wcFile');
+    inp.addEventListener('change', () => { readFile(inp.files && inp.files[0]); inp.value = ''; });
+    drop.addEventListener('click', () => inp.click());
+    drop.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inp.click(); } });
+    ['dragenter', 'dragover'].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add('on'); }));
+    ['dragleave', 'drop'].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.remove('on'); }));
+    drop.addEventListener('drop', (e) => readFile(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]));
+    card.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-wc]'); if (!b || b.disabled) return;
+      const k = b.dataset.wc;
+      if (k === 'fix') fix();
+      else if (k === 'use') use();
+      else if (k === 'dl' && cur) download(cur.name.replace(/\.html?$/i, '') + '.checked.html', cur.html);
+      else if (k === 'rerun' && cur) check(cur.html, cur.name);
+      else if (k === 'detach') { detach(ctx().job); status('Detached. The zip goes back to the platform-generated SMARTER sample.'); paint(); }
+    });
+    const tab = $('wsTabQa'); if (tab) { tab.innerHTML = '04 &middot; Check &amp; use'; tab.addEventListener('click', () => setTimeout(paint, 0)); }
+    paint();
+  }
+
+  /* ---------- the attached file replaces the generated one wherever a work sample is built ---------- */
+  function wrap() {
+    const P = window.EPProposal; if (!P || !P.build || P.build.__wc) return;
+    const orig = P.build;
+    P.build = function (a, job) { const s = forJob(job || (a && a.job)); return s ? s.html : orig.apply(this, arguments); };
+    P.build.__wc = true; P.buildGenerated = orig;
+  }
+  wrap();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount, { once: true }); else mount();
+  return { audit, autofix, liveTest, check, forJob, detach, current: () => cur, paint };
+})();
+
+/* WC-END */
 </script>
 <noscript><p style="background:#fff5dc;padding:20px;font:16px Georgia,serif">ExecutivePilot AI requires JavaScript for dashboards, popups, and analysis tools. Enable JavaScript in your browser to use this local HTML application.</p></noscript>
 
