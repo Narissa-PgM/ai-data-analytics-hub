@@ -8717,6 +8717,7 @@ Every number in the project's materials carries exactly one label:
       if (!(window.EPReporting && window.EPReporting.isReporting(jb))) return;
       L.push('R. ROLE-ALIGNED WORK SAMPLE — this is a reporting and analytics leadership role, so the sample must show the REPORTING WORK ITSELF, not only program management. Use this executive navigation, in this order, as the top-level chapters (the SMARTER letters become badges on each): 0 Brief (the job, shown working: 4 tiles; six tool cards; a table mapping EVERY duty in the posting, verbatim, to the page that demonstrates it and to the candidate\u2019s evidence, with gaps marked) · 1 Portfolio Command Center [M] (every report, dashboard, data product and project scored: health = 0.4 on-time + 0.3 data quality + 0.3 use; value = use × share of cycles used in a decision; a value-versus-effort bubble chart with Invest / Keep-automate / Redesign / Retire quadrants and audience filters; an attention list built by rule: late, refresh overdue, quality < 85, views ≤ 5 with ≥ 8 h a month = retire candidate; hours freed by retiring) · 2 Impact Report Factory [A] (the impact/stewardship season as a six-stage production line with capacity per stage, rework from automatic checks, 120-run finish week P50/P90 and the bottleneck; sliders for volume, reviewers, template automation; a live one-report generator for 8 sample funds and 3 audiences with six automatic checks — spending ties to distribution ±1%, purpose matches terms, story permission, certified metrics, as-of dates, no restricted personal data — and planted defects that block sending) · 3 Intent & Evidence Traceability [S] (donor-intent chain terms → allowed use → spending evidence → certified metric → report claim → permission, shown as linked boxes that turn red when broken; a fund matrix with Publishable / Blocked; a requester-intent matrix decision → metric → source → certification → decision logged) · 4 Reporting Service Tiers & Capacity Planner [T] (Tier 0 self-service, Tier 1 catalog report 2 days, Tier 2 custom analysis 10 days, Tier 3 data product on the quarterly roadmap, each a popup with intake rules; monthly demand vs capacity bars with a utilization line and seasonality; Erlang C probability a Tier 1 request meets its SLA; FTE needed for 85% at peak; sliders for team size, run share, demand by tier, self-service deflection, automation) · 5 Outcomes & Benefits Dashboard [E] (value tree outcome → measures; benefits register with baseline, target, owner, measurement date; cumulative realization curve plan vs forecast P10-P90; decision-use rate) · 6 Reporting Decision Studio [R] — the differentiator: (a) request triage: seven one-click questions (decision named? frequency, audience, existing asset, sensitivity, deadline, question shape) → recommended response and tier with reasons, the right chart for the question, and a copyable decision record; (b) a decision-ready brief for leadership: three options scored on weighted criteria with sliders, a ranked bar chart, and the flip point (the weight at which the recommendation changes) · 7 Year plan (the reporting calendar wheel with recurring deliverables, peaks, the first-year plan, and the researched annual dates) · 8 Method (SMARTER map, labels, formulas, sources). Seed all operating data, label it SAMPLE, and put the posting\u2019s own words beside the tool that answers them.');
     })();
+    (function () { if (window.EPCombos) { const cs = window.EPCombos.buildPromptSection(); if (cs) L.push(cs); } })();
     L.push('A0. YEAR PLAN (first page of Analyze and predict) — "When does the work happen, and when must the project stay out of the way?" Research the organization\u2019s annual activities for the coming fiscal year (signature events, commencement and reunions or their equivalent, giving days, fiscal year end, board and reporting cycles) with dates and links, and lay them out with the project plan on ONE CALENDAR WHEEL (SVG, fiscal year clockwise from month 1 at the top): ring 1 published events as numbered markers (clusters fanned out with leader lines), ring 2 the operating cycle of the role (close, audit, reporting seasons, peaks; ASSUMPTION unless published), ring 3 the project phases from the planned start with gate diamonds, ring 4 a predicted workload heat ring by month, hatched freeze windows across all rings, a "today" needle, and FY switch (this year / next). Views: Year wheel · Quarter (13 week rows: events, operations, project, load) · Month (dated items plus the monthly checklist with computed dates) · Week (the standard five-day template). Every marker and arc opens a popup (what, date, source, steps, red mistake, blue best practice, rule). Automatic guardrail: any gate or go-live inside a freeze window is listed with the proposed first business day after it (holidays skipped); the sponsor decides.');
     L.push('A. ANALYZE AND PREDICT (second chapter) — "What will happen, how sure are we, and how will we know?" Pick the 4-5 models that fit THIS role and build each as its own page with: a question headline; 4 tiles (prediction with 80% range, a driver, a published base rate, the decision it informs); sliders for the 3-5 inputs a manager controls, re-running the model live; one chart with a P10-P90 band; a numbered "what the model says" list with the computed numbers inline; a "how to make it real" list ending in an illustrative query (schema names marked as placeholders); a popup with the formula, assumptions, the validation (back-test error target, calibration) and a red mistake / blue best practice / rule. Model menu: (1) demand and capacity — daily queue with calendar peaks, arrival lag, overdispersed arrivals (gamma-Poisson), FIFO service, Little’s law L = λW, staff needed for a service level, 200+ Monte Carlo runs; (2) customer or donor base — retention split new / repeat / reactivated, cohort survival heat map, next-year forecast built up from each group, lapse list ranked by expected value (for a conversation, never a rating of a person); (3) quality — weekly p-chart with limits p̄ ± 3√(p̄(1−p̄)/n), the 8-in-a-row rule, Pareto with cumulative line, DPMO and process sigma, the effect of fixing the top causes; (4) money timing — collection or spend forecast by quarter from an aging hazard table, P10/P50/P90, largest expected shortfalls; (5) research engine — published benchmarks graded (score = tier weight × 0.5^(months/18) × corroboration), source tiers, the query bank with operators, a predictions register (probability 3-97%, resolve-by date, measure; Brier score), the formulas, and the deep-research prompt with a copy button. Synthetic inputs are seeded so results are reproducible, labeled SAMPLE, and anchored to published base rates that carry their date and link.');
     L.push('0. COMMAND CENTER — "Is the program healthy today?" A visible "Demonstration as of DATA.asOf" line. Five RAG tiles (Schedule SPI, Cost CPI, Scope, Risk exposure, Benefits) computed from DATA, each with a provenance badge and a plain-language subline (e.g. SPI 0.92 → "8% behind plan"; CPI 0.94 → "6% over budget for work done"); the RAG rule is part of the tile\'s accessible name and its popup (not a hover-only title); "Next decision" card (next gate, date, decider, evidence still missing); overdue/blocked actions count; top 3 KRIs breaching amber/red; a "Generate status report" button that writes the weekly RAG report from DATA (top KRIs, overdue actions and next gate all derived, nothing typed in) and prints in place with window.print() (no pop-up windows); a "Missing inputs" card listing every item in DATA.missing with the reviewer action, each shown as "MISSING — not admissible until filled".');
@@ -13839,6 +13840,174 @@ footer{max-width:1240px;margin:0 auto;padding:0 22px 40px;color:var(--mute);font
 })();
 
 /* RP-END */
+/* CB-BEGIN */
+/* ===== EPCombos: every Strategy, Project, Analytics and Research command, combined into chains for each work-sample section =====
+   74 commands → 16 combinations → the sections of the work sample (SMARTER chapters or the reporting navigation).
+   Each combination copies as one prompt with the job's context and the hand-off between steps; enabled
+   combinations are listed in the build prompt. EPFlow turns Plan & deliver and Test & audit into one
+   six-step "Deliver & assure" path. */
+window.EPCombos = (() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const OFF_KEY = 'ep_ws_combos_off_v1';
+  const GROUPS4 = { strategy: ['Strategy & Executive Decisions', '#8b5694'], projects: ['Project & Portfolio Management', '#8b6a21'], analytics: ['Data Analytics & AI', '#2876b6'], research: ['Research & Critical Analysis', '#247e82'] };
+  /* section keys: [SMARTER chapter, reporting page] */
+  const SECTIONS = [
+    ['overview', 'Overview', 'Brief', 'Why this work, for this organization, now'],
+    ['s', 'S · Specifically', 'Intent & Evidence Traceability', 'Exactly what is in scope, for whom, on what evidence'],
+    ['m', 'M · Measurably', 'Portfolio Command Center', 'The measures, the portfolio and the data behind them'],
+    ['a', 'A · Achievably', 'Impact Report Factory', 'Who does the work, with what hours, money and procedure'],
+    ['r', 'R · Relevantly', 'Reporting Decision Studio', 'The options, the peers, and the recommendation'],
+    ['t', 'T · Time-bound', 'Service Tiers & Capacity · Year plan', 'When it happens, in what order, and who hears about it'],
+    ['e', 'E · Evaluated', 'Outcomes & Benefits', 'Forecasts with ranges, what drives results, and the value proved'],
+    ['rv', 'R · Reviewed', 'Method · assurance and review', 'Risk, change, assurance before release, and the lessons'],
+    ['playbook', 'Playbook', 'Method · reproducible tools', 'Reproducible tools: the queries, code and models behind every figure']
+  ];
+  const COMBOS = [
+    { k: 'c1', sec: 'overview', n: 'Know the organization', goal: 'Current, sourced facts about the organization, its environment and where it is heading.', cmds: ['/research', '/literaturereview', '/factcheck', '/pestle', '/swot', '/futureoutlook'] },
+    { k: 'c2', sec: 'overview', n: 'Make the case', goal: 'Why this work is worth doing now, in money and in strategy, with the decision it asks for.', cmds: ['/strategicplan', '/businesscase', '/costbenefit', '/roi', '/decisionbrief'] },
+    { k: 'c3', sec: 's', n: 'Define scope on evidence', goal: 'A charter with SMART goals and named stakeholders, where every claim has evidence and every assumption is listed.', cmds: ['/projectcharter', '/smartgoals', '/stakeholders', '/evidence', '/assumptions', '/criticalanalysis'] },
+    { k: 'c4', sec: 'm', n: 'Measure the portfolio', goal: 'Score every product and project, rank them, and show leadership one screen of measures.', cmds: ['/portfolioanalysis', '/prioritization', '/kpis', '/dashboard', '/executivedashboard', '/performancereview'] },
+    { k: 'c5', sec: 'm', n: 'Clean and describe the data', goal: 'Labeled sample data, cleaned and checked, queried, summarized and charted correctly.', cmds: ['/syntheticdata', '/datacleaning', '/sqlquery', '/descriptivestats', '/dataanalysis', '/datavisualization'] },
+    { k: 'c6', sec: 'a', n: 'Plan the work and the people', goal: 'Work packages, hours, roles, budget and the standard procedure that makes the work repeatable.', cmds: ['/wbs', '/resourceplan', '/raci', '/budgetplan', '/sop'] },
+    { k: 'c7', sec: 'r', n: 'Compare and decide', goal: 'Options compared on weighted criteria, tested with what-ifs, ending in a recommendation.', cmds: ['/compare', '/proscons', '/decisionmatrix', '/whatifanalysis', '/recommendations'] },
+    { k: 'c8', sec: 'r', n: 'Benchmark against peers', goal: 'Where the organization stands against peers and good practice, and the gaps that matter.', cmds: ['/benchmark', '/peercomparison', '/bestpractices', '/gapanalysis'] },
+    { k: 'c9', sec: 't', n: 'Schedule and communicate', goal: 'Roadmap, dated timeline and Gantt, the implementation and action plans, and who is told what, when.', cmds: ['/roadmap', '/timeline', '/gantt', '/implementationplan', '/actionplan', '/communicationsplan'] },
+    { k: 'c10', sec: 'e', n: 'Forecast with ranges', goal: 'Trends turned into forecasts with P10–P90 ranges, stress-tested with sensitivity and scenarios.', cmds: ['/trends', '/forecast', '/montecarlo', '/sensitivityanalysis', '/scenarios'] },
+    { k: 'c11', sec: 'e', n: 'Explain what drives results', goal: 'Which factors move the outcome, whether the effect is real, and which cases are unusual.', cmds: ['/correlation', '/regression', '/hypothesistest', '/predictivemodel', '/anomalydetection'] },
+    { k: 'c12', sec: 'e', n: 'Prove the value', goal: 'Benefits tracked from baseline to target with owners and dates, and a value check before claiming success.', cmds: ['/benefitsrealization', '/valuecheck', '/performancereview'] },
+    { k: 'c13', sec: 'rv', n: 'Control risk and change', goal: 'Risks scored and owned, root causes found, and every change approved before it lands.', cmds: ['/riskregister', '/riskassessment', '/rootcause', '/changecontrol'] },
+    { k: 'c14', sec: 'rv', n: 'Assure before release', goal: 'Quality review, audit checklist and smoke tests, ending in an evidence-based release decision.', cmds: ['/qualityreview', '/auditchecklist', '/smoketest', '/qualitycheck', '/valuecheck', '/releasegate'] },
+    { k: 'c15', sec: 'rv', n: 'Close and learn', goal: 'What worked, what did not, why, and what the next cycle changes.', cmds: ['/lessonslearned', '/rootcause', '/benefitsrealization'] },
+    { k: 'c16', sec: 'playbook', n: 'Build the tools behind the numbers', goal: 'The SQL, Python, R and spreadsheet models that reproduce every figure on the page.', cmds: ['/sqlquery', '/pythoncode', '/rcode', '/excelmodel'] }
+  ];
+  function cmdList() { try { return typeof COMMANDS !== 'undefined' ? COMMANDS : []; } catch (e) { return []; } }
+  function cmd(name) { return cmdList().find((c) => c.name === name) || { name, description: '', instruction: '', outputs: [], group: '' }; }
+  function coverage() {
+    const all = cmdList().filter((c) => GROUPS4[c.group]), used = new Set(COMBOS.flatMap((c) => c.cmds));
+    const by = {}; Object.keys(GROUPS4).forEach((g) => { const L = all.filter((c) => c.group === g); by[g] = { total: L.length, used: L.filter((c) => used.has(c.name)).length, missing: L.filter((c) => !used.has(c.name)).map((c) => c.name) }; });
+    return { total: all.length, used: all.filter((c) => used.has(c.name)).length, by };
+  }
+  function offSet() { try { return new Set(JSON.parse(localStorage.getItem(OFF_KEY) || '[]')); } catch (e) { return new Set(); } }
+  function setOff(k, off) { const s = offSet(); if (off) s.add(k); else s.delete(k); try { localStorage.setItem(OFF_KEY, JSON.stringify([...s])); } catch (e) { /* blocked */ } }
+  function job() { const J = window.EPJobFit; let s = null; try { s = J && J.analysis ? J.analysis() : null; } catch (e) { s = null; } const c = J && J.current ? J.current() : {}; return { a: s && s.a, j: (s && s.j) || c.job || null }; }
+  function fmt(j) { return window.EPReporting && j ? window.EPReporting.getFormat(j) : 'smarter'; }
+  const secName = (key, f) => { const s = SECTIONS.find((x) => x[0] === key); return s ? (f === 'reporting' ? s[2] : s[1]) : key; };
+
+  function comboPrompt(c, ctx) {
+    const { a, j } = ctx || job(), f = fmt(j), R = (j && j.research) || {};
+    const MODOF = { s: 'trace', m: 'command', a: 'factory', r: 'decision', t: 'capacity', e: 'outcomes' };
+    let duties = (a && a.reqs ? a.reqs.filter((r) => r.kind === 'duty').map((r) => r.text) : []);
+    if (a && window.EPReporting && MODOF[c.sec]) { const al = window.EPReporting.align(a).filter((x) => x.mod === MODOF[c.sec]).map((x) => x.duty); if (al.length) duties = al; }
+    duties = duties.slice(0, c.sec === 'overview' ? 3 : 5);
+    const L = [];
+    L.push('COMMAND COMBINATION · ' + c.n + ' → work-sample section: ' + secName(c.sec, f));
+    L.push('Goal: ' + c.goal);
+    if (j) L.push('Context: ' + [j.title, j.org, j.unit].filter(Boolean).join(' · ') + '. Today is ' + new Date().toDateString() + '.');
+    if (R.mission) L.push('Organization mission (saved research): ' + String(R.mission).slice(0, 300));
+    if (duties.length) L.push('Duties from the posting this section must serve:\n' + duties.map((d) => '  - ' + d).join('\n'));
+    L.push('');
+    L.push('Run these commands IN ORDER. Each step uses the previous step’s output as its input; do not restart from scratch.');
+    c.cmds.forEach((n, i) => { const m = cmd(n); L.push('STEP ' + (i + 1) + ' · ' + n + (m.description ? ' — ' + m.description : '') + '\n  Do: ' + (m.instruction || '') + '\n  Deliver: ' + (m.outputs || []).join(', ') + (i ? '\n  Input: the output of step ' + i + '.' : '')); });
+    L.push('');
+    L.push('RULES: Never invent a fact about the organization; cite every published figure with source, date and URL. Label every number PUBLISHED, SAMPLE (synthetic, seeded), PLANNING ESTIMATE or MODEL. Give ranges (P10–P90) for any forecast. Use roles, never names of staff or donors.');
+    L.push('OUTPUT FOR THE PAGE: a headline question; 4 tiles (one prediction with its range, one driver, one published benchmark, the decision it informs); one chart chosen for the question (compare→bar, trend→line, share→stacked bar, relation→scatter, spread→histogram); numbered findings with the numbers inline; and a popup per item with steps, a red common-mistake panel, a blue best-practice panel and a rule box.');
+    return L.join('\n');
+  }
+  function buildPromptSection() {
+    const { j } = job(), f = fmt(j), off = offSet(), on = COMBOS.filter((c) => !off.has(c.k)); if (!on.length) return '';
+    const lines = ['COMMAND COMBINATIONS BY SECTION — build each section by running its combinations in order (each step feeds the next). The full step-by-step prompt for any combination is in Work Sample Studio → 06.'];
+    SECTIONS.forEach(([k]) => { const L = on.filter((c) => c.sec === k); if (L.length) lines.push('  ' + secName(k, f) + ': ' + L.map((c) => c.n + ' [' + c.cmds.join(' → ') + ']').join(' ; ')); });
+    return lines.join('\n');
+  }
+  function copy(text, btn) { const ok = () => { if (btn) { const t = btn.textContent; btn.textContent = 'Copied ✓'; setTimeout(() => { btn.textContent = t; }, 1400); } }; try { navigator.clipboard.writeText(text).then(ok, () => fallback()); } catch (e) { fallback(); } function fallback() { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (x) { /* blocked */ } ta.remove(); } }
+
+  function render() {
+    const box = $('wsCmbBody'); if (!box) return;
+    const { j } = job(), f = fmt(j), cov = coverage(), off = offSet(), q = (state.q || '').toLowerCase();
+    const chip = (n) => { const m = cmd(n), g = GROUPS4[m.group]; return '<span class="cb-chip" style="--c:' + (g ? g[1] : '#5d7181') + '" title="' + esc((g ? g[0] + ' · ' : '') + (m.description || '')) + '">' + esc(n) + '</span>'; };
+    let h = '<div class="cb-cov"><div><b>' + cov.used + ' of ' + cov.total + '</b> commands from these four libraries are placed in a combination' + (j ? ' · sections shown in the <b>' + (f === 'reporting' ? 'Reporting Director' : 'SMARTER playbook') + '</b> format chosen for “' + esc(j.title || 'this job') + '”' : '') + '.</div><div class="cb-gs">' + Object.keys(GROUPS4).map((g) => '<span style="--c:' + GROUPS4[g][1] + '"><i></i>' + esc(GROUPS4[g][0]) + ' <b>' + cov.by[g].used + '/' + cov.by[g].total + '</b></span>').join('') + '</div>' + (cov.used < cov.total ? '<p class="cb-miss">Not yet placed: ' + Object.values(cov.by).flatMap((x) => x.missing).join(', ') + '</p>' : '') + '</div>';
+    h += '<div class="cb-tools"><input type="search" id="cbSearch" placeholder="Find a command, e.g. /montecarlo" value="' + esc(state.q || '') + '" aria-label="Find a command"><button type="button" class="ws-btn" data-cb="all">Copy every enabled combination</button></div>';
+    SECTIONS.forEach(([k, sm, rp, purpose]) => {
+      const L = COMBOS.filter((c) => c.sec === k && (!q || c.n.toLowerCase().includes(q) || c.cmds.some((x) => x.includes(q)))); if (!L.length) return;
+      h += '<section class="cb-sec"><div class="cb-sh"><b>' + esc(f === 'reporting' ? rp : sm) + '</b><span>' + esc(f === 'reporting' ? sm : rp) + ' · ' + esc(purpose) + '</span></div><div class="cb-grid">'
+        + L.map((c) => '<article class="cb-card' + (off.has(c.k) ? ' off' : '') + '"><div class="cb-top"><h4>' + esc(c.n) + '</h4><label class="cb-sw"><input type="checkbox" data-cb-on="' + c.k + '"' + (off.has(c.k) ? '' : ' checked') + '> in build prompt</label></div><p>' + esc(c.goal) + '</p><div class="cb-chain">' + c.cmds.map((n, i) => (i ? '<em>→</em>' : '') + chip(n)).join('') + '</div><div class="cb-act"><button type="button" class="ws-btn ws-btn-primary" data-cb="copy" data-k="' + c.k + '">Copy combination prompt</button><button type="button" class="ws-btn" data-cb="view" data-k="' + c.k + '" aria-expanded="false">Show steps</button></div><pre class="cb-pre" id="cbp-' + c.k + '" hidden></pre></article>').join('') + '</div></section>';
+    });
+    h += '<details class="cb-idx"><summary>Where is each command? (index of all ' + cov.total + ')</summary><div class="rw-tw"><table class="rw-t"><thead><tr><th>Command</th><th>Library</th><th>Combination</th><th>Section</th></tr></thead><tbody>'
+      + cmdList().filter((m) => GROUPS4[m.group]).map((m) => { const L = COMBOS.filter((c) => c.cmds.includes(m.name)); return '<tr><td><b>' + esc(m.name) + '</b><br><small>' + esc(m.description) + '</small></td><td>' + esc(GROUPS4[m.group][0]) + '</td><td>' + (L.map((c) => esc(c.n)).join('<br>') || '<span class="rw-gap">not placed</span>') + '</td><td>' + L.map((c) => esc(secName(c.sec, f))).join('<br>') + '</td></tr>'; }).join('') + '</tbody></table></div></details>';
+    box.innerHTML = h;
+  }
+  const state = { q: '' };
+  const CSS = '.cb-cov{border:1px solid #dbe7ec;border-radius:12px;padding:12px 14px;background:#f6fbfb;margin:10px 0}.cb-gs{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:8px;font-size:12.5px}.cb-gs span{display:inline-flex;align-items:center;gap:6px}.cb-gs i{width:10px;height:10px;border-radius:3px;background:var(--c)}.cb-miss{color:#9d2235;font-size:12.5px;margin:6px 0 0}'
+    + '.cb-tools{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}.cb-tools input{flex:1 1 240px;padding:8px 10px;border:1px solid #c9d8de;border-radius:9px;font:inherit}'
+    + '.cb-sec{margin:0 0 16px}.cb-sh{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;border-bottom:2px solid #e2ecef;padding-bottom:6px;margin-bottom:10px}.cb-sh b{font:700 17px Cambria,Georgia,serif;color:#15384a}.cb-sh span{font-size:12.5px;color:#4b6779}'
+    + '.cb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:10px}.cb-card{border:1px solid #dbe7ec;border-radius:12px;padding:12px 14px;background:#fff}.cb-card.off{opacity:.55}.cb-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.cb-top h4{margin:0;font:700 15.5px Cambria,Georgia,serif}.cb-sw{font-size:11.5px;color:#4b6779;white-space:nowrap;display:flex;gap:4px;align-items:center}.cb-card p{margin:6px 0 8px;font-size:13px;color:#4b6779}'
+    + '.cb-chain{display:flex;flex-wrap:wrap;gap:4px;align-items:center}.cb-chain em{font-style:normal;color:#8a9ca5;font-size:12px}.cb-chip{font:600 12px ui-monospace,Menlo,Consolas,monospace;padding:3px 7px;border-radius:6px;border:1px solid color-mix(in srgb,var(--c) 45%,#fff);background:color-mix(in srgb,var(--c) 10%,#fff);color:color-mix(in srgb,var(--c) 85%,#000)}'
+    + '.cb-act{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.cb-pre{white-space:pre-wrap;word-break:break-word;background:#f6f8fb;border:1px solid #dbe7ec;border-radius:10px;padding:10px;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;max-height:340px;overflow:auto;margin:8px 0 0}'
+    + '.cb-idx{margin-top:10px}.cb-idx summary{cursor:pointer;font-weight:700;padding:8px 0}';
+  function mount() {
+    const tabs = $('wsTabs'), anchor = $('wsPanelRole') || $('wsPanelQa'); if (!tabs || !anchor || $('wsTabCmb')) return;
+    const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'ws-tab'; b.id = 'wsTabCmb'; b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', 'false'); b.setAttribute('aria-controls', 'wsPanelCmb'); b.tabIndex = -1; b.innerHTML = '06 &middot; Command combos'; tabs.appendChild(b);
+    const p = document.createElement('section'); p.className = 'ws-page'; p.id = 'wsPanelCmb'; p.setAttribute('role', 'tabpanel'); p.setAttribute('aria-labelledby', 'wsTabCmb'); p.hidden = true;
+    p.innerHTML = '<div class="ws-card"><div class="ws-card-head"><h2>Command combinations for each section</h2></div><p class="ws-help">All Strategy & Executive Decisions, Project & Portfolio Management, Data Analytics & AI and Research & Critical Analysis commands, chained in the order a practitioner would use them and assigned to the section of the work sample they build. Copy one combination as a single prompt, or leave it switched on so the build prompt (03) lists it.</p><div id="wsCmbBody"></div></div>';
+    anchor.parentNode.insertBefore(p, anchor.nextSibling);
+    const show = (on) => { b.classList.toggle('active', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; p.hidden = !on; };
+    tabs.addEventListener('click', (e) => { const t = e.target.closest('.ws-tab'); if (!t) return; if (t === b) { tabs.querySelectorAll('.ws-tab').forEach((x) => { if (x !== b) { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); } }); document.querySelectorAll('.ws-page').forEach((x) => { if (x !== p && x.id && /^wsPanel/.test(x.id)) x.hidden = true; }); show(true); render(); } else show(false); }, true);
+    p.addEventListener('click', (e) => {
+      const k = e.target.closest('[data-cb]'); if (!k) return; const act = k.getAttribute('data-cb'), c = COMBOS.find((x) => x.k === k.getAttribute('data-k'));
+      if (act === 'copy' && c) copy(comboPrompt(c), k);
+      else if (act === 'view' && c) { const pre = $('cbp-' + c.k); const open = pre.hidden; pre.hidden = !open; if (open) pre.textContent = comboPrompt(c); k.textContent = open ? 'Hide steps' : 'Show steps'; k.setAttribute('aria-expanded', String(open)); }
+      else if (act === 'all') { const off = offSet(); copy(COMBOS.filter((x) => !off.has(x.k)).map((x) => comboPrompt(x)).join('\n\n' + '='.repeat(60) + '\n\n'), k); }
+    });
+    p.addEventListener('change', (e) => { const t = e.target; if (t.dataset && t.dataset.cbOn) { setOff(t.dataset.cbOn, !t.checked); const card = t.closest('.cb-card'); if (card) card.classList.toggle('off', !t.checked); } });
+    p.addEventListener('input', (e) => { if (e.target.id === 'cbSearch') { state.q = e.target.value; clearTimeout(state.t); state.t = setTimeout(() => { render(); const s = $('cbSearch'); if (s) { s.focus(); s.setSelectionRange(s.value.length, s.value.length); } }, 200); } });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount, { once: true }); else setTimeout(mount, 0);
+  return { COMBOS, SECTIONS, coverage, comboPrompt, buildPromptSection, render };
+})();
+
+/* ===== EPFlow: Plan & deliver + Test & audit → one six-step "Deliver & assure" path ===== */
+window.EPFlow = (() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const STEPS = [
+    ['viewAdmiss', 'admissPanel', 'Should we do it?', 'Admissibility', 'Run a proposal through the five-layer gate before anyone plans it.'],
+    ['viewEnterprise', 'enterprisePanel', 'Align to the org', 'Enterprise & C-Suite', 'Trace mission, priorities and governance into the role’s management system.'],
+    ['viewPilot', 'pilotPanel', 'Plan, budget, calendar', 'Co-worker', 'Lifecycle, AI tool and token budget, calendar wheel, discovery and sign-off.'],
+    ['viewAnalyzer', 'analyzerPanel', 'Design the platform', 'Platform Analyzer', 'Turn the project into a platform blueprint and a build prompt.'],
+    ['viewAudit', 'auditPanel', 'Auto-check the build', 'Audit Lab', 'Upload the built page; static checks compare it with the role and list defects.'],
+    ['viewQA', 'qaPanel', 'Sign off the release', 'QA Gate', 'Mark each test after verifying it; the release stays blocked until every gate passes.']
+  ];
+  const CSS = '.ep-flow{border:1px solid #dbe4ea;border-radius:14px;background:#fff;padding:12px 14px;margin:0 0 16px}.ep-flow-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;align-items:baseline}.ep-flow-h b{font:700 15px Cambria,Georgia,serif;color:#15384a}.ep-flow-h span{font-size:12.5px;color:#4b6779}'
+    + '.ep-flow ol{list-style:none;margin:10px 0 8px;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}.ep-flow li button{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;height:100%;border:1px solid #dbe4ea;border-radius:10px;padding:7px 9px;font-size:12px;line-height:1.3;color:#36505f}.ep-flow li button:hover,.ep-flow li button:focus-visible{border-color:#8a5fa8}'
+    + '.ep-flow li button i{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#eef3f5;font-style:normal;font-weight:700;margin-right:5px}.ep-flow li button small{display:block;color:#7b8f9a;font-size:11px;margin-top:2px}.ep-flow li.cur button{background:#f4eef9;border-color:#8a5fa8;color:#3b2050}.ep-flow li.cur i{background:#8a5fa8;color:#fff}.ep-flow li.done i{background:#d9efe2;color:#15803d}'
+    + '.ep-flow-f{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;font-size:13px;color:#36505f}.ep-flow-f button{all:unset;cursor:pointer;font-weight:700;color:#fff;background:#8a5fa8;border-radius:9px;padding:7px 12px}.ep-flow-f button:focus-visible{outline:3px solid rgba(138,95,168,.35)}'
+    + '@media(max-width:900px){.ep-flow ol{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:520px){.ep-flow ol{grid-template-columns:repeat(2,minmax(0,1fr))}}'
+    + '.nav-group-items .view-toggle .fl{display:flex;flex-direction:column;line-height:1.2}.nav-group-items .view-toggle .fl small{font-size:10.5px;color:#7b8f9a;font-weight:600}';
+  function strip(i) {
+    const s = STEPS[i], nx = STEPS[i + 1];
+    return '<div class="ep-flow" role="navigation" aria-label="Deliver and assure steps"><div class="ep-flow-h"><b>Deliver & assure · step ' + (i + 1) + ' of 6 · ' + s[2] + '</b><span>' + s[4] + '</span></div><ol>' + STEPS.map((x, k) => '<li class="' + (k === i ? 'cur' : k < i ? 'done' : '') + '"><button type="button" data-flow="' + x[0] + '"' + (k === i ? ' aria-current="step"' : '') + '><i>' + (k + 1) + '</i>' + x[2] + '<small>' + x[3] + '</small></button></li>').join('') + '</ol><div class="ep-flow-f"><span>' + (i === 0 ? 'Start here when a new project or proposal arrives.' : 'Came from step ' + i + ': ' + STEPS[i - 1][2].toLowerCase() + '.') + '</span>' + (nx ? '<button type="button" data-flow="' + nx[0] + '">Next: ' + nx[2] + ' →</button>' : '<button type="button" data-flow="viewWorkSample">Done: attach to the work sample →</button>') + '</div></div>';
+  }
+  function mount() {
+    const plan = document.querySelector('.nav-group[data-ng="plan"]'), test = document.querySelector('.nav-group[data-ng="test"]'); if (!plan || plan.dataset.flow) return;
+    const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+    const items = $('ng-plan');
+    STEPS.forEach((s, i) => { const b = $(s[0]); if (!b) return; b.innerHTML = '<span class="symbol">' + '①②③④⑤⑥'[i] + '</span><span class="fl">' + s[2] + '<small> ' + s[3] + '</small></span>'; b.title = s[4]; items.appendChild(b); });
+    if (test) test.remove();
+    const hd = plan.querySelector('.nav-group-head span'); if (hd) hd.textContent = 'Deliver & assure';
+    const sm = plan.querySelector('.nav-group-head small'); if (sm) sm.textContent = '6';
+    items.setAttribute('aria-label', 'Deliver and assure: six steps');
+    plan.dataset.flow = '1';
+    STEPS.forEach((s, i) => { const p = $(s[1]); if (!p || p.querySelector('.ep-flow')) return; const d = document.createElement('div'); d.innerHTML = strip(i); p.insertBefore(d.firstChild, p.firstChild); });
+    document.addEventListener('click', (e) => { const t = e.target.closest('[data-flow]'); if (!t) return; const b = $(t.getAttribute('data-flow')); if (b) b.click(); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount, { once: true }); else setTimeout(mount, 0);
+  return { STEPS };
+})();
+
+/* CB-END */
 /* WC-BEGIN */
 /* ===== Work sample check: bring in the HTML an AI built, check it, fix what is safe, use it for this job =====
    Static guardrails (self-contained, sample notice, privacy, job match, provenance, your mark),
