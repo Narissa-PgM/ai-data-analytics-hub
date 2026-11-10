@@ -3940,7 +3940,8 @@ async function carDocxText(arrayBuffer){
  const W='http://schemas.openxmlformats.org/wordprocessingml/2006/main',R='http://schemas.openxmlformats.org/officeDocument/2006/relationships';
  const doc=new DOMParser().parseFromString(xml,'application/xml');
  const walk=(n)=>{let s='';for(const c of n.childNodes){if(c.nodeType!==1)continue;const ln=c.localName;if(ln==='t')s+=c.textContent;else if(ln==='tab')s+='\t';else if(ln==='br'||ln==='cr')s+='\n';else if(ln==='hyperlink'){const t=walk(c),u=links[c.getAttributeNS(R,'id')||c.getAttribute('r:id')];s+=t+(u&&/^https?:/i.test(u)&&!t.includes(u)?' — '+u:'');}else if(ln!=='pPr'&&ln!=='rPr'&&ln!=='instrText'&&ln!=='delText')s+=walk(c);}return s;};
- const paras=[...doc.getElementsByTagNameNS(W,'p')];return paras.map(p=>walk(p).replace(/[  ]+\t/g,'\t')).filter(t=>t.trim()).join('\n');
+ const isList=(p)=>{const pr=[...p.childNodes].find(c=>c.localName==='pPr');if(!pr)return false;if(pr.getElementsByTagNameNS(W,'numPr').length)return true;const st=pr.getElementsByTagNameNS(W,'pStyle')[0];return !!st&&/list|bullet/i.test(st.getAttributeNS(W,'val')||st.getAttribute('w:val')||'');};
+ const paras=[...doc.getElementsByTagNameNS(W,'p')];return paras.map(p=>{const t=walk(p).replace(/[  ]+\t/g,'\t');return isList(p)&&t.trim()&&!/^\s*(?:[-•*·▪◦●►✓]|\d+[.)])\s/.test(t)?'• '+t.trim():t;}).filter(t=>t.trim()).join('\n');
 }
 async function carPdfText(file){
  if(!window.pdfjsLib){try{await new Promise((resolve,reject)=>{const js=document.createElement('script');js.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';js.onload=resolve;js.onerror=reject;document.head.append(js);});}catch{throw Error('PDF reader unavailable (offline or blocked). Paste resume text, or upload DOCX / HTML / TXT.');}}
@@ -9642,7 +9643,7 @@ window.EPRoleIntel = (() => {
   }
 
   function researchPrompt(job, m) {
-    if (window.EPJobFit && window.EPJobFit.researchPrompt) return window.EPJobFit.researchPrompt(job);
+    if (window.EPJobFit && window.EPJobFit.researchPrompt) { const RP = ['role', 'team', 'pay'], nd = window.EPJobFit.researchNeeds ? window.EPJobFit.researchNeeds(job).filter((k) => RP.includes(k)) : []; return window.EPJobFit.researchPrompt(job, nd.length ? nd : RP); }
     return `Research the "${job.title || 'role'}" position at ${job.org || 'the organization'}${job.url ? ' (posting: ' + job.url + ')' : ''}.
 Use the organization's own website, published org charts, staff directories, annual reports, LinkedIn and the posting itself. Find:
 1. The exact title (and name, if public) of the person this role reports to, plus that person's own manager.
@@ -9840,7 +9841,7 @@ window.EPSmarter = (() => {
     return String(txt || '').split('\n').map((l) => l.trim()).filter(Boolean).map((l) => { const [name, status, time, url] = l.split('|').map((x) => (x || '').trim()); return { name, status: status || 'current', time: time || '', url: /^https?:/i.test(url || '') ? url : '' }; }).filter((x) => x.name);
   }
   function researchPrompt(job) {
-    if (window.EPJobFit && window.EPJobFit.researchPrompt) return window.EPJobFit.researchPrompt(job);
+    if (window.EPJobFit && window.EPJobFit.researchPrompt) { const RP = ['identity', 'plans', 'calendar'], nd = window.EPJobFit.researchNeeds ? window.EPJobFit.researchNeeds(job).filter((k) => RP.includes(k)) : []; return window.EPJobFit.researchPrompt(job, nd.length ? nd : ['identity', 'plans']); }
     const r = research(job);
     return `Research the organization below using its OFFICIAL website and official publications only (strategic plan, annual report, news releases, leadership pages). Return ONLY a JSON object in exactly this shape:\n{"organization":"","mission":{"text":"","url":""},"values":[{"name":"","url":""}],"strategic_plan":{"name":"","years":"","url":""},"initiatives":[{"name":"","description":"","status":"current|upcoming|completed","timeframe":"","url":""}],"notes":""}\n\nRules: quote the mission and values verbatim; give the source URL for every item; include only initiatives, projects or plans that are published and current or upcoming; leave a field empty rather than guessing; never invent names, numbers or dates.\n\nOrganization: ${r.org || job.org || '[organization]'}\nUnit / role context: ${job.title || ''}\nJob description excerpt (for context only, not a source):\n${String(job.text || '').slice(0, 2500)}`;
   }
@@ -9860,7 +9861,8 @@ window.EPSmarter = (() => {
     if (Array.isArray(o.context)) r.context = o.context.filter((x) => x && x.fact).map((x) => [x.fact, x.date || '', x.status || 'official', x.url || '', x.implication || ''].map((s) => String(s).replace(/\|/g, '/')).join(' | ')).join('\n');
     if (Array.isArray(o.initiatives)) r.initiatives = o.initiatives.map((i) => [i.name || '', i.status || '', i.timeframe || '', i.url || ''].join(' | ')).join('\n');
     const src = [o.mission && o.mission.url, o.strategic_plan && o.strategic_plan.url, ...(o.values || []).map((v) => v && v.url), ...(o.initiatives || []).map((i) => i && i.url)].filter((u) => /^https?:/i.test(u || ''));
-    r.sources = [...new Set(src)].join('\n');
+    if (o.motto && o.motto.url) src.push(o.motto.url); if (o.unit_mission && o.unit_mission.url) src.push(o.unit_mission.url); (o.context || []).forEach((x) => x && /^https?:/i.test(x.url || '') && src.push(x.url));
+    r.sources = [...new Set([...String(r.sources || '').split('\n').filter(Boolean), ...src.filter((u) => /^https?:/i.test(u || ''))])].join('\n');
     if (o.strategic_plan && o.strategic_plan.name) r.plan = o.strategic_plan.name + (o.strategic_plan.years ? ' (' + o.strategic_plan.years + ')' : '');
     r.origin = origin; r.confirmed = false;
   }
@@ -10635,6 +10637,17 @@ window.EPAppDocs = (() => {
   const areaOf = (t, used) => { for (const [n, re] of AREAS) if (re.test(t) && !(used && used.has(n))) return n; return ''; };
   const SHORTLBL = [['Reporting & Analytics', /report|dashboard|analytic|sql|tableau|bi\b|query/i], ['People Management', /hire|hiring|supervis|performance review|coach|staff/i], ['Internal Controls', /control|exception|duplicate|reconcil|audit/i], ['Campaign Finance', /campaign|pacing/i], ['Gift & Donor Operations', /gift|donor|constituent|transaction/i], ['Process Redesign', /redesign|workflow|process|sop|procedure/i], ['Stakeholder Advising', /advis|chairs|deans|stakeholder|consensus/i], ['Sponsored Research', /grant|sponsor|award|gmas|\bpi\b/i], ['Data Integration', /integrat|join|source|data ?hub|warehouse/i], ['Leadership Materials', /materials|presentation|governing|committee/i], ['Quality Assurance', /test|quality|validation|smoke|acceptance/i], ['AI & Automation', /\bai\b|automation|generative|prompt/i]];
   const shortLabel = (t) => { for (const [n, re] of SHORTLBL) if (re.test(t)) return n; return 'Impact'; };
+  // near-duplicate test: most content words shared, or the same distinctive figure plus a fair share of words
+  const FIG = (t) => new Set((String(t).match(/\$\s?\d[\d,.]*\s?[mbk]?|\d[\d,.]*\s?[–-]\s?\d[\d,.]*|\d[\d,.]*\+|\d{2,}[\d,.]*%?/gi) || []).map((x) => x.replace(/\s/g, '').toLowerCase()).filter((x) => !/^(19|20)\d{2}$/.test(x)));
+  function near(a, b) {
+    const A = new Set(words(a)), Bw = new Set(words(b)); if (!A.size || !Bw.size) return false;
+    let n = 0; A.forEach((w) => { if (Bw.has(w)) n++; });
+    const r = n / Math.min(A.size, Bw.size); if (r >= 0.6) return true;
+    const fb = FIG(b); let f = 0; FIG(a).forEach((x) => { if (fb.has(x)) f++; });
+    return f > 0 && r >= 0.3;
+  }
+  // shorten at a clause boundary instead of cutting mid-sentence with "…"
+  const clip = (s, n) => { s = noDot(s); if (s.length <= n) return s; const cut = s.slice(0, n); const k = Math.max(cut.lastIndexOf('; '), cut.lastIndexOf(' — '), cut.lastIndexOf(' – ')); if (k > n * 0.45) return cut.slice(0, k); const c = cut.lastIndexOf(', '); if (c > n * 0.55) return cut.slice(0, c); return cut.replace(/\s+\S*$/, '').replace(/[\s,;:—–-]+$/, '').replace(/\s+(?:for|to|and|or|the|of|a|an|with|in|on|by|from|that|which|as|at)$/i, ''); };
 
   function profile(resText) {
     const RP = window.EPResumeParse; const P = RP ? RP.parse(resText || '') : { roles: [], edu: [], certs: [], skills: [], sec: {} };
@@ -10689,14 +10702,24 @@ window.EPAppDocs = (() => {
     const pool = evidencePool(a, P), used = new Set();
     const yrs = a.span || 0;
     const name = (P.name || a.name || '').toUpperCase();
-    const headline = `${C.job.title || 'Candidate'} Candidate · ${[C.unit, C.org].filter(Boolean).filter((x, i, arr) => i === 0 || !arr[0].includes(x)).join(', ')}`;
+    const jt = /^(?:(?:company|job|position|role)\s+)?(?:description|summary|overview|details)$|^about\b/i.test(clean(C.job.title)) ? '' : clean(C.job.title);
+    const headline = `${jt ? jt + ' Candidate · ' : 'Candidate · '}${[C.unit, C.org].filter(Boolean).filter((x, i, arr) => i === 0 || !arr[0].includes(x)).join(', ')}`;
     const contact = [P.city, P.phone, P.email].filter(Boolean);
     const links = [];
     if (opts.wsUrl) links.push({ label: C.proposal, url: opts.wsUrl });
     if (opts.profileUrl) links.push({ label: 'Executive profile', url: opts.profileUrl });
     urls.forEach((u) => { if (!links.some((l) => l.url === u.url)) links.push(u); });
     // leadership statement
-    let lede = clean((sec.summary || []).filter((l) => !/^(specifically|measurably)/i.test(l.trim())).join(' ')) || P.summary || '';
+    // a "Target Role Alignment" table inside the summary (Role need / Direct evidence rows) is kept as rows, not run into the paragraph
+    const sumL = (sec.summary || []).map(clean).filter(Boolean), align = [];
+    const ai = sumL.findIndex((l) => /^(target\s+)?role alignment$|^role need$|^(role )?requirements? (?:&|and|vs\.?) evidence$/i.test(l));
+    let ledeL = sumL;
+    if (ai >= 0) {
+      let j = ai + 1; while (j < sumL.length && /^(role need|direct evidence|evidence|requirement|what the role needs|my evidence|need)$/i.test(sumL[j])) j++;
+      for (; j + 1 < sumL.length; j += 2) { const k = sumL[j], v = sumL[j + 1]; if (/^(Specifically|Measurably|Achievably|Relevantly|Time-bound)\b/.test(k) || k.length > 90 || /[.;]$/.test(k) || v.length < 25) break; align.push({ need: k, ev: v }); }
+      ledeL = sumL.slice(0, ai).concat(sumL.slice(j));
+    }
+    let lede = clean(ledeL.filter((l) => !/^(specifically|measurably)/i.test(l)).join(' ')) || (ai >= 0 ? '' : P.summary) || '';
     lede = lede.split(/(?<=\.)\s+(?=Specifically\b)/)[0];
     if (!lede) { const orgs = [...new Set((P.roles || []).filter((r) => !r.current).map(orgShort))].slice(0, 3); lede = `${(areaOf((a.reqs || []).map((q) => q.text).join(' ')) || 'Operations').split(/[:&]/)[0].trim()} leader with ${yrs} years across ${orgs.join(', ')}.`; }
     const e1 = pick(pool, used, null, 'Specifically') || pick(pool, used, (t) => verbLed(t) && /advis|partner|stakeholder|chairs|deans|leaders|served|aligned/i.test(t)) || pick(pool, used, verbLed) || pick(pool, used);
@@ -10710,27 +10733,9 @@ window.EPAppDocs = (() => {
       ['Relevantly', `developed the ${C.proposal}—a SMARTER operating proposal${C.M && C.M.ws ? ' with ' + C.M.ws.length + ' workstreams' : ''}${C.B ? ', ' + C.B.kpis.length + ' measures and a risk register' : ''}—mapped to ${C.prio.length ? C.orgS + '’s published priorities' : 'the duties in the posting'}`],
       ['Time-bound', `first results within 90 days, a first release by month ${C.months}, ${C.gates} decision gates, and benefits tracked over 36 months`],
     ].filter(Boolean);
-    // strengths grid matched to the role
-    const usedA = new Set(), cells = [];
-    [...(a.reqs || []).filter((q) => q.kind !== 'preferred'), ...(a.reqs || []).filter((q) => q.kind === 'preferred')].forEach((q) => {
-      if (cells.length >= 6) return; const lab = areaOf(q.text, usedA); if (!lab) return;
-      const re = (AREAS.find((x) => x[0] === lab) || [])[1];
-      const qw = new Set(words(q.text));
-      const cand = pool.filter((p) => !p.slot && re && re.test(p.t) && !cells.some((c) => c.src === p.t)).map((p) => ({ p, s: words(p.t).filter((w) => qw.has(w)).length + (verbLed(p.t) ? 0.5 : 0) })).sort((x, y) => y.s - x.s)[0];
-      const evd = cand ? cand.p.t : '';
-      if (!evd) return; usedA.add(lab); cells.push({ title: lab, body: short(stripLabel(evd), 165), src: evd });
-    });
-    if (cells.length % 2) cells.pop();
-    // work samples
-    const samples = [{ label: `${C.proposal} (${new Date().getFullYear()})`, url: opts.wsUrl || '', text: `a SMARTER operating proposal prepared for this application: ${C.M && C.M.ws ? C.M.ws.length + ' workstreams, ' : ''}${C.B ? C.B.kpis.length + ' measures, ' + C.gates + ' gates, risk register and forecasts' : 'scope, measures, gates and risks'}. Public data; synthetic figures labeled.` }];
-    (sec.worksamples || []).map((l) => clean(l.replace(/^[-•*·▪◦●]\s*/, ''))).filter((l) => l.length > 20).forEach((l0) => { const um = l0.match(/\s*—\s*(https?:\/\/\S+)\s*/); const l = um ? clean(l0.replace(um[0], ' ')) : l0; const lb = labelOf(l); const direct = um ? um[1] : ''; const u = urls.find((x) => lb && (x.label.toLowerCase().includes(lb.toLowerCase().split(/[(:]/)[0].trim().slice(0, 14)) || lb.toLowerCase().includes(x.label.toLowerCase().slice(0, 14)))); samples.push({ label: lb ? lb.replace(/:$/, '') : '', url: direct || (u ? u.url : ''), text: lb ? stripLabel(l) : l }); });
-    // capabilities
-    let caps = [];
-    const capL = (sec.capabilities || []).map(clean).filter(Boolean);
-    for (let i = 0; i < capL.length; i++) if (/^\d{2}\.\s/.test(capL[i])) caps.push({ title: capL[i], text: capL[i + 1] && !/^\d{2}\.\s/.test(capL[i + 1]) ? capL[i + 1] : '' });
-    if (!caps.length) caps = [...usedA].slice(0, 3).map((t, i) => ({ title: String(i + 1).padStart(2, '0') + '. ' + t, text: (cells.find((c) => c.title === t) || {}).body || '' }));
     // experience, with the most relevant bullets first
     const jw = new Set(words((a.reqs || []).map((q) => q.text).join(' ')));
+    const keptB = [];
     const roles = (P.roles || []).map((r, i) => {
       const parts = String(r.title || '').split(/\s+·\s+/); let title = parts.join(' · '), unit = '';
       const ORGISH = /office|faculty of|department|institutional|college|school|center|centre|practice|since|resources|division|advancement|medical center|unctad|university|unit\b/i;
@@ -10738,56 +10743,111 @@ window.EPAppDocs = (() => {
       if (ku > 0) { unit = parts.slice(ku).join(' · '); title = parts.slice(0, ku).join(' · '); }
       const bl = r.bullets.map(clean).filter((b) => b.length > 12).map((b, k) => ({ b, k, s: words(b).filter((w) => jw.has(w)).length + (/\d/.test(b) ? 0.5 : 0) }));
       const keepN = i === 1 ? 5 : i === 0 ? 3 : 4;
-      const top = bl.slice().sort((x, y) => y.s - x.s || x.k - y.k).slice(0, keepN).sort((x, y) => (y.s - x.s) || (x.k - y.k));
+      const top = []; bl.slice().sort((x, y) => y.s - x.s || x.k - y.k).forEach((x) => { if (top.length < keepN && !keptB.some((t) => near(t, x.b))) { top.push(x); keptB.push(x.b); } });
       const fmt = (d, m) => d ? (m ? String(d.m).padStart(2, '0') + '/' : '') + d.y : '';
-      return { org: r.org || '', when: `${fmt(r.start, r.smon)} – ${r.end ? fmt(r.end, r.emon) : 'Present'}`, title, unit, bullets: top.map((x) => ({ label: labelOf(x.b) || shortLabel(x.b), text: labelOf(x.b) ? stripLabel(x.b) : x.b })) };
+      return { org: r.org || '', when: r.undated ? (r.endGiven ? fmt(r.end, r.emon) : '') : `${fmt(r.start, r.smon)} – ${r.end ? fmt(r.end, r.emon) : 'Present'}`, title, unit, bullets: top.map((x) => ({ label: labelOf(x.b), text: labelOf(x.b) ? stripLabel(x.b) : x.b, src: x.b })) };
     });
-    const systems = (sec.systems || []).map((l) => clean(l.replace(/^[-•*·▪◦●]\s*/, ''))).filter(Boolean).flatMap((l) => l.split(/\.\s+(?=[A-Z][\w\/ &-]{0,25}:)/)).map((l) => ({ label: labelOf(l), text: labelOf(l) ? stripLabel(l) : l }));
-    return { name, headline, contact, linkedin: P.linkedin, links, lede, smarter, cells, samples, caps, roles, certs: P.certs || [], edu: P.edu || [], systems: systems.length ? systems : (P.skills || []).length ? [{ label: 'Systems & tools', text: P.skills.join(', ') }] : [] };
+    // lede: drop sentences the SMARTER line below already says
+    { const sm = smarter.map((x) => x[1]); lede = lede.split(/(?<=[.!?])\s+(?=[A-Z])/).filter((x, i) => i === 0 || !sm.some((t) => near(x, t))).join(' '); }
+    // strengths grid matched to the role — never repeats a bullet already shown in Experience or the SMARTER line
+    const shownB = roles.flatMap((r) => r.bullets.map((b) => b.src)), avoidT = shownB.concat(smarter.map((x) => x[1]));
+    const usedA = new Set(), cells = [];
+    if (align.length) align.slice(0, 8).forEach((r) => { usedA.add(r.need); cells.push({ title: r.need, body: clip(r.ev, 240) + '.', src: r.ev }); });
+    if (!align.length) [...(a.reqs || []).filter((q) => q.kind !== 'preferred'), ...(a.reqs || []).filter((q) => q.kind === 'preferred')].forEach((q) => {
+      if (cells.length >= 6) return; const lab = areaOf(q.text, usedA); if (!lab) return;
+      const re = (AREAS.find((x) => x[0] === lab) || [])[1];
+      const qw = new Set(words(q.text));
+      const cand = pool.filter((p) => !p.slot && re && re.test(p.t) && !used.has(p.t) && !cells.some((c) => c.src === p.t || near(c.src, p.t)) && !avoidT.some((t) => t === p.t || near(t, p.t))).map((p) => ({ p, s: words(p.t).filter((w) => qw.has(w)).length + (verbLed(p.t) ? 0.5 : 0) })).sort((x, y) => y.s - x.s)[0];
+      const evd = cand ? cand.p.t : '';
+      if (!evd) return; usedA.add(lab); cells.push({ title: lab, body: clip(stripLabel(evd), 200) + '.', src: evd });
+    });
+    if (!align.length && cells.length % 2) cells.pop();
+    // work samples
+    const samples = [{ label: `${C.proposal} (${new Date().getFullYear()})`, url: opts.wsUrl || '', text: `a SMARTER operating proposal prepared for this application: ${C.M && C.M.ws ? C.M.ws.length + ' workstreams, ' : ''}${C.B ? C.B.kpis.length + ' measures, ' + C.gates + ' gates, risk register and forecasts' : 'scope, measures, gates and risks'}. Public data; synthetic figures labeled.` }];
+    (sec.worksamples || []).map((l) => clean(l.replace(/^[-•*·▪◦●]\s*/, ''))).filter((l) => l.length > 20).forEach((l0) => { const um = l0.match(/\s*—\s*(https?:\/\/\S+)\s*/); const l = um ? clean(l0.replace(um[0], ' ')) : l0; const lb = labelOf(l); const direct = um ? um[1] : ''; const u = urls.find((x) => lb && (x.label.toLowerCase().includes(lb.toLowerCase().split(/[(:]/)[0].trim().slice(0, 14)) || lb.toLowerCase().includes(x.label.toLowerCase().slice(0, 14)))); samples.push({ label: lb ? lb.replace(/:$/, '') : '', url: direct || (u ? u.url : ''), text: lb ? stripLabel(l) : l }); });
+    // capabilities
+    let caps = [];
+    const capL = (sec.capabilities || []).map(clean).filter(Boolean);
+    for (let i = 0; i < capL.length; i++) if (/^\d{2}\.\s/.test(capL[i])) caps.push({ title: capL[i], text: capL[i + 1] && !/^\d{2}\.\s/.test(capL[i + 1]) ? capL[i + 1] : '' });
+    // no Capabilities section in the source résumé → none here (it would only copy the Strengths grid)
+    caps = caps.filter((c) => !c.text || !cells.some((x) => near(x.src, c.text)));
+    const sysSrc = (sec.systems || []).length ? sec.systems : (sec.skills || []).filter((l) => labelOf(clean(l.replace(/^[-•*·▪◦●]\s*/, '')))).length >= 2 ? sec.skills : [];
+    const sysL = sysSrc.map((l) => clean(l.replace(/^[-•*·▪◦●]\s*/, ''))).filter(Boolean), sysM = [];
+    for (let i = 0; i < sysL.length; i++) { const l = sysL[i]; if (!/[:.;,]/.test(l) && l.split(' ').length <= 4 && sysL[i + 1] && !labelOf(sysL[i + 1])) { sysM.push(l + ': ' + sysL[i + 1]); i++; } else sysM.push(l); }
+    const systems = sysM.flatMap((l) => l.split(/\.\s+(?=[A-Z][\w\/ &-]{0,25}:)/)).map((l) => ({ label: labelOf(l), text: labelOf(l) ? stripLabel(l) : l }));
+    const KW_SKIP = /^(manag\w*|lead\w*|support\w*|team\w*|work\w*|experience\w*|years?|skills?|abilit\w*|strong|excellent|knowledge|including|related|required|preferred|responsib\w*|duties|role|position|staff|ensure\w*|provide\w*|develop\w*|maintain\w*|including|other|new|time|level|across)$/i;
+    const kw = (a.kws || []).filter((k) => k.have && k.term && String(k.term).trim().length >= 2 && !KW_SKIP.test(String(k.term).trim())).map((k) => String(k.term).trim());
+    return { kw, name, headline, contact, linkedin: P.linkedin, links, lede, smarter, cells, samples, caps, roles, certs: P.certs || [], edu: P.edu || [], sysTitle: (sec.systems || []).length || !systems.length ? 'SYSTEMS' : 'SKILLS', systems: systems.length ? systems : (P.skills || []).length ? [{ label: 'Systems & tools', text: P.skills.join(', ') }] : [] };
   }
   const HI = (t) => String(t).split(/(“One Harvard”|"One Harvard")/);
+  function kwMarker(m) {
+    const rx = (x) => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const terms = (m.kw || []).map((t) => {
+      const multi = /\s/.test(t); let root = t;
+      if (!multi && t.length > 3) { root = root.replace(/s$/i, ''); if (root.length > 6) root = root.replace(/(ations?|ings?|ments?|ies|ed|ers?)$/i, ''); }
+      const body = rx(root).replace(/\s+/g, '[\\s-]+');
+      return { t, re: new RegExp('(?<![\\w-])' + body + (multi || t.length <= 3 ? '' : '[a-z]*') + '(?![\\w])', t.length <= 3 ? '' : 'i') };
+    });
+    // each section has its own budget per keyword: summary, SMARTER line and Strengths once each; Experience up to 3 times
+    const used = new Map(), CAPS = { lede: 1, smarter: 1, cells: 1, exp: 3 };
+    return (text, max, zone, sub) => {
+      const CAP = CAPS[zone] || 1, key = (t) => (zone || '') + '|' + t, skey = (t) => (zone || '') + '#' + sub + '|' + t;
+      let segs = [{ t: String(text || ''), b: false }], n = 0;
+      for (const k of terms) {
+        if (n >= max) break; if ((used.get(key(k.t)) || 0) >= CAP || (sub != null && used.get(skey(k.t)))) continue;
+        for (let i = 0; i < segs.length; i++) {
+          const sg = segs[i]; if (sg.b) continue; const mm = sg.t.match(k.re); if (!mm) continue;
+          segs.splice(i, 1, { t: sg.t.slice(0, mm.index), b: false }, { t: mm[0], b: true }, { t: sg.t.slice(mm.index + mm[0].length), b: false });
+          n++; used.set(key(k.t), (used.get(key(k.t)) || 0) + 1); if (sub != null) used.set(skey(k.t), 1); break;
+        }
+      }
+      return segs.filter((x) => x.t);
+    };
+  }
   function resumeBlocks(m) {
-    const B = [], navy = '2C3E50';
+    const B = [], navy = '2C3E50', K = kwMarker(m);
+    const KR = (text, max, sz, zone, sub) => K(text, max, zone, sub).map((x) => (x.b ? { t: x.t, b: true, ...(sz ? { sz } : {}) } : { t: x.t, ...(sz ? { sz } : {}) }));
     const H = (t) => B.push({ runs: [{ t, b: true, color: navy, sp: 20, sz: 18 }], border: { color: '75BCEB', sz: 8, space: 2 }, before: 180, after: 80, keepNext: true });
     B.push({ runs: [{ t: m.name, b: true, color: navy, sp: 30, sz: 22 }], after: 20 });
     B.push({ runs: [{ t: m.headline, b: true }], after: 40 });
     const ct = []; m.contact.forEach((c, i) => { if (i) ct.push({ t: ' · ' }); ct.push({ t: c }); }); if (m.linkedin) { ct.push({ t: ' · ' }); ct.push({ t: 'LinkedIn', href: /^https?:/i.test(m.linkedin) ? m.linkedin : 'https://' + m.linkedin.replace(/^\/+/, '') }); }
     B.push({ runs: ct, after: 20 });
     const lk = [{ t: 'Links: ', b: true }]; m.links.forEach((l, i) => { if (i) lk.push({ t: '  ·  ' }); lk.push(l.url ? { t: l.label, href: l.url } : { t: l.label }); });
-    B.push({ runs: lk, border: { color: navy, sz: 12, space: 6 }, after: 60 });
+    if (m.links.length) B.push({ runs: lk, border: { color: navy, sz: 12, space: 6 }, after: 60 });
     H('EXECUTIVE LEADERSHIP STATEMENT');
-    B.push({ runs: HI(m.lede).map((t) => (/One Harvard/.test(t) ? { t, b: true, color: 'C00000' } : { t })), after: 80 });
-    const sr = []; m.smarter.forEach(([k, t], i) => { if (i) sr.push({ t: ' ' }); sr.push({ t: k, b: true }); sr.push({ t: ', ' + t + '.' }); });
+    B.push({ runs: HI(m.lede).flatMap((t) => (/One Harvard/.test(t) ? [{ t, b: true, color: 'C00000' }] : KR(t, 3, 0, 'lede'))), after: 80 });
+    const sr = []; m.smarter.forEach(([k, t], i) => { if (i) sr.push({ t: ' ' }); sr.push({ t: k, b: true }); sr.push({ t: ', ' }); sr.push(...KR(t, 1, 0, 'smarter')); sr.push({ t: '.' }); });
     B.push({ runs: sr, after: 60 });
     if (m.cells.length) {
       H('STRENGTHS MATCHED TO THE ROLE');
-      const rows = []; for (let i = 0; i < m.cells.length; i += 2) rows.push([m.cells[i], m.cells[i + 1]].map((c) => c ? [{ runs: [{ t: c.title, b: true, color: navy }], after: 20 }, { runs: [{ t: c.body, sz: 17 }], after: 0 }] : []));
+      const rows = []; for (let i = 0; i < m.cells.length; i += 2) rows.push([m.cells[i], m.cells[i + 1]].map((c) => c ? [{ runs: [{ t: c.title, b: true, color: navy }], after: 20 }, { runs: KR(c.body, 1, 17, 'cells'), after: 0 }] : [{ runs: [{ t: '' }], after: 0 }]));
       B.push({ table: { cols: [5400, 5400], rows } });
     }
     H('SELECTED WORK SAMPLES');
     m.samples.forEach((s) => B.push({ bullet: true, runs: [s.label ? (s.url ? { t: s.label + ':', b: true, href: s.url } : { t: s.label + ':', b: true }) : null, { t: (s.label ? ' ' : '') + s.text }].filter(Boolean), after: 30 }));
     if (m.caps.length) { H('CAPABILITIES'); m.caps.forEach((c) => { B.push({ runs: [{ t: c.title, b: true, color: navy }], after: 0, keepNext: true }); if (c.text) B.push({ runs: [{ t: c.text }], after: 80 }); }); }
     H('PROFESSIONAL EXPERIENCE');
-    m.roles.forEach((r) => {
+    m.roles.forEach((r, ri) => {
       B.push({ runs: [{ t: r.org, b: true, color: navy, sz: 17 }, { tab: true }, { t: r.when, b: true, color: navy, sz: 17 }], tabs: [10780], before: 120, after: 0, keepNext: true });
       B.push({ runs: [{ t: r.title, b: true, color: 'A91515', sz: 17 }, r.unit ? { t: ' · ' + r.unit, color: '5A6B7B', sz: 17 } : null].filter(Boolean), after: 40, keepNext: true });
-      r.bullets.forEach((b) => B.push({ bullet: true, runs: [{ t: b.label + ':', b: true, sz: 17 }, { t: ' ' + b.text, sz: 17 }], after: 20 }));
+      r.bullets.forEach((b) => B.push({ bullet: true, runs: b.label ? [{ t: b.label + ':', b: true, sz: 17 }, { t: ' ', sz: 17 }, ...KR(b.text, 2, 17, 'exp', ri)] : KR(b.text, 2, 17, 'exp', ri), after: 20 }));
     });
     if (m.certs.length) { H('CERTIFICATIONS'); m.certs.forEach((c) => B.push({ bullet: true, runs: [{ t: c.name, b: true, sz: 17 }, c.note ? { t: ' – ' + c.note, sz: 17 } : null].filter(Boolean), after: 30 })); }
     if (m.edu.length) { H('EDUCATION'); m.edu.forEach((d) => B.push({ bullet: true, runs: [{ t: d.deg, b: true, sz: 17 }, d.note ? { t: ' – ' + d.note, sz: 17 } : null].filter(Boolean), after: 30 })); }
-    if (m.systems.length) { H('SYSTEMS'); m.systems.forEach((s) => B.push({ bullet: true, runs: [s.label ? { t: s.label + ':', b: true, sz: 17 } : null, { t: (s.label ? ' ' : '') + s.text, sz: 17 }].filter(Boolean), after: 20 })); }
+    if (m.systems.length) { H(m.sysTitle || 'SYSTEMS'); m.systems.forEach((s) => B.push({ bullet: true, runs: [s.label ? { t: s.label + ':', b: true, sz: 17 } : null, { t: (s.label ? ' ' : '') + s.text, sz: 17 }].filter(Boolean), after: 20 })); }
     return B;
   }
   const RCSS = `.rz{font-family:Cambria,Georgia,serif;color:#333;font-size:12.6px;line-height:1.42;max-width:820px;margin:0 auto;background:#fff;padding:34px 40px}.rz a{color:#0070C0;text-decoration:none}.rz .nm{font-weight:700;color:#2C3E50;letter-spacing:.18em;font-size:14.5px}.rz .hl{font-weight:700;margin:2px 0}.rz .ln{border-bottom:2px solid #2C3E50;padding-bottom:7px;margin-bottom:6px}.rz h4{font-size:12px;letter-spacing:.12em;color:#2C3E50;border-bottom:1px solid #75BCEB;padding-bottom:2px;margin:14px 0 6px}.rz .oh{color:#C00000;font-weight:700}.rz table{width:100%;border-collapse:separate;border-spacing:3px}.rz td{background:#F4F7F6;vertical-align:top;padding:6px 9px;width:50%;font-size:11.8px}.rz td b{color:#2C3E50;display:block}.rz ul{margin:2px 0 6px 16px;padding:0}.rz li{margin:2px 0}.rz .ro{display:flex;justify-content:space-between;font-weight:700;color:#2C3E50;margin-top:9px;font-size:12px}.rz .rt{font-weight:700;color:#A91515;font-size:12px}.rz .rt span{color:#5A6B7B;font-weight:400}.rz .cp b{color:#2C3E50}.rz .cp p{margin:0 0 6px}@media(max-width:600px){.rz{padding:18px}.rz td{display:block;width:auto}}`;
   function resumeHtml(m) {
+    const K = kwMarker(m), KH = (text, max, zone, sub) => K(text, max, zone, sub).map((x) => (x.b ? `<b class="kw">${E(x.t)}</b>` : E(x.t))).join('');
     const L = (l) => (l.url ? `<a href="${E(l.url)}">${E(l.label)}</a>` : E(l.label));
-    return `<div class="rz"><div class="nm">${E(m.name)}</div><div class="hl">${E(m.headline)}</div><div>${m.contact.map(E).join(' · ')}${m.linkedin ? ` · <a href="${E(/^https?:/i.test(m.linkedin) ? m.linkedin : 'https://' + m.linkedin)}">LinkedIn</a>` : ''}</div><div class="ln"><b>Links:</b> ${m.links.map(L).join(' · ')}</div>
-<h4>EXECUTIVE LEADERSHIP STATEMENT</h4><p>${HI(m.lede).map((t) => (/One Harvard/.test(t) ? `<span class="oh">${E(t)}</span>` : E(t))).join('')}</p><p>${m.smarter.map(([k, t]) => `<b>${E(k)}</b>, ${E(t)}.`).join(' ')}</p>
-${m.cells.length ? `<h4>STRENGTHS MATCHED TO THE ROLE</h4><table>${Array.from({ length: m.cells.length / 2 }, (_, i) => `<tr>${[m.cells[2 * i], m.cells[2 * i + 1]].map((c) => `<td><b>${E(c.title)}</b>${E(c.body)}</td>`).join('')}</tr>`).join('')}</table>` : ''}
+    return `<div class="rz"><div class="nm">${E(m.name)}</div><div class="hl">${E(m.headline)}</div><div>${m.contact.map(E).join(' · ')}${m.linkedin ? ` · <a href="${E(/^https?:/i.test(m.linkedin) ? m.linkedin : 'https://' + m.linkedin)}">LinkedIn</a>` : ''}</div>${m.links.length ? `<div class="ln"><b>Links:</b> ${m.links.map(L).join(' · ')}</div>` : ''}
+<h4>EXECUTIVE LEADERSHIP STATEMENT</h4><p>${HI(m.lede).map((t) => (/One Harvard/.test(t) ? `<span class="oh">${E(t)}</span>` : KH(t, 3, 'lede'))).join('')}</p><p>${m.smarter.map(([k, t]) => `<b>${E(k)}</b>, ${KH(t, 1, 'smarter')}.`).join(' ')}</p>
+${m.cells.length ? `<h4>STRENGTHS MATCHED TO THE ROLE</h4><table>${Array.from({ length: Math.ceil(m.cells.length / 2) }, (_, i) => `<tr>${[m.cells[2 * i], m.cells[2 * i + 1]].map((c) => c ? `<td><b>${E(c.title)}</b>${KH(c.body, 1, 'cells')}</td>` : '<td></td>').join('')}</tr>`).join('')}</table>` : ''}
 <h4>SELECTED WORK SAMPLES</h4><ul>${m.samples.map((s) => `<li>${s.label ? `<b>${s.url ? `<a href="${E(s.url)}">${E(s.label)}:</a>` : E(s.label) + ':'}</b> ` : ''}${E(s.text)}</li>`).join('')}</ul>
 ${m.caps.length ? `<h4>CAPABILITIES</h4><div class="cp">${m.caps.map((c) => `<p><b>${E(c.title)}</b><br>${E(c.text)}</p>`).join('')}</div>` : ''}
-<h4>PROFESSIONAL EXPERIENCE</h4>${m.roles.map((r) => `<div class="ro"><span>${E(r.org)}</span><span>${E(r.when)}</span></div><div class="rt">${E(r.title)}${r.unit ? `<span> · ${E(r.unit)}</span>` : ''}</div><ul>${r.bullets.map((b) => `<li><b>${E(b.label)}:</b> ${E(b.text)}</li>`).join('')}</ul>`).join('')}
-${m.certs.length ? `<h4>CERTIFICATIONS</h4><ul>${m.certs.map((c) => `<li><b>${E(c.name)}</b>${c.note ? ' – ' + E(c.note) : ''}</li>`).join('')}</ul>` : ''}${m.edu.length ? `<h4>EDUCATION</h4><ul>${m.edu.map((d) => `<li><b>${E(d.deg)}</b>${d.note ? ' – ' + E(d.note) : ''}</li>`).join('')}</ul>` : ''}${m.systems.length ? `<h4>SYSTEMS</h4><ul>${m.systems.map((s) => `<li>${s.label ? `<b>${E(s.label)}:</b> ` : ''}${E(s.text)}</li>`).join('')}</ul>` : ''}</div>`;
+<h4>PROFESSIONAL EXPERIENCE</h4>${m.roles.map((r, ri) => `<div class="ro"><span>${E(r.org)}</span><span>${E(r.when)}</span></div><div class="rt">${E(r.title)}${r.unit ? `<span> · ${E(r.unit)}</span>` : ''}</div><ul>${r.bullets.map((b) => `<li>${b.label ? `<b>${E(b.label)}:</b> ` : ''}${KH(b.text, 2, 'exp', ri)}</li>`).join('')}</ul>`).join('')}
+${m.certs.length ? `<h4>CERTIFICATIONS</h4><ul>${m.certs.map((c) => `<li><b>${E(c.name)}</b>${c.note ? ' – ' + E(c.note) : ''}</li>`).join('')}</ul>` : ''}${m.edu.length ? `<h4>EDUCATION</h4><ul>${m.edu.map((d) => `<li><b>${E(d.deg)}</b>${d.note ? ' – ' + E(d.note) : ''}</li>`).join('')}</ul>` : ''}${m.systems.length ? `<h4>${E(m.sysTitle || 'SYSTEMS')}</h4><ul>${m.systems.map((s) => `<li>${s.label ? `<b>${E(s.label)}:</b> ` : ''}${E(s.text)}</li>`).join('')}</ul>` : ''}</div>`;
   }
 
   /* ---------------- cover letter ---------------- */
@@ -11263,12 +11323,15 @@ ${cad.map(([n, s, c, rows], i) => `<div class="wrapx" data-cadp="${i}"${i ? ' hi
   const kindLabel = (k) => ({ job: 'job description', resume: 'résumé', cover: 'cover letter' }[k] || k);
 
   /* ---------------- analysis ---------------- */
+  // headings that are never a job title ("Company Description", "Job Summary", "About Us"…)
+  const GENERIC_HEAD = /^(?:(?:company|job|position|role|posting|department|school|unit|organi[sz]ation)\s+)?(?:description|summary|overview|details|information|profile|introduction)$|^(?:about(?: us| the (?:role|job|position|company|organi[sz]ation|university|school|team))?|responsibilities|duties|qualifications|basic qualifications|additional qualifications|requirements|apply|apply now|share|save|careers?|home|search jobs|back to (?:search|jobs|results)|job (?:posting|opening|listing)|general information|posting details)$/i;
+  const ROLE_W = /\b(director|manager|analyst|assistant|associate|coordinator|specialist|consultant|officer|lead|head|engineer|administrator|architect|scientist|advisor|adviser|president|dean|chief|writer|developer|fellow|programmer|strategist|representative|technician|librarian|counsel|editor|designer|accountant|controller|supervisor)\b/i;
   function jobMeta(text) {
     const lines = String(text).split('\n').map((l) => l.trim()).filter(Boolean);
     let title = '', org = '';
-    const t = text.match(/^\s*(?:job title|title|position(?: title)?)\s*[:\-–]\s*(.+)$/im); if (t) title = t[1];
+    const t = text.match(/^\s*(?:job title|title|position(?: title)?)\s*[:\-–]\s*(.+)$/im); if (t && !GENERIC_HEAD.test(t[1].trim())) title = t[1];
     const o = text.match(/^\s*(?:organization|organisation|company|employer|department|school|unit|hiring organization|institution)\s*[:\-–]\s*(.+)$/im); if (o) org = o[1];
-    if (!title) title = (lines.find((l) => wc(l) <= 12 && !/^https?:/i.test(l) && !/[:.]$/.test(l)) || '').replace(/^#+\s*/, '');
+    if (!title) { const cand = lines.slice(0, 25).filter((l) => wc(l) <= 12 && !/^https?:/i.test(l) && !/[:.]$/.test(l) && !GENERIC_HEAD.test(l.replace(/^#+\s*/, '').trim())); title = (cand.find((l) => ROLE_W.test(l)) || cand[0] || '').replace(/^#+\s*/, ''); }
     if (!org) { const ti = lines.indexOf(title); org = (lines.slice(Math.max(1, ti + 1), ti + 4).find((l) => l.length <= 110 && !/[:]$/.test(l) && !/^(location|salary|responsibilities|required|about|job|position|https?:)/i.test(l) && /\b(university|college|school|institute|hospital|health|medical|center|centre|foundation|academy|office|department|inc\.?|llc|corporation|museum|library|trust|council|system)\b/i.test(l)) || ''); }
     if (!org) { const a = text.match(/\babout ((?:the )?[A-Z][\w&.,'’ -]{2,60}?)(?:\n|:|\.|$)/); if (a) org = a[1]; }
     return { title: short(title.replace(/\s*\(.*?sample.*?\)\s*/i, ' ').trim(), 110), org: short(org, 90) };
@@ -11357,6 +11420,7 @@ ${cad.map(([n, s, c, rows], i) => `<div class="wrapx" data-cadp="${i}"${i ? ' hi
 
   const memo = new Map();
   function analyze(job, resume, cover) {
+    if (job && job.text && GENERIC_HEAD.test(String(job.title || '').trim())) { const t2 = jobMeta(job.text).title; if (t2 && !GENERIC_HEAD.test(t2)) { if (!job.name || GENERIC_HEAD.test(String(job.name).trim())) job.name = t2; job.title = t2; } }
     const key = [job.id, job.text.length, resume ? resume.id + resume.text.length : '-', cover ? cover.id + cover.text.length : '-', job.title, job.org].join('|');
     if (memo.has(key)) return memo.get(key);
     const R = resume ? resume.text : '';
@@ -11872,85 +11936,118 @@ ${cad.map(([n, s, c, rows], i) => `<div class="wrapx" data-cadp="${i}"${i ? ' hi
     try { const sk = window.EPSmarter && window.EPSmarter.smoke ? window.EPSmarter.smoke(a, job) : null; if (sk) sk.auto.filter((x) => !x[1]).forEach((x) => out.push('Program check failing: ' + x[0])); } catch (e) { /* optional */ }
     return [...new Set(out)];
   }
-  function rsPrompt(job, web) {
-    const open = rsOpenItems(job), rr = curResume();
-    const gapsList = (() => { try { const a = analyze(job, rr, curCover()); return a.reqs.filter((q) => q.status !== 'strong').slice(0, 8).map((q) => '- ' + short(q.text, 160)); } catch (e) { return []; } })();
-    const yy = new Date().getFullYear(), org = job.org || '', unit = (window.EPPosting && job.unit) || '', ttl = job.title || '';
+  const LETTER_SPEC_TXT = "Write the full letter (under 480 words) in the candidate\u2019s SMARTER letter format and a polished, warm, confident executive voice. Layout: name; a tagline of three focus areas in capitals separated by \u201c | \u201d; contact line; \u201cExecutive work sample: <program name>\u201d; date; Search Committee, unit, organization; \u201cRe: <job title>, <unit>\u201d (add the requisition number if the posting has one); \u201cDear Members of the Search Committee,\u201d. Body: (1) an opening paragraph \u2014 the role, the candidate\u2019s years and institutions from the R\u00c9SUM\u00c9, one duty from the posting (\u201cThat is the work I have done.\u201d) and the operating philosophy if the R\u00c9SUM\u00c9 states one; then one paragraph each starting with the bold-able words \u201cSpecifically,\u201d \u201cMeasurably,\u201d \u201cAchievably,\u201d \u201cRelevantly,\u201d and \u201cTime-bound,\u201d \u2014 Specifically = a matched responsibility; Measurably = a quantified result exactly as the R\u00c9SUM\u00c9 states it; Achievably = how it was done (controls, team, pilot); Relevantly = the work sample prepared for this role and the published priorities it maps to; Time-bound = first results in 90 days, first release, decision gates, 36-month benefits, and that the work sample is not an authorized plan. Then a short, honest paragraph on any unmet requirement (education exactly as the R\u00c9SUM\u00c9 states it), one closing sentence, \u201cThank you for your consideration.\u201d, \u201cSincerely,\u201d and the name. Never copy the employer\u2019s standard text (recruiting, culture, DEIB, EEO, benefits). Use ONLY facts from the R\u00c9SUM\u00c9 and your research; add no numbers, employers, titles or degrees that are not there.";
+  // research sections: each asks one specific thing, and only when the app does not already know it
+  const RS_SECS = [['job', 'Posting facts'], ['role', 'Reporting line'], ['team', 'Team size'], ['pay', 'Pay'], ['identity', 'Mission, motto & values'], ['plans', 'Initiatives & priorities'], ['calendar', 'Annual calendar'], ['evidence', 'Evidence, benchmarks & predictions'], ['gaps', 'Gap notes'], ['ats', 'ATS fixes'], ['letter', 'Cover letter']];
+  function rsNeeds(job) {
+    const rr = curResume(); let a = null, m = null;
+    try { a = analyze(job, rr, curCover()); } catch (e) { a = null; }
+    try { m = a && window.EPRoleIntel ? window.EPRoleIntel.model(a, job) : null; } catch (e) { m = null; }
+    const r = window.EPSmarter ? window.EPSmarter.research(job) : (job.research || {});
+    const k$ = (v) => '$' + Math.round(v / 1000) + 'k';
+    const known = [], need = {};
+    const jm = [['location', job.location, 'location'], ['work mode', job.mode, 'work_mode'], ['posted date', job.posted, 'posted'], ['closing date', job.closing, 'closing'], ['official posting URL', job.url, 'url']];
+    jm.forEach(([l, v]) => { if (v) known.push(l.charAt(0).toUpperCase() + l.slice(1) + ': ' + v); });
+    if (jm.some((x) => !x[1])) need.job = jm.filter((x) => !x[1]);
+    if (m && m.rtFrom !== 'estimate') known.push('Reports to: ' + m.reportsTo + (m.rtFrom === 'you' ? ' (confirmed)' : ' (stated in the posting)')); else need.role = m && m.level ? m.level.boss : '';
+    if (m && m.directFrom !== 'estimate') known.push('Team: ' + m.direct + ' direct report' + (m.direct === 1 ? '' : 's') + (m.total != null ? ' · ' + m.total + ' total staff' : '') + (m.directFrom === 'you' ? ' (confirmed)' : ' (stated in the posting)')); else need.team = m && m.level ? m.level.fte : null;
+    if (m && m.posted) known.push('Pay: posted ' + k$(m.posted[0]) + '–' + k$(m.posted[1]));
+    else if (m && m.range) known.push('Pay: grade ' + m.grade + ' · ' + k$(m.range[0]) + '–' + k$(m.range[2]));
+    else need.pay = { harvard: !!(m && m.x && m.x.isHarvard), grade: m && m.grade };
+    const idm = [['the organization’s mission statement', r.mission, 'mission'], ['its motto and what it means', r.motto, 'motto'], ['the unit’s own mission', r.unitMission, 'unit_mission'], ['core values at both levels (organization and unit)', r.values, 'values'], ['named operating principles or slogans the unit uses (e.g. "One <Organization>"), with the sentence that explains each', r.principles, 'principles']];
+    if (idm.some((x) => x[1])) known.push('Already on file: ' + idm.filter((x) => x[1]).map((x) => x[2].replace('_', ' ')).join(', '));
+    if (idm.some((x) => !x[1])) need.identity = idm.filter((x) => !x[1]);
+    const pl = [];
+    if (!r.initiatives) pl.push('initiatives'); if (!(job.priorities || []).length) pl.push('priorities'); if (!r.context) pl.push('context');
+    if (pl.length) need.plans = pl; else known.push('Initiatives, leader priorities and recent context: on file');
+    if (!(job.annual_calendar || []).length) need.calendar = 1; else known.push('Annual calendar: ' + job.annual_calendar.length + ' dates on file');
+    if (!(job.evidence || []).length || !(job.predictions || []).length) need.evidence = 1;
+    const gapsList = a ? a.reqs.filter((q) => q.status !== 'strong').slice(0, 8).map((q) => short(q.text, 160)) : [];
+    if (gapsList.length && !(job.gapNotes || []).length) need.gaps = gapsList;
+    if (!job.atsNotes) need.ats = 1;
+    if (!job.coverLetter) need.letter = 1;
+    return { known, need, gapsList, m };
+  }
+  function rsPrompt(job, web, sel) {
+    const N = rsNeeds(job), rr = curResume();
+    let S = new Set(Array.isArray(sel) ? sel : Object.keys(N.need));
+    if (!S.size) S = new Set(['identity', 'plans']);
+    const yy = new Date().getFullYear(), org = job.org || '', unit = (window.EPPosting && job.unit) || '', ttl = job.title || 'this role';
     let dom = ''; try { dom = job.url ? new URL(job.url).hostname.replace(/^(www|careers|jobs|hr)\./, '') : ''; } catch (e) { dom = ''; }
-    const q = (s) => s.replace(/\s+/g, ' ').trim();
+    const q = (x) => x.replace(/\s+/g, ' ').trim();
+    // search-friendly names: "Alumni Affairs and Development (AA&D), Harvard University" → "Alumni Affairs and Development" "Harvard University"
+    const qn = (x) => String(x || '').split(/,\s*|\s+·\s+/).map((y) => y.replace(/\s*\([^)]*\)/g, '').trim()).filter(Boolean).slice(0, 2).map((y) => '"' + y + '"').join(' ');
+    const site = dom ? 'site:' + dom : qn(org), where = unit || org, W = qn(where), O = qn(org), U = unit ? qn(unit) : '', uo = [unit, org].filter(Boolean).join(', ') || 'the hiring organization';
     const core = q(ttl.replace(/\b(associate|assistant|senior|executive|deputy|director|manager|lead|head|officer|coordinator|specialist|of|the|and)\b/gi, ' ').replace(/[,()/&-]/g, ' ')) || ttl;
-    const QB = [
-      ['Unit facts', q(`${dom ? 'site:' + dom : ''} "${unit || org}" ("annual report" OR "strategic plan" OR "financial report") ${yy - 1}..${yy}`)],
-      ['Money and scale', q(`${dom ? 'site:' + dom : '"' + org + '"'} ("financial report" OR "fiscal year ${yy}") (gifts OR revenue OR budget OR enrollment)`)],
-      ['Recent news (last 12 months)', q(`"${org}" ${unit ? '"' + unit + '"' : ''} (announces OR launches OR restructuring OR "new initiative") after:${yy - 1}-${String(new Date().getMonth() + 1).padStart(2, '0')}-01`)],
-      ['Leadership priorities', q(`"${org}" ${unit ? '"' + unit + '"' : ''} (dean OR "vice president" OR director) priorities ${yy}`)],
-      ['The role itself', q(`"${ttl}" "${org}" responsibilities OR "reports to"`)],
-      ['Sector base rates', q(`"${core}" (benchmark OR survey OR "key findings") ${yy} (site:case.org OR site:nacubo.org OR site:afpglobal.org OR site:educause.edu OR site:bls.gov)`)],
-      ['Policy and law that changes the work', q(`"${org}" (regulation OR policy OR tax OR compliance) ${yy} ${unit || ''}`)],
-      ['Peer practice', q(`"${core}" ("best practice" OR "case study" OR peer) (university OR college) ${yy}`)],
-      ['Disconfirming evidence', q(`"${org}" (deficit OR cuts OR "hiring freeze" OR shortfall OR layoffs) ${yy}`)],
-      ['Annual calendar: signature events', q(`${dom ? 'site:' + dom : '"' + org + '"'} (commencement OR reunion OR "alumni day" OR "alumni weekend" OR "family weekend" OR homecoming OR "giving day" OR gala) ${yy}..${yy + 1} date`)],
-      ['Annual calendar: fiscal and reporting cycle', q(`"${org}" ("fiscal year" OR "fiscal year end" OR "financial report" OR "annual report" OR "budget cycle" OR "board meeting") ${yy}..${yy + 1}`)],
-      ['Annual calendar: the unit itself', q(`"${unit || org}" (calendar OR "key dates" OR "important dates" OR schedule OR deadline) ${yy}..${yy + 1}`)],
-      ['Mission, motto and values', q(`${dom ? 'site:' + dom : '"' + org + '"'} (mission OR motto OR "our values" OR "statement of values" OR "community values")`)],
-      ['Unit mission and operating principles', q(`"${unit || org}" (mission OR "our values" OR "One ${(org.split(/\s+/)[0] || '')}") ${dom ? 'site:' + dom : ''}`)],
-      ['This year: results and changes', q(`"${org}" ("financial report" OR gifts OR philanthropy OR endowment OR "new initiative" OR campaign) ${yy}`)]
-    ];
-    const METHOD = `DEEP-RESEARCH METHOD (follow in order; today is ${new Date().toDateString()}; prefer sources from the last 18 months)
-S1 Frame: list the 5 questions the hiring team will ask about this role, and the number that would answer each.
-S2 Search: run every query below, then 2 of your own for any unanswered question. Keep publisher, date and URL.
-${QB.map((x, i) => '  Q' + (i + 1) + ' [' + x[0] + '] ' + x[1]).join('\n')}
-S3 Grade: tier A official primary (the organization's own domain, government) · B sector research with a stated method · C reputable press with named sources · D vendor/blog (leads only). score = w_tier(A1, B.85, C.65, D.3) × 0.5^(age_months/18) × min(1, 0.7 + 0.15 × independent corroborations). Drop under 0.35. Rules in force do not decay.
-S4 Triangulate: two independent sources per figure or label it SINGLE SOURCE; log every contradiction (both values, dates, which you used and why).
-S5 Base rates: for each question, the sector reference value with its source; never present a sector figure as the organization's.
-S6 Predict: 3–5 checkable predictions about the role's first year (statement, probability 3–97%, 80% interval if numeric, resolve-by date, how measured, what would prove it wrong). Score later with Brier = (p − outcome)².
-S7 Annual calendar: build the organization's year from Q10-Q12 — every recurring event and deadline for the next fiscal year with exact dates where published (start, end, recurs: weekly|monthly|quarterly|annual, unit, URL, tier). Add the operating cycle the role lives in (close, audit, reporting seasons, peaks) marked ASSUMPTION unless published. Then name the freeze windows (weeks when no go-live, training or system change should happen) and why.
-S8 Pre-mortem: three reasons a hiring team would reject a work sample built on this research, and the fix for each.`;
-    return `You are researching one job posting for a candidate's application. Fill EVERYTHING below in ONE JSON answer so it can be pasted once. ${web ? 'Use web search and read official pages (the organization\'s own domain first, then the posting itself). In tool mode: search_web(query) returns result text with URLs; read_page(url) returns a page\'s text; make at most 12 tool calls, several at once when independent.' : 'If you cannot browse, answer only from what you reliably know, put the official URL you believe holds each fact, and write "unverified" in notes.'}
+    const mo = String(new Date().getMonth() + 1).padStart(2, '0');
+    const T = [], schema = [], ri = [], res = [];
+    const add = (head, body, queries) => T.push({ head, body, queries: (queries || []).map(q).filter(Boolean) });
+    if (S.has('job')) {
+      const miss = N.need.job || [['location', '', 'location'], ['work mode', '', 'work_mode'], ['posted date', '', 'posted'], ['closing date', '', 'closing'], ['official posting URL', '', 'url']];
+      add('Posting facts', `From the official posting for “${ttl}” (${uo}), give only: ${miss.map((x) => x[0]).join(', ')}.`, [`"${ttl}" ${O}`]);
+      schema.push(`"job":{${miss.map((x) => `"${x[2]}":""`).join(',')}}`);
+    }
+    if (S.has('role')) {
+      const g = N.need.role;
+      add('Reporting line', `Who does the ${ttl} report to? The posting does not say${g ? ` — the usual line for this level is “${g}”; confirm or correct it, never repeat the guess as fact` : ''}. Look for an org chart, a leadership or staff page for ${where}${dom ? ' on ' + dom : ''}, or another posting that names this role as a manager. Give the boss’s TITLE only (never a person’s name), that leader’s own manager title, and any dotted-line partners.`, [`${site} ${W} (leadership OR "senior staff" OR "org chart" OR "our team")`, `"${ttl}" "reports to" ${O}`]);
+      ri.push('"reportsTo":""', '"chain":[]', '"dotted":[]');
+    }
+    if (S.has('team')) {
+      const f = N.need.team;
+      add('Team size', `How many people report directly to the ${ttl}, and how many staff work in ${where}? The posting does not state it. Count only from a published source — a staff directory or team page for ${where}, an org chart, or a posting for a role on this team (“reports to the ${ttl}”). If nothing is published, return null — do not estimate${f ? ` (our working estimate is ${f[0]}–${f[1]} FTEs; do not echo it)` : ''}. List the titles on the team if published.`, [`${site} ${W} (staff OR directory OR "meet the team")`, `"reports to" "${ttl}" ${O}`]);
+      ri.push('"direct":null', '"total":null', '"roles":[]');
+    }
+    if (S.has('pay')) {
+      const P = N.need.pay || {};
+      add('Pay', P.harvard ? `What is the salary grade and range for this role? ${P.grade ? `The posting says grade ${P.grade}` : 'Find the grade in the posting or its Harvard job code'}; map it to the current table at https://hr.harvard.edu/salary-ranges and give the range minimum and maximum.` : `What is the posted salary range for the ${ttl}? If the posting has none, give a published range for the same title at ${org || 'this organization'} (with its URL); otherwise null.`, [P.harvard ? 'site:hr.harvard.edu salary ranges' : `"${ttl}" ${O} salary range`]);
+      ri.push('"grade":""', '"postedMin":null', '"postedMax":null');
+    }
+    if (S.has('identity')) {
+      const miss = N.need.identity || [['the organization’s mission statement', '', 'mission'], ['its motto', '', 'motto'], ['the unit’s own mission', '', 'unit_mission'], ['core values (organization and unit)', '', 'values'], ['named operating principles', '', 'principles']];
+      add('Mission & values', `Quote VERBATIM, each with its URL: ${miss.map((x) => x[0]).join('; ')}. Check the posting text below first — postings often state the unit’s values — then ${dom || org + '’s own site'}.`, [`${site} (mission OR motto OR "our values" OR "statement of values")`, unit ? `${U} (mission OR "our values") ${dom ? 'site:' + dom : ''}` : '']);
+      const SH = { mission: '"mission":{"text":"","url":""}', motto: '"motto":{"text":"","url":""}', unit_mission: '"unit_mission":{"text":"","url":""}', values: '"values":[{"name":"","scope":"organization|unit","url":""}]', principles: '"principles":[{"name":"","quote":"","url":""}]' };
+      miss.forEach((x) => res.push(SH[x[2]]));
+    }
+    if (S.has('plans')) {
+      const pl = N.need.plans || ['initiatives', 'priorities', 'context'], parts = [];
+      if (pl.includes('initiatives')) { parts.push(`2–4 current or upcoming PUBLISHED initiatives, projects or plans of ${where} (name, one line, status, timeframe, URL) and the current strategic plan (name, years, URL)`); res.push('"strategic_plan":{"name":"","years":"","url":""}', '"initiatives":[{"name":"","description":"","status":"current|upcoming","timeframe":"","url":""}]'); }
+      if (pl.includes('priorities')) { parts.push(`2–4 things ${where}’s leaders say they are focused on now (for the cover letter)`); schema.push('"priorities":[{"text":"","url":""}]'); }
+      if (pl.includes('context')) { parts.push(`4–6 dated facts from the last 12 months that change the ${ttl}’s work (results, budget actions, policy, announced changes; press reports of unannounced plans marked "reported"), each with one line on what it means for this role`); res.push('"context":[{"fact":"","date":"","status":"official|reported","url":"","implication":""}]'); }
+      add('Initiatives & priorities', 'Find: ' + parts.join('; ') + '.', [`${O} ${U} (announces OR launches OR "new initiative") after:${yy - 1}-${mo}-01`, `${O} ${U} priorities ${yy}`, `${site} ${W} ("strategic plan" OR "annual report") ${yy - 1}..${yy}`]);
+    }
+    if (S.has('calendar')) {
+      add('Annual calendar', `List the recurring events and deadlines of ${where} for the next fiscal year that the ${ttl} works around — exact dates where published (start, end, recurs, URL, tier) — plus the operating cycle the role lives in (close, audit, reporting seasons, peaks) marked ASSUMPTION unless published. Then name the freeze windows (weeks with no go-live, training or system change) and why.`, [`${site} (commencement OR reunion OR "giving day" OR gala OR "board meeting") ${yy}..${yy + 1} date`, `${O} ("fiscal year end" OR "budget cycle" OR "annual report") ${yy}..${yy + 1}`, `${W} ("key dates" OR calendar OR deadline) ${yy}..${yy + 1}`]);
+      schema.push('"annual_calendar":[{"event":"","start":"YYYY-MM-DD","end":"","recurs":"annual|quarterly|monthly|weekly","kind":"published|operating|deadline","unit":"","url":"","tier":"A|B|C|D"}]', '"freeze_windows":[{"start":"","end":"","why":""}]');
+    }
+    if (S.has('evidence')) {
+      add('Evidence & predictions', `For the 3 questions a hiring team will ask about the ${ttl} (name them), give the figure that answers each for ${where}, the sector reference value with its source (never present a sector figure as the organization’s), any contradictions between sources, 3–5 checkable predictions for the role’s first year (probability 3–97%, resolve-by date, how measured, what would prove it wrong), and three reasons a hiring team would reject a work sample built on this research, with the fix for each.`, [`"${core}" (benchmark OR survey OR "key findings") ${yy}`, `${O} (deficit OR cuts OR "hiring freeze" OR shortfall) ${yy}`]);
+      schema.push('"evidence":[{"claim":"","value":"","as_of":"","url":"","tier":"A|B|C|D","corroborated_by":[]}]', '"benchmarks":[{"measure":"","value":"","population":"","as_of":"","url":""}]', '"contradictions":[{"claim":"","value_a":"","source_a":"","value_b":"","source_b":"","used":"","why":""}]', '"predictions":[{"statement":"","probability":0.5,"interval":"","resolve_by":"","measured_by":"","would_be_wrong_if":""}]', '"premortem":[{"reason":"","fix":""}]');
+    }
+    if (S.has('gaps')) {
+      const g = (N.need.gaps || N.gapsList); if (g.length) { add('Gap notes', `For each requirement below, quote the closest RÉSUMÉ line word for word ("" if none) and write one honest cover-letter sentence that names the gap without claiming it:\n${g.map((x) => '   - ' + x).join('\n')}`); schema.push('"gaps":[{"requirement":"","resume_quote":"","honest_line":""}]'); }
+    }
+    if (S.has('ats')) { add('ATS fixes', 'List posting keywords missing from the RÉSUMÉ and up to 5 concrete résumé fixes. Never suggest adding experience she does not have.'); schema.push('"ats":{"missing_keywords":[],"fixes":[]}'); }
+    if (S.has('letter')) { add('Cover letter', LETTER_SPEC_TXT); schema.push('"cover_letter":""'); }
+    if (ri.length) schema.unshift(`"roleIntel":{${ri.join(',')},"sources":[]}`);
+    if (res.length) schema.unshift(`"research":{"organization":"",${res.join(',')}}`);
+    const needsResume = S.has('gaps') || S.has('ats') || S.has('letter');
+    const calls = Math.min(12, Math.max(4, T.length * 2));
+    return `You are researching ONE job posting for a candidate's application. Answer ONLY the ${T.length} question${T.length > 1 ? 's' : ''} below — nothing else — and return ONE JSON object with only the keys shown. Today is ${new Date().toDateString()}; prefer sources from the last 18 months. ${web ? `Use web search and read official pages (${dom || 'the organization’s own domain'} first, then the posting). In tool mode: search_web(query) returns result text with URLs; read_page(url) returns a page's text; make at most ${calls} tool calls, several at once when independent.` : 'If you cannot browse, answer only from what you reliably know, give the official URL you believe holds each fact, and write "unverified" in notes.'}
 
-${METHOD}
+JOB: ${ttl} · ${uo}${job.url ? ' · ' + job.url : ''}
+${N.known.length ? `ALREADY KNOWN — do not research these again:\n${N.known.map((x) => '- ' + x).join('\n')}\n` : ''}
+QUESTIONS (suggested searches under each — adjust if they miss)
+${T.map((t, i) => `${i + 1}. ${t.head}: ${t.body}${t.queries.length ? '\n   Search: ' + t.queries.join('  |  ') : ''}`).join('\n')}
 
-OPEN ITEMS IN THE CANDIDATE'S CHECKLIST — resolve as many as research can:
-${open.length ? open.map((x) => '- ' + x).join('\n') : '- (none flagged; still complete every field)'}
-
-FIND
-1. Job facts: exact title, organization and unit, location, work mode (on-site / hybrid / remote), posted date, closing date, official posting URL.
-2. Mission and identity, every item VERBATIM with its URL (use Q13–Q14 and the posting itself): the organization's mission statement; its motto and what it means; the UNIT's own mission; core values at BOTH levels (organization and unit — postings often state the unit's values, quote them exactly); named operating principles or slogans the unit uses (for example "One <Organization>") with the sentence that explains each; the current strategic plan (name, years, URL). A work sample that omits the motto, the unit's values or its operating principle will be read as not knowing the organization.
-3. Current or upcoming PUBLISHED initiatives, projects or plans of the organization or unit (name, one-line description, status current|upcoming, timeframe, URL) — at least 2 if they exist. Then 4–8 dated CONTEXT facts from the last 12 months that change this role (results and gifts, budget actions, tax or policy, research funding, announced initiatives; press reports of plans not yet announced go in with status "reported"), each with one line on what it means for this role (Q15).
-4. Reporting line: the TITLE this role reports to, that leader's own manager title, dotted-line partners, the titles of roles on the team. Titles only — never people's names.
-5. Team size: direct reports and total staff of the unit, only if published.
-6. Pay: salary grade and posted range. For Harvard roles map the grade to https://hr.harvard.edu/salary-ranges (FY27 table).
-7. Hiring-leader priorities: 2–4 things the unit says it is focused on (from official news, plans or the posting), for the cover letter.
-8. Gaps: for each requirement listed under REQUIREMENTS TO CHECK, quote the closest line from the RÉSUMÉ word for word (or "" if none) and write one honest sentence for a cover letter that names the gap without claiming it.
-9. ATS: posting keywords missing from the résumé, and up to 5 concrete résumé fixes. Never suggest adding experience she does not have.
-10. Cover letter: write the full letter (under 480 words) in the candidate’s SMARTER letter format and a polished, warm, confident executive voice. Layout: name; a tagline of three focus areas in capitals separated by “ | ”; contact line; “Executive work sample: <program name>”; date; Search Committee, unit, organization; “Re: <job title>, <unit>” (add the requisition number if the posting has one); “Dear Members of the Search Committee,”. Body: (1) an opening paragraph — the role, the candidate’s years and institutions from the RÉSUMÉ, one duty from the posting (“That is the work I have done.”) and the operating philosophy if the RÉSUMÉ states one; then one paragraph each starting with the bold-able words “Specifically,” “Measurably,” “Achievably,” “Relevantly,” and “Time-bound,” — Specifically = a matched responsibility; Measurably = a quantified result exactly as the RÉSUMÉ states it; Achievably = how it was done (controls, team, pilot); Relevantly = the work sample prepared for this role and the published priorities it maps to; Time-bound = first results in 90 days, first release, decision gates, 36-month benefits, and that the work sample is not an authorized plan. Then a short, honest paragraph on any unmet requirement (education exactly as the RÉSUMÉ states it), one closing sentence, “Thank you for your consideration.”, “Sincerely,” and the name. Never copy the employer’s standard text (recruiting, culture, DEIB, EEO, benefits). Use ONLY facts from the RÉSUMÉ and your research; add no numbers, employers, titles or degrees that are not there.
-
-RULES: never guess or invent; leave a field "" or null when not found; give a URL in "sources" for every role and pay fact; never call incomplete coursework a degree. Return ONLY one JSON object, no prose:
-{"job":{"title":"","organization":"","unit":"","location":"","work_mode":"","posted":"","closing":"","url":""},
-"research":{"organization":"","mission":{"text":"","url":""},"motto":{"text":"","url":""},"unit_mission":{"text":"","url":""},"values":[{"name":"","scope":"organization|unit","url":""}],"principles":[{"name":"","quote":"","url":""}],"context":[{"fact":"","date":"","status":"official|reported","url":"","implication":""}],"strategic_plan":{"name":"","years":"","url":""},"initiatives":[{"name":"","description":"","status":"current|upcoming","timeframe":"","url":""}],"notes":""},
-"roleIntel":{"reportsTo":"","chain":[],"dotted":[],"direct":null,"total":null,"roles":[],"grade":"","postedMin":null,"postedMax":null,"sources":[]},
-"priorities":[{"text":"","url":""}],
-"gaps":[{"requirement":"","resume_quote":"","honest_line":""}],
-"ats":{"missing_keywords":[],"fixes":[]},
-"cover_letter":"",
-"evidence":[{"claim":"","value":"","unit":"","period":"","as_of":"","source":"","url":"","tier":"A|B|C|D","score":0,"corroborated_by":[]}],
-"benchmarks":[{"measure":"","value":"","population":"","as_of":"","url":""}],
-"contradictions":[{"claim":"","value_a":"","source_a":"","value_b":"","source_b":"","used":"","why":""}],
-"predictions":[{"statement":"","probability":0.5,"interval":"","resolve_by":"","measured_by":"","would_be_wrong_if":""}],
-"annual_calendar":[{"event":"","start":"YYYY-MM-DD","end":"","recurs":"annual|quarterly|monthly|weekly","kind":"published|operating|deadline","unit":"","url":"","tier":"A|B|C|D"}],
-"freeze_windows":[{"start":"","end":"","why":""}],
-"premortem":[{"reason":"","fix":""}],
+SOURCES: tier A = the organization's own domain or government · B = sector research with a stated method · C = reputable press with named sources · D = vendor/blog (leads only, never cited as fact). Two independent sources per figure, or mark it SINGLE SOURCE.
+RULES: never guess or invent; leave a field "" or null when not found; titles only, never people's names; a URL for every fact${ri.length ? ' (put role, team and pay URLs in roleIntel.sources)' : ''}; never call incomplete coursework a degree. Return ONLY the JSON, no prose:
+{${schema.join(',\n')},
 "notes":""}
 
-JOB TITLE: ${job.title || ''}
-ORGANIZATION: ${job.org || ''}
-POSTING URL: ${job.url || 'not given'}
-REQUIREMENTS TO CHECK:
-${gapsList.join('\n') || '- (none)'}
 POSTING TEXT (first 6,000 characters):
-${String(job.text || '').slice(0, 6000)}
+${String(job.text || '').slice(0, 6000)}${needsResume ? `
 RÉSUMÉ (first 6,000 characters — quote only from here):
-${String((rr || {}).text || '').slice(0, 6000)}`;
+${String((rr || {}).text || '').slice(0, 6000)}` : ''}`;
   }
   function rsApply(job, o, origin) {
     let n = 0; const done = [];
@@ -12022,7 +12119,7 @@ ${String((rr || {}).text || '').slice(0, 6000)}`;
         execute: async (inp, ctx) => { const u = String(inp.url || ''); if (!/^https?:\/\//i.test(u)) throw new Error('give a full http(s) URL'); reads++; rsStatus(job.id, `🔎 Reading ${esc(short(u.replace(/^https?:\/\//, ''), 70))} · step ${reads}`); return (await rsOpen(caps.mcp, u, ctx.signal)).replace(/Tab Context:[\s\S]*$/, ''); } },
     ] : undefined;
     try {
-      const res = await caps.sample(rsPrompt(job, caps.mode === 'web'), tools ? { tools, modelTier: 'default', signal: ctl.signal } : { modelTier: 'default', signal: ctl.signal, cache: false });
+      const res = await caps.sample(rsPrompt(job, caps.mode === 'web', opts.sel), tools ? { tools, modelTier: 'default', signal: ctl.signal } : { modelTier: 'default', signal: ctl.signal, cache: false });
       const t = String(res.text || ''); const i = t.indexOf('{'), j = t.lastIndexOf('}');
       if (i < 0 || j <= i) throw { code: 'no_json', message: 'Claude did not return the research as JSON.' };
       const o = JSON.parse(t.slice(i, j + 1));
@@ -12037,6 +12134,7 @@ ${String((rr || {}).text || '').slice(0, 6000)}`;
       if ((curJob() || {}).id === job.id) render();
     } finally { delete RS.ctl[job.id]; }
   }
+  const rsPick = (job) => { const N = rsNeeds(job), miss = Object.keys(N.need); return `<h3>What to research</h3><p class="jf-sub">Ticked = still missing for this job. Untick what you don’t need — only ticked items go in the prompt.</p><div class="jf-rs-secs" style="display:flex;flex-wrap:wrap;gap:4px 14px">${RS_SECS.map(([k, l]) => `<label class="cx-auto"><input type="checkbox" data-jf-rssec="${k}" data-jf-rsjob="${job.id}" ${miss.includes(k) ? 'checked' : ''}> ${esc(l)}${miss.includes(k) ? '' : ' <small>(known)</small>'}</label>`).join('')}</div>`; };
   function rsFallbackDlg(job) {
     const p = rsPrompt(job, true);
     openDlg('Online research', 'Research this job', cj({
@@ -12045,12 +12143,12 @@ ${String((rr || {}).text || '').slice(0, 6000)}`;
       good: 'Research from official pages, keep the source for every fact, and leave anything unconfirmed as a question for the recruiter.',
       rule: 'Sourced → state it. Unsourced → ask it.',
       fixes: ['Copy the prompt below into Claude (with web search on).', 'Paste Claude’s JSON answer into the box and press Apply.', 'The checklist, org diagram, program and GitHub page update at once.', 'The weekly job search also delivers this research for every job it finds.'],
-      after: `<h3>Research prompt</h3><textarea class="ri-ta" readonly rows="8" id="jfRsPrompt">${esc(p)}</textarea><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-rscopy="1">Copy prompt</button></div><h3>Paste the JSON answer</h3><textarea class="ri-ta" rows="6" id="jfRsPaste" placeholder='{"research":{...},"roleIntel":{...}}'></textarea><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-rsapply="${job.id}">Apply to this job</button></div>` }));
+      after: `${rsPick(job)}<h3>Research prompt</h3><textarea class="ri-ta" readonly rows="8" id="jfRsPrompt">${esc(p)}</textarea><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-rscopy="1">Copy prompt</button></div><h3>Paste the JSON answer</h3><textarea class="ri-ta" rows="6" id="jfRsPaste" placeholder='{"research":{...},"roleIntel":{...}}'></textarea><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-rsapply="${job.id}">Apply to this job</button></div>` }));
   }
   async function rsDialog(a) {
     const caps = await rsCaps(), j = a.job, st = RS.run[j.id];
     if (caps.mode === 'none') { rsFallbackDlg(j); return; }
-    openDlg('Online research', 'Research this job online', `<p>${caps.mode === 'web' ? 'Claude searches the web and reads official pages in the Claude app’s browser, then fills the mission, values, published initiatives, reporting line, team size and pay facts — each with a source.' : 'This view can ask Claude but has no browser, so answers are AI drafts from what Claude knows, labelled to verify. Open the page in the Claude desktop app for live web research.'}</p><p class="jf-sub">${st ? esc(String(st).replace(/<[^>]+>/g, '')) : j.researched ? 'Last researched ' + esc(j.researched.at) + '.' : 'Not researched yet.'}</p><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-rsgo="${j.id}">${j.researched ? 'Research again' : 'Start research'}</button>${RS.ctl[j.id] ? `<button type="button" class="jf-btn" data-jf-rsstop="${j.id}">Stop</button>` : ''}<label class="cx-auto" style="margin-left:6px"><input type="checkbox" data-jf-rsauto ${state.autoResearch !== false ? 'checked' : ''}> Research automatically when I add a job</label></div>`);
+    openDlg('Online research', 'Research this job online', `<p>${caps.mode === 'web' ? 'Claude searches the web and reads official pages in the Claude app’s browser, then fills the mission, values, published initiatives, reporting line, team size and pay facts — each with a source.' : 'This view can ask Claude but has no browser, so answers are AI drafts from what Claude knows, labelled to verify. Open the page in the Claude desktop app for live web research.'}</p><p class="jf-sub">${st ? esc(String(st).replace(/<[^>]+>/g, '')) : j.researched ? 'Last researched ' + esc(j.researched.at) + '.' : 'Not researched yet.'}</p>${rsPick(j)}<div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-rsgo="${j.id}">${j.researched ? 'Research again' : 'Start research'}</button>${RS.ctl[j.id] ? `<button type="button" class="jf-btn" data-jf-rsstop="${j.id}">Stop</button>` : ''}<label class="cx-auto" style="margin-left:6px"><input type="checkbox" data-jf-rsauto ${state.autoResearch !== false ? 'checked' : ''}> Research automatically when I add a job</label></div>`);
   }
   function rsAuto(job) {
     if (!job || job.kind !== 'job' || job.status !== 'ok' || ['sample', 'profile'].includes(job.source) || state.autoResearch === false) return;
@@ -12346,6 +12444,7 @@ Example University is an equal opportunity employer.`;
   const smCurrent = () => { const jj = curJob(), rr = curResume(); return jj && rr && jj.status === 'ok' ? { a: analyze(jj, rr, curCover()), j: jj } : null; };
   root.addEventListener('toggle', (e) => { if (window.EPSmarter) window.EPSmarter.toggle(e); }, true);
   root.addEventListener('change', (e) => {
+    if (e.target && e.target.dataset && e.target.dataset.jfRssec) { const jj = state.items.find((i) => i.id === e.target.dataset.jfRsjob), ta = $('jfRsPrompt'); if (jj && ta) ta.value = rsPrompt(jj, true, [...$('jfDlgBody').querySelectorAll('[data-jf-rssec]:checked')].map((x) => x.dataset.jfRssec)); return; }
     if (e.target.matches('[data-jf-link]')) { const jj = curJob(); if (jj) { const v = e.target.value.trim(); jj[e.target.dataset.jfLink] = /^https?:\/\//i.test(v) ? v : ''; if (v && !jj[e.target.dataset.jfLink]) toast('Links must start with https://'); state.coverDraft = null; memo.clear(); save(); setTimeout(render, 0); } return; }
     if (window.EPSmarter && e.target.closest('.sm-root')) { const c = smCurrent(); if (c && window.EPSmarter.change(e, c.a, c.j, ctx)) return; }
     if (window.EPRoleIntel && e.target.closest('.ri-root')) { const c = smCurrent(); if (c && window.EPRoleIntel.change(e, c.a, c.j, ctx)) return; }
@@ -12370,7 +12469,7 @@ Example University is an equal opportunity employer.`;
     if (el.dataset.jfRscopy) { const t = $('jfRsPrompt'); if (t) copyText(t.value, 'Research prompt'); return; }
     if (el.dataset.jfRsapply) { const jj = state.items.find((i) => i.id === el.dataset.jfRsapply), t = $('jfRsPaste'); if (!jj || !t) return; let o; try { const s0 = t.value; o = JSON.parse(s0.slice(s0.indexOf('{'), s0.lastIndexOf('}') + 1)); } catch (err) { toast('That is not valid JSON — paste the whole answer.'); return; } applyResearchUI(jj, o, 'json'); return; }
     if (el.dataset.jfKeepapply) { const jj = state.items.find((i) => i.id === el.dataset.jfKeepapply); if (jj && window.EPPosting) { const ids = [...$('jfDlgBody').querySelectorAll('[data-jf-keep]:checked')].map((x) => x.dataset.jfKeep); window.EPPosting.setKeep(jj, ids); memo.clear(); save(); closeDlg(); render(); toast(ids.length ? ids.length + ' line' + (ids.length > 1 ? 's' : '') + ' moved back into the job — rescored.' : 'Standard text kept out of the job — rescored.'); } return; }
-    if (el.dataset.jfRsgo) { const jj = state.items.find((i) => i.id === el.dataset.jfRsgo); closeDlg(); if (jj) { state.sel = jj.id; rsRun(jj); } return; }
+    if (el.dataset.jfRsgo) { const jj = state.items.find((i) => i.id === el.dataset.jfRsgo), bx = $('jfDlgBody'), cb = bx ? [...bx.querySelectorAll('[data-jf-rssec]')] : []; const sel = cb.length ? cb.filter((x) => x.checked).map((x) => x.dataset.jfRssec) : undefined; closeDlg(); if (jj) { state.sel = jj.id; rsRun(jj, { sel }); } return; }
     if (el.dataset.jfRsstop) { const c = RS.ctl[el.dataset.jfRsstop]; if (c) c.abort(); closeDlg(); return; }
     if (el.dataset.jfApopen) { state.sel = el.dataset.jfApopen; state.tab = 'fit'; closeDlg(); save(); render(); return; }
     if (el.dataset.jfAppack) { const jj = state.items.find((i) => i.id === el.dataset.jfAppack), rr = curResume(); if (jj && rr) { download('application-files-' + slug(jj.title || jj.name) + '.zip', packZip(analyze(jj, rr, curCover())), 'application/zip'); toast('Zip downloaded: SEND file + PRIVATE briefing.'); } return; }
@@ -12431,7 +12530,7 @@ Example University is an equal opportunity employer.`;
   state.items.filter((i) => i.status === 'loading').forEach((i) => { i.status = 'needs-text'; i.note = 'Reading was interrupted. Open the link and paste the description.'; });
   render();
   if (typeof activateView === 'function') activateView('jobfit');
-  window.EPJobFit = { researchPrompt: (job) => rsPrompt(job, true), applyResearch: (job, o, origin) => rsApply(job, o, origin || 'json'), applyResearchUI: (job, o, origin) => applyResearchUI(job, o, origin), current: () => ({ job: curJob(), resume: curResume(), cover: curCover() }), analysis: () => smCurrent(), coverText: (a) => coverDraft(a), teamPage: (a) => teamPageHtml(a), addFiles: (l) => addFiles(l), addDoc: (t, n, k) => { const tt = String(t || '').trim(); if (!tt || state.items.some((i) => String(i.text || '').trim() === tt)) return null; const it = addText(tt, n, 'career', k); if (it) { save(); render(); } return it; }, analyze: (jt, rt, ct) => analyze({ id: 'x', text: jt, title: jobMeta(jt).title, org: jobMeta(jt).org }, { id: 'r', text: rt }, ct ? { id: 'c', text: ct } : null), classify, extractReqs, jobMeta, addText, render };
+  window.EPJobFit = { researchPrompt: (job, sel) => rsPrompt(job, true, sel), researchNeeds: (job) => Object.keys(rsNeeds(job).need), applyResearch: (job, o, origin) => rsApply(job, o, origin || 'json'), applyResearchUI: (job, o, origin) => applyResearchUI(job, o, origin), current: () => ({ job: curJob(), resume: curResume(), cover: curCover() }), analysis: () => smCurrent(), coverText: (a) => coverDraft(a), teamPage: (a) => teamPageHtml(a), addFiles: (l) => addFiles(l), addDoc: (t, n, k) => { const tt = String(t || '').trim(); if (!tt || state.items.some((i) => String(i.text || '').trim() === tt)) return null; const it = addText(tt, n, 'career', k); if (it) { save(); render(); } return it; }, analyze: (jt, rt, ct) => analyze({ id: 'x', text: jt, title: jobMeta(jt).title, org: jobMeta(jt).org }, { id: 'r', text: rt }, ct ? { id: 'c', text: ct } : null), classify, extractReqs, jobMeta, addText, render };
 })();
 
 
@@ -12817,8 +12916,31 @@ window.EPResumeParse = (() => {
   const clean = (s) => String(s || '').replace(/\s+/g, ' ').trim();
   function section(lines) {
     const out = { _: [] }; let cur = '_';
-    lines.forEach((l) => { const m = l.trim().match(HEAD); if (m && l.trim().length < 40) { const k = m[2].toLowerCase(); cur = /work samples|portfolio|selected projects/.test(k) ? 'worksamples' : /strengths/.test(k) ? 'strengths' : /capabilit/.test(k) ? 'capabilities' : /leadership statement|executive summary/.test(k) ? 'summary' : /educ/.test(k) ? 'education' : /certif|licens/.test(k) ? 'certs' : /skill|competenc/.test(k) ? 'skills' : /summary|profile|about/.test(k) ? 'summary' : /experience|employment|career/.test(k) ? 'experience' : /^(systems|tools|technologies|technical tools|software)$/.test(k) ? 'systems' : /development|continuing|training|learning|course/.test(k) ? 'learning' : k; out[cur] = out[cur] || []; return; } (out[cur] = out[cur] || []).push(l); });
+    lines.forEach((l) => { const im = l.trim().replace(BUL, '').match(/^(certifications?|licen[sc]es?|education)\s*:\s*(\S.{3,})$/i); if (im) { const k = /educ/i.test(im[1]) ? 'education' : 'certs'; (out[k] = out[k] || []).push(im[2]); return; } const m = l.trim().match(HEAD); if (m && l.trim().length < 40) { const k = m[2].toLowerCase(); cur = /work samples|portfolio|selected projects/.test(k) ? 'worksamples' : /strengths/.test(k) ? 'strengths' : /capabilit/.test(k) ? 'capabilities' : /leadership statement|executive summary/.test(k) ? 'summary' : /educ/.test(k) ? 'education' : /certif|licens/.test(k) ? 'certs' : /skill|competenc/.test(k) ? 'skills' : /summary|profile|about/.test(k) ? 'summary' : /experience|employment|career/.test(k) ? 'experience' : /^(systems|tools|technologies|technical tools|software)$/.test(k) ? 'systems' : /development|continuing|training|learning|course/.test(k) ? 'learning' : k; out[cur] = out[cur] || []; return; } (out[cur] = out[cur] || []).push(l); });
     return out;
+  }
+  // a job header line: short, not a bullet, not a sentence
+  const ORG_W = /\b(university|college|academy|institute|hospital|school|practice|inc|llc|ltd|office|department|center|centre|foundation|trade point|conference|corporation|company|group|bank|agency|association|society|council|museum|library|clinic|unctad|nations|ministry|government)\b/i;
+  const LOC_L = /^(?:[A-Z][A-Za-z.'-]+(?:\s[A-Z][A-Za-z.'-]+){0,3},\s*(?:[A-Z]{2}|[A-Z][a-z]+)(?:\s+\d{5})?|remote|hybrid|on-?site)$/i;
+  const SINGLE_D = new RegExp('(?:^|\\s*[|·,–—-]\\s*|\\s+)(?:(' + MN + ')\\.?\\s+|\\b(0?[1-9]|1[0-2])\\s*/\\s*)?((?:19|20)\\d{2})\\s*$', 'i');
+  const isHd = (x) => { const t = String(x || '').trim(); return !!t && !BUL.test(t) && !HEAD.test(t) && t.length <= 150 && !/[.!?;]$/.test(t) && t.split(/\s+/).length <= 18 && !/^[^:]{2,40}:\s/.test(t); };
+  // split header lines into job title and organization ("Title, Org, City, ST" · "Org — Title" · separate lines)
+  function splitHead(ls) {
+    let title = ''; const orgs = [];
+    ls.forEach((l) => {
+      l = clean(l); if (!l) return;
+      if (title || !TITLE_W.test(l)) { orgs.push(l); return; }
+      if (!ORG_W.test(l)) { title = l; return; }
+      const seg = l.split(/\s+[|·•—–]\s+|\s+-\s+|\s*\|\s*|\s+at\s+(?=[A-Z])|,\s+/).map(clean).filter(Boolean);
+      const ti = seg.findIndex((x) => TITLE_W.test(x) && !ORG_W.test(x));
+      if (ti < 0) { orgs.push(l); return; }
+      let k = ti + 1; while (k < seg.length && !ORG_W.test(seg[k]) && !/^[A-Z]{2}$/.test(seg[k]) && !(seg[k + 1] && /^[A-Z]{2}$/.test(seg[k + 1])) && !LOC_L.test(seg[k])) k++;
+      const a0 = l.indexOf(seg[ti]), a1 = l.indexOf(seg[k - 1], a0) + seg[k - 1].length;
+      title = l.slice(a0, a1).trim();
+      const rest = (l.slice(0, a0) + ' ' + l.slice(a1)).replace(/^\s*[|·•—–,-]\s*|\s*[|·•—–,-]\s*$/g, '').replace(/\s+[|·•—–-]\s+[|·•—–,-]?\s*/g, ' — ').replace(/\s{2,}/g, ' ').trim();
+      if (rest) orgs.push(rest);
+    });
+    return { title, org: orgs.join(' · ') };
   }
   function parse(text) {
     const raw = String(text || '').replace(/\r/g, '');
@@ -12831,24 +12953,31 @@ window.EPResumeParse = (() => {
     const city = (ci.contact.match(/^[^·]*?,\s*[A-Z]{2}(?:\s+\d{5})?/) || [''])[0];
     // roles
     const exp = S.experience && S.experience.length ? S.experience : lines;
-    const roles = []; let cur = null;
+    const roles = []; let cur = null, pendH = [];
     for (let i = 0; i < exp.length; i++) {
       const l = exp[i].trim(); const m = l.match(RANGE);
+      // header lines that come right before a date line (Org / Title / Dates) belong to that next job, not to the previous job's bullets
+      if (!(m && !BUL.test(l)) && isHd(l)) { let j = i + 1, ok = false; while (j < exp.length && j <= i + 3) { const t2 = exp[j].trim(); if (HEAD.test(t2) || BUL.test(t2)) break; if (RANGE.test(t2)) { ok = true; break; } if (!isHd(t2)) break; j++; } if (ok) { pendH.push(l); continue; } }
       if (m && cur && cur.bullets.length === 0 && /\(\s*$/.test(l.slice(0, m.index)) && !BUL.test(l)) { const parts = clean(l).split(/\s+·\s+/); const k0 = parts.findIndex((p) => TITLE_W.test(p)); const tIdx = k0 < 0 ? 0 : k0; let k1 = tIdx + 1; while (k1 < parts.length && TITLE_W.test(parts[k1]) && !/\b(university|college|academy|institute|hospital|school|practice|office|department|center|unctad|trade point)\b/i.test(parts[k1])) k1++; const t2 = parts.slice(tIdx, k1).join(' · '), o2 = parts.slice(k1).join(' · '); if (/^(additional|other|earlier|previous|prior) experience/i.test(cur.title)) { cur.org = cur.org || cur.title; cur.title = [t2, o2].filter(Boolean).join(' · ').slice(0, 220); } else if (!TITLE_W.test(cur.title)) { cur.title = t2.slice(0, 200); cur.org = [cur.org, o2].filter(Boolean).join(' · ').slice(0, 200); } continue; }
       if (m && !BUL.test(l) && (l.length < 220 || m.index < 140)) {
+        const ph = pendH.splice(0), useH = ph.slice(-2); if (cur) ph.slice(0, -2).forEach((x) => cur.bullets.push(x.replace(BUL, '').trim()));
         if (cur) roles.push(cur);
-        const trim = (s) => clean(s).replace(/[|·•,:;–—-]\s*$/, '').replace(/^\s*[|·•,:;–—-]\s*/, '').trim();
+        const trim = (s) => clean(s).replace(/[|·•,:;–—(-]\s*$/, '').replace(/^\s*[|·•,:;–—)-]\s*/, '').trim();
         let pre = trim(l.slice(0, m.index)), post = trim(l.slice(m.index + m[0].length)), extra = [];
         if (post.length > 90) { const s1 = post.replace(/^\([^)]{0,120}\)\s*\.?\s*/, (x) => { extra.push(x.replace(/[().]/g, '').trim()); return ''; }); if (pre.replace(/^(earlier|previously|before that|prior)\b/i, '').trim().length < 4) { const f = s1.match(/^(.{6,170}?)(?:[.;]\s+|$)/); pre = trim(f ? f[1] : s1); const rest = s1.slice(f ? f[0].length : s1.length).trim(); if (rest) extra.push(rest); } else if (s1) extra.push(s1); post = ''; }
         pre = pre.replace(/^(earlier|previously|before that|prior)\b[,:]?\s*/i, '');
         let head = trim(pre + (post ? ' | ' + post : ''));
+        let title = 'Role', org = '';
+        if (useH.length) { const sp = splitHead([...useH, head]); title = sp.title || 'Role'; org = sp.org; } else {
         const prev = i > 0 ? exp[i - 1].trim() : '';
         const prevOk = prev && !BUL.test(prev) && !RANGE.test(prev) && prev.length < 120 && !(cur && cur.bullets.length === 0 && cur.orgLine === prev);
         if ((!head || !TITLE_W.test(head)) && prevOk && TITLE_W.test(prev) && !(cur && cur.bullets.includes(prev))) head = clean(prev + (head ? ' | ' + head : ''));
         const parts = head.split(/\s+[|·•—–]\s+|\s+-\s+|\s*\|\s*|\s+at\s+(?=[A-Z])/).map(clean).filter(Boolean);
         let k0 = parts.findIndex((p) => TITLE_W.test(p)); if (k0 < 0) k0 = 0; let k1 = k0 + 1; while (k1 < parts.length && TITLE_W.test(parts[k1]) && !/\b(university|college|academy|institute|hospital|school|practice|inc|llc|office|department|center|centre|foundation|trade point)\b/i.test(parts[k1])) k1++;
-        let title = parts.slice(k0, k1).join(' · ') || 'Role';
-        let org = parts.filter((p, q) => q < k0 || q >= k1).join(' · ');
+        title = parts.slice(k0, k1).join(' · ') || 'Role';
+        org = parts.filter((p, q) => q < k0 || q >= k1).join(' · ');
+        }
+        if (TITLE_W.test(title) && ORG_W.test(title)) { const sp = splitHead([title]); if (sp.title) { title = sp.title; org = [sp.org, org].filter(Boolean).join(' · '); } }
         const next = exp[i + 1] ? exp[i + 1].trim() : '';
         const nf = next && !BUL.test(next) && !RANGE.test(next) ? next.match(/^(.{4,160}?)(?:\.\s+|\.$|$)/) : null;
         if (!TITLE_W.test(title) && nf && TITLE_W.test(nf[1])) { org = [title === 'Role' ? '' : title, org].filter(Boolean).join(' · '); title = clean(nf[1]).replace(/[.;]$/, '').replace(/;\s*/g, ' · '); const rest = next.slice(nf[0].length).trim(); i++; cur = { orgLine: next }; if (rest) extra.unshift(rest); }
@@ -12859,13 +12988,33 @@ window.EPResumeParse = (() => {
         Object.assign(cur, { smon: !!(m[1] || m[2]), emon: !!(m[4] || m[5]), title: title.slice(0, 200), org: org.slice(0, 160), start: { y: sy, m: sm }, end: present ? null : { y: ey, m: em }, dates: (m[1] || m[2] ? MNA[sm] + ' ' : '') + sy + ' – ' + (present ? 'Present' : (m[4] || m[5] ? MNA[em] + ' ' : '') + ey), bullets: extra.filter((x) => x.length > 12) });
         continue;
       }
-      if (cur) { if (HEAD.test(l)) { roles.push(cur); cur = null; continue; } const t = l.replace(BUL, '').trim(); if (t.length > 12) cur.bullets.push(t); }
+      if (cur && cur.bullets.length && !BUL.test(l) && !(m && !BUL.test(l))) {
+        const sd = l.match(SINGLE_D), tl = sd ? l.slice(0, sd.index).trim() : l, nx = exp[i + 1] ? exp[i + 1].trim() : '', nx2 = exp[i + 2] ? exp[i + 2].trim() : '';
+        const hdr = isHd(tl) && tl.length > 3 && isHd(nx) && !RANGE.test(nx) && (BUL.test(nx2) || (nx2.length > 90 && !isHd(nx2))) && (TITLE_W.test(tl) || TITLE_W.test(nx)) && (ORG_W.test(nx) || ORG_W.test(tl) || / — |, [A-Z]{2}\b/.test(nx + ' ' + tl));
+        if (hdr) {
+          roles.push(cur);
+          const sp = splitHead([tl, nx]); const y = sd ? +sd[3] : null, mo = sd ? (sd[1] ? MON[sd[1].slice(0, 3).toLowerCase()] : sd[2] ? +sd[2] : null) : null;
+          cur = { orgLine: nx, title: (sp.title || clean(tl)).slice(0, 200), org: sp.org.slice(0, 160), undated: true, smon: !!mo, emon: !!mo, end: y ? { y, m: mo || 12 } : null, endGiven: !!y, start: null, dates: y ? (mo ? MNA[mo] + ' ' : '') + y : '', bullets: [] };
+          i++; continue;
+        }
+      }
+      if (cur) { if (HEAD.test(l)) { roles.push(cur); cur = null; continue; } const t = l.replace(BUL, '').trim(); if (!cur.bullets.length && !BUL.test(l) && cur.org !== undefined && !String(cur.org).includes(t) && (LOC_L.test(t) || (isHd(t) && ORG_W.test(t) && !TITLE_W.test(t)))) { cur.org = [cur.org, t].filter(Boolean).join(LOC_L.test(t) ? ', ' : ' · '); continue; } if (t.length > 12) cur.bullets.push(t); }
     }
+    if (cur && pendH.length) pendH.forEach((x) => cur.bullets.push(x.replace(BUL, '').trim()));
     if (cur) roles.push(cur);
+    // certification / degree lines that sit under the last job without their own heading go to their own sections
+    const CERT_L = /^(certifications?|licen[sc]es?(?: (?:&|and) certifications?)?|credentials?)\s*[:—–-]\s*/i;
+    const EDU_L = /^(?:education\s*[:—–-]\s*)?(?:graduate (?:studies|coursework|certificate)|post-?graduate|b\.?\s?a\.?\b|b\.?\s?s\.?\b|bachelor|master'?s?\b|m\.?\s?b\.?\s?a\.?\b|m\.?\s?s\.?\b|m\.?\s?a\.?\b|ph\.?\s?d\.?\b|doctor(?:ate)? of|associate (?:degree|of)|diploma)|\bcredit hours\b/i;
+    const xCerts = [], xEdu = [];
+    roles.forEach((r) => { r.bullets = r.bullets.filter((b) => { const t = clean(b); if (CERT_L.test(t)) { xCerts.push(t.replace(CERT_L, '')); return false; } if (EDU_L.test(t) && /universit|college|institute|school|academy|credit hours/i.test(t)) { xEdu.push(t.replace(/^education\s*[:—–-]\s*/i, '')); return false; } return true; }); });
     const now = new Date();
+    roles.forEach((r, k) => { if (!r.undated) return; const up = roles[k - 1], dn = roles[k + 1];
+      if (!r.endGiven) r.end = up && up.start ? { ...up.start } : dn && dn.end ? { ...dn.end } : { y: now.getFullYear(), m: now.getMonth() + 1 };
+      r.start = dn && (dn.end || dn.start) ? { ...(dn.end || dn.start) } : { ...r.end };
+      if (r.start.y * 12 + r.start.m > r.end.y * 12 + r.end.m) r.start = { ...r.end }; });
     roles.forEach((r) => { const e = r.end || { y: now.getFullYear(), m: now.getMonth() + 1 }; r.months = Math.max(1, (e.y - r.start.y) * 12 + (e.m - r.start.m) + 1); r.current = !r.end; });
-    const edu = (S.education || []).map((l) => l.replace(BUL, '').trim()).filter((l) => l.length > 4).slice(0, 6).map((l) => { const p = l.split(/\s+[—–|·]\s+|\s*;\s*/); return { deg: clean(p[0]), note: clean(p.slice(1).join(' · ')) }; });
-    const certs = (S.certs || []).flatMap((l) => l.replace(BUL, '').split(/\s*;\s*/)).map(clean).filter((l) => l.length > 3).slice(0, 10).map((l) => { const p = l.split(/\s+[—–]\s+|\s*\(\s*/); return { name: clean(p[0]).replace(/\)$/, ''), note: clean(p.slice(1).join(' ')).replace(/\)$/, '') }; });
+    const edu = (S.education || []).concat(xEdu).map((l) => l.replace(BUL, '').trim()).filter((l) => l.length > 4).slice(0, 6).map((l) => { const p = l.split(/\s+[—–|·]\s+|\s*;\s*/); return { deg: clean(p[0]), note: clean(p.slice(1).join(' · ')) }; });
+    const certs = (S.certs || []).concat(xCerts).flatMap((l) => l.replace(BUL, '').split(/\s*;\s*/)).map(clean).filter((l) => l.length > 3).slice(0, 10).map((l) => { const dm = l.match(/^(.+?)\s+[—–]\s+(.+)$/); if (dm) return { name: clean(dm[1]), note: clean(dm[2]) }; const pm = l.match(/^(.+?)\s*\((.+)\)\s*$/); if (pm) return { name: clean(pm[1]), note: clean(pm[2]) }; return { name: clean(l), note: '' }; });
     const learning = (S.learning || []).flatMap((l) => l.replace(BUL, '').split(/\s*;\s*/)).map(clean).filter((l) => l.length > 3).slice(0, 12).map((l) => { const p = l.split(/\s+[—–]\s+|\s*\(\s*/); return { name: clean(p[0]).replace(/\)$/, ''), note: clean(p.slice(1).join(' ')).replace(/\)$/, '') }; });
     const skills = [...new Set([...(S.skills || []), ...(S.systems || [])].flatMap((l) => l.replace(BUL, '').split(/\.\s+(?=[A-Z][\w\/ &-]{0,25}:)/)).flatMap((l) => l.replace(/^[^:,]{0,30}:\s*/, '').replace(/\.\s*$/, '').split(/\s*[,;|·•]\s*/)).map(clean).filter((x) => x.length > 1 && x.length < 40))].slice(0, 40);
     const summary = clean((S.summary || []).filter((l) => !BUL.test(l)).join(' ')).slice(0, 700);
@@ -13236,7 +13385,7 @@ window.EPProfileClone = (() => {
     if (P.city) h = h.replace(/(<ul class="contact">\s*<li>[\s\S]*?<\/svg>)Cambridge, Massachusetts/, `$1${E(P.city)}`);
     if (P.linkedin) rep('https://www.linkedin.com/in/narissara/', E(/^https?:/i.test(P.linkedin) ? P.linkedin : 'https://www.' + P.linkedin.replace(/^www\./i, '')));
     if (P.summary && P.summary.length > 80) h = h.replace(/(<p class="lede">)[\s\S]*?(The accompanying [\s\S]*?<\/p>)/, (m0, a, b) => a + E(P.summary.length > 520 ? P.summary.slice(0, 517).replace(/\s+\S*$/, '') + '…' : P.summary) + ' ' + b);
-    const when = (r) => (r.smon ? MNAME[r.start.m] + ' ' : '') + r.start.y + ' – ' + (r.end ? (r.emon ? MNAME[r.end.m] + ' ' : '') + r.end.y : 'Present');
+    const when = (r) => r.undated ? (r.endGiven ? (r.emon ? MNAME[r.end.m] + ' ' : '') + r.end.y : '') : (r.smon ? MNAME[r.start.m] + ' ' : '') + r.start.y + ' – ' + (r.end ? (r.emon ? MNAME[r.end.m] + ' ' : '') + r.end.y : 'Present');
     const byNew = [...P.roles].sort((a, b) => (b.end ? b.end.y * 12 + b.end.m : 1e9) - (a.end ? a.end.y * 12 + a.end.m : 1e9) || (b.start.y * 12 + b.start.m) - (a.start.y * 12 + a.start.m));
     const ids = new Map(byNew.map((r, i) => [r, 'r' + i]));
     const cur = byNew.filter((r) => r.current), last = byNew.find((r) => !r.current);
