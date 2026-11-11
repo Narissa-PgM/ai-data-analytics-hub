@@ -181,8 +181,8 @@ try {
     check: `const p=document.getElementById('adPanelSheet'); return [!!p && !p.hidden && p.textContent.length>500, {chars:p?p.textContent.length:0}];` });
 
   // ---------- 9. Enterprise Delivery ----------
-  await step({ view: 'viewEnterprise', name: 'generate enterprise package', wait: 1400,
-    act: `document.getElementById('edOrg').value='Example University'; document.getElementById('edRole').value='Director of Analytics'; document.getElementById('edBuild').click();`,
+  await step({ view: 'viewEnterprise', name: 'generate enterprise package', wait: 1600,
+    act: `document.getElementById('edExample').click(); setTimeout(() => document.getElementById('edBuild').click(), 300);`,
     check: `const r=document.getElementById('edResults'); const t=(r?r.textContent:'').replace(/\\s+/g,' ').trim();
             return [!!r && !r.hidden && t.length>200, {chars:t.length, head:t.slice(0,100)}];` });
 
@@ -193,7 +193,7 @@ try {
 
   // ---------- 11. Platform Analyzer ----------
   await step({ view: 'viewAnalyzer', name: 'run analyzer produces blueprint', wait: 1600,
-    act: `document.getElementById('projectTitle').value='Synthetic Test Platform'; document.getElementById('runAnalyzer').click();`,
+    act: `document.getElementById('projectTitle').value='Synthetic Test Platform'; document.getElementById('projectDescription').value='A synthetic decision-support platform for a research portfolio, with dashboards, metrics, filters and popups for leadership review.'; document.getElementById('runAnalyzer').click();`,
     check: `const b=document.getElementById('outBlueprint').textContent.replace(/\\s+/g,' ').trim();
             return [b.length>200, {chars:b.length, head:b.slice(0,100)}];` });
 
@@ -245,3 +245,4 @@ try {
   fs.writeFileSync(OUT, JSON.stringify({ file: FILE, results, summary }, null, 2));
   console.log(JSON.stringify(summary, null, 2));
 }
+
