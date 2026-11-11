@@ -1,3 +1,37 @@
+## Round 8 — project-specific investment logic + "how this number is computed" popups
+
+**Why every programme said roughly $130K.** The cost line was `weeks × 40 × FTE × rate + tools` with **fixed
+defaults** — FTE 1.5, loaded rate $85/h, tools $18,000 — and the schedule comes from one six-phase WBS template, so
+the week count barely changes between projects. ($130,000 − $18,000) ÷ (40 × 1.5 × 85) ≈ 22 weeks: the same number
+was structural, not a coincidence.
+
+**Now the defaults are derived per project** (still overridable on the A · Achievable tab):
+
+| Input | Before | Now derived from |
+|---|---|---|
+| Team FTE | 1.5 fixed | work-package count: 1 + packages ÷ 14, clamped 1.2–3.2 |
+| Loaded rate | $85/h fixed | role salary midpoint ÷ 2,080 h × 1.35 (else seniority: Chief/VP $115, Director $100, Manager $85, default $90) |
+| Tools & licences | $18,000 fixed | programme type: AI/platform $42K · analytics/data $24K · advancement $21K · finance $18K · PMO $15K · governance $12K |
+
+Result: the same analytics-style programme now lands around **$196–204K** and an advancement programme around
+**$256K** — different projects, different numbers (`qa/verify9.mjs` asserts the tile equals `weeks × 40 × FTE × rate
++ tools` exactly, and that two programmes differ).
+
+**Every headline number is now clickable** (“how?” on each tile) and opens *“How this number is computed”* with the
+formula, each input’s value, where the input came from (your input vs derived default), and the provenance note:
+
+- S tab: planned duration, chance on time, estimated investment, 3-year ROI, KPIs, risks
+- A tab: investment, annual benefit, 3-year NPV, ROI, payback, P80 cost
+
+The cost popup also explains why durations cluster (one WBS template) and shows both the P50 and P80 investment.
+Everything is labelled **PLANNING ESTIMATE / SAMPLE** with “replace rate and tools with real quotes before
+committing”.
+
+Verified: `qa/verify9.mjs` **12/12**; regression verify8 12/12, verify7 18/18, verify6 14/14, smoke 32/32,
+verify5 8/8, verify4 9/9, verify3 10/10, baseline clean.
+
+---
+
 ## Round 7 — structured research documents accepted (the CREO evidence-register shape)
 
 The pasted JSON was a **research document**, not the flat `{mission, values, initiatives}` the box expected:
@@ -152,8 +186,8 @@ after the change: smoke 32/32, verify2 16/16, verify3 10/10, baseline 0 errors.
 # AI_Pilot.html — improvement pass
 
 **Deliverable:** `ai-pilot-v3/AI_Pilot.html`
-**Size:** 2,335,605 bytes (was 2,295,845 — +39.8 KB, all CSS/comments/logic; no dependencies added)
-**Lines:** 16,437 (was 15,901) · **sha256:** `A494C268444D99AE27F3C0861329E95C055E4D863BFE3B7FC411812E4EEBD21C`
+**Size:** 2,345,591 bytes (was 2,295,845 — +49.7 KB, all CSS/comments/logic; no dependencies added)
+**Lines:** 16,521 (was 15,901) · **sha256:** `CFA039F4C4957ACE5B44C932E1FB09ED1C56ABB58D05C9764E869C7CA41BF8F3`
 **Baseline preserved untouched:** `ai-pilot-v3/baseline/AI_Pilot.baseline.html` (`948E106B…`)
 **Scope agreed with the user:** fixes + performance + mobile/accessibility polish. No features removed, no new features, still one offline file.
 
@@ -312,6 +346,7 @@ Two "high/medium" findings did not survive runtime verification, so the source w
    node qa/contrast.mjs        # WCAG runtime sweep
    ```
    (These need the headless browser, which this sandbox only allows with elevated file access.)
+
 
 
 

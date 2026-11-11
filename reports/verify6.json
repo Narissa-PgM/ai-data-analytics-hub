@@ -5,7 +5,7 @@
       "p": true,
       "i": {
         "mission": "Curly-quoted mission.\nSource: https://example.edu/m",
-        "status": "· JSON applied Nov 10, 10:42 PM",
+        "status": "· JSON applied Nov 10, 11:39 PM",
         "kicker": "Research JSON applied",
         "body": "Now in the program: organization, mission.An AI draft is not evidence: open each item, check it against the official page, then tick “I verified these items”. The program’s indices and KPIs rebuild fr"
       }
@@ -15,7 +15,7 @@
       "p": true,
       "i": {
         "mission": "Trailing-comma mission.\nSource: https://example.edu/m",
-        "status": "· JSON applied Nov 10, 10:42 PM",
+        "status": "· JSON applied Nov 10, 11:39 PM",
         "kicker": "Research JSON applied",
         "body": "Now in the program: organization, mission, initiatives.An AI draft is not evidence: open each item, check it against the official page, then tick “I verified these items”. The program’s indices and KP"
       }
@@ -25,7 +25,7 @@
       "p": true,
       "i": {
         "mission": "First object mission.",
-        "status": "· JSON applied Nov 10, 10:42 PM",
+        "status": "· JSON applied Nov 10, 11:39 PM",
         "kicker": "Research JSON applied",
         "body": "Now in the program: organization, mission, initiatives.An AI draft is not evidence: open each item, check it against the official page, then tick “I verified these items”. The program’s indices and KP"
       }
@@ -35,7 +35,7 @@
       "p": true,
       "i": {
         "mission": "First object mission.",
-        "status": "· JSON applied Nov 10, 10:42 PM",
+        "status": "· JSON applied Nov 10, 11:39 PM",
         "kicker": "Could not read that JSON",
         "body": "JSON read, but no research fields were recognised (keys: totally_unknown_key, another). Expected mission / values / initiatives, or a research / identity / plans object.The box is still open. Common c"
       }
@@ -66,7 +66,7 @@
       "n": "build prompt carries the whole contract",
       "p": true,
       "i": {
-        "chars": 87309
+        "chars": 87335
       }
     },
     {

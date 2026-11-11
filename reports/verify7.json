@@ -12,7 +12,7 @@
       "n": "raw newlines inside a string → persistent note",
       "p": true,
       "i": {
-        "status": " · JSON applied Nov 10, 10:41 PM"
+        "status": " · JSON applied Nov 10, 11:38 PM"
       }
     },
     {
@@ -27,7 +27,7 @@
       "n": "line and block comments → persistent note",
       "p": true,
       "i": {
-        "status": " · JSON applied Nov 10, 10:41 PM"
+        "status": " · JSON applied Nov 10, 11:38 PM"
       }
     },
     {
@@ -42,7 +42,7 @@
       "n": "single-quoted strings → persistent note",
       "p": true,
       "i": {
-        "status": " · JSON applied Nov 10, 10:41 PM"
+        "status": " · JSON applied Nov 10, 11:38 PM"
       }
     },
     {
@@ -57,7 +57,7 @@
       "n": "unquoted keys → persistent note",
       "p": true,
       "i": {
-        "status": " · JSON applied Nov 10, 10:42 PM"
+        "status": " · JSON applied Nov 10, 11:38 PM"
       }
     },
     {
@@ -72,7 +72,7 @@
       "n": "top-level array → persistent note",
       "p": true,
       "i": {
-        "status": " · JSON applied Nov 10, 10:42 PM"
+        "status": " · JSON applied Nov 10, 11:38 PM"
       }
     },
     {
@@ -87,7 +87,7 @@
       "n": "Python literals (True/False/None) → persistent note",
       "p": true,
       "i": {
-        "status": " · JSON applied Nov 10, 10:42 PM"
+        "status": " · JSON applied Nov 10, 11:38 PM"
       }
     },
     {
@@ -102,7 +102,7 @@
       "n": "two objects in prose → persistent note",
       "p": true,
       "i": {
-        "status": " · JSON applied Nov 10, 10:42 PM"
+        "status": " · JSON applied Nov 10, 11:38 PM"
       }
     },
     {
@@ -117,7 +117,7 @@
       "n": "fenced with curly quotes → persistent note",
       "p": true,
       "i": {
-        "status": " · JSON applied Nov 10, 10:42 PM"
+        "status": " · JSON applied Nov 10, 11:38 PM"
       }
     },
     {
