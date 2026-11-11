@@ -1,0 +1,60 @@
+{
+  "commandsLength": 111,
+  "groupCounts": {
+    "learning": 22,
+    "research": 15,
+    "analytics": 20,
+    "writing": 15,
+    "projects": 20,
+    "strategy": 19
+  },
+  "navBadges": [
+    "3",
+    "3",
+    "6",
+    "2"
+  ],
+  "railCounts": [
+    {
+      "label": "▦All commands111"
+    },
+    {
+      "label": "☆My favorites0"
+    },
+    {
+      "label": "•Learning22"
+    },
+    {
+      "label": "•Research15"
+    },
+    {
+      "label": "•Analytics & AI20"
+    },
+    {
+      "label": "•Writing15"
+    },
+    {
+      "label": "•Projects20"
+    },
+    {
+      "label": "•Strategy19"
+    }
+  ],
+  "totalLabel": "111",
+  "resultLabel": "111 of 111 shown",
+  "learningFilter": "22 of 111 shown",
+  "learningFilterAfter": "22 of 111 shown",
+  "meta": "111 AI slash commands, career fit and weighted gap scorecards, a ranked Job Match Radar that scores role fit and interview likelihood against live job-board searches, enterprise portfolio, program, project, C-suite playbook generators and an HTML audit lab that builds industry-specific prompt packs, synthetic demos, and interactive dashboard specifications.",
+  "placeholder": "Search 111 commands, functions, or deliverables…",
+  "promiseText": [
+    "Add job links or descriptions plus your résumé and cover letter — as files or pasted text. The studio reads them in this browser, scores the evidence match, charts where you are strong and where you are thin, drafts a tailored cover letter and a 30-60-90 project plan, and builds job-search links. Nothing is uploaded anywhere."
+  ],
+  "fetchCalls": {
+    "fetch": 3,
+    "xhr": 1,
+    "sendBeacon": 1,
+    "claude": 0,
+    "navigatorClipboard": 12
+  },
+  "networkRequests": []
+}

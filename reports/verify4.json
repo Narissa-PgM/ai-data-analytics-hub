@@ -1,0 +1,74 @@
+{
+  "checks": [
+    {
+      "n": "job A builds its own prompt",
+      "p": true,
+      "i": {
+        "head": "You are a senior program and portfolio director (PMP/MSP), an information design"
+      }
+    },
+    {
+      "n": "handoff opens Work Sample Studio",
+      "p": true,
+      "i": {
+        "handoff": "clicked: Build work sample →"
+      }
+    },
+    {
+      "n": "handoff sets the new job title",
+      "p": true,
+      "i": {
+        "role": "Director of Stewardship Reporting"
+      }
+    },
+    {
+      "n": "handoff regenerates the build prompt for job B",
+      "p": true,
+      "i": {
+        "head": "You are a senior program and portfolio director (PMP/MSP), an information designer, and a "
+      }
+    },
+    {
+      "n": "no old-job text left in Job Fit tabs",
+      "p": true,
+      "i": {
+        "staleTabs": []
+      }
+    },
+    {
+      "n": "Career workspace follows the new job",
+      "p": true,
+      "i": {
+        "job": "Director of Stewardship Reporting\nCascade Health Network — O",
+        "outHead": "Candidate → requirement coverage (transparent heuristic)56% means 5 of"
+      }
+    },
+    {
+      "n": "Career Fit follows the new job",
+      "p": true,
+      "i": {
+        "jd": "Director of Stewardship Reporting Cascade Health Network — O"
+      }
+    },
+    {
+      "n": "switching back restores job A content",
+      "p": true,
+      "i": {
+        "role": "Director of Analytics & Reporting",
+        "head": "You are a senior program and portfolio director (PMP/MSP), an informat"
+      }
+    },
+    {
+      "n": "no console errors",
+      "p": true,
+      "i": {
+        "errors": []
+      }
+    }
+  ],
+  "summary": {
+    "total": 9,
+    "passed": 9,
+    "failed": []
+  }
+}

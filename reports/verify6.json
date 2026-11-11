@@ -1,0 +1,109 @@
+{
+  "checks": [
+    {
+      "n": "JSON with typographic quotes applies",
+      "p": true,
+      "i": {
+        "mission": "Curly-quoted mission.\nSource: https://example.edu/m",
+        "status": "· JSON applied Nov 10, 10:42 PM",
+        "kicker": "Research JSON applied",
+        "body": "Now in the program: organization, mission.An AI draft is not evidence: open each item, check it against the official page, then tick “I verified these items”. The program’s indices and KPIs rebuild fr"
+      }
+    },
+    {
+      "n": "JSON with trailing commas applies",
+      "p": true,
+      "i": {
+        "mission": "Trailing-comma mission.\nSource: https://example.edu/m",
+        "status": "· JSON applied Nov 10, 10:42 PM",
+        "kicker": "Research JSON applied",
+        "body": "Now in the program: organization, mission, initiatives.An AI draft is not evidence: open each item, check it against the official page, then tick “I verified these items”. The program’s indices and KP"
+      }
+    },
+    {
+      "n": "JSON surrounded by prose applies",
+      "p": true,
+      "i": {
+        "mission": "First object mission.",
+        "status": "· JSON applied Nov 10, 10:42 PM",
+        "kicker": "Research JSON applied",
+        "body": "Now in the program: organization, mission, initiatives.An AI draft is not evidence: open each item, check it against the official page, then tick “I verified these items”. The program’s indices and KP"
+      }
+    },
+    {
+      "n": "unrecognised JSON reports a clear message",
+      "p": true,
+      "i": {
+        "mission": "First object mission.",
+        "status": "· JSON applied Nov 10, 10:42 PM",
+        "kicker": "Could not read that JSON",
+        "body": "JSON read, but no research fields were recognised (keys: totally_unknown_key, another). Expected mission / values / initiatives, or a research / identity / plans object.The box is still open. Common c"
+      }
+    },
+    {
+      "n": "spec renders the contract as ONE block",
+      "p": true,
+      "i": {
+        "head": "n owner and a contribution.3. SMARTER measurement contract — one block, 3 prioritiesContract partiesCREO ↔ Dean's Office / Research Dean ("
+      }
+    },
+    {
+      "n": "spec keeps every priority",
+      "p": true,
+      "i": {}
+    },
+    {
+      "n": "spec keeps the governance section",
+      "p": true,
+      "i": {}
+    },
+    {
+      "n": "spec no longer shows the seven-letter strip",
+      "p": true,
+      "i": {}
+    },
+    {
+      "n": "build prompt carries the whole contract",
+      "p": true,
+      "i": {
+        "chars": 87309
+      }
+    },
+    {
+      "n": "build prompt forbids splitting into letters",
+      "p": true,
+      "i": {}
+    },
+    {
+      "n": "completeness meter counts the contract",
+      "p": true,
+      "i": {
+        "meter": "90"
+      }
+    },
+    {
+      "n": "JSON contract also renders as one block",
+      "p": true,
+      "i": {
+        "head": "MARTER measurement contract — one block, 2 prioritiesContract partiesCREO ↔ DeanContract period12 monthsBaseline "
+      }
+    },
+    {
+      "n": "JSON contract reaches the build prompt",
+      "p": true,
+      "i": {}
+    },
+    {
+      "n": "no console errors",
+      "p": true,
+      "i": {
+        "errors": []
+      }
+    }
+  ],
+  "summary": {
+    "total": 14,
+    "passed": 14,
+    "failed": []
+  }
+}

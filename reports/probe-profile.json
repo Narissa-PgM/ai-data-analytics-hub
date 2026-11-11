@@ -1,0 +1,80 @@
+{
+  "baseline\\AI_Pilot.baseline.html": {
+    "step1": "clicked",
+    "step2": "clicked",
+    "info": {
+      "smarterCard": true,
+      "cardChars": 10038,
+      "hasSpecifically": true,
+      "hasMeasurably": true,
+      "hasAchievably": true,
+      "hasRelevantly": true,
+      "hasTimebound": true,
+      "cardButtons": [
+        "⇩ Résumé (.docx)",
+        "⇩ Printable HTML",
+        "LinkedIn",
+        "Executive profile",
+        "DBMI Operating Plan",
+        "BioMed Informatics path",
+        "AI Data Analytics Hub",
+        "DBMI Operating Plan series (2026):",
+        "BioMed Informatics Learning Path:",
+        "AI Data Analytics Hub:"
+      ],
+      "checks": 8,
+      "checkStatuses": [
+        "contact:pass",
+        "length:warn",
+        "heads:warn",
+        "quant:warn",
+        "action:fail",
+        "dates:pass",
+        "keywords:pass",
+        "summary:fail"
+      ],
+      "firstResumeHasSMARTER": true,
+      "bodyHasSmarterWord": true
+    },
+    "errors": []
+  },
+  "AI_Pilot.html": {
+    "step1": "clicked",
+    "step2": "clicked",
+    "info": {
+      "smarterCard": true,
+      "cardChars": 10038,
+      "hasSpecifically": true,
+      "hasMeasurably": true,
+      "hasAchievably": true,
+      "hasRelevantly": true,
+      "hasTimebound": true,
+      "cardButtons": [
+        "⇩ Résumé (.docx)",
+        "⇩ Printable HTML",
+        "LinkedIn",
+        "Executive profile",
+        "DBMI Operating Plan",
+        "BioMed Informatics path",
+        "AI Data Analytics Hub",
+        "DBMI Operating Plan series (2026):",
+        "BioMed Informatics Learning Path:",
+        "AI Data Analytics Hub:"
+      ],
+      "checks": 8,
+      "checkStatuses": [
+        "contact:pass",
+        "length:warn",
+        "heads:warn",
+        "quant:warn",
+        "action:fail",
+        "dates:pass",
+        "keywords:pass",
+        "summary:fail"
+      ],
+      "firstResumeHasSMARTER": true,
+      "bodyHasSmarterWord": true
+    },
+    "errors": []
+  }
+}

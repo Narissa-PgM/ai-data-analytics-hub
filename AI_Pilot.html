@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
-<meta name="description" content="111 AI slash commands, career fit and weighted gap scorecards, a ranked Job Match Radar that scores role fit and interview likelihood against live job-board searches, enterprise portfolio, program, project, C-suite playbook generators and an HTML audit lab that builds industry-specific prompt packs, synthetic demos, and interactive dashboard specifications.">
+<meta name="description" content="111 AI slash commands, career fit and weighted gap scorecards, a Job Match Radar that ranks 14 role archetypes against your own profile and links out to real job-board searches, enterprise portfolio, program, project, C-suite playbook generators and an HTML audit lab that builds industry-specific prompt packs, synthetic demos, and interactive dashboard specifications.">
 <title>ExecutivePilot AI | Job Fit Studio, Career Fit &amp; Portfolio Demo Optimizer</title>
 <style>
 :root{--ink:#1f2d40;--muted:#637184;--line:#dde5eb;--paper:#f6f8fb;--white:#fff;--navy:#203b57;--accent:#327d88;--shadow:0 12px 36px rgba(30,51,77,.09);--rail:246px;--radius:14px}
@@ -154,7 +154,7 @@ footer{padding-top:35px;margin-top:20px;color:var(--muted);font-size:12px}
 .actionbar{display:flex;gap:8px;flex-wrap:wrap;margin:11px 0}.explain-mini{font-size:12px;color:#607889;margin:9px 0}.source-list{display:grid;gap:7px}.source-item{border:1px solid #e2e9ed;padding:10px 12px;border-radius:9px;display:flex;justify-content:space-between;align-items:center;gap:8px}.source-item small{display:block;color:#677f8d}.source-item a{font-size:12px;color:#206b7b;overflow-wrap:anywhere}.source-flag{font-size:10px;color:#895d24;background:#fff4dc;border-radius:5px;padding:4px 6px}
 .data-table-wrap{overflow:auto;max-height:250px;border:1px solid #e0e9ee;border-radius:9px;margin-top:12px}.data-table{border-collapse:collapse;width:100%;font-size:12px}.data-table th,.data-table td{padding:8px 11px;border-bottom:1px solid #e8eef1;text-align:left;white-space:nowrap}.data-table th{background:#f0f6f8;position:sticky;top:0;color:#376072}.data-table td{color:#4b697a}
 .gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.gallery-card{border:1px solid #dfe8ec;border-radius:14px;background:white;padding:14px;display:flex;flex-direction:column;gap:7px;min-width:0}.gallery-card h3{margin:0;font-size:16px;color:#294c62}.gallery-card p{font-size:12px;color:#637888;margin:0}.gallery-card .gallery-chart{width:100%;height:134px;background:#f8fbfc;border-radius:9px;padding:6px}.gallery-card .btn{align-self:flex-start;margin-top:auto}.gallery-card svg{width:100%;height:100%}
-.flow-diagram{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:7px;background:#f6fafb;padding:12px;border:1px solid #e2ecef;border-radius:10px;margin:12px 0}.flow-node{background:white;border:1px solid #cce1e5;border-radius:8px;padding:8px 9px;color:#245568;font-size:11px;font-weight:700}.flow-arrow{color:#7a9ba7}
+.flow-diagram{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:7px;background:#f6fafb;padding:12px;border:1px solid #e2ecef;border-radius:10px;margin:12px 0}.flow-node{background:white;border:1px solid #cce1e5;border-radius:8px;padding:8px 9px;color:#245568;font-size:11px;font-weight:700}.flow-arrow{color:#4f7d8d}
 .modern-popup{position:fixed;inset:0;z-index:310;display:none;background:rgba(15,33,49,.66);align-items:center;justify-content:center;padding:16px}.modern-popup.open{display:flex}.modern-dialog{background:#fff;width:min(760px,100%);max-height:92vh;display:flex;flex-direction:column;border-radius:16px;overflow:hidden;box-shadow:0 30px 90px #09243555}.modern-head{padding:16px 22px;border-bottom:1px solid #dde8ed;display:flex;justify-content:space-between;gap:10px;align-items:start}.modern-head h2{margin:4px 0;font-size:23px;color:#25485f}.modern-body{padding:18px 22px;overflow:auto;font-size:13px;color:#486170}.modern-body p{margin:5px 0 12px}.modern-body pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf4f7;padding:12px;border-radius:8px;font-size:12px}.modern-foot{padding:12px 22px;background:#f7fafb;border-top:1px solid #dde8ed;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
 .sample-visual{margin:13px 0;border:1px solid #e1e9ed;background:#f8fbfc;border-radius:11px;padding:11px}.sample-visual svg{width:100%;height:112px}.sample-visual .label{font-size:11px;color:#607585;font-weight:700}
 @media(max-width:1270px){.analyzer-layout{grid-template-columns:1fr}.sticky-project{position:static}.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -236,7 +236,7 @@ main {overflow:visible;min-height:100dvh;padding-bottom:max(96px, env(safe-area-
 .mini-boxes{display:flex;gap:5px;align-items:stretch;flex:1;min-height:48px}
 .mini-box{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:7px 4px;background:white;border:1px solid #dce9ed;border-radius:7px;font-size:10px;color:#426579;font-weight:700;line-height:1.2;overflow-wrap:anywhere}
 .mini-box.highlight{background:#e2f3f3;border-color:#b7dce0;color:#245e69}
-.mini-arrow{display:flex;align-items:center;font-size:15px;color:#78a0ac}
+.mini-arrow{display:flex;align-items:center;font-size:15px;color:#4f7d8d}
 .mini-list{display:grid;gap:4px;min-height:40px}
 .mini-list-line{background:#fff;border:1px solid #e0e9ee;border-radius:6px;display:flex;align-items:center;gap:7px;padding:4px 7px;font-size:10px;color:#416278;min-height:19px}
 .mini-list-line i{width:11px;height:11px;border:1.5px solid #6d9fab;border-radius:3px;flex-shrink:0;font-style:normal;font-size:9px;text-align:center;line-height:9px}
@@ -1539,6 +1539,101 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
 @keyframes cxflash{0%{background:#fff6d8;box-shadow:0 0 0 3px rgba(196,138,44,.25)}100%{background:#fff;box-shadow:none}}
 .cx-flash{animation:cxflash 1.6s ease-out}
 .jf-rs-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-top:10px;padding:8px 10px;border:1px dashed #c9dbe0;border-radius:10px;background:#fbfdfd;font-size:12.5px;color:#2c4a56}
+/* ══ Review pass: contrast, focus, touch, mobile and print corrections. ══
+   Appended last so these rules win over the earlier per-workspace declarations.
+   Contrast ratios are WCAG 2.1 measured against the surfaces used in this file. */
+
+/* 1 · One visible focus ring everywhere (was 1.76–2.29:1; #0b5d6b = 7.52:1 on white, 7.07:1 on --paper) */
+:focus-visible,
+.searchfield input:focus,
+#pilotPanel :is(button,input,select,textarea):focus-visible,
+#fitPanel input:focus-visible,#fitPanel textarea:focus-visible,#fitPanel select:focus-visible,
+#jobRadarPanel :is(button,input,select,textarea,summary,a):focus-visible,
+#workSamplePanel :is(input,select,textarea):focus-visible,#workSamplePanel button:focus-visible,
+#jobFitPanel :is(button,input,select,textarea,a,[tabindex]):focus-visible,
+#admissPanel .ad-field input:focus,#admissPanel .ad-field select:focus,#admissPanel .ad-field textarea:focus,
+.jf-svgbtn:focus{outline:3px solid #0b5d6b;outline-offset:2px}
+.jf-svgbtn:focus rect.bar{stroke:#0b5d6b;stroke-width:3}
+
+/* 2 · Micro-text and placeholder contrast (was 2.41–4.49:1; #56697a = 5.68:1 on white) */
+.jf-ev em,.nav-group-head small,.mini-foot,.jr-jl span,.tip,.jf-item small,
+.qa-stage .stage-count,.ad-record-foot,.mini-metrics>div,.recipes p,.jr-prob-card small,
+.jr-metric-note,.ws-block .ws-why,.ri-src.estimate,.ws-qa-q small,.dialog-kicker,
+.jf-kpi small,.jf-kpi span,.jr-comp-label small,.sm-stage small,.jf-foot,.legend,.viz-tile p,
+.fit-eyebrow,.ed-head p{color:#56697a}
+/* panel-scoped variants need the same scope as the rules they override */
+#jobRadarPanel .jr-metric-note,#jobRadarPanel .jr-metric-label,#jobRadarPanel .jr-prob-card small,#jobRadarPanel .jr-comp-label small,#jobRadarPanel .jr-jl span,
+#jobFitPanel .jf-ev em,#jobFitPanel .jf-item small,#jobFitPanel .jf-foot,#jobFitPanel .jf-kpi small,#jobFitPanel .jf-kpi span,
+#admissPanel .ad-record-foot,#workSamplePanel .ws-block .ws-why,#workSamplePanel .ws-qa-q small{color:#56697a}
+::placeholder{color:#666f7a;opacity:1}
+.qa-row input::placeholder{color:#666f7a}
+
+/* 2b · Form-control boundaries must reach 3:1 (they were 1.35–1.46:1 on white) */
+input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),
+select,textarea{border-color:#7f919c!important}
+
+/* 3 · Chart nodes keep a visible keyboard ring instead of outline:none */
+.ri-box{cursor:pointer}
+.ri-box:focus-visible{outline:3px solid #0b5d6b;outline-offset:2px}
+.ri-box:focus-visible rect:first-of-type{stroke:#0b5d6b;stroke-width:3}
+
+/* 4 · Phones: 44 px touch targets, compact Job Fit stepper, sticky toolbar released */
+@media (max-width:760px){
+  .icon-btn,.clear-search,.jr-icon-btn,.jf-x{min-width:44px;min-height:44px}
+  .nav,.output-tab,.career-tab,.fit-tab,.ad-tab,.ws-tab,.xp-tab,.jf-tab,.jf-filter button,
+  .tiny,.fit-gap-actions button,.jr-role-actions .jr-btn,.jr-btn,.jf-btn,.ws-btn,
+  .ad-sheet-mode-btn,.ws-qa-controls select{min-height:44px}
+  .jf-x{padding:0}
+  .toolbar{position:static;padding:8px 0 10px}
+  .toolbar .btn{min-height:40px;padding:7px 10px}
+  .searchfield{flex:1 1 100%}
+  .rail .primary-nav,.rail .navlist{
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 44px),transparent 100%);
+    mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 44px),transparent 100%);
+    scroll-snap-type:x proximity}
+  .rail .nav,.rail .view-toggle{scroll-snap-align:start}
+  .jf-steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  .jf-step{padding:8px 8px 7px}
+  .jf-step b{width:24px;height:24px;font-size:12px;margin-bottom:5px}
+  .jf-step span{font-size:13px}
+  .jf-step small{display:none}
+}
+@media (max-width:480px){
+  .jf-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .jf-kpi small{display:none}
+}
+
+/* 6 · Format checks: show what the tailored résumé already fixed */
+.jf-check-fixed{border-color:#bfe3cc!important;background:#f4fbf6!important}
+.jf-check-fixed .ico{background:#e7f4ec;color:#15803d}
+.jf-check-fixed em{color:#15803d;font-weight:700}
+.jf-fixpanel{margin-top:10px;padding:11px 13px;border:1px solid #bfe3cc;border-radius:11px;background:#f4fbf6}
+.jf-fixpanel.ok{border-color:#cfe0e6;background:#f7fafb}
+.jf-fixpanel h4{margin:0 0 6px;font-size:13px;color:#15803d}
+.jf-fixpanel.ok h4{color:#2e5264}
+.jf-fixpanel ul{margin:0 0 8px;padding-left:18px;font-size:12.5px;color:#2c4a56}
+.jf-fixpanel li{margin:2px 0}
+.jf-fixpanel .jf-sub{margin:6px 0 0}
+
+/* 7 · One-block SMARTER contract (multi-priority) */
+.ws-contract-head{margin:6px 0 10px}
+.ws-contract-head th{width:38%;text-align:left;background:#f4f8f9;color:#2e5264;font-size:12px;padding:6px 9px;border:1px solid #e0eaee;vertical-align:top}
+.ws-contract-head td{font-size:12.5px;padding:6px 9px;border:1px solid #e0eaee}
+.ws-contract-prio{border:1px solid #dfe9ee;border-left:4px solid #2f7f8a;border-radius:10px;padding:8px 11px;margin:10px 0;background:#fbfdfd}
+.ws-contract-prio h4{margin:0 0 4px;font-size:13.5px;color:#24576a}
+.ws-contract-prio .ws-src{margin:0 0 6px;font-size:11.5px;color:#56697a}
+.ws-contract-prio table{width:100%;border-collapse:collapse;margin:0}
+.ws-contract-prio th{width:30%;text-align:left;vertical-align:top;font-size:11.5px;letter-spacing:.04em;color:#2e5264;padding:4px 8px;border-top:1px solid #e6eef1}
+.ws-contract-prio td{font-size:12.5px;padding:4px 8px;border-top:1px solid #e6eef1;vertical-align:top}
+.ws-contract-gov{margin:12px 0 0;padding:9px 12px;border:1px solid #e6dcef;border-radius:10px;background:#fbf8fd}
+.ws-contract-gov h4{margin:0 0 5px;font-size:13px;color:#4b2a63}
+.ws-contract-gov ul{margin:0;padding-left:18px;font-size:12.5px;color:#3c3550}
+
+/* 5 · Print: the pilot hero printed white-on-white once the browser drops the gradient */
+@media print{
+  .xp-hero{background:#fff!important;color:#111!important;border:1px solid #bbb;border-radius:8px;padding:12px}
+  .xp-hero h1,.xp-hero p,.xp-kicker,.xp-hero-side strong,.xp-hero-side small{color:#111!important}
+}
 </style>
 </head>
 <body>
@@ -1597,7 +1692,7 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
   <nav class="navlist" id="navigation" aria-label="Command categories"></nav>
   <div class="rail-bottom"><strong>Quick tip</strong><br>Open a card to view its ready-to-copy prompt. Use <strong>/</strong> or <strong>Ctrl/⌘ + K</strong> to search.</div>
 </aside>
-<main id="main">
+<main id="main" tabindex="-1">
 
 <section id="jobFitPanel" aria-labelledby="jfTitle">
  <header class="jf-hero">
@@ -2948,6 +3043,10 @@ button.jf-kpi:hover{border-color:#9fc4cd;background:#f2f8f9}
 
       <fieldset class="ws-fieldset">
         <legend class="ws-legend">SMARTER &mdash; the measurement contract</legend>
+        <label class="ws-field ws-wide" for="wsContract"><b>Whole contract — paste it as one block (multi-priority)</b>
+          <textarea id="wsContract" rows="9" placeholder="Paste the contract as written: contract parties, contract period, baseline rule, then Priority 1…N with Specific / Measurable / Achievable / Relevant / Time-bound / Evaluated / Revised, then the governance section. It is treated as ONE contract, not split into separate letters."></textarea>
+        </label>
+        <p class="ws-help">If you paste a contract with <b>Priority</b> headings it replaces the seven single-letter fields below and is rendered as one contract block — header, every priority with all seven terms, and the governance rules. The fields below remain the single-priority fallback.</p>
         <div class="ws-grid">
           <label class="ws-field ws-wide" for="wsSpecify"><b>S</b> Specific &mdash; one named deliverable, one owner
             <input id="wsSpecify" type="text" placeholder="One artifact that will exist, e.g. 'one-page decision dashboard for the research portfolio'">
@@ -3325,7 +3424,7 @@ function notify(message){$('toast').textContent=message;$('toast').classList.add
 function updateNav(){const n=$('navigation');n.replaceChildren();const navEntries=[{id:'all',short:'All commands',count:COMMANDS.length},{id:'favorites',short:'My favorites',count:favorites.size},...GROUPS];navEntries.forEach(g=>{const b=el('button','nav');b.type='button';const isActive=(g.id==='favorites'?favoritesOnly:(!favoritesOnly&&category===g.id));if(isActive)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');const left=el('span','nav-label');left.append(el('span','',g.id==='all'?'▦':g.id==='favorites'?'☆':'•'));left.append(el('span','',g.short));b.append(left,el('span','nav-count',String(g.count)));b.addEventListener('click',()=>{if(g.id==='favorites'){favoritesOnly=true;category='all';}else{favoritesOnly=false;category=g.id;}if(typeof activeMainView!=='undefined'&&activeMainView!=='library'&&typeof activateView==='function')activateView('library');$('favoritesToggle').setAttribute('aria-pressed',String(favoritesOnly));render();document.getElementById('main').scrollIntoView({behavior:'smooth',block:'start'});});n.append(b);});}
 function makeCard(c){const card=el('article','command-card');const head=el('div','card-head');const command=el('span','cmd',c.name);const star=el('button','icon-btn',favorites.has(c.name)?'★':'☆');star.type='button';star.setAttribute('aria-label',(favorites.has(c.name)?'Remove ':'Add ')+c.name+(favorites.has(c.name)?' from':' to')+' favorites');star.setAttribute('aria-pressed',String(favorites.has(c.name)));star.title='Toggle favorite';star.addEventListener('click',()=>{favorites.has(c.name)?favorites.delete(c.name):favorites.add(c.name);persistFavorites();updateCounts();render();});head.append(command,star);card.append(head,el('p','card-desc',c.description));const preview=el('button','cmd-preview');preview.type='button';preview.setAttribute('aria-label','Enlarge visual sample and prompt for '+c.name);preview.innerHTML=buildCommandVisual(c,false);preview.addEventListener('click',()=>openDialog(c,preview));card.append(preview);const actions=el('div','card-actions');const open=el('button','open-details','View details →');open.type='button';open.setAttribute('aria-label','Open details for '+c.name);open.addEventListener('click',()=>openDialog(c,open));const icons=el('span','iconset');const copy=el('button','icon-btn','⧉');copy.type='button';copy.title='Copy command';copy.setAttribute('aria-label','Copy '+c.name);copy.addEventListener('click',()=>copyText(c.name,'Command'));icons.append(copy);actions.append(open,icons);card.append(actions);return card;}
 function updateCounts(){$('favoriteNumber').textContent=favorites.size;$('favTag').textContent=favorites.size;$('totalNumber').textContent=COMMANDS.length;}
-function render(){updateCounts();updateNav();const q=$('search').value.toLowerCase().trim();$('clearSearch').hidden=!q;const results=COMMANDS.filter(c=>(category==='all'||category===c.group)&&(!favoritesOnly||favorites.has(c.name))&&(!q||[c.name,c.description,c.instruction,c.outputs.join(' '),c.group].join(' ').toLowerCase().includes(q)));$('viewHeading').textContent=favoritesOnly?'My Favorites':category==='all'?'All Commands':GROUPS.find(g=>g.id===category).title;$('resultCount').textContent=results.length+' of '+COMMANDS.length+' shown';const container=$('catalog');container.replaceChildren();if(results.length===0){const empty=el('div','empty');empty.append(el('strong','','No commands match your search.'),el('p','','Try a different keyword, category, or favorite filter.'));container.append(empty);return;}
+function render(){updateCounts();updateNav();const q=$('search').value.toLowerCase().trim();$('clearSearch').hidden=!q;const results=COMMANDS.filter(c=>(category==='all'||category===c.group)&&(!favoritesOnly||favorites.has(c.name))&&(!q||[c.name,c.description,c.instruction,c.outputs.join(' '),c.group].join(' ').toLowerCase().includes(q)));$('viewHeading').textContent=favoritesOnly?'My Favorites':category==='all'?'All Commands':GROUPS.find(g=>g.id===category).title;$('resultCount').textContent=results.length+' of '+COMMANDS.length+' shown';const container=$('catalog');const libPanel=$('libraryPanel');if(libPanel&&libPanel.hidden){container.dataset.pending='1';return;}container.dataset.pending='';container.replaceChildren();if(results.length===0){const empty=el('div','empty');empty.append(el('strong','','No commands match your search.'),el('p','','Try a different keyword, category, or favorite filter.'));container.append(empty);return;}
 GROUPS.forEach(group=>{const list=results.filter(c=>c.group===group.id);if(!list.length)return;const section=el('section','section');section.id='category-'+group.id;section.style.setProperty('--section-accent',group.color);const heading=el('div','section-heading');heading.append(el('span','section-mark'),el('h3','',group.title),el('span','count',list.length+' commands'));const grid=el('div','cards');list.forEach(c=>grid.append(makeCard(c)));section.append(heading,grid);container.append(section);});}
 function promptFor(c,topic){const t=topic.trim()||'[insert your topic or material]';return `${c.name} — ${t}\n\nTask: ${c.instruction}\n\nInclude these deliverables:\n${c.outputs.map((x,i)=>`${i+1}. ${x}`).join('\n')}\n\nRequirements: Organize the answer with useful headings and concise tables where appropriate. Use practical examples and actionable guidance. Distinguish verified information, illustrative or synthetic examples, assumptions, and forecasts. Do not invent sources, confirmed data, calculations, or validated model results. State any important gaps before making recommendations.`;}
 function openDialog(c,button){current=c;previousFocus=button||document.activeElement;$('dialogCategory').textContent=GROUPS.find(g=>g.id===c.group).title;$('dialogTitle').textContent=c.name;$('dialogSubtitle').textContent=c.description;$('dialogInstruction').textContent=c.instruction;const ul=$('dialogDeliverables');ul.replaceChildren();c.outputs.forEach(x=>ul.append(el('li','',x)));$('topicInput').value=c.sample;updatePrompt();if(typeof window.renderCommandVisual==='function')window.renderCommandVisual(c);$('overlay').classList.add('open');document.body.style.overflow='hidden';$('main').inert=true;document.querySelector('.rail').inert=true;document.querySelector('.skip').inert=true;$('builder').inert=true;$('topicInput').focus();updateModalSelection();}
@@ -3351,7 +3450,7 @@ $('modalBuilder').addEventListener('click',()=>{if(!current)return;selection.has
 $('clearBuilder').addEventListener('click',()=>{selection.clear();refreshBuilder();updateModalSelection();notify('Combination cleared');});
 $('copyBuilder').addEventListener('click',()=>copyText(combinedPrompt([...selection],'[insert your topic or data]'),'Combination prompt'));
 document.addEventListener('keydown',e=>{if($('overlay').classList.contains('open')){if(e.key==='Escape'){e.preventDefault();closeDialog();return;}if(e.key==='Tab'){const dialog=$('overlay').querySelector('.dialog');const candidates=[...dialog.querySelectorAll('button:not([disabled]),input:not([disabled])')].filter(x=>x.getClientRects().length>0);if(!candidates.length)return;const first=candidates[0],last=candidates.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}return;}
-if((e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)||document.activeElement?.isContentEditable))||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')){e.preventDefault();$('search').focus();$('search').select();}else if(e.key==='Escape'&&document.activeElement===$('search')){$('search').value='';render();}});
+if((e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)||document.activeElement?.isContentEditable))||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')){e.preventDefault();try{if(activeMainView!=='library')activateView('library');}catch(err){/* view not ready */}$('search').focus();$('search').select();}else if(e.key==='Escape'&&document.activeElement===$('search')){$('search').value='';render();}});
 
 
 const getById = id=>document.getElementById(id);
@@ -3728,7 +3827,7 @@ function buildCommandVisual(c,large){
 
 window.renderCommandVisual = function(c){const dest=getById('commandSampleVisual');dest.innerHTML='<div class="label">COMMAND-SPECIFIC VISUAL SAMPLE · CONCEPTUAL / SYNTHETIC — NOT VERIFIED RESULTS</div><div class="command-visual-large">'+buildCommandVisual(c,true)+'</div>';};
 let activeMainView='library';
-function activateView(view){activeMainView=view;[['jobfit','jobFitPanel','viewJobFit'],['library','libraryPanel','viewLibrary'],['gallery','visualPanel','viewGallery'],['analyzer','analyzerPanel','viewAnalyzer'],['qa','qaPanel','viewQA'],['pilot','pilotPanel','viewPilot'],['enterprise','enterprisePanel','viewEnterprise'],['audit','auditPanel','viewAudit'],['fit','fitPanel','viewFit'],['career','careerPanel','viewCareer'],['massachusetts','maJobsPanel','viewMAJobs'],['remote','contractPanel','viewContract'],['jobradar','jobRadarPanel','viewJobRadar'],['admissibility','admissPanel','viewAdmiss'],['worksample','workSamplePanel','viewWorkSample']].forEach(([key,panel,button])=>{const yes=key===view;getById(panel).hidden=!yes;getById(button).classList.toggle('active',yes);if(yes)getById(button).setAttribute('aria-current','page');else getById(button).removeAttribute('aria-current');getById(button).removeAttribute('aria-pressed');});getById('builder').hidden=view!=='library';if(view==='qa')renderQA();window.scrollTo({top:0,behavior:'instant'});const navNow=document.querySelector('.primary-nav .view-toggle.active');const navLabel=navNow?navNow.textContent.replace(/^[^\w]+/,'').trim():'';if(navLabel)document.title=navLabel+' · ExecutivePilot AI';}
+function activateView(view){activeMainView=view;[['jobfit','jobFitPanel','viewJobFit'],['library','libraryPanel','viewLibrary'],['gallery','visualPanel','viewGallery'],['analyzer','analyzerPanel','viewAnalyzer'],['qa','qaPanel','viewQA'],['pilot','pilotPanel','viewPilot'],['enterprise','enterprisePanel','viewEnterprise'],['audit','auditPanel','viewAudit'],['fit','fitPanel','viewFit'],['career','careerPanel','viewCareer'],['massachusetts','maJobsPanel','viewMAJobs'],['remote','contractPanel','viewContract'],['jobradar','jobRadarPanel','viewJobRadar'],['admissibility','admissPanel','viewAdmiss'],['worksample','workSamplePanel','viewWorkSample']].forEach(([key,panel,button])=>{const yes=key===view;getById(panel).hidden=!yes;getById(button).classList.toggle('active',yes);if(yes)getById(button).setAttribute('aria-current','page');else getById(button).removeAttribute('aria-current');getById(button).removeAttribute('aria-pressed');});getById('builder').hidden=view!=='library';if(view==='library'){const ct=getById('catalog');if(ct&&ct.dataset.pending==='1'&&typeof render==='function')render();}if(view==='qa')renderQA();window.scrollTo({top:0,behavior:'instant'});const navNow=document.querySelector('.primary-nav .view-toggle.active');const navLabel=navNow?navNow.textContent.replace(/^[^\w]+/,'').trim():'';if(navLabel)document.title=navLabel+' · ExecutivePilot AI';}
 [['viewJobFit','jobfit'],['viewLibrary','library'],['viewGallery','gallery'],['viewAnalyzer','analyzer'],['viewQA','qa'],['viewPilot','pilot'],['viewEnterprise','enterprise'],['viewAudit','audit'],['viewFit','fit'],['viewCareer','career'],['viewMAJobs','massachusetts'],['viewContract','remote'],['viewJobRadar','jobradar'],['viewAdmiss','admissibility'],['viewWorkSample','worksample']].forEach(([id,v])=>getById(id).addEventListener('click',()=>activateView(v)));
 const escapeHtml = EP_SHARED.escapeHtml;
 let visualPreviousFocus=null, visualCopyPrompt='';
@@ -3783,8 +3882,8 @@ function promptsFor(a){const d=a.domain;const urls=sourceRegister(a).map(s=>`- $
 function compileAnalysis(){const a=brief();if(!a)return;a.charts=selectedCharts(a);a.modules=getModules(a);a.sources=sourceRegister(a);a.rows=sampleData(a);a.prompts=promptsFor(a);return a;}
 function runAnalysis(){const a=compileAnalysis();if(!a)return;currentAnalysis=a;activePromptIndex=0;getById('analysisStatus').textContent=`${a.domain.name} · ${a.modules.length} modules · ${a.prompts.length} build prompts · ${a.start}–${a.end} · All preview data are synthetic`;drawBlueprint(a);drawDemo(a);drawPrompts(a);drawSources(a);getById('outTabBlueprint').click();if(activeMainView==='analyzer')notify('Blueprint and '+a.prompts.length+' code-ready prompts generated locally');}
 function drawBlueprint(a){const root=getById('outBlueprint');root.replaceChildren();const stats=el('div','quick-stats');[[a.modules.length,'Decision modules'],[a.charts.length,'Visual patterns'],[a.sources.length,'Source candidates'],[a.prompts.length,'Code-ready prompts']].forEach(([n,x])=>{const t=el('div','quick-tile');t.append(el('strong','',String(n)),el('small','',x));stats.append(t);});root.append(stats);root.append(el('h3','','Platform design architecture'));const grid=el('div','insight-grid');[['Audience and decision focus',a.audience+' · Surface only urgent issues in the executive strip; reveal evidence on demand.'],['Data layers','Source-verified publication layer + separately flagged synthetic demo and forecast layer. No silent mixing.'],['Linked reporting hierarchy',a.domain.units.join(' → ')],['Visual UX','Compact charts with meaningful axes and drill-down popups; no scrolling walls of explanation.'],['Action management','Flag → triage → assign → approve → close; owner/date/status and change log.'],['Model governance',a.forecast==='historical'?'Only descriptive comparisons; projections disabled.':'Explicit observed/forecast split with assumptions, backtesting and scenario limitations.']].forEach(([title,desc])=>{const box=el('div','insight');box.append(el('strong','',title),el('p','',desc));grid.append(box);});root.append(grid);root.append(el('h3','','Recommended module index'));const chips=el('div','chiplist');a.modules.forEach((x,i)=>chips.append(el('span','chip',(i+1)+' · '+x)));root.append(chips);root.append(el('h3','','Recommended visual components'));const charts=el('div','chiplist');a.charts.forEach(x=>charts.append(el('span','chip',x)));root.append(charts);const bar=el('div','actionbar');const btn=el('button','btn primary','Copy full master build prompt');btn.onclick=()=>copyText(a.prompts[0].prompt,'Master build prompt');const next=el('button','btn','View prompt code →');next.onclick=()=>getById('outTabPrompts').click();const gate=el('button','btn','Run pre-launch QA checklist →');gate.onclick=()=>activateView('qa');bar.append(btn,next,gate);root.append(bar);}
-function chartFromRows(rows){const vals=rows.map(r=>r.value);const mn=Math.min(...vals)*.90,mx=Math.max(...vals)*1.1,den=mx-mn||1;const p=rows.map((r,i)=>`${35+i* (290/Math.max(1,rows.length-1))},${116-(r.value-mn)/den*88}`).join(' ');const forecastI=rows.findIndex(r=>r.year>=2026);const fi=Math.max(0,forecastI);const observed=rows.slice(0,fi+1).map((r,i)=>`${35+i*(290/Math.max(1,rows.length-1))},${116-(r.value-mn)/den*88}`).join(' ');const fore=rows.slice(fi).map((r,i)=>`${35+(i+fi)*(290/Math.max(1,rows.length-1))},${116-(r.value-mn)/den*88}`).join(' ');return `<svg role="img" aria-label="Synthetic illustrative year-by-year values, with a marked forecast boundary" viewBox="0 0 350 140"><path d="M35 116H330M35 74H330M35 33H330" stroke="#dfebee" fill="none"/><polyline points="${observed}" stroke="#26778d" stroke-width="3" fill="none"/><polyline points="${fore}" stroke="#d78c54" stroke-width="3" stroke-dasharray="5 4" fill="none"/><g fill="#667f90" font-size="11"><text x="35" y="132">${rows[0].year}</text><text x="280" y="132">${rows.at(-1).year}</text><text x="190" y="13">SYNTHETIC DEMO</text></g></svg>`;}
-function drawDemo(a){const root=getById('outDemo');root.replaceChildren();const strip=el('div');strip.append(el('span','demo-watermark','100% SYNTHETIC DEMO · NOT OBSERVED OR PUBLISHED DATA'),el('p','explain-mini','Chart sample uses deterministic synthetic values to illustrate layout and drill-down behavior. Linked source websites are only research candidates.'));root.append(strip);const kpis=el('div','demo-metrics');const last=a.rows.at(-1);[[a.domain.metrics[0],last.value.toLocaleString()+' '+a.domain.unit,'Illustrative projection'],[a.domain.metrics[1],(last.value*.88).toLocaleString(undefined,{maximumFractionDigits:1}),'Illustrative comparison'],[a.domain.metrics[2],(Math.round(last.value*.07)).toLocaleString(),'Illustrative risk quantity'],[a.domain.metrics[3],'+3.6%','Illustrative trend signal']].forEach(([label,value,note],i)=>{const b=el('button','demo-metric');b.append(el('span','metric-label',label),el('span','number',value+' (demo)'),el('span','metric-change',note));b.addEventListener('click',()=>demoPopup(a,label,i));kpis.append(b);});root.append(kpis);const charts=el('div','viz-grid');const specs=[['Historical & forecast lens','Select for 2020–2030 data, assumptions and evidence',0],['Unit benchmark','Select for reporting unit details and comparisons',1],['Risk concentration','Select for heatmap status, owner and action',2],['Capacity mix','Select for numerator, denominator and limits',3]];specs.forEach(([name,desc,i])=>{const b=el('button','viz-tile'+(i===0?' wide':' tall'));b.type='button';b.append(el('h3','',name),el('p','',desc));const img=el('div');img.innerHTML=i===0?chartFromRows(a.rows):svgFor(['trend','bars','heatmap','donut'][i],name+' (synthetic example)');b.append(img);if(i===0){const leg=el('div','legend');leg.innerHTML='<span><i style="background:#26778d"></i>Synthetic history</span><span><i style="background:#d78c54"></i>Synthetic forecast</span>';b.append(leg);}b.addEventListener('click',()=>demoPopup(a,name,i));charts.append(b);});root.append(charts);const bar=el('div','actionbar');[['↓ Download sample CSV',()=>downloadDemoCsv(a)],['View data table',()=>demoPopup(a,'Synthetic row-level data',5)],['Copy visual build prompt',()=>copyText(a.prompts[4].prompt,'Visual design prompt')]].forEach(([name,fn])=>{const b=el('button','btn',name);b.onclick=fn;bar.append(b);});root.append(bar);}
+function chartFromRows(rows){const vals=rows.map(r=>r.value);const mn=Math.min(...vals)*.90,mx=Math.max(...vals)*1.1,den=mx-mn||1;const p=rows.map((r,i)=>`${35+i* (290/Math.max(1,rows.length-1))},${116-(r.value-mn)/den*88}`).join(' ');const stepX=290/Math.max(1,rows.length-1);const pt=(r,i)=>`${35+i*stepX},${116-(r.value-mn)/den*88}`;const cut=rows.findIndex(r=>r.status!=='SYNTHETIC_HISTORY');const obsN=cut<0?rows.length:cut;const observed=rows.slice(0,obsN).map(pt).join(' ');const fore=cut<0?'':rows.slice(Math.max(0,cut-1)).map((r,i)=>pt(r,Math.max(0,cut-1)+i)).join(' ');return `<svg role="img" aria-label="Synthetic illustrative year-by-year values, with a marked forecast boundary" viewBox="0 0 350 140"><path d="M35 116H330M35 74H330M35 33H330" stroke="#dfebee" fill="none"/><polyline points="${observed}" stroke="#26778d" stroke-width="3" fill="none"/><polyline points="${fore}" stroke="#d78c54" stroke-width="3" stroke-dasharray="5 4" fill="none"/><g fill="#667f90" font-size="11"><text x="35" y="132">${rows[0].year}</text><text x="280" y="132">${rows.at(-1).year}</text><text x="190" y="13">SYNTHETIC DEMO</text></g></svg>`;}
+function drawDemo(a){const root=getById('outDemo');root.replaceChildren();const strip=el('div');strip.append(el('span','demo-watermark','100% SYNTHETIC DEMO · NOT OBSERVED OR PUBLISHED DATA'),el('p','explain-mini','Chart sample uses deterministic synthetic values to illustrate layout and drill-down behavior. Linked source websites are only research candidates.'));root.append(strip);const kpis=el('div','demo-metrics');const last=a.rows.at(-1);[[a.domain.metrics[0],last.value.toLocaleString()+' '+a.domain.unit,'Illustrative projection'],[a.domain.metrics[1],(last.value*.88).toLocaleString(undefined,{maximumFractionDigits:1}),'Illustrative comparison'],[a.domain.metrics[2],(Math.round(last.value*.07)).toLocaleString(),'Illustrative risk quantity'],[a.domain.metrics[3],'+3.6%','Illustrative trend signal']].forEach(([label,value,note],i)=>{const b=el('button','demo-metric');b.append(el('span','metric-label',label),el('span','number',value+' (demo)'),el('span','metric-change',note));b.addEventListener('click',()=>demoPopup(a,label,i));kpis.append(b);});root.append(kpis);const charts=el('div','viz-grid');const specs=[['Historical & forecast lens','Select for '+a.start+'–'+a.end+' data, assumptions and evidence',0],['Unit benchmark','Select for reporting unit details and comparisons',1],['Risk concentration','Select for heatmap status, owner and action',2],['Capacity mix','Select for numerator, denominator and limits',3]];specs.forEach(([name,desc,i])=>{const b=el('button','viz-tile'+(i===0?' wide':' tall'));b.type='button';b.append(el('h3','',name),el('p','',desc));const img=el('div');img.innerHTML=i===0?chartFromRows(a.rows):svgFor(['trend','bars','heatmap','donut'][i],name+' (synthetic example)');b.append(img);if(i===0){const leg=el('div','legend');leg.innerHTML='<span><i style="background:#26778d"></i>Synthetic history</span>'+(a.rows.some(r=>r.status==='SYNTHETIC_FORECAST')?'<span><i style="background:#d78c54"></i>Synthetic forecast</span>':a.rows.some(r=>r.status==='SYNTHETIC_ILLUSTRATION')?'<span><i style="background:#d78c54"></i>Synthetic illustration</span>':'');b.append(leg);}b.addEventListener('click',()=>demoPopup(a,name,i));charts.append(b);});root.append(charts);const bar=el('div','actionbar');[['↓ Download sample CSV',()=>downloadDemoCsv(a)],['View data table',()=>demoPopup(a,'Synthetic row-level data',5)],['Copy visual build prompt',()=>copyText(a.prompts[4].prompt,'Visual design prompt')]].forEach(([name,fn])=>{const b=el('button','btn',name);b.onclick=fn;bar.append(b);});root.append(bar);}
 function demoPopup(a,title,which){const body=el('div');body.append(el('span','demo-watermark','NOT REAL · SYNTHETIC EXAMPLE'),el('p','','These values are generated locally to demonstrate chart behavior. They are not verified public statistics, institutional figures or model-validated forecasts.'));const img=el('div','sample-visual');img.innerHTML=which===0?chartFromRows(a.rows):svgFor(which===1?'bars':which===2?'heatmap':which===3?'donut':'kpi','Synthetic preview');body.append(img);body.append(el('h3','','Records behind this chart'));const scroll=el('div','data-table-wrap');const table=el('table','data-table');table.innerHTML='<thead><tr><th>Year</th><th>Value</th><th>Classification</th><th>Source</th></tr></thead>';const tbody=el('tbody');a.rows.forEach(r=>{const tr=el('tr');[r.year,r.value.toLocaleString()+' '+r.unit,r.status,'Synthetic generator'].forEach(x=>tr.append(el('td','',x)));tbody.append(tr);});table.append(tbody);scroll.append(table);body.append(scroll);body.append(el('h3','','Popup specification'));body.append(el('p','',`Add exact calculation, benchmark, year-over-year change, linked ${a.domain.units.join(' / ')} context, uncertainty statement, source/period, and assigned action owner. For ${a.domain.name}, replace any illustrative figure only after evidence verification.`));openVisualPopup(title,body,a.prompts[4].prompt,'INTERACTIVE VISUAL DRILL-DOWN');}
 function drawPrompts(a){const root=getById('outPrompts');root.replaceChildren();root.append(el('p','micro','12 complete, reusable engineering prompts. Start with 00 for an end-to-end build, or copy a targeted stage when editing an existing platform.'));const tabs=el('div','prompt-tabs');const pre=el('pre','code-preview');const sub=el('h3');function choose(i){activePromptIndex=i;sub.textContent=a.prompts[i].name;pre.textContent=a.prompts[i].prompt;[...tabs.children].forEach((b,j)=>b.setAttribute('aria-pressed',String(i===j)));}a.prompts.forEach((x,i)=>{const b=el('button','prompt-tab',x.name.split(' · ')[0]+' '+x.name.split(' · ')[1].split(' ')[0]);b.type='button';b.setAttribute('aria-pressed',String(i===0));b.title=x.name;b.addEventListener('click',()=>choose(i));tabs.append(b);});root.append(tabs,sub,pre);const bar=el('div','actionbar');[['Copy selected prompt',()=>copyText(a.prompts[activePromptIndex].prompt,'Selected prompt')],['Copy all prompts',()=>copyText(a.prompts.map(x=>'# '+x.name+'\n\n'+x.prompt).join('\n\n---\n\n'),'Prompt pack')],['↓ Download .md prompt pack',()=>saveFile('Platform_Prompt_Pack.md',a.prompts.map(x=>'## '+x.name+'\n\n'+x.prompt).join('\n\n---\n\n'),'text/markdown;charset=utf-8')],['↓ Download .json spec',()=>saveFile('Platform_Analysis_Spec.json',JSON.stringify({created:'Generated locally; no verified data retrieved',title:a.title,industry:a.industry,description:a.description,audience:a.audience,period:[a.start,a.end],modules:a.modules,charts:a.charts,sources:a.sources,metrics:a.domain.metrics,featureFlags:a.flags,prompts:a.prompts},null,2),'application/json')]].forEach(([name,fn],i)=>{const b=el('button','btn'+(i===0?' primary':''),name);b.type='button';b.addEventListener('click',fn);bar.append(b);});root.append(bar);choose(0);}
 function downloadDemoCsv(a){const rows=[['year','value','unit','data_class','uncertainty_low','uncertainty_high','source_note'],...a.rows.map(r=>[r.year,r.value,r.unit,r.status,r.lower??'',r.upper??'',r.source])];saveFile('SYNTHETIC_DEMO_'+a.industry+'_'+a.start+'_'+a.end+'.csv',rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n'),'text/csv;charset=utf-8');notify('Labeled synthetic CSV downloaded');}
@@ -6425,14 +6524,49 @@ $('fitDetail').addEventListener('close',()=>window._fitPrevFocus?.focus?.());att
     new MutationObserver(hideRailGlyphs).observe(nav, { childList: true, subtree: true });
   }
 
+  /* 2. The role/pay intelligence SVG nodes are role="button" + tabindex="0" but were click-only:
+        give them the Enter/Space activation the other custom buttons already have. */
+  function activateChartNodes() {
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      const target = event.target;
+      if (!target || !target.closest || target.closest('input,textarea,select')) return;
+      const box = target.closest('[data-ri]');
+      if (!box || box !== target) return;
+      event.preventDefault();
+      box.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    });
+  }
+
+  /* 3. #edModal and #xpModal declare aria-modal but let Tab leave the dialog; contain it. */
+  function containModals() {
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Tab') return;
+      const modal = document.querySelector('#edModal.open, #xpModal.open');
+      if (!modal) return;
+      const focusables = [...modal.querySelectorAll(
+        'button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])',
+      )].filter((element) => element.getClientRects().length);
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      else if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    }, true);
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       hideRailGlyphs();
       watchRail();
+      activateChartNodes();
+      containModals();
     }, { once: true });
   } else {
     hideRailGlyphs();
     watchRail();
+    activateChartNodes();
+    containModals();
   }
 })();
 
@@ -8314,6 +8448,7 @@ Every number in the project's materials carries exactly one label:
   const DEFAULTS = {
     role: '', org: '', jd: '', mission: '', plan: '', unit: '', startDate: '',
     smarter: { specify: '', measure: '', attain: '', relevance: '', timebox: '', evaluate: '', review: '' },
+    contract: '',
     lifecycle: { discover: true, charter: true, build: true, pilot: true, scale: true, operate: true },
     models: { award: true, exception: true, demand: true },
     hitl: 'review',
@@ -8378,7 +8513,7 @@ Every number in the project's materials carries exactly one label:
   function hasAnyText(brief) {
     const fields = [brief.role, brief.org, brief.jd, brief.mission, brief.plan, brief.unit];
     if (fields.some((f) => str(f))) return true;
-    return SMARTER.some((f) => str(brief.smarter[f.key]));
+    return SMARTER.some((f) => str(brief.smarter[f.key])) || !!str(brief.contract);
   }
 
   /* ---------- brief read / persist ---------- */
@@ -8388,6 +8523,9 @@ Every number in the project's materials carries exactly one label:
     brief.mission = val('wsMission'); brief.plan = val('wsPlan'); brief.unit = val('wsUnit');
     brief.startDate = val('wsStartDate');
     SMARTER.forEach((f) => { brief.smarter[f.key] = val(f.id); });
+    /* Keep the pasted contract's line breaks: its priorities and seven terms are parsed line by line. */
+    const contractEl = $('wsContract');
+    brief.contract = contractEl ? String(contractEl.value || '').replace(/^\s+|\s+$/g, '') : '';
     STAGES.forEach((s) => { brief.lifecycle[s.key] = checked(s.id); });
     MODELS.forEach((m) => { brief.models[m.key] = checked(m.id); });
     brief.hitl = (($('wsHitl') || {}).value || 'review');
@@ -8405,6 +8543,7 @@ Every number in the project's materials carries exactly one label:
     set('wsMission', brief.mission); set('wsPlan', brief.plan); set('wsUnit', brief.unit);
     set('wsStartDate', brief.startDate);
     SMARTER.forEach((f) => set(f.id, (brief.smarter && brief.smarter[f.key]) || ''));
+    set('wsContract', brief.contract || '');
     STAGES.forEach((s) => { const el = $(s.id); if (el) el.checked = brief.lifecycle ? brief.lifecycle[s.key] !== false : true; });
     MODELS.forEach((m) => { const el = $(m.id); if (el) el.checked = brief.models ? brief.models[m.key] !== false : true; });
     const hitl = $('wsHitl'); if (hitl) hitl.value = brief.hitl || 'review';
@@ -8446,7 +8585,9 @@ Every number in the project's materials carries exactly one label:
     add('Mission and values', 12, usable(brief.mission).length > 20);
     add('Current plan / priorities', 10, usable(brief.plan).length > 20);
     add('Unit focus', 4, usable(brief.unit));
-    SMARTER.forEach((f) => add('SMARTER ' + f.letter + ' - ' + f.name, 4, usable(brief.smarter[f.key]) && !specificProblem(brief.smarter[f.key])));
+    const contractParsed = parseContract(brief.contract);
+    if (contractParsed) add('SMARTER contract — ' + contractParsed.priorities.length + ' priorities', 28, true);
+    else SMARTER.forEach((f) => add('SMARTER ' + f.letter + ' - ' + f.name, 4, usable(brief.smarter[f.key]) && !specificProblem(brief.smarter[f.key])));
     const stages = STAGES.filter((s) => brief.lifecycle[s.key]).length;
     add('Life cycle (at least 3 stages)', 6, stages >= 3);
     const models = MODELS.filter((m) => brief.models[m.key]).length;
@@ -8537,11 +8678,116 @@ Every number in the project's materials carries exactly one label:
     return cond;
   }
 
+  /* One-block SMARTER contract: a contract with named priorities, not seven loose letters. */
+  function parseContract(text) {
+    const raw = String(text || '').replace(/\r/g, '').trim();
+    if (!raw) return null;
+    /* A JSON contract is accepted too: {contract_parties, contract_period, baseline_rule,
+       priorities:[{n|title|source|specific|measurable|achievable|relevant|timeBound|evaluated|revised}],
+       governance:[...]} */
+    if (/^[{\[]/.test(raw)) {
+      try {
+        const j = JSON.parse(raw);
+        const pick = (o, keys) => { for (const k of keys) { if (o && o[k] != null && String(o[k]).trim()) return String(o[k]).trim(); } return ''; };
+        const arr = Array.isArray(j) ? j : (j.priorities || j.contract || j.items || []);
+        const head = (j.header && typeof j.header === 'object') ? j.header : {};
+        const rowsOf = (p, i) => ({
+          n: Number(p.n || p.number || p.priority || i + 1),
+          title: String(p.title || p.name || ''),
+          source: String(p.source || ''),
+          rows: [
+            ['Specific', pick(p, ['specific', 's'])],
+            ['Measurable', pick(p, ['measurable', 'm'])],
+            ['Achievable', pick(p, ['achievable', 'attainable', 'a'])],
+            ['Relevant', pick(p, ['relevant', 'r'])],
+            ['Time-bound', pick(p, ['timeBound', 'time_bound', 'time-bound', 'timebox', 't'])],
+            ['Evaluated', pick(p, ['evaluated', 'evaluative', 'e'])],
+            ['Revised', pick(p, ['revised', 'review', 'reviewable'])],
+          ].filter(([, v]) => v),
+        });
+        const priorities = (Array.isArray(arr) ? arr : []).map(rowsOf).filter((p) => p.rows.length >= 4);
+        const gov = Array.isArray(j.governance) ? j.governance.map((g) => (typeof g === 'string' ? g : [g.name || g.label || '', g.text || g.value || ''].filter(Boolean).join(': '))) : [];
+        if (priorities.length) {
+          return {
+            header: {
+              parties: pick(j, ['contract_parties', 'contractParties']) || pick(head, ['parties']),
+              period: pick(j, ['contract_period', 'contractPeriod']) || pick(head, ['period']),
+              baseline: pick(j, ['baseline_rule', 'baselineRule']) || pick(head, ['baseline']),
+            },
+            priorities, governance: gov, raw,
+          };
+        }
+      } catch (e) { /* fall through to the line-by-line parser */ }
+    }
+    const header = { parties: '', period: '', baseline: '' };
+    const priorities = []; const governance = [];
+    let cur = null, inGov = false;
+    const PRIO = /^\s*(?:Priority\s*(\d+)|P(\d+))\s*[—–\-:.]\s*(.+)$/i;
+    const ELEM = /^\s*(Specific|Measurable|Achievable|Relevant|Time-bound|Timebound|Evaluated|Evaluative|Revised|Reviewable|Review)\b\s*[:\t\-–—]*\s*(.*)$/i;
+    const ORDER = ['Specific', 'Measurable', 'Achievable', 'Relevant', 'Time-bound', 'Evaluated', 'Revised'];
+    const canon = (label) => {
+      const l = String(label).toLowerCase();
+      if (/^spec/.test(l)) return 'Specific';
+      if (/^meas/.test(l)) return 'Measurable';
+      if (/^ach/.test(l)) return 'Achievable';
+      if (/^rel/.test(l)) return 'Relevant';
+      if (/^time/.test(l)) return 'Time-bound';
+      if (/^eval/.test(l)) return 'Evaluated';
+      return 'Revised';
+    };
+    raw.split('\n').forEach((line) => {
+      const t = line.replace(/\s+$/, '').trim();
+      if (!t) return;
+      if (/^(contract\s+)?parties\s*[:\-]/i.test(t)) { header.parties = t.replace(/^(contract\s+)?parties\s*[:\-]\s*/i, ''); return; }
+      if (/^contract\s+period\s*[:\-]/i.test(t)) { header.period = t.replace(/^contract\s+period\s*[:\-]\s*/i, ''); return; }
+      if (/^baseline\s+rule\s*[:\-]/i.test(t)) { header.baseline = t.replace(/^baseline\s+rule\s*[:\-]\s*/i, ''); return; }
+      const pm = t.match(PRIO);
+      if (pm) { cur = { n: Number(pm[1] || pm[2]), title: pm[3].trim(), source: '', rows: [] }; priorities.push(cur); inGov = false; return; }
+      if (/^governance\s+of\s+the\s+contract/i.test(t)) { inGov = true; cur = null; return; }
+      if (inGov) { governance.push(t); return; }
+      if (!cur) return;
+      if (/^source\s*[:\-]/i.test(t)) { cur.source = t.replace(/^source\s*[:\-]\s*/i, ''); return; }
+      if (/^element\b/i.test(t) && /contract\s+term/i.test(t)) return;
+      const em = t.match(ELEM);
+      if (em) { cur.rows.push([canon(em[1]), em[2].trim()]); return; }
+      if (cur.rows.length) cur.rows[cur.rows.length - 1][1] += ' ' + t;
+    });
+    const valid = priorities.filter((p) => p.rows.length >= 4).map((p) => {
+      const by = new Map(p.rows);
+      return { n: p.n, title: p.title, source: p.source, rows: ORDER.map((n) => [n, by.get(n) || '']).filter(([, v]) => v) };
+    });
+    if (!valid.length) return null;
+    return { header, priorities: valid, governance, raw };
+  }
+  function contractHtml(contract) {
+    const LETTER = { Specific: 'S', Measurable: 'M', Achievable: 'A', Relevant: 'R', 'Time-bound': 'T', Evaluated: 'E', Revised: 'R' };
+    const head = [['Contract parties', contract.header.parties], ['Contract period', contract.header.period], ['Baseline rule', contract.header.baseline]].filter(([, v]) => v);
+    return '<div class="ws-block"><h3>3. SMARTER measurement contract — one block, ' + contract.priorities.length + ' priorit' + (contract.priorities.length === 1 ? 'y' : 'ies') + '</h3>' +
+      (head.length ? '<table class="ws-contract-head"><tbody>' + head.map(([k, v]) => '<tr><th>' + esc(k) + '</th><td>' + esc(v) + '</td></tr>').join('') + '</tbody></table>' : '') +
+      contract.priorities.map((p) => '<div class="ws-contract-prio"><h4>Priority ' + p.n + ' — ' + esc(p.title) + '</h4>' + (p.source ? '<p class="ws-src"><b>Source.</b> ' + esc(p.source) + '</p>' : '') + '<table><tbody>' + p.rows.map(([k, v]) => '<tr><th>' + esc(LETTER[k] || '') + ' · ' + esc(k) + '</th><td>' + esc(v) + '</td></tr>').join('') + '</tbody></table></div>').join('') +
+      (contract.governance.length ? '<div class="ws-contract-gov"><h4>Governance of the contract itself</h4><ul>' + contract.governance.map((g) => '<li>' + esc(g) + '</li>').join('') + '</ul></div>' : '') +
+      '<p class="ws-why">Why this block exists: one contract with named priorities is a measurement system; seven loose letters are a form.</p></div>';
+  }
+
+  /* Posting requirements the evidence check could not match strongly, read from
+     the current Job Fit analysis so they can flow into the spec and the prompt. */
+  function jobReqGaps() {
+    try {
+      const s = window.EPJobFit && window.EPJobFit.analysis ? window.EPJobFit.analysis() : null;
+      const a = s && s.a;
+      if (!a || !a.reqs) return [];
+      return a.reqs.filter((r) => r.status !== 'strong').map((r) => ({
+        status: r.status, requirement: r.text, missingTerms: (r.missing || []).slice(0, 8), closestEvidence: r.evidence || '',
+      }));
+    } catch (e) { return []; }
+  }
   function specHtml(brief) {
     const c = completeness(brief);
     const rows = stageRows(brief);
     const cascade = cascadeRows(brief);
     const smarter = smarterRows(brief);
+    const reqGaps = jobReqGaps();
+    const contract = parseContract(brief.contract);
     const selectedModels = MODELS.filter((m) => brief.models[m.key]);
     const selectedCharts = CHARTS.filter((ch) => brief.charts[ch.key]);
     const conds = conditionsOf(brief);
@@ -8588,10 +8834,16 @@ Every number in the project's materials carries exactly one label:
       '<table><thead><tr><th>Level</th><th>Anchor</th><th>Decision owner</th><th>Contribution</th></tr></thead><tbody>' + cascadeHtml + '</tbody></table>' +
       '<p class="ws-why">Why this block exists: alignment is a chain of decisions, not a sentence. Each level needs an anchor, an owner and a contribution.</p></div>' +
 
-      '<div class="ws-block"><h3>3. SMARTER strip</h3><div class="ws-chipline">' + smarterHtml + '</div>' +
+      (contract ? contractHtml(contract) : '<div class="ws-block"><h3>3. SMARTER strip</h3><div class="ws-chipline">' + smarterHtml + '</div>' +
       '<table><thead><tr><th>Letter</th><th>Test</th><th>Brief value</th></tr></thead><tbody>' +
       smarter.map((row) => '<tr><td><b>' + row.field.letter + '</b> ' + esc(row.field.name) + '</td><td>' + esc(row.field.test) + '</td><td>' + (row.ok ? esc(row.raw) : '<span class="ws-missingmark">' + esc(row.problem) + '</span>') + '</td></tr>').join('') +
-      '</tbody></table><p class="ws-why">Why this block exists: the measurement contract is what makes the proposal falsifiable.</p></div>' +
+      '</tbody></table><p class="ws-why">Why this block exists: the measurement contract is what makes the proposal falsifiable.</p></div>') +
+
+      (reqGaps.length ? '<div class="ws-block"><h3>3b. Requirements that are not yet strong (' + reqGaps.length + ')</h3>' +
+        '<p>The posting requirements below are partial or missing in the evidence map. This sample must address each one: show the page, control, model, chart or KPI that would close it, or state plainly that it is a plan or an assumption. Nothing may be invented to cover it.</p>' +
+        '<table><thead><tr><th>Status</th><th>Requirement</th><th>Missing terms</th><th>Closest evidence</th></tr></thead><tbody>' +
+        reqGaps.map((g) => '<tr><td class="' + (g.status === 'partial' ? 'ws-chip' : 'ws-missingmark') + '">' + esc(g.status.toUpperCase()) + '</td><td>' + esc(g.requirement) + '</td><td>' + esc(g.missingTerms.join(', ') || '&mdash;') + '</td><td>' + esc(g.closestEvidence || 'none found') + '</td></tr>').join('') +
+        '</tbody></table><p class="ws-why">Why this block exists: a sample that silently skips the weak requirements reads as evasion; one that names and plans them reads as judgment.</p></div>' : '') +
 
       '<div class="ws-block"><h3>4. Life cycle (six stages)</h3>' +
       '<table><thead><tr><th>Stage</th><th>Start</th><th>Finish</th><th>Gate</th><th>Owner</th><th>Evidence required</th></tr></thead><tbody>' + stageList + '</tbody></table>' +
@@ -8681,7 +8933,8 @@ Every number in the project's materials carries exactly one label:
     const tb = String(brief.smarter && brief.smarter.timebox || ''), tbDate = (tb.match(/\b20\d{2}-\d{2}-\d{2}\b/) || [])[0];
     const missing = conditionsOf(brief).map((x) => ({ gap: x, reviewerAction: 'Supply or verify before this page is used as evidence' }));
     if (tbDate && brief.startDate && tbDate !== brief.startDate) missing.unshift({ gap: 'The Time-bound statement names ' + tbDate + ' but the planned start is ' + brief.startDate, reviewerAction: 'Use the planned start for every date, and correct the Time-bound statement' });
-    return { asOf, program: { name: B.P.name, problem: B.A.problem, outcome: B.A.outcome, start: day(0), plannedWeeks: planned, deadlineWeek: B.deadline, scope }, phases, gates, kpis, risks, raci, budget, evm, actions, assurance, stakeholders, plan90, benefits, forecast, overrides, missing,
+    const reqGaps = jobReqGaps();
+    return { asOf, reqGaps, program: { name: B.P.name, problem: B.A.problem, outcome: B.A.outcome, start: day(0), plannedWeeks: planned, deadlineWeek: B.deadline, scope }, phases, gates, kpis, risks, raci, budget, evm, actions, assurance, stakeholders, plan90, benefits, forecast, overrides, missing,
       cadence: [{ forum: 'Weekly status', who: lead + ' + workstream owners', output: 'RAG status, blocked actions, next-week plan' }, { forum: 'Monthly steering', who: sponsor + ' + data owners + finance', output: 'Scorecard, EVM, top risks, decisions logged' }, { forum: 'Quarterly portfolio review', who: 'Sponsor and portfolio governance', output: 'Re-prioritize, re-forecast P50/P80, continue/pause' }, { forum: 'Gate reviews G0-G' + phases.length, who: 'Per gate decider', output: 'Proceed / rework / stop with evidence pack' }] };
   }
 
@@ -8693,6 +8946,7 @@ Every number in the project's materials carries exactly one label:
     const smarter = smarterRows(brief);
     const conds = conditionsOf(brief);
     const pack = dataPack(brief);
+    const contract = parseContract(brief.contract);
     const L = [];
     const H = (t) => { L.push(''); L.push('## ' + t); };
 
@@ -8706,8 +8960,20 @@ Every number in the project's materials carries exactly one label:
     L.push('- Job description (defines the duties the playbook must serve):'); L.push(indent(usable(brief.jd) || MISSING));
     L.push('- Published mission and values:'); L.push(indent(usable(brief.mission) || VERIFY));
     L.push('- Current plan / priorities:'); L.push(indent(usable(brief.plan) || VERIFY));
-    L.push('- SMARTER statements:');
-    smarter.forEach((row) => L.push('  - ' + row.field.letter + ' ' + row.field.name + ': ' + (row.ok ? row.raw : 'MISSING - ' + row.problem)));
+    if (contract) {
+      L.push('- SMARTER measurement contract — ONE block, ' + contract.priorities.length + ' priorities (authoritative: reproduce all of it, in this order, and do not split it into seven separate letter fields or drop a priority):');
+      L.push(indent(contract.raw.slice(0, 12000)));
+    } else {
+      L.push('- SMARTER statements:');
+      smarter.forEach((row) => L.push('  - ' + row.field.letter + ' ' + row.field.name + ': ' + (row.ok ? row.raw : 'MISSING - ' + row.problem)));
+    }
+
+    const reqGaps = jobReqGaps();
+    if (reqGaps.length) {
+      H('1b. Requirements that are not yet strong (address every one)');
+      L.push('A keyword check of the posting against the résumé found no strong evidence for the items below. Never invent experience, employers, dates, numbers or credentials. For each item, either show the page, control, model, chart or KPI in this sample that would close it, or label it honestly as a plan or assumption — and if it is a hard requirement, say what you would do about it in the first 90 days.');
+      reqGaps.forEach((g) => L.push('- [' + g.status + '] ' + g.requirement + (g.missingTerms.length ? ' (missing terms: ' + g.missingTerms.join(', ') + ')' : '') + (g.closestEvidence ? ' — closest evidence: ' + String(g.closestEvidence).slice(0, 160) : ' — closest evidence: none found')));
+    }
 
     H('2. Data pack (JSON) — the single source of truth for every number on the page');
     if (pack) {
@@ -9845,11 +10111,191 @@ window.EPSmarter = (() => {
     const r = research(job);
     return `Research the organization below using its OFFICIAL website and official publications only (strategic plan, annual report, news releases, leadership pages). Return ONLY a JSON object in exactly this shape:\n{"organization":"","mission":{"text":"","url":""},"values":[{"name":"","url":""}],"strategic_plan":{"name":"","years":"","url":""},"initiatives":[{"name":"","description":"","status":"current|upcoming|completed","timeframe":"","url":""}],"notes":""}\n\nRules: quote the mission and values verbatim; give the source URL for every item; include only initiatives, projects or plans that are published and current or upcoming; leave a field empty rather than guessing; never invent names, numbers or dates.\n\nOrganization: ${r.org || job.org || '[organization]'}\nUnit / role context: ${job.title || ''}\nJob description excerpt (for context only, not a source):\n${String(job.text || '').slice(0, 2500)}`;
   }
+  /* Lenient JSON reader for pasted AI output: strips code fences, normalises
+     typographic quotes, finds the largest balanced object/array and tolerates
+     trailing commas before giving up. */
+  /* Tolerant JSON reader for whatever an AI hands back: fences, prose, comments,
+     typographic quotes, single quotes, raw newlines inside strings, unquoted keys,
+     Python literals, trailing commas and top-level arrays. */
+  function jsonRepairPass(src, opts) {
+    let t = String(src || '');
+    if (opts.fences) t = t.replace(/^\uFEFF/, '').replace(/```[a-z]*/gi, '');
+    if (opts.quotes) t = t.replace(/[\u201C\u201D\u201E\u201F]/g, '"').replace(/[\u2018\u2019\u201A\u201B]/g, "'");
+    if (opts.comments) {
+      let out = '', inStr = false, q = '', esc = false;
+      for (let i = 0; i < t.length; i += 1) {
+        const c = t[i], n = t[i + 1];
+        if (inStr) { out += c; if (esc) esc = false; else if (c === '\\') esc = true; else if (c === q) inStr = false; continue; }
+        if (c === '"' || c === "'") { inStr = true; q = c; out += c; continue; }
+        if (c === '/' && n === '/') { while (i < t.length && t[i] !== '\n') i += 1; out += '\n'; continue; }
+        if (c === '/' && n === '*') { i += 2; while (i < t.length && !(t[i] === '*' && t[i + 1] === '/')) i += 1; i += 1; out += ' '; continue; }
+        out += c;
+      }
+      t = out;
+    }
+    if (opts.control) {
+      let out = '', inStr = false, q = '', esc = false;
+      for (let i = 0; i < t.length; i += 1) {
+        const c = t[i];
+        if (inStr) {
+          if (esc) { out += c; esc = false; continue; }
+          if (c === '\\') { out += c; esc = true; continue; }
+          if (c === q) { out += c; inStr = false; continue; }
+          if (c === '\n') { out += '\\n'; continue; }
+          if (c === '\r') continue;
+          if (c === '\t') { out += '\\t'; continue; }
+          out += c; continue;
+        }
+        if (c === '"' || c === "'") { inStr = true; q = c; }
+        out += c;
+      }
+      t = out;
+    }
+    if (opts.python) t = t.replace(/\bTrue\b/g, 'true').replace(/\bFalse\b/g, 'false').replace(/\bNone\b/g, 'null');
+    if (opts.keys) t = t.replace(/([{,]\s*)([A-Za-z_$][\w$]*)(\s*:)/g, (m, pre, key, post) => pre + '"' + key + '"' + post);
+    if (opts.single) {
+      let out = '', i = 0;
+      while (i < t.length) {
+        const c = t[i];
+        if (c !== "'") { out += c; i += 1; continue; }
+        let j = i + 1, val = '';
+        while (j < t.length) {
+          const d = t[j];
+          if (d === '\\') { val += d + (t[j + 1] || ''); j += 2; continue; }
+          if (d === "'") break;
+          if (d === '"') { val += '\\"'; j += 1; continue; }
+          val += d; j += 1;
+        }
+        out += '"' + val + '"'; i = j + 1;
+      }
+      t = out;
+    }
+    if (opts.commas) t = t.replace(/,(\s*[}\]])/g, '$1');
+    return t;
+  }
+  function balancedBlocks(text) {
+    const blocks = [];
+    for (let i = 0; i < text.length; i += 1) {
+      const ch = text[i];
+      if (ch !== '{' && ch !== '[') continue;
+      const open = ch, close = ch === '{' ? '}' : ']';
+      let depth = 0, inStr = false, escNext = false, end = -1;
+      for (let j = i; j < text.length; j += 1) {
+        const c = text[j];
+        if (inStr) { if (escNext) escNext = false; else if (c === '\\') escNext = true; else if (c === '"') inStr = false; continue; }
+        if (c === '"') { inStr = true; continue; }
+        if (c === open) depth += 1;
+        else if (c === close) { depth -= 1; if (!depth) { end = j; break; } }
+      }
+      if (end > i) { blocks.push(text.slice(i, end + 1)); i = end; }
+    }
+    return blocks.sort((a, b) => b.length - a.length);
+  }
+  function parseLooseJson(raw) {
+    const text = String(raw || '');
+    const parse = (s) => { try { const v = JSON.parse(s); return v === null || typeof v !== 'object' ? undefined : v; } catch (e) { return undefined; } };
+    /* Least-invasive first: a valid JSON reply keeps its curly apostrophes and wording.
+       Quote normalisation is a last resort for replies copy-pasted through Word. */
+    const passes = [
+      { fences: true },
+      { fences: true, commas: true },
+      { fences: true, control: true, commas: true },
+      { fences: true, comments: true, commas: true },
+      { fences: true, comments: true, control: true, commas: true },
+      { fences: true, comments: true, control: true, commas: true, python: true },
+      { fences: true, comments: true, control: true, commas: true, python: true, keys: true },
+      { fences: true, quotes: true, comments: true, control: true, commas: true, python: true, keys: true },
+      { fences: true, quotes: true, comments: true, control: true, commas: true, python: true, keys: true, single: true },
+    ];
+    for (const p of passes) {
+      const t = jsonRepairPass(text, p);
+      const direct = parse(t.trim()); if (direct !== undefined) return direct;
+      for (const b of balancedBlocks(t)) { const v = parse(b); if (v !== undefined) return v; }
+    }
+    return undefined;
+  }
+  /* Rich research documents: mission/values by level, current strategic plan,
+     related initiatives, an evidence register and proposed operating priorities. */
+  function adaptResearchDocument(o) {
+    if (!o || typeof o !== 'object') return null;
+    const lv = Array.isArray(o.mission_values_by_level) ? o.mission_values_by_level : null;
+    const plan = o.current_strategic_plan && typeof o.current_strategic_plan === 'object' ? o.current_strategic_plan : null;
+    const reg = Array.isArray(o.evidence_register) ? o.evidence_register : null;
+    const inits = Array.isArray(o.related_current_initiatives) ? o.related_current_initiatives : null;
+    const propos = (o.proposed_creo_operating_priorities && o.proposed_creo_operating_priorities.priorities) || (Array.isArray(o.strategic_research_priorities) ? o.strategic_research_priorities : null);
+    if (!lv && !plan && !reg && !inits) return null;
+    const line = (s) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim();
+    const urlOf = (x) => (x && typeof x === 'object' && /^https?:/i.test(x.url || '') ? x.url : '');
+    const out = {};
+    const orgParts = [];
+    if (o.job && typeof o.job === 'object') {
+      if (line(o.job.school)) orgParts.push(line(o.job.school));
+      if (line(o.job.institution) && !orgParts.some((x) => x.includes(line(o.job.institution)))) orgParts.push(line(o.job.institution));
+    }
+    if (!orgParts.length && lv && lv.length) { const l2 = lv.find((x) => x && x.level === 2) || lv[1] || lv[0]; if (l2 && line(l2.organization)) orgParts.push(line(l2.organization)); }
+    if (orgParts.length) out.org = orgParts.join(' — ').slice(0, 90);
+    const mlines = [];
+    (lv || []).forEach((L) => {
+      if (!L) return;
+      const name = line(L.organization || L.name || '');
+      const m = L.mission || {};
+      const text = line(m.exact_quote || (Array.isArray(m.exact_quote_segments) ? m.exact_quote_segments.join(' ') : '') || m.interpretation || m.mission_interpretation || L.mission_interpretation || L.mandate || '');
+      if (text) mlines.push('- ' + (name ? name + ': ' : '') + text + (/[.!?]$/.test(text) ? '' : '.'));
+    });
+    if (mlines.length) out.mission = mlines.join('\n');
+    const vlines = [];
+    (lv || []).forEach((L) => {
+      if (!L) return;
+      (Array.isArray(L.values) ? L.values : []).forEach((v) => {
+        if (!v) return;
+        const t = (line(v.name || '') + (line(v.exact_quote || v.summary || '') ? ' — ' + line(v.exact_quote || v.summary || '') : '')).trim();
+        if (t) vlines.push(t);
+      });
+      (Array.isArray(L.published_principles) ? L.published_principles : []).forEach((p) => { if (line(p)) vlines.push(line(p)); });
+    });
+    if (vlines.length) out.values = [...new Set(vlines)].slice(0, 20).join('\n');
+    if (plan) {
+      const nm = line(plan.name || '');
+      if (nm) out.plan = nm + (plan.planning_horizon ? ' (' + line(plan.planning_horizon) + ')' : '') + (plan.publication_date ? ' · published ' + line(plan.publication_date) : '');
+      const goals = Array.isArray(plan.goals) ? plan.goals : [];
+      if (goals.length) out.initiatives = goals.slice(0, 10).map((g) => [line(g.name || ''), 'current', line(plan.planning_horizon || ''), urlOf(plan)].join(' | ')).join('\n');
+    }
+    if (inits && inits.length) {
+      const rows = inits.slice(0, 8).map((i) => [line(i.name || ''), line(i.status || 'current'), line(i.source_period || ''), ''].join(' | '));
+      out.initiatives = [out.initiatives, rows.join('\n')].filter(Boolean).join('\n');
+    }
+    if (propos && propos.length) {
+      out.operatingPriorities = propos.slice(0, 8).map((p) => line(p.name || p.priority || '') + (p.objective ? ' — ' + line(p.objective) : p.direction ? ' — ' + line(p.direction) : '')).filter(Boolean).join('\n');
+    }
+    const src = [];
+    (reg || []).forEach((e) => { if (e && /^https?:/i.test(e.url || '')) src.push(line(e.title || 'Source') + ' | ' + e.url); });
+    (Array.isArray(o.university_research_partners) ? o.university_research_partners : []).forEach((p) => { if (p && /^https?:/i.test(p.source_url || '')) src.push(line(p.organization || 'Partner') + ' | ' + p.source_url); });
+    if (plan && /^https?:/i.test(plan.official_pdf || '')) src.push('HKS 2036 plan | ' + plan.official_pdf);
+    if (src.length) out.sources = [...new Set(src)].join('\n');
+    const ec = o.executive_conclusion && typeof o.executive_conclusion === 'object' ? o.executive_conclusion : null;
+    if (ec && line(ec.recommended_application_theme)) out.motto = line(ec.recommended_application_theme);
+    return Object.keys(out).length ? out : null;
+  }
   function applyJson(job, raw, origin) {
-    const t = String(raw || ''); const a = t.indexOf('{'), b = t.lastIndexOf('}');
-    if (a < 0 || b <= a) throw new Error('No JSON object found.');
-    const o = JSON.parse(t.slice(a, b + 1));
+    let o = parseLooseJson(raw);
+    if (o === undefined || o === null) throw new Error('No readable JSON object found — check the braces, quotes and trailing commas.');
+    if (Array.isArray(o)) o = o.find((x) => x && typeof x === 'object') || {};
+    /* Rich research documents are adapted before the flat-shape routing below. */
+    const rich = adaptResearchDocument(o);
+    if (rich) {
+      const r = research(job);
+      Object.assign(r, rich, { origin, confirmed: false, jsonApplied: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) });
+      if (!job.org && rich.org) job.org = rich.org;
+      if (o.job && typeof o.job === 'object') {
+        if (!job.url && /^https?:/i.test(o.job.url || '')) job.url = o.job.url;
+        if (!job.unit && line(o.job.school)) job.unit = String(o.job.school).trim();
+        if (o.job.reference) job.ref = String(o.job.reference);
+      }
+      return Object.keys(rich).length;
+    }
     if ((o.research || o.roleIntel || o.job || o.jobs) && window.EPJobFit && window.EPJobFit.applyResearch) { window.EPJobFit.applyResearch(job, o, origin); return; }
+    const known = ['organization', 'org', 'mission', 'values', 'initiatives', 'strategic_plan', 'motto', 'principles', 'context', 'unit_mission', 'research', 'identity', 'plans', 'jobs', 'job', 'roleIntel'];
+    if (!known.some((k) => o[k] !== undefined)) throw new Error('JSON read, but no research fields were recognised (keys: ' + Object.keys(o).slice(0, 8).join(', ') + '). Expected mission / values / initiatives, or a research / identity / plans object.');
     const r = research(job);
     if (o.organization) r.org = String(o.organization);
     if (o.mission) r.mission = String(o.mission.text || o.mission || '') + (o.mission.url ? '\nSource: ' + o.mission.url : '');
@@ -9864,6 +10310,15 @@ window.EPSmarter = (() => {
     if (o.motto && o.motto.url) src.push(o.motto.url); if (o.unit_mission && o.unit_mission.url) src.push(o.unit_mission.url); (o.context || []).forEach((x) => x && /^https?:/i.test(x.url || '') && src.push(x.url));
     r.sources = [...new Set([...String(r.sources || '').split('\n').filter(Boolean), ...src.filter((u) => /^https?:/i.test(u || ''))])].join('\n');
     if (o.strategic_plan && o.strategic_plan.name) r.plan = o.strategic_plan.name + (o.strategic_plan.years ? ' (' + o.strategic_plan.years + ')' : '');
+    /* Accept the identity/plans/calendar shape some research prompts return. */
+    const R2 = (o.research && typeof o.research === 'object') ? o.research : o;
+    const I2 = o.identity || {}, P2 = o.plans || {};
+    if (!r.org) { const og = R2.organization || R2.org || I2.organization || I2.org; if (og) r.org = String(og); }
+    if (!r.mission) { const m = R2.mission || I2.mission || P2.mission; if (m) r.mission = typeof m === 'string' ? m : String(m.text || '') + (m.url ? '\nSource: ' + m.url : ''); }
+    if (!r.values) { const v = R2.values || I2.values || P2.values; if (v) r.values = Array.isArray(v) ? v.map((x) => (typeof x === 'string' ? x : ((x && (x.name || x.text)) || '') + (x && x.url ? ' | ' + x.url : ''))).filter(Boolean).join('\n') : String(v); }
+    if (!r.initiatives) { const it = R2.initiatives || P2.initiatives; if (it) r.initiatives = Array.isArray(it) ? it.map((x) => [x && (x.name || x.text) || '', x && x.status || '', x && x.timeframe || '', x && x.url || ''].join(' | ')).filter((s) => s.replace(/\|/g, '').trim()).join('\n') : String(it); }
+    if (!r.plan) { const sp = R2.strategic_plan || P2.strategic_plan || P2.plan; if (sp) r.plan = typeof sp === 'string' ? sp : (sp.name || '') + (sp.years ? ' (' + sp.years + ')' : ''); }
+    if (!r.mission && !r.values && !r.initiatives && !r.plan) throw new Error('JSON read, but no research fields were recognised (keys: ' + Object.keys(o).slice(0, 8).join(', ') + '). Expected mission / values / initiatives, or a research / identity / plans object.');
     r.origin = origin; r.confirmed = false;
   }
 
@@ -10103,7 +10558,7 @@ window.EPSmarter = (() => {
     <div class="sm-rgrid"><div><p class="jf-sub">This page cannot browse the web on its own. Choose one: copy the research prompt into Claude or ChatGPT with web search and paste the JSON back; paste the official text yourself; ${sampleFn ? 'or ask Claude for a first draft from what it already knows (you must verify it).' : 'or ask me (Claude) in chat to research the organization for you.'}</p>
     <div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-sm-act="rprompt">Copy research prompt</button>${sampleFn ? '<button type="button" class="jf-btn" data-sm-act="rask">Ask Claude for a draft</button>' : ''}<button type="button" class="jf-btn" data-sm-act="rjsonshow">Paste research JSON</button></div>
     <div class="sm-json" ${r.showJson ? '' : 'hidden'}><textarea data-sm-json rows="5" placeholder='{"organization":"…","mission":{"text":"…","url":"…"},"values":[…],"initiatives":[…]}'></textarea><button type="button" class="jf-btn jf-primary" data-sm-act="rjson">Apply JSON</button></div>
-    <p class="sm-status" data-sm-status>${r.origin === 'ai' && !r.confirmed ? '⚠ AI draft from Claude’s training knowledge — check each item against the official site, then confirm.' : ''}</p>
+    <p class="sm-status" data-sm-status>${r.origin === 'ai' && !r.confirmed ? '⚠ AI draft from Claude’s training knowledge — check each item against the official site, then confirm.' : ''}${r.jsonApplied ? ' · JSON applied ' + E(r.jsonApplied) : ''}</p>
     ${r.origin === 'ai' ? `<label class="jf-check" style="cursor:pointer" data-s="${r.confirmed ? 'pass' : 'warn'}"><span class="ico">${r.confirmed ? '✓' : '!'}</span><span><strong>I verified these items against official sources</strong><small>Required before the smoke test can pass</small></span><input type="checkbox" data-sm-r="confirmed" ${r.confirmed ? 'checked' : ''} style="width:18px;height:18px"></label>` : ''}</div>
     <div class="sm-rfields"><label>Organization<input data-sm-r="org" value="${E(r.org || m.job.org || '')}"></label><label>Mission (verbatim, with source)<textarea data-sm-r="mission" rows="3">${E(r.mission)}</textarea></label><label>Core values (one per line)<textarea data-sm-r="values" rows="3">${E(r.values)}</textarea></label><label>Current & upcoming published projects / plans — one per line: <i>Name | status | timeframe | URL</i><textarea data-sm-r="initiatives" rows="4" placeholder="Data Strategy 2027 | upcoming | FY27–FY29 | https://…">${E(r.initiatives)}</textarea></label><label>Source URLs<textarea data-sm-r="sources" rows="2">${E(r.sources)}</textarea></label></div></div></details>`;
   }
@@ -10356,7 +10811,25 @@ window.EPSmarter = (() => {
     switch (d.smAct) {
       case 'rprompt': copyText(researchPrompt(job), 'Research prompt'); return true;
       case 'rjsonshow': research(job).showJson = !research(job).showJson; ctx.save(); ctx.render(); return true;
-      case 'rjson': { const ta = document.querySelector('[data-sm-json]'); try { applyJson(job, ta.value, 'json'); research(job).showJson = false; ctx.save(); ctx.render(); ctx.toast('Research applied — check each item against its source.'); } catch (err) { ctx.toast('Could not read that JSON: ' + err.message); } return true; }
+      case 'rjson': {
+        const ta = document.querySelector('[data-sm-json]');
+        const raw = ta && ta.value ? ta.value : '';
+        try {
+          const n = applyJson(job, raw, 'json');
+          const r = research(job);
+          r.jsonApplied = new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+          r.showJson = false; ctx.save(); ctx.render();
+          const got = [r.org && 'organization', r.mission && 'mission', r.values && 'values', r.initiatives && 'initiatives', r.plan && 'plan', r.motto && 'motto', r.principles && 'principles', r.context && 'context'].filter(Boolean);
+          ctx.toast('Research JSON applied — ' + (got.join(', ') || 'nothing recognised'));
+          ctx.openDlg('Research JSON applied', 'Loaded ' + (got.length || n) + ' field' + ((got.length || n) === 1 ? '' : 's'), '<p><b>Now in the program:</b> ' + E(got.join(', ') || 'nothing recognisable') + '.</p><p class="jf-sub">An AI draft is not evidence: open each item, check it against the official page, then tick “I verified these items”. The program’s indices and KPIs rebuild from these fields.</p>');
+        } catch (err) {
+          const msg = String((err && err.message) || err);
+          const r = research(job); r.showJson = true;
+          try { ctx.save(); ctx.render(); } catch (e) { /* keep the page usable */ }
+          ctx.openDlg('Could not read that JSON', 'Nothing was changed', '<p>' + E(msg) + '</p><p class="jf-sub">The box is still open. Common causes: the reply has prose inside the braces, a bare comma before a closing brace/bracket, a quote that never closes, or keys that are not research keys. If it still fails, paste the JSON in chat and I will match its exact shape.</p>');
+        }
+        return true;
+      }
       case 'rask': {
         if (!sampleFn) return true;
         const st = document.querySelector('[data-sm-status]'); el.disabled = true; if (st) st.textContent = 'Thinking… (Claude answers from what it knows; it cannot browse from this page)';
@@ -10741,7 +11214,7 @@ window.EPAppDocs = (() => {
       const ORGISH = /office|faculty of|department|institutional|college|school|center|centre|practice|since|resources|division|advancement|medical center|unctad|university|unit\b/i;
       const ku = parts.findIndex((x, k) => k > 0 && ORGISH.test(x));
       if (ku > 0) { unit = parts.slice(ku).join(' · '); title = parts.slice(0, ku).join(' · '); }
-      const bl = r.bullets.map(clean).filter((b) => b.length > 12).map((b, k) => ({ b, k, s: words(b).filter((w) => jw.has(w)).length + (/\d/.test(b) ? 0.5 : 0) }));
+      const bl = r.bullets.map(clean).filter((b) => b.length > 12).map((b, k) => ({ b, k, s: words(b).filter((w) => jw.has(w)).length + (/\d/.test(b) ? 0.5 : 0) + (verbLed(b) ? 1.25 : 0) + (METRIC.test(b) ? 0.75 : 0) }));
       const keepN = i === 1 ? 5 : i === 0 ? 3 : 4;
       const top = []; bl.slice().sort((x, y) => y.s - x.s || x.k - y.k).forEach((x) => { if (top.length < keepN && !keptB.some((t) => near(t, x.b))) { top.push(x); keptB.push(x.b); } });
       const fmt = (d, m) => d ? (m ? String(d.m).padStart(2, '0') + '/' : '') + d.y : '';
@@ -10814,7 +11287,7 @@ window.EPAppDocs = (() => {
     B.push({ runs: ct, after: 20 });
     const lk = [{ t: 'Links: ', b: true }]; m.links.forEach((l, i) => { if (i) lk.push({ t: '  ·  ' }); lk.push(l.url ? { t: l.label, href: l.url } : { t: l.label }); });
     if (m.links.length) B.push({ runs: lk, border: { color: navy, sz: 12, space: 6 }, after: 60 });
-    H('EXECUTIVE LEADERSHIP STATEMENT');
+    H('PROFILE · EXECUTIVE LEADERSHIP STATEMENT');
     B.push({ runs: HI(m.lede).flatMap((t) => (/One Harvard/.test(t) ? [{ t, b: true, color: 'C00000' }] : KR(t, 3, 0, 'lede'))), after: 80 });
     const sr = []; m.smarter.forEach(([k, t], i) => { if (i) sr.push({ t: ' ' }); sr.push({ t: k, b: true }); sr.push({ t: ', ' }); sr.push(...KR(t, 1, 0, 'smarter')); sr.push({ t: '.' }); });
     B.push({ runs: sr, after: 60 });
@@ -10825,7 +11298,7 @@ window.EPAppDocs = (() => {
     }
     H('SELECTED WORK SAMPLES');
     m.samples.forEach((s) => B.push({ bullet: true, runs: [s.label ? (s.url ? { t: s.label + ':', b: true, href: s.url } : { t: s.label + ':', b: true }) : null, { t: (s.label ? ' ' : '') + s.text }].filter(Boolean), after: 30 }));
-    if (m.caps.length) { H('CAPABILITIES'); m.caps.forEach((c) => { B.push({ runs: [{ t: c.title, b: true, color: navy }], after: 0, keepNext: true }); if (c.text) B.push({ runs: [{ t: c.text }], after: 80 }); }); }
+    if (m.caps.length) { H('SKILLS & CAPABILITIES'); m.caps.forEach((c) => { B.push({ runs: [{ t: c.title, b: true, color: navy }], after: 0, keepNext: true }); if (c.text) B.push({ runs: [{ t: c.text }], after: 80 }); }); }
     H('PROFESSIONAL EXPERIENCE');
     m.roles.forEach((r, ri) => {
       B.push({ runs: [{ t: r.org, b: true, color: navy, sz: 17 }, { tab: true }, { t: r.when, b: true, color: navy, sz: 17 }], tabs: [10780], before: 120, after: 0, keepNext: true });
@@ -10837,15 +11310,15 @@ window.EPAppDocs = (() => {
     if (m.systems.length) { H(m.sysTitle || 'SYSTEMS'); m.systems.forEach((s) => B.push({ bullet: true, runs: [s.label ? { t: s.label + ':', b: true, sz: 17 } : null, { t: (s.label ? ' ' : '') + s.text, sz: 17 }].filter(Boolean), after: 20 })); }
     return B;
   }
-  const RCSS = `.rz{font-family:Cambria,Georgia,serif;color:#333;font-size:12.6px;line-height:1.42;max-width:820px;margin:0 auto;background:#fff;padding:34px 40px}.rz a{color:#0070C0;text-decoration:none}.rz .nm{font-weight:700;color:#2C3E50;letter-spacing:.18em;font-size:14.5px}.rz .hl{font-weight:700;margin:2px 0}.rz .ln{border-bottom:2px solid #2C3E50;padding-bottom:7px;margin-bottom:6px}.rz h4{font-size:12px;letter-spacing:.12em;color:#2C3E50;border-bottom:1px solid #75BCEB;padding-bottom:2px;margin:14px 0 6px}.rz .oh{color:#C00000;font-weight:700}.rz table{width:100%;border-collapse:separate;border-spacing:3px}.rz td{background:#F4F7F6;vertical-align:top;padding:6px 9px;width:50%;font-size:11.8px}.rz td b{color:#2C3E50;display:block}.rz ul{margin:2px 0 6px 16px;padding:0}.rz li{margin:2px 0}.rz .ro{display:flex;justify-content:space-between;font-weight:700;color:#2C3E50;margin-top:9px;font-size:12px}.rz .rt{font-weight:700;color:#A91515;font-size:12px}.rz .rt span{color:#5A6B7B;font-weight:400}.rz .cp b{color:#2C3E50}.rz .cp p{margin:0 0 6px}@media(max-width:600px){.rz{padding:18px}.rz td{display:block;width:auto}}`;
+  const RCSS = `.rz{font-family:Cambria,Georgia,serif;color:#333;font-size:12.6px;line-height:1.42;max-width:820px;margin:0 auto;background:#fff;padding:34px 40px}.rz a{color:#0070C0;text-decoration:none}.rz .nm{font-weight:700;color:#2C3E50;letter-spacing:.18em;font-size:14.5px}.rz .hl{font-weight:700;margin:2px 0}.rz .ln{border-bottom:2px solid #2C3E50;padding-bottom:7px;margin-bottom:6px}.rz h4{font-size:12px;letter-spacing:.12em;color:#2C3E50;border-bottom:1px solid #75BCEB;padding-bottom:2px;margin:14px 0 6px}.rz .oh{color:#C00000;font-weight:700}.rz table{width:100%;border-collapse:separate;border-spacing:3px}.rz td{background:#F4F7F6;vertical-align:top;padding:6px 9px;width:50%;font-size:11.8px}.rz td b{color:#2C3E50;display:block}.rz ul{margin:2px 0 6px 16px;padding:0}.rz li{margin:2px 0}.rz .ro{display:flex;justify-content:space-between;font-weight:700;color:#2C3E50;margin-top:9px;font-size:12px}.rz .rt{font-weight:700;color:#A91515;font-size:12px}.rz .rt span{color:#5A6B7B;font-weight:400}.rz .cp b{color:#2C3E50}.rz .cp p{margin:0 0 6px}@media(max-width:600px){.rz{padding:18px}.rz td{display:block;width:auto}}@media print{.rz{padding:0;font-size:11.3px;line-height:1.3}.rz .nm{font-size:13.4px}.rz .hl{font-size:12px}.rz h4{font-size:10.4px;margin:9px 0 4px}.rz table{border-spacing:2px}.rz td{padding:4px 7px;font-size:10.6px}.rz ul{margin:1px 0 4px 14px}.rz li{margin:0 0 1px}.rz .ro{margin-top:6px;font-size:11.3px}.rz .rt{font-size:11.3px}.rz .cp p{margin:0 0 4px}}`;
   function resumeHtml(m) {
     const K = kwMarker(m), KH = (text, max, zone, sub) => K(text, max, zone, sub).map((x) => (x.b ? `<b class="kw">${E(x.t)}</b>` : E(x.t))).join('');
     const L = (l) => (l.url ? `<a href="${E(l.url)}">${E(l.label)}</a>` : E(l.label));
     return `<div class="rz"><div class="nm">${E(m.name)}</div><div class="hl">${E(m.headline)}</div><div>${m.contact.map(E).join(' · ')}${m.linkedin ? ` · <a href="${E(/^https?:/i.test(m.linkedin) ? m.linkedin : 'https://' + m.linkedin)}">LinkedIn</a>` : ''}</div>${m.links.length ? `<div class="ln"><b>Links:</b> ${m.links.map(L).join(' · ')}</div>` : ''}
-<h4>EXECUTIVE LEADERSHIP STATEMENT</h4><p>${HI(m.lede).map((t) => (/One Harvard/.test(t) ? `<span class="oh">${E(t)}</span>` : KH(t, 3, 'lede'))).join('')}</p><p>${m.smarter.map(([k, t]) => `<b>${E(k)}</b>, ${KH(t, 1, 'smarter')}.`).join(' ')}</p>
+<h4>PROFILE · EXECUTIVE LEADERSHIP STATEMENT</h4><p>${HI(m.lede).map((t) => (/One Harvard/.test(t) ? `<span class="oh">${E(t)}</span>` : KH(t, 3, 'lede'))).join('')}</p><p>${m.smarter.map(([k, t]) => `<b>${E(k)}</b>, ${KH(t, 1, 'smarter')}.`).join(' ')}</p>
 ${m.cells.length ? `<h4>STRENGTHS MATCHED TO THE ROLE</h4><table>${Array.from({ length: Math.ceil(m.cells.length / 2) }, (_, i) => `<tr>${[m.cells[2 * i], m.cells[2 * i + 1]].map((c) => c ? `<td><b>${E(c.title)}</b>${KH(c.body, 1, 'cells')}</td>` : '<td></td>').join('')}</tr>`).join('')}</table>` : ''}
 <h4>SELECTED WORK SAMPLES</h4><ul>${m.samples.map((s) => `<li>${s.label ? `<b>${s.url ? `<a href="${E(s.url)}">${E(s.label)}:</a>` : E(s.label) + ':'}</b> ` : ''}${E(s.text)}</li>`).join('')}</ul>
-${m.caps.length ? `<h4>CAPABILITIES</h4><div class="cp">${m.caps.map((c) => `<p><b>${E(c.title)}</b><br>${E(c.text)}</p>`).join('')}</div>` : ''}
+${m.caps.length ? `<h4>SKILLS & CAPABILITIES</h4><div class="cp">${m.caps.map((c) => `<p><b>${E(c.title)}</b><br>${E(c.text)}</p>`).join('')}</div>` : ''}
 <h4>PROFESSIONAL EXPERIENCE</h4>${m.roles.map((r, ri) => `<div class="ro"><span>${E(r.org)}</span><span>${E(r.when)}</span></div><div class="rt">${E(r.title)}${r.unit ? `<span> · ${E(r.unit)}</span>` : ''}</div><ul>${r.bullets.map((b) => `<li>${b.label ? `<b>${E(b.label)}:</b> ` : ''}${KH(b.text, 2, 'exp', ri)}</li>`).join('')}</ul>`).join('')}
 ${m.certs.length ? `<h4>CERTIFICATIONS</h4><ul>${m.certs.map((c) => `<li><b>${E(c.name)}</b>${c.note ? ' – ' + E(c.note) : ''}</li>`).join('')}</ul>` : ''}${m.edu.length ? `<h4>EDUCATION</h4><ul>${m.edu.map((d) => `<li><b>${E(d.deg)}</b>${d.note ? ' – ' + E(d.note) : ''}</li>`).join('')}</ul>` : ''}${m.systems.length ? `<h4>${E(m.sysTitle || 'SYSTEMS')}</h4><ul>${m.systems.map((s) => `<li>${s.label ? `<b>${E(s.label)}:</b> ` : ''}${E(s.text)}</li>`).join('')}</ul>` : ''}</div>`;
   }
@@ -11478,8 +11951,30 @@ ${cad.map(([n, s, c, rows], i) => `<div class="wrapx" data-cadp="${i}"${i ? ' hi
       return { text: u.text, score: s, req: bestR && bestV > 0.15 ? bestR : null };
     }).sort((a, b) => b.score - a.score).slice(0, 8).filter((b) => b.score > 0);
     const ats = resume ? atsChecks(R, kwCov, rUnits) : [];
+    /* Measure the same checks against the tailored SMARTER résumé the app generates.
+       That document is where the app can actually fix format problems (headings,
+       bullet choice). Its length is left alone so the two-page target holds. */
+    let atsFixed = [];
+    try {
+      if (resume && window.EPAppDocs) {
+        const tmpA = { job, resume, reqs, kws, span, name: nameOf(R) };
+        const m = window.EPAppDocs.resumeModel(tmpA, R, { wsUrl: job.wsUrl, profileUrl: job.profileUrl });
+        const units = m.roles.flatMap((r) => r.bullets.map((b) => ({ text: b.text })));
+        const txt = [
+          m.name, m.headline, m.contact.join(' · '),
+          'PROFILE · EXECUTIVE LEADERSHIP STATEMENT', m.lede,
+          ...m.smarter.map(([k, t]) => k + ', ' + t + '.'),
+          ...(m.caps.length ? ['SKILLS & CAPABILITIES', ...m.caps.map((c) => c.title + ' ' + c.text)] : []),
+          'PROFESSIONAL EXPERIENCE',
+          ...m.roles.map((r) => `${r.org} ${r.when}\n${r.title}\n${r.bullets.map((b) => '- ' + b.text).join('\n')}`),
+          ...(m.edu.length ? ['EDUCATION', ...m.edu.map((d) => d.deg)] : []),
+          ...(m.systems.length ? ['SYSTEMS', ...m.systems.map((s) => s.text)] : []),
+        ].join('\n');
+        atsFixed = atsChecks(txt, kwCov, units.filter((u) => u.text));
+      }
+    } catch (e) { atsFixed = []; }
     const coverRes = cover ? coverChecks(cover.text, job, kws) : null;
-    const res = { key, job, resume, cover, reqs, reqFit, kws, kwCov, score, band: score >= 75 ? 'good' : score >= 55 ? 'mid' : 'low', jd, jdPref, rd, equiv, degreeGap, span, yearsAsk, salary, mode, ask, show, ranked, ats, coverRes, contact: contactOf(R), name: nameOf(R) };
+    const res = { key, job, resume, cover, reqs, reqFit, kws, kwCov, score, band: score >= 75 ? 'good' : score >= 55 ? 'mid' : 'low', jd, jdPref, rd, equiv, degreeGap, span, yearsAsk, salary, mode, ask, show, ranked, ats, atsFixed, coverRes, contact: contactOf(R), name: nameOf(R) };
     res.plan = buildPlan(res);
     memo.set(key, res);
     return res;
@@ -11726,24 +12221,46 @@ ${cad.map(([n, s, c, rows], i) => `<div class="wrapx" data-cadp="${i}"${i ? ' hi
     const weak = DIMS.map((d, i) => ({ d, ask: a.ask[i], show: a.show[i] })).filter((x) => x.ask > 0.4 && x.show < x.ask - 0.15).sort((x, y) => (y.ask - y.show) - (x.ask - x.show));
     const strongD = DIMS.map((d, i) => ({ d, ask: a.ask[i], show: a.show[i] })).filter((x) => x.ask > 0.35 && x.show >= x.ask - 0.05).sort((x, y) => y.ask - x.ask);
     const atsPass = a.ats.filter((c) => c.s === 'pass').length;
+    const atsFixN = a.ats.filter((c) => isFixedCheck(c, fixedMap(a)[c.id])).length;
     const filt = state.reqFilter;
     const rows = a.reqs.filter((r) => filt === 'all' || r.status === filt);
-    return `${postingNotice(a.job)}<div class="jf-kpis"><div class="jf-kpi"><span>Evidence match</span><strong style="color:${bandColor(a.band)}">${a.score}<small style="display:inline;font-size:13px"> /100</small></strong><small>${esc(bandText(a.band))}</small></div><button type="button" class="jf-kpi" data-jf-filter="gap"><span>Requirements</span><strong>${s}<small style="display:inline;font-size:12px"> strong · </small>${p}<small style="display:inline;font-size:12px"> partial · </small>${g}<small style="display:inline;font-size:12px"> gap</small></strong>${stack(a.reqs)}<small>${n} found in the posting — click to see gaps</small></button><div class="jf-kpi"><span>Keyword coverage</span><strong>${Math.round(a.kwCov)}%</strong><small>${a.kws.filter((k) => k.have).length} of ${a.kws.length} top terms in your words</small></div><div class="jf-kpi"><span>ATS readiness</span><strong>${atsPass}/${a.ats.length}</strong><small>résumé format checks passed</small></div><div class="jf-kpi"><span>Cover letter</span><strong>${a.coverRes ? a.coverRes.score + '%' : '—'}</strong><small>${a.coverRes ? 'checks passed — see Cover letter tab' : 'none added — a draft is ready'}</small></div></div>
+    return `${postingNotice(a.job)}<div class="jf-kpis"><div class="jf-kpi"><span>Evidence match</span><strong style="color:${bandColor(a.band)}">${a.score}<small style="display:inline;font-size:13px"> /100</small></strong><small>${esc(bandText(a.band))}</small></div><button type="button" class="jf-kpi" data-jf-filter="gap"><span>Requirements</span><strong>${s}<small style="display:inline;font-size:12px"> strong · </small>${p}<small style="display:inline;font-size:12px"> partial · </small>${g}<small style="display:inline;font-size:12px"> gap</small></strong>${stack(a.reqs)}<small>${n} found in the posting — click to see gaps</small></button><div class="jf-kpi"><span>Keyword coverage</span><strong>${Math.round(a.kwCov)}%</strong><small>${a.kws.filter((k) => k.have).length} of ${a.kws.length} top terms in your words</small></div><div class="jf-kpi"><span>ATS readiness</span><strong>${atsPass + atsFixN}/${a.ats.length}</strong><small>${atsFixN ? atsFixN + ' fixed by your tailored résumé · ' : ''}format checks passed</small></div><div class="jf-kpi"><span>Cover letter</span><strong>${a.coverRes ? a.coverRes.score + '%' : '—'}</strong><small>${a.coverRes ? 'checks passed — see Cover letter tab' : 'none added — a draft is ready'}</small></div></div>
     ${window.EPRoleIntel ? window.EPRoleIntel.html(a, a.job) : ''}
     <div class="jf-grid3"><div class="jf-card jf-gauge"><h3>Evidence-match score</h3>${gauge(a.score, a.band)}<div class="jf-verdict" style="color:${bandColor(a.band)}">${esc(bandText(a.band))}</div><p class="jf-sub">75% requirement coverage (required ×1.25, duties ×1, preferred ×0.5) + 25% keyword coverage${a.degreeGap ? ', −8 for a required degree not shown' : ''}. Heuristic only.</p><button type="button" class="jf-btn" data-jf-act="method">How it is scored</button></div>
     <div class="jf-card"><h3>What the job asks vs. what you show</h3><p class="jf-sub">Emphasis by area. Red labels = the job leans on it more than your résumé does.</p>${radar(a.ask, a.show)}<div class="jf-legend"><span><i style="background:rgba(196,138,44,.35);border:2px dashed #c48a2c"></i>Job emphasis</span><span><i style="background:rgba(47,127,138,.45)"></i>Your résumé</span></div></div>
     <div class="jf-card"><h3>Top job keywords</h3><p class="jf-sub">Most-repeated terms in the posting. Add a missing one only where a true example exists.</p>${kwBars(a.kws)}</div></div>
     <div class="jf-grid2" style="margin-top:14px"><div class="jf-card"><h3>Lead with these strengths</h3><p class="jf-sub">Areas the job stresses where your résumé already has matching evidence.</p>${strongD.length ? `<div class="jf-tags">${strongD.map((x) => `<span class="jf-tag">${esc(x.d.label)}</span>`).join('')}</div>` : '<p class="jf-sub">No area is clearly covered yet — check the requirement table below.</p>'}<h3 style="margin-top:14px">Strengthen before you apply</h3>${weak.length ? `<ol class="jf-list">${weak.slice(0, 4).map((x) => `<li><b>${esc(x.d.label)}</b> — the posting stresses it; your résumé shows less. Add one true, quantified bullet or address it in the letter.</li>`).join('')}</ol>` : '<p class="jf-sub">No large area gaps detected.</p>'}${a.degreeGap ? `<p class="jf-note">This posting appears to require a ${esc(a.jd.note)} degree without an “or equivalent” clause, and the résumé shows ${esc(a.rd.note.toLowerCase())}. Address it openly in the cover letter rather than leaving it to the screener.</p>` : ''}</div>
-    <div class="jf-card"><h3>ATS & format checks</h3><p class="jf-sub">Click any check for the common mistake, best practice and numbered fixes.</p><div class="jf-checks">${a.ats.map(checkRow).join('')}</div></div></div>
-    <div class="jf-card" style="margin-top:14px"><h3>Requirement-by-requirement evidence map</h3><p class="jf-sub">Each line from the posting, matched to the closest line in your résumé. Click a requirement for what to do.</p><div class="jf-filter" role="group" aria-label="Filter requirements">${[['all', 'All ' + n], ['gap', 'Gaps ' + g], ['partial', 'Partial ' + p], ['strong', 'Strong ' + s]].map(([k, l]) => `<button type="button" data-jf-filter="${k}" aria-pressed="${filt === k}">${l}</button>`).join('')}</div><div class="jf-wrap-x"><table class="jf-req"><thead><tr><th class="c-status">Status</th><th>Requirement</th><th class="c-kind">Type</th><th class="c-bar">Strength</th><th class="c-ev">Closest evidence in your résumé</th></tr></thead><tbody>${rows.map((r) => `<tr><td class="c-status"><span class="jf-pill ${r.status}">${r.status === 'strong' ? '● Strong' : r.status === 'partial' ? '◐ Partial' : '○ Gap'}</span></td><td><button type="button" class="jf-reqbtn" data-jf-req="${r.i}">${esc(r.text)}</button></td><td class="c-kind">${r.kind === 'duty' ? 'Duty' : r.kind === 'required' ? 'Required' : 'Preferred'}</td><td class="c-bar">${Math.round(r.score * 100)}%<div class="jf-meter"><i style="width:${Math.round(r.score * 100)}%;background:${r.status === 'strong' ? '#2f8a6b' : r.status === 'partial' ? '#c48a2c' : '#b4533f'}"></i></div></td><td class="c-ev"><span class="jf-ev">${r.evidence ? esc(short(r.evidence, 150)) : '<em>No close match found</em>'}</span></td></tr>`).join('') || '<tr><td colspan="5">No requirements in this view.</td></tr>'}</tbody></table></div></div>
+    <div class="jf-card"><h3>ATS & format checks</h3><p class="jf-sub">Most format problems are already fixed in your tailored SMARTER résumé — those rows say “Fixed”. The rest need a fact only you can add.</p><div class="jf-checks">${checksHtml(a)}</div>${fixPanel(a)}</div></div>
+    <div class="jf-card" style="margin-top:14px"><h3>Requirement-by-requirement evidence map</h3><p class="jf-sub">Each line from the posting, matched to the closest line in your résumé. Click a requirement for what to do. <b>${p + g} requirement${p + g === 1 ? '' : 's'} are not strong</b> — they are added automatically to the AI tailoring prompt, the application pack and the work-sample spec and build prompt.</p><div class="jf-filter" role="group" aria-label="Filter requirements">${[['all', 'All ' + n], ['gap', 'Gaps ' + g], ['partial', 'Partial ' + p], ['strong', 'Strong ' + s]].map(([k, l]) => `<button type="button" data-jf-filter="${k}" aria-pressed="${filt === k}">${l}</button>`).join('')}</div><div class="jf-wrap-x"><table class="jf-req"><thead><tr><th class="c-status">Status</th><th>Requirement</th><th class="c-kind">Type</th><th class="c-bar">Strength</th><th class="c-ev">Closest evidence in your résumé</th></tr></thead><tbody>${rows.map((r) => `<tr><td class="c-status"><span class="jf-pill ${r.status}">${r.status === 'strong' ? '● Strong' : r.status === 'partial' ? '◐ Partial' : '○ Gap'}</span></td><td><button type="button" class="jf-reqbtn" data-jf-req="${r.i}">${esc(r.text)}</button></td><td class="c-kind">${r.kind === 'duty' ? 'Duty' : r.kind === 'required' ? 'Required' : 'Preferred'}</td><td class="c-bar">${Math.round(r.score * 100)}%<div class="jf-meter"><i style="width:${Math.round(r.score * 100)}%;background:${r.status === 'strong' ? '#2f8a6b' : r.status === 'partial' ? '#c48a2c' : '#b4533f'}"></i></div></td><td class="c-ev"><span class="jf-ev">${r.evidence ? esc(short(r.evidence, 150)) : '<em>No close match found</em>'}</span></td></tr>`).join('') || '<tr><td colspan="5">No requirements in this view.</td></tr>'}</tbody></table></div></div>
     <p class="jf-foot">Method: requirements are lines from the posting’s duties and qualifications sections; a requirement counts as strong when ≥58% of its key terms (after light stemming) and named skills appear in your résumé, partial at ≥34%. Scores measure documented overlap, not ability, and never predict an employer’s decision.</p>`;
   }
-  const checkRow = (c) => `<button type="button" class="jf-check" data-s="${c.s}" data-jf-check="${c.id}"><span class="ico" aria-hidden="true">${c.s === 'pass' ? '✓' : c.s === 'warn' ? '!' : '✗'}</span><span><strong>${esc(c.label)}</strong><small>${esc(c.detail)}</small></span><em>${c.s === 'pass' ? 'Why it matters' : 'How to fix'} →</em></button>`;
+  const checkRow = (c, fixed) => `<button type="button" class="jf-check${fixed ? ' jf-check-fixed' : ''}" data-s="${c.s}" data-fixed="${fixed ? '1' : ''}" data-jf-check="${c.id}"><span class="ico" aria-hidden="true">${c.s === 'pass' ? '✓' : c.s === 'warn' ? '!' : '✗'}</span><span><strong>${esc(c.label)}</strong><small>${esc(c.detail)}</small></span><em>${fixed ? 'Fixed in your résumé' : c.s === 'pass' ? 'Why it matters' : 'How to fix'} →</em></button>`;
+  /* Format checks: the app cannot rewrite the file the user uploaded, but it can
+     produce a tailored résumé that passes the same checks. atsFixed holds the
+     statuses measured on that tailored SMARTER résumé, so the card can show what
+     was fixed instead of only telling the user what to change. */
+  const fixedMap = (a) => { const m = {}; (a.atsFixed || []).forEach((c) => { m[c.id] = c; }); return m; };
+  const isFixedCheck = (c, f) => c.s !== 'pass' && !!f && f.s === 'pass';
+  const checksHtml = (a) => { const m = fixedMap(a); return a.ats.map((c) => checkRow(c, isFixedCheck(c, m[c.id]))).join(''); };
+  function fixPanel(a) {
+    const m = fixedMap(a);
+    const fixed = a.ats.filter((c) => isFixedCheck(c, m[c.id]));
+    const open = a.ats.filter((c) => c.s !== 'pass' && !isFixedCheck(c, m[c.id]));
+    if (!fixed.length && !open.length) return '<div class="jf-fixpanel ok"><h4>All format checks pass</h4><p class="jf-sub">Your source résumé and the tailored SMARTER résumé both pass every check.</p></div>';
+    return `<div class="jf-fixpanel"><h4>${fixed.length ? `Fixed for you in the tailored SMARTER résumé (${fixed.length})` : 'Nothing could be fixed automatically'}</h4>` +
+      (fixed.length ? `<ul>${fixed.map((c) => `<li><b>${esc(c.label)}</b> — ${esc((m[c.id] || {}).detail || 'now passes')}</li>`).join('')}</ul>` : '') +
+      '<p class="jf-sub"><b>Résumé length is unchanged.</b> The tailored résumé stays at two pages — the fixes are headings and bullet choice only, so no content is cut, padded or invented.</p>' +
+      (open.length ? `<p class="jf-sub"><b>Needs your own facts:</b> ${open.map((c) => esc(c.label)).join(' · ')} — the app will not invent these.</p>` : '') + '</div>';
+  }
 
   function resumeFormatCard(a) {
     if (!window.EPAppDocs) return '';
-    let html = ''; try { html = window.EPAppDocs.resumeHtml(window.EPAppDocs.resumeModel(a, (curResume() || {}).text || '', { wsUrl: a.job.wsUrl, profileUrl: a.job.profileUrl })); } catch (e) { return ''; }
-    return `<div class="jf-card" style="margin-bottom:14px"><div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:flex-start"><div><h3>Tailored résumé · your SMARTER format</h3><p class="jf-sub">Leadership statement in SMARTER form, strengths matched to this role, work samples, capabilities and experience with your most relevant bullets first. Every line comes from your résumé.</p></div><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-act="resumedocx">⇩ Résumé (.docx)</button><button type="button" class="jf-btn" data-jf-act="resumehtml">⇩ Printable HTML</button></div></div><style>${window.EPAppDocs.RCSS}</style><div style="max-height:520px;overflow:auto;border:1px solid #dfe7ec;border-radius:12px;background:#f6f8fa;padding:10px">${html}</div></div>`;
+    const head = '<div class="jf-card" style="margin-bottom:14px"><div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:flex-start"><div><h3>Tailored résumé · your SMARTER format</h3><p class="jf-sub">Leadership statement in SMARTER form, strengths matched to this role, work samples, capabilities and experience with your most relevant bullets first. Every line comes from your résumé.</p></div><div class="jf-actions"><button type="button" class="jf-btn jf-primary" data-jf-act="resumedocx">⇩ Résumé (.docx)</button><button type="button" class="jf-btn" data-jf-act="resumehtml">⇩ Printable HTML</button></div></div>';
+    let html = '', why = '';
+    try { html = window.EPAppDocs.resumeHtml(window.EPAppDocs.resumeModel(a, (curResume() || {}).text || '', { wsUrl: a.job.wsUrl, profileUrl: a.job.profileUrl })); }
+    catch (e) { why = String((e && e.message) || e || 'unknown error'); }
+    if (!html) return `${head}<p class="jf-note">The SMARTER résumé could not be rendered for this résumé${why ? ` (${esc(why)})` : ''}. Your source résumé, the format checks and the downloads below are unaffected — try pasting the résumé as plain text if this repeats.</p></div>`;
+    return `${head}<style>${window.EPAppDocs.RCSS}</style><div style="max-height:520px;overflow:auto;border:1px solid #dfe7ec;border-radius:12px;background:#f6f8fa;padding:10px">${html}</div></div>`;
   }
   function resumeTab(a) {
     const missing = a.kws.filter((k) => !k.have);
@@ -11755,7 +12272,7 @@ ${cad.map(([n, s, c, rows], i) => `<div class="wrapx" data-cadp="${i}"${i ? ' hi
     <div class="jf-grid2"><div class="jf-card"><h3>Lead with these 8 bullets</h3><p class="jf-sub">Your own lines, ranked by how many of this job’s requirements they prove. Move them to the top of each role.</p>${a.ranked.map((b, i) => `<div class="jf-bullet"><b>${i + 1}</b><div><p>${esc(b.text)}</p>${b.req ? `<small>Proves: <span>${esc(short(b.req.text, 90))}</span>${/\d|\$|%/.test(b.text) ? '<span>quantified ✓</span>' : '<span>add a number?</span>'}</small>` : ''}</div></div>`).join('') || '<p class="jf-sub">No bullet-style lines were found. Use “-” or “•” bullets in your résumé.</p>'}</div>
     <div><div class="jf-card"><h3>Profile line for this job</h3><p class="jf-sub">Built only from areas and terms already in your résumé. Edit before using.</p><textarea class="jf-editor" style="min-height:120px" data-jf-copy="summary" aria-label="Suggested profile line">${esc(lead + '\n' + summary)}</textarea><div class="jf-actions" style="margin-top:8px"><button type="button" class="jf-btn" data-jf-copytext="summary">Copy profile line</button></div></div>
     <div class="jf-card" style="margin-top:14px"><h3>Keywords to check (${missing.length})</h3><p class="jf-sub">In the posting, not in your résumé. Add one only inside a bullet that is true.</p><div class="jf-tags">${missing.map((k) => `<span class="jf-tag miss">${esc(k.term)}</span>`).join('') || '<span class="jf-tag">All top terms covered</span>'}</div><h3 style="margin-top:14px">Already in your words (${a.kws.length - missing.length})</h3><div class="jf-tags">${a.kws.filter((k) => k.have).map((k) => `<span class="jf-tag">${esc(k.term)}</span>`).join('')}</div></div>
-    <div class="jf-card" style="margin-top:14px"><h3>Format checks</h3><div class="jf-checks">${a.ats.map(checkRow).join('')}</div></div></div></div>`;
+    <div class="jf-card" style="margin-top:14px"><h3>Format checks</h3><p class="jf-sub">Rows marked “Fixed” are already handled in the tailored SMARTER résumé above; the rest need a fact only you can add.</p><div class="jf-checks">${checksHtml(a)}</div>${fixPanel(a)}</div></div></div>`;
   }
 
   function coverDraft(a) { if (a.job.coverLetter && (state.coverStyle || 'polished') === 'polished') return a.job.coverLetter; return (state.coverStyle || 'polished') === 'concise' ? coverDraftConcise(a) : coverDraftPolished(a); }
@@ -11899,7 +12416,7 @@ ${cad.map(([n, s, c, rows], i) => `<div class="wrapx" data-cadp="${i}"${i ? ' hi
 
   /* ---------------- exports ---------------- */
   function aiPrompt(a) {
-    const gaps = a.reqs.filter((r) => r.status !== 'strong').map((r) => '- [' + r.status + '] ' + r.text).join('\n');
+    const gaps = a.reqs.filter((r) => r.status !== 'strong').map((r) => '- [' + r.status + '] ' + r.text + (r.missing && r.missing.length ? '\n    missing terms: ' + r.missing.slice(0, 8).join(', ') : '') + (r.evidence ? '\n    closest evidence: ' + short(r.evidence, 170) : '\n    closest evidence: none found')).join('\n');
     return `You are an expert résumé writer and hiring-committee reviewer. Tailor my application to the job below.\n\nRULES: Use only facts in my résumé. Do not invent employers, titles, dates, numbers, credentials or degrees. Do not imply continuous service across breaks. Keep any incomplete degree described as incomplete. Mark anything you need me to confirm with [CONFIRM].\n\nDELIVER:\n1. A two-page ATS-friendly résumé (single column, standard headings, reverse-chronological), leading with the bullets that prove the job's top requirements.\n2. A one-page cover letter: role named in the first sentence, three proofs mapped to requirements, any gap addressed honestly, a short close.\n3. A table: requirement → my evidence → strength → what to say in the interview.\n4. Five likely interview questions with STAR outlines from my real experience.\n\nJOB: ${a.job.title || ''}${a.job.org ? ' — ' + a.job.org : ''}${a.job.url ? '\nPOSTING URL: ' + a.job.url : ''}\n\nJOB DESCRIPTION:\n${a.job.text.slice(0, 12000)}\n\nMY RÉSUMÉ:\n${a.resume.text.slice(0, 14000)}\n\nGAPS AND PARTIAL MATCHES FOUND BY A KEYWORD HEURISTIC (verify; do not over-trust):\n${gaps || '- none'}\n\nKEYWORDS MISSING FROM MY RÉSUMÉ (add only where true):\n${a.kws.filter((k) => !k.have).map((k) => k.term).join(', ') || 'none'}`;
   }
 
@@ -12360,6 +12877,7 @@ ${String((rr || {}).text || '').slice(0, 6000)}` : ''}`;
     return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Application pack — ${esc(a.job.title || 'Job')}</title><style>${css}</style></head><body><div class="k">Application pack · generated ${new Date().toLocaleDateString('en-US')}</div><h1>${esc(a.job.title || 'Job')}${a.job.org ? ' · ' + esc(a.job.org) : ''}</h1><p class="note">${esc(a.name || '')} · Evidence-match score is a keyword-overlap heuristic, not a hiring prediction.${a.job.url ? ' · Posting: ' + esc(a.job.url) : ''}</p>
     <h2>1 · Fit at a glance</h2><div class="row"><div>${gauge(a.score, a.band)}<p style="text-align:center;font-weight:700;color:${bandColor(a.band)}">${esc(bandText(a.band))}</p></div><div>${radar(a.ask, a.show)}</div></div><div class="cards"><div><h3 style="font-size:14px">Top job keywords</h3>${kwBars(a.kws)}</div><div><h3 style="font-size:14px">Format checks</h3><table>${a.ats.map((c) => `<tr><td class="s ${c.s === 'pass' ? 'strong' : c.s === 'warn' ? 'partial' : 'gap'}">${c.s.toUpperCase()}</td><td>${esc(c.label)}<br><span class="note">${esc(c.detail)}</span></td></tr>`).join('')}</table></div></div>
     <h2>2 · Requirement evidence map</h2><table><thead><tr><th>Status</th><th>Requirement</th><th>Closest evidence</th></tr></thead><tbody>${a.reqs.map((r) => `<tr><td class="s ${r.status}">${r.status.toUpperCase()}</td><td>${esc(r.text)}</td><td>${esc(r.evidence || '—')}</td></tr>`).join('')}</tbody></table>
+    <h2>2b · Requirements that are not yet strong</h2><p class="note">Every requirement below is partial or missing in the evidence map above. This same list is added automatically to the AI tailoring prompt and to the work-sample spec and build prompt, so each one is either proved with real evidence or named honestly.</p><table><thead><tr><th>Status</th><th>Requirement</th><th>Missing terms</th><th>Closest evidence</th></tr></thead><tbody>${(a.reqs.filter((r) => r.status !== 'strong').map((r) => `<tr><td class="s ${r.status}">${r.status.toUpperCase()}</td><td>${esc(r.text)}</td><td>${esc((r.missing || []).slice(0, 8).join(', ') || '—')}</td><td>${esc(r.evidence || '—')}</td></tr>`).join('') || '<tr><td colspan="4">Every requirement matched strongly.</td></tr>')}</tbody></table>
     <h2>3 · Lead with these résumé bullets</h2><ol>${a.ranked.map((b) => `<li>${esc(b.text)}${b.req ? `<br><span class="note">Proves: ${esc(short(b.req.text, 100))}</span>` : ''}</li>`).join('')}</ol>
     <h2>4 · Cover letter draft</h2><pre>${esc(letter)}</pre>
     <h2>5 · 30-60-90 day plan</h2>${gantt(a.plan)}<ol>${a.plan.map((p) => `<li><b>${['Days 1–30', 'Days 31–60', 'Days 61–90'][p.start]}:</b> ${esc(p.deliverable)}</li>`).join('')}</ol>
@@ -12486,7 +13004,15 @@ Example University is an equal opportunity employer.`;
     if (d.jfFilter) { state.reqFilter = d.jfFilter; state.tab = 'fit'; render(); const tb = root.querySelector('.jf-req'); if (tb && d.jfFilter !== 'all' && el.classList.contains('jf-kpi')) tb.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     if (d.jfReq && a) { reqPopup(a, a.reqs[Number(d.jfReq)]); return; }
     if (d.jfPlan && a) { planPopup(a, Number(d.jfPlan)); return; }
-    if (d.jfCheck) { const h = CHECK_HELP[d.jfCheck]; const c = a && [...a.ats, ...(a.coverRes ? a.coverRes.checks : [])].find((x) => x.id === d.jfCheck); if (h) openDlg('Format check · ' + (c ? c.s.toUpperCase() : 'guide'), c ? c.label : 'Check', `${c ? `<p><b>Result:</b> ${esc(c.detail)}</p>` : ''}${cj(h)}`); return; }
+    if (d.jfCheck) {
+      const h = CHECK_HELP[d.jfCheck];
+      const c = a && [...a.ats, ...(a.coverRes ? a.coverRes.checks : [])].find((x) => x.id === d.jfCheck);
+      const fx = a ? fixedMap(a)[d.jfCheck] : null;
+      const fixed = !!(a && c && isFixedCheck(c, fx));
+      const note = fixed ? `<p class="jf-note" style="background:#f4fbf6;border-left-color:#2f8a6b"><b>Fixed in your tailored SMARTER résumé.</b> It now passes with: ${esc((fx && fx.detail) || 'pass')}. The guidance below is only needed for the file you uploaded — the résumé the app generates already handles it, at two pages.</p>` : '';
+      if (h) openDlg('Format check · ' + (fixed ? 'FIXED' : c ? c.s.toUpperCase() : 'guide'), c ? c.label : 'Check', `${c ? `<p><b>Result in your source résumé:</b> ${esc(c.detail)}</p>` : ''}${note}${cj(h)}`);
+      return;
+    }
     if (d.jfTdel) { const tr = tracker.get(); tr.splice(Number(d.jfTdel), 1); tracker.set(tr); render(); return; }
     if (d.jfCopytext === 'summary') { const ta = root.querySelector('[data-jf-copy="summary"]'); if (ta) copyText(ta.value, 'Profile line'); return; }
     switch (d.jfAct) {
@@ -12894,10 +13420,20 @@ window.EPApplyAuto = (() => {
       ['dragenter', 'dragover'].forEach((t) => box.addEventListener(t, (e) => { const dz = e.target.closest('[data-apx-drop]') || box.querySelector('[data-apx-drop]'); e.preventDefault(); dz.classList.add('over'); }));
       ['dragleave', 'drop'].forEach((t) => box.addEventListener(t, (e) => { const dz = box.querySelector('[data-apx-drop]'); if (dz) dz.classList.remove('over'); }));
       box.addEventListener('drop', (e) => { e.preventDefault(); if (e.dataTransfer && e.dataTransfer.files.length) addFiles(w, e.dataTransfer.files); });
+      // Refresh on the rail button AND whenever the panel becomes visible. The panel
+      // can also be opened programmatically (Job Fit's "Build work sample →"), which
+      // used to leave the previous job's fields and build prompt on screen.
       const v = $(W.view); if (v) v.addEventListener('click', () => setTimeout(() => refresh(w), 120));
+      const panelEl = $(W.panel);
+      if (panelEl && typeof MutationObserver !== 'undefined') {
+        new MutationObserver(() => { if (!panelEl.hidden) setTimeout(() => refresh(w), 60); })
+          .observe(panelEl, { attributes: true, attributeFilter: ['hidden'] });
+      }
       paint(w);
     });
     const cg = $('cGenerate'); if (cg) cg.addEventListener('click', () => setTimeout(shareLetter, 0));
+    /* Small public hook so in-app handoffs can refresh the depending workspace at once. */
+    window.EPApplySync = { refresh, refreshAll: () => Object.keys(WS).forEach((w) => refresh(w)) };
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true }); else setTimeout(init, 0);
   return { go, refresh, ctx, WS };
@@ -15537,10 +16073,10 @@ window.EPFlow = (() => {
   ];
   const CSS = '.ep-flow{border:1px solid #dbe4ea;border-radius:14px;background:#fff;padding:12px 14px;margin:0 0 16px}.ep-flow-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;align-items:baseline}.ep-flow-h b{font:700 15px Cambria,Georgia,serif;color:#15384a}.ep-flow-h span{font-size:12.5px;color:#4b6779}'
     + '.ep-flow ol{list-style:none;margin:10px 0 8px;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}.ep-flow li button{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;height:100%;border:1px solid #dbe4ea;border-radius:10px;padding:7px 9px;font-size:12px;line-height:1.3;color:#36505f}.ep-flow li button:hover,.ep-flow li button:focus-visible{border-color:#8a5fa8}'
-    + '.ep-flow li button i{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#eef3f5;font-style:normal;font-weight:700;margin-right:5px}.ep-flow li button small{display:block;color:#7b8f9a;font-size:11px;margin-top:2px}.ep-flow li.cur button{background:#f4eef9;border-color:#8a5fa8;color:#3b2050}.ep-flow li.cur i{background:#8a5fa8;color:#fff}.ep-flow li.done i{background:#d9efe2;color:#15803d}'
+    + '.ep-flow li button i{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#eef3f5;font-style:normal;font-weight:700;margin-right:5px}.ep-flow li button small{display:block;color:#56697a;font-size:11px;margin-top:2px}.ep-flow li.cur button{background:#f4eef9;border-color:#8a5fa8;color:#3b2050}.ep-flow li.cur i{background:#8a5fa8;color:#fff}.ep-flow li.done i{background:#d9efe2;color:#15803d}'
     + '.ep-flow-f{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;font-size:13px;color:#36505f}.ep-flow-f button{all:unset;cursor:pointer;font-weight:700;color:#fff;background:#8a5fa8;border-radius:9px;padding:7px 12px}.ep-flow-f button:focus-visible{outline:3px solid rgba(138,95,168,.35)}'
     + '@media(max-width:900px){.ep-flow ol{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:520px){.ep-flow ol{grid-template-columns:repeat(2,minmax(0,1fr))}}'
-    + '.nav-group-items .view-toggle .fl{display:flex;flex-direction:column;line-height:1.2}.nav-group-items .view-toggle .fl small{font-size:10.5px;color:#7b8f9a;font-weight:600}';
+    + '.nav-group-items .view-toggle .fl{display:flex;flex-direction:column;line-height:1.2}.nav-group-items .view-toggle .fl small{font-size:10.5px;color:#56697a;font-weight:600}';
   function strip(i) {
     const s = STEPS[i], nx = STEPS[i + 1];
     return '<div class="ep-flow" role="navigation" aria-label="Deliver and assure steps"><div class="ep-flow-h"><b>Deliver & assure · step ' + (i + 1) + ' of 6 · ' + s[2] + '</b><span>' + s[4] + '</span></div><ol>' + STEPS.map((x, k) => '<li class="' + (k === i ? 'cur' : k < i ? 'done' : '') + '"><button type="button" data-flow="' + x[0] + '"' + (k === i ? ' aria-current="step"' : '') + '><i>' + (k + 1) + '</i>' + x[2] + '<small>' + x[3] + '</small></button></li>').join('') + '</ol><div class="ep-flow-f"><span>' + (i === 0 ? 'Start here when a new project or proposal arrives.' : 'Came from step ' + i + ': ' + STEPS[i - 1][2].toLowerCase() + '.') + '</span>' + (nx ? '<button type="button" data-flow="' + nx[0] + '">Next: ' + nx[2] + ' →</button>' : '<button type="button" data-flow="viewWorkSample">Done: attach to the work sample →</button>') + '</div></div>';

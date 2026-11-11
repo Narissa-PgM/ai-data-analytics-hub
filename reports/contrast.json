@@ -1,0 +1,627 @@
+{
+  "views": [
+    {
+      "id": "viewJobFit",
+      "tested": 85,
+      "failures": 3,
+      "worst": [
+        {
+          "sel": "small",
+          "text": "Job link or description + résumé (cover ",
+          "color": "rgb(106, 127, 143)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.16,
+          "size": 11.5,
+          "weight": 400
+        },
+        {
+          "sel": "small",
+          "text": "Fit charts, gaps, evidence map, drafts",
+          "color": "rgb(106, 127, 143)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.16,
+          "size": 11.5,
+          "weight": 400
+        },
+        {
+          "sel": "small",
+          "text": "Application pack, tracker, AI tailoring ",
+          "color": "rgb(106, 127, 143)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.16,
+          "size": 11.5,
+          "weight": 400
+        }
+      ]
+    },
+    {
+      "id": "viewJobRadar",
+      "tested": 753,
+      "failures": 0,
+      "worst": []
+    },
+    {
+      "id": "viewMAJobs",
+      "tested": 100,
+      "failures": 0,
+      "worst": []
+    },
+    {
+      "id": "viewContract",
+      "tested": 103,
+      "failures": 0,
+      "worst": []
+    },
+    {
+      "id": "viewCareer",
+      "tested": 96,
+      "failures": 2,
+      "worst": [
+        {
+          "sel": "span",
+          "text": "1",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(196,138,44)",
+          "ratio": 2.99,
+          "size": 11,
+          "weight": 700
+        },
+        {
+          "sel": "span",
+          "text": "3",
+          "color": "rgb(92, 111, 128)",
+          "bg": "rgb(233,238,243)",
+          "ratio": 4.45,
+          "size": 11,
+          "weight": 700
+        }
+      ]
+    },
+    {
+      "id": "viewFit",
+      "tested": 101,
+      "failures": 9,
+      "worst": [
+        {
+          "sel": "span",
+          "text": "1",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(196,138,44)",
+          "ratio": 2.99,
+          "size": 11,
+          "weight": 700
+        },
+        {
+          "sel": "div.fit-mini-title",
+          "text": "Coverage by evaluation dimension",
+          "color": "rgb(103, 128, 148)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.12,
+          "size": 11,
+          "weight": 700
+        },
+        {
+          "sel": "span",
+          "text": "evidence-based /100",
+          "color": "rgb(100, 128, 149)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.15,
+          "size": 10,
+          "weight": 400
+        },
+        {
+          "sel": "span",
+          "text": "Weighted gap",
+          "color": "rgb(96, 121, 140)",
+          "bg": "rgb(249,251,253)",
+          "ratio": 4.39,
+          "size": 11,
+          "weight": 400
+        },
+        {
+          "sel": "span",
+          "text": "Verified evidence",
+          "color": "rgb(96, 121, 140)",
+          "bg": "rgb(249,251,253)",
+          "ratio": 4.39,
+          "size": 11,
+          "weight": 400
+        },
+        {
+          "sel": "span",
+          "text": "Job-term overlap",
+          "color": "rgb(96, 121, 140)",
+          "bg": "rgb(249,251,253)",
+          "ratio": 4.39,
+          "size": 11,
+          "weight": 400
+        }
+      ]
+    },
+    {
+      "id": "viewWorkSample",
+      "tested": 137,
+      "failures": 7,
+      "worst": [
+        {
+          "sel": "span",
+          "text": "1",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(196,138,44)",
+          "ratio": 2.99,
+          "size": 11,
+          "weight": 700
+        },
+        {
+          "sel": "span",
+          "text": "/100",
+          "color": "rgb(102, 128, 143)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.16,
+          "size": 12,
+          "weight": 400
+        },
+        {
+          "sel": "span.ws-card-tag",
+          "text": "Weighted",
+          "color": "rgb(93, 122, 138)",
+          "bg": "rgb(242,247,249)",
+          "ratio": 4.21,
+          "size": 10.5,
+          "weight": 700
+        },
+        {
+          "sel": "span.ws-card-tag",
+          "text": "Never silently passed",
+          "color": "rgb(93, 122, 138)",
+          "bg": "rgb(242,247,249)",
+          "ratio": 4.21,
+          "size": 10.5,
+          "weight": 700
+        },
+        {
+          "sel": "p.ws-help",
+          "text": "A brief is only as strong as its weakest",
+          "color": "rgb(101, 125, 140)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.32,
+          "size": 11.5,
+          "weight": 400
+        },
+        {
+          "sel": "span",
+          "text": "2",
+          "color": "rgb(92, 111, 128)",
+          "bg": "rgb(233,238,243)",
+          "ratio": 4.45,
+          "size": 11,
+          "weight": 700
+        }
+      ]
+    },
+    {
+      "id": "viewAdmiss",
+      "tested": 193,
+      "failures": 5,
+      "worst": [
+        {
+          "sel": "span.ad-layer-no",
+          "text": "LAYER 1",
+          "color": "rgb(47, 135, 148)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.19,
+          "size": 10,
+          "weight": 700
+        },
+        {
+          "sel": "span.ad-layer-no",
+          "text": "LAYER 2",
+          "color": "rgb(47, 135, 148)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.19,
+          "size": 10,
+          "weight": 700
+        },
+        {
+          "sel": "span.ad-layer-no",
+          "text": "LAYER 3",
+          "color": "rgb(47, 135, 148)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.19,
+          "size": 10,
+          "weight": 700
+        },
+        {
+          "sel": "span.ad-layer-no",
+          "text": "LAYER 4",
+          "color": "rgb(47, 135, 148)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.19,
+          "size": 10,
+          "weight": 700
+        },
+        {
+          "sel": "span.ad-layer-no",
+          "text": "LAYER 5",
+          "color": "rgb(47, 135, 148)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.19,
+          "size": 10,
+          "weight": 700
+        }
+      ]
+    },
+    {
+      "id": "viewEnterprise",
+      "tested": 130,
+      "failures": 10,
+      "worst": [
+        {
+          "sel": "i",
+          "text": "1",
+          "color": "rgb(21, 128, 61)",
+          "bg": "rgb(217,239,226)",
+          "ratio": 4.15,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "p.ed-note",
+          "text": "Official URLs are recorded as research l",
+          "color": "rgb(105, 124, 139)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.32,
+          "size": 12,
+          "weight": 400
+        },
+        {
+          "sel": "p.ed-note",
+          "text": "Choose official evidence before claiming",
+          "color": "rgb(105, 124, 139)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.32,
+          "size": 12,
+          "weight": 400
+        },
+        {
+          "sel": "p.ed-note",
+          "text": "Describe the institution and choose a ma",
+          "color": "rgb(105, 124, 139)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.32,
+          "size": 12,
+          "weight": 400
+        },
+        {
+          "sel": "p.ed-note",
+          "text": "Every module must connect . Published fi",
+          "color": "rgb(105, 124, 139)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.32,
+          "size": 12,
+          "weight": 400
+        },
+        {
+          "sel": "strong",
+          "text": "published strategic objective → role res",
+          "color": "rgb(105, 124, 139)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.32,
+          "size": 12,
+          "weight": 700
+        }
+      ]
+    },
+    {
+      "id": "viewPilot",
+      "tested": 174,
+      "failures": 31,
+      "worst": [
+        {
+          "sel": "span.xp-round",
+          "text": "04",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(202,152,96)",
+          "ratio": 2.57,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "span.xp-round",
+          "text": "07",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(183,124,121)",
+          "ratio": 3.4,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "span.xp-round",
+          "text": "10",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(74,154,105)",
+          "ratio": 3.43,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "span.xp-round",
+          "text": "05",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(74,148,133)",
+          "ratio": 3.58,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "span.xp-round",
+          "text": "09",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(138,127,169)",
+          "ratio": 3.69,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "span.xp-round",
+          "text": "08",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(64,142,157)",
+          "ratio": 3.77,
+          "size": 12,
+          "weight": 700
+        }
+      ]
+    },
+    {
+      "id": "viewAnalyzer",
+      "tested": 166,
+      "failures": 7,
+      "worst": [
+        {
+          "sel": "i",
+          "text": "1",
+          "color": "rgb(21, 128, 61)",
+          "bg": "rgb(217,239,226)",
+          "ratio": 4.15,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "i",
+          "text": "2",
+          "color": "rgb(21, 128, 61)",
+          "bg": "rgb(217,239,226)",
+          "ratio": 4.15,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "i",
+          "text": "3",
+          "color": "rgb(21, 128, 61)",
+          "bg": "rgb(217,239,226)",
+          "ratio": 4.15,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "small",
+          "text": "Decision modules",
+          "color": "rgb(102, 124, 137)",
+          "bg": "rgb(248,251,252)",
+          "ratio": 4.2,
+          "size": 11,
+          "weight": 400
+        },
+        {
+          "sel": "small",
+          "text": "Visual patterns",
+          "color": "rgb(102, 124, 137)",
+          "bg": "rgb(248,251,252)",
+          "ratio": 4.2,
+          "size": 11,
+          "weight": 400
+        },
+        {
+          "sel": "small",
+          "text": "Source candidates",
+          "color": "rgb(102, 124, 137)",
+          "bg": "rgb(248,251,252)",
+          "ratio": 4.2,
+          "size": 11,
+          "weight": 400
+        }
+      ]
+    },
+    {
+      "id": "viewAudit",
+      "tested": 129,
+      "failures": 12,
+      "worst": [
+        {
+          "sel": "small",
+          "text": "Document landmarks, IDs, alt text, label",
+          "color": "rgb(108, 130, 144)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.01,
+          "size": 11,
+          "weight": 400
+        },
+        {
+          "sel": "small",
+          "text": "Whether role, mission, institutional pla",
+          "color": "rgb(108, 130, 144)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.01,
+          "size": 11,
+          "weight": 400
+        },
+        {
+          "sel": "small",
+          "text": "Click navigation, open/close popups, fil",
+          "color": "rgb(108, 130, 144)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.01,
+          "size": 11,
+          "weight": 400
+        },
+        {
+          "sel": "small",
+          "text": "Live site fetching behind CORS, automati",
+          "color": "rgb(108, 130, 144)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.01,
+          "size": 11,
+          "weight": 400
+        },
+        {
+          "sel": "i",
+          "text": "1",
+          "color": "rgb(21, 128, 61)",
+          "bg": "rgb(217,239,226)",
+          "ratio": 4.15,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "i",
+          "text": "2",
+          "color": "rgb(21, 128, 61)",
+          "bg": "rgb(217,239,226)",
+          "ratio": 4.15,
+          "size": 12,
+          "weight": 700
+        }
+      ]
+    },
+    {
+      "id": "viewQA",
+      "tested": 304,
+      "failures": 10,
+      "worst": [
+        {
+          "sel": "i",
+          "text": "1",
+          "color": "rgb(21, 128, 61)",
+          "bg": "rgb(217,239,226)",
+          "ratio": 4.15,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "i",
+          "text": "2",
+          "color": "rgb(21, 128, 61)",
+          "bg": "rgb(217,239,226)",
+          "ratio": 4.15,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "i",
+          "text": "3",
+          "color": "rgb(21, 128, 61)",
+          "bg": "rgb(217,239,226)",
+          "ratio": 4.15,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "i",
+          "text": "4",
+          "color": "rgb(21, 128, 61)",
+          "bg": "rgb(217,239,226)",
+          "ratio": 4.15,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "i",
+          "text": "5",
+          "color": "rgb(21, 128, 61)",
+          "bg": "rgb(217,239,226)",
+          "ratio": 4.15,
+          "size": 12,
+          "weight": 700
+        },
+        {
+          "sel": "small",
+          "text": "Pass",
+          "color": "rgb(101, 123, 135)",
+          "bg": "rgb(255,255,255)",
+          "ratio": 4.43,
+          "size": 11,
+          "weight": 400
+        }
+      ]
+    },
+    {
+      "id": "viewLibrary",
+      "tested": 1454,
+      "failures": 122,
+      "worst": [
+        {
+          "sel": "div.mini-tag",
+          "text": "/studyguide · steps sample",
+          "color": "rgb(81, 128, 139)",
+          "bg": "rgb(248,251,252)",
+          "ratio": 4.2,
+          "size": 9,
+          "weight": 700
+        },
+        {
+          "sel": "div.mini-tag",
+          "text": "/practicalexamples · illustrated scenes ",
+          "color": "rgb(81, 128, 139)",
+          "bg": "rgb(248,251,252)",
+          "ratio": 4.2,
+          "size": 9,
+          "weight": 700
+        },
+        {
+          "sel": "div.mini-tag",
+          "text": "/keywords · pills sample",
+          "color": "rgb(81, 128, 139)",
+          "bg": "rgb(248,251,252)",
+          "ratio": 4.2,
+          "size": 9,
+          "weight": 700
+        },
+        {
+          "sel": "div.mini-tag",
+          "text": "/summary · document sample",
+          "color": "rgb(81, 128, 139)",
+          "bg": "rgb(248,251,252)",
+          "ratio": 4.2,
+          "size": 9,
+          "weight": 700
+        },
+        {
+          "sel": "div.mini-tag",
+          "text": "/deepdive · steps sample",
+          "color": "rgb(81, 128, 139)",
+          "bg": "rgb(248,251,252)",
+          "ratio": 4.2,
+          "size": 9,
+          "weight": 700
+        },
+        {
+          "sel": "div.mini-tag",
+          "text": "/simplify · illustrated scenes sample",
+          "color": "rgb(81, 128, 139)",
+          "bg": "rgb(248,251,252)",
+          "ratio": 4.2,
+          "size": 9,
+          "weight": 700
+        }
+      ]
+    },
+    {
+      "id": "viewGallery",
+      "tested": 95,
+      "failures": 0,
+      "worst": []
+    }
+  ]
+}

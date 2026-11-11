@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "n": "current job has non-strong requirements",
+      "p": true,
+      "i": {
+        "weak": 3
+      }
+    },
+    {
+      "n": "dashboard notes automatic inclusion",
+      "p": true,
+      "i": {
+        "saysAuto": true,
+        "count": "3"
+      }
+    },
+    {
+      "n": "AI tailoring prompt lists weak requirements",
+      "p": true,
+      "i": {
+        "chars": 13918,
+        "hasMissing": true
+      }
+    },
+    {
+      "n": "AI tailoring prompt carries missing terms",
+      "p": true,
+      "i": {
+        "head": "GAPS AND PARTIAL MATCHES FOUND BY A KEYWORD HEURISTIC (verify; do not over-trust):\n- [partial] Reports to the Vice Provost for Academic Affairs, with a dotted line to the Chief Financial Officer.\n    missing terms: vice, provost, dotted, line, chief\n    cl"
+      }
+    },
+    {
+      "n": "work-sample spec has the weak-requirements block",
+      "p": true,
+      "i": {
+        "head": "urement contract is what makes the proposal falsifiable.3b. Requirements that are not yet strong (3)The posting requirements below are partial or missing in the evidence map. This sample must address each one: show t"
+      }
+    },
+    {
+      "n": "work-sample build prompt instructs to address them",
+      "p": true,
+      "i": {
+        "chars": 84356
+      }
+    },
+    {
+      "n": "application pack includes the weak-requirements section",
+      "p": true,
+      "i": {
+        "file": "application-pack-director-of-analytics-reporting.html",
+        "bytes": 33765
+      }
+    },
+    {
+      "n": "no console errors",
+      "p": true,
+      "i": {
+        "errors": []
+      }
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "passed": 8,
+    "failed": []
+  }
+}

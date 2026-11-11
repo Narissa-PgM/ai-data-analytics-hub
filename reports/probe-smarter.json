@@ -1,0 +1,212 @@
+{
+  "baseline\\AI_Pilot.baseline.html": {
+    "info": {
+      "hasSmarter": true,
+      "cards": [
+        "Who it reports to · team size · what it pays",
+        "Evidence-match score",
+        "What the job asks vs. what you show",
+        "Top job keywords",
+        "Lead with these strengths",
+        "Strengthen before you apply",
+        "ATS & format checks",
+        "Requirement-by-requirement evidence map"
+      ],
+      "checkCount": 8,
+      "checks": [
+        {
+          "id": "contact",
+          "status": "pass",
+          "label": "Contact details at the top",
+          "detail": "email found · phone found",
+          "more": "Why it matters →"
+        },
+        {
+          "id": "length",
+          "status": "warn",
+          "label": "Length fits two pages",
+          "detail": "1310 words (target 450–1,100)",
+          "more": "How to fix →"
+        },
+        {
+          "id": "heads",
+          "status": "warn",
+          "label": "Standard section headings",
+          "detail": "2 of 3 found: Experience · Education · Skills",
+          "more": "How to fix →"
+        },
+        {
+          "id": "quant",
+          "status": "warn",
+          "label": "Results are quantified",
+          "detail": "38% of bullets contain a number, $ or %",
+          "more": "How to fix →"
+        },
+        {
+          "id": "action",
+          "status": "fail",
+          "label": "Bullets start with an action verb",
+          "detail": "5% of bullets lead with a verb",
+          "more": "How to fix →"
+        },
+        {
+          "id": "dates",
+          "status": "pass",
+          "label": "Roles carry dates",
+          "detail": "17 year mentions found",
+          "more": "Why it matters →"
+        },
+        {
+          "id": "keywords",
+          "status": "pass",
+          "label": "Job keywords appear in your words",
+          "detail": "94% of the job’s top terms appear in the résumé",
+          "more": "Why it matters →"
+        },
+        {
+          "id": "summary",
+          "status": "fail",
+          "label": "Has a short profile / summary",
+          "detail": "no Profile or Summary heading",
+          "more": "How to fix →"
+        }
+      ],
+      "tabs": [
+        "Fit dashboard",
+        "★ SMARTER program",
+        "Résumé & evidence",
+        "Cover letter",
+        "30-60-90 plan",
+        "Job search & tracker"
+      ],
+      "hasEditor": false,
+      "smarterIdx": 1104688
+    },
+    "tabClicked": true,
+    "afterTab": {
+      "hasSmarter": true,
+      "cards": [
+        "Tailored résumé · your SMARTER format",
+        "Lead with these 8 bullets",
+        "Profile line for this job",
+        "Keywords to check (1)",
+        "Already in your words (15)",
+        "Format checks"
+      ],
+      "checks": 8,
+      "smarterCard": true,
+      "resumeNode": null,
+      "firstCheckText": "✓Contact details at the topemail found · phone foundWhy it matters →"
+    },
+    "popup": {
+      "open": true,
+      "title": "Contact details at the top",
+      "body": "Result: email found · phone found✗ Common mistakeContact details buried in a header/footer image or table that applicant systems cannot read.[logo image] · contact in page footer✓ Best practicePut name, city, phone, email and a portfolio link as plain text in the first two lines.Name · Cambridge, MA · phone · email · portfolio URLRULEIf a parser cannot find you in the first 3 lines, a recruiter may not either.Move contact details to the top line as plain text.Use one email and one phone number.Add your GitHub Pages portfolio link."
+    }
+  },
+  "AI_Pilot.html": {
+    "info": {
+      "hasSmarter": true,
+      "cards": [
+        "Who it reports to · team size · what it pays",
+        "Evidence-match score",
+        "What the job asks vs. what you show",
+        "Top job keywords",
+        "Lead with these strengths",
+        "Strengthen before you apply",
+        "ATS & format checks",
+        "Requirement-by-requirement evidence map"
+      ],
+      "checkCount": 8,
+      "checks": [
+        {
+          "id": "contact",
+          "status": "pass",
+          "label": "Contact details at the top",
+          "detail": "email found · phone found",
+          "more": "Why it matters →"
+        },
+        {
+          "id": "length",
+          "status": "warn",
+          "label": "Length fits two pages",
+          "detail": "1310 words (target 450–1,100)",
+          "more": "How to fix →"
+        },
+        {
+          "id": "heads",
+          "status": "warn",
+          "label": "Standard section headings",
+          "detail": "2 of 3 found: Experience · Education · Skills",
+          "more": "How to fix →"
+        },
+        {
+          "id": "quant",
+          "status": "warn",
+          "label": "Results are quantified",
+          "detail": "38% of bullets contain a number, $ or %",
+          "more": "How to fix →"
+        },
+        {
+          "id": "action",
+          "status": "fail",
+          "label": "Bullets start with an action verb",
+          "detail": "5% of bullets lead with a verb",
+          "more": "How to fix →"
+        },
+        {
+          "id": "dates",
+          "status": "pass",
+          "label": "Roles carry dates",
+          "detail": "17 year mentions found",
+          "more": "Why it matters →"
+        },
+        {
+          "id": "keywords",
+          "status": "pass",
+          "label": "Job keywords appear in your words",
+          "detail": "94% of the job’s top terms appear in the résumé",
+          "more": "Why it matters →"
+        },
+        {
+          "id": "summary",
+          "status": "fail",
+          "label": "Has a short profile / summary",
+          "detail": "no Profile or Summary heading",
+          "more": "How to fix →"
+        }
+      ],
+      "tabs": [
+        "Fit dashboard",
+        "★ SMARTER program",
+        "Résumé & evidence",
+        "Cover letter",
+        "30-60-90 plan",
+        "Job search & tracker"
+      ],
+      "hasEditor": false,
+      "smarterIdx": 1139125
+    },
+    "tabClicked": true,
+    "afterTab": {
+      "hasSmarter": true,
+      "cards": [
+        "Tailored résumé · your SMARTER format",
+        "Lead with these 8 bullets",
+        "Profile line for this job",
+        "Keywords to check (1)",
+        "Already in your words (15)",
+        "Format checks"
+      ],
+      "checks": 8,
+      "smarterCard": true,
+      "resumeNode": null,
+      "firstCheckText": "✓Contact details at the topemail found · phone foundWhy it matters →"
+    },
+    "popup": {
+      "open": true,
+      "title": "Contact details at the top",
+      "body": "Result: email found · phone found✗ Common mistakeContact details buried in a header/footer image or table that applicant systems cannot read.[logo image] · contact in page footer✓ Best practicePut name, city, phone, email and a portfolio link as plain text in the first two lines.Name · Cambridge, MA · phone · email · portfolio URLRULEIf a parser cannot find you in the first 3 lines, a recruiter may not either.Move contact details to the top line as plain text.Use one email and one phone number.Add your GitHub Pages portfolio link."
+    }
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "baseline\\AI_Pilot.baseline.html": {
+    "tabs": [
+      "Fit dashboard",
+      "★ SMARTER program",
+      "Résumé & evidence",
+      "Cover letter",
+      "30-60-90 plan",
+      "Job search & tracker"
+    ],
+    "perTab": [
+      {
+        "tab": "Fit dashboard",
+        "chars": 11101,
+        "cards": [
+          "Who it reports to · team size · what it pays",
+          "Evidence-match score",
+          "What the job asks vs. what you show",
+          "Top job keywords",
+          "Lead with these strengths",
+          "Strengthen before you apply",
+          "ATS & format checks",
+          "Requirement-by-requirement evidence map"
+        ],
+        "smarterTitle": false,
+        "checks": 8,
+        "editors": 0,
+        "tables": 1,
+        "svgs": 6,
+        "buttons": 63
+      },
+      {
+        "tab": "★ SMARTER program",
+        "chars": 4380,
+        "cards": [
+          "Executive summary",
+          "Mission & values alignment",
+          "Project charter"
+        ],
+        "smarterTitle": false,
+        "checks": 0,
+        "editors": 0,
+        "tables": 1,
+        "svgs": 1,
+        "buttons": 36
+      },
+      {
+        "tab": "Résumé & evidence",
+        "chars": 15170,
+        "cards": [
+          "Tailored résumé · your SMARTER format",
+          "Lead with these 8 bullets",
+          "Profile line for this job",
+          "Keywords to check (1)",
+          "Already in your words (15)",
+          "Format checks"
+        ],
+        "smarterTitle": true,
+        "checks": 8,
+        "editors": 1,
+        "tables": 1,
+        "svgs": 0,
+        "buttons": 34
+      },
+      {
+        "tab": "Cover letter",
+        "chars": 4380,
+        "cards": [
+          "Draft for this job",
+          "Checks for any letter you send"
+        ],
+        "smarterTitle": false,
+        "checks": 6,
+        "editors": 1,
+        "tables": 0,
+        "svgs": 0,
+        "buttons": 35
+      },
+      {
+        "tab": "30-60-90 plan",
+        "chars": 3188,
+        "cards": [
+          "30-60-90 day plan · Director of Analytics & Reporting",
+          "Work-sample idea",
+          "Interview questions to prepare"
+        ],
+        "smarterTitle": false,
+        "checks": 0,
+        "editors": 0,
+        "tables": 0,
+        "svgs": 1,
+        "buttons": 24
+      },
+      {
+        "tab": "Job search & tracker",
+        "chars": 1572,
+        "cards": [
+          "Find similar openings",
+          "Also search these titles",
+          "Application tracker"
+        ],
+        "smarterTitle": false,
+        "checks": 0,
+        "editors": 0,
+        "tables": 1,
+        "svgs": 1,
+        "buttons": 23
+      }
+    ],
+    "errors": []
+  },
+  "AI_Pilot.html": {
+    "tabs": [
+      "Fit dashboard",
+      "★ SMARTER program",
+      "Résumé & evidence",
+      "Cover letter",
+      "30-60-90 plan",
+      "Job search & tracker"
+    ],
+    "perTab": [
+      {
+        "tab": "Fit dashboard",
+        "chars": 11101,
+        "cards": [
+          "Who it reports to · team size · what it pays",
+          "Evidence-match score",
+          "What the job asks vs. what you show",
+          "Top job keywords",
+          "Lead with these strengths",
+          "Strengthen before you apply",
+          "ATS & format checks",
+          "Requirement-by-requirement evidence map"
+        ],
+        "smarterTitle": false,
+        "checks": 8,
+        "editors": 0,
+        "tables": 1,
+        "svgs": 6,
+        "buttons": 63
+      },
+      {
+        "tab": "★ SMARTER program",
+        "chars": 4380,
+        "cards": [
+          "Executive summary",
+          "Mission & values alignment",
+          "Project charter"
+        ],
+        "smarterTitle": false,
+        "checks": 0,
+        "editors": 0,
+        "tables": 1,
+        "svgs": 1,
+        "buttons": 36
+      },
+      {
+        "tab": "Résumé & evidence",
+        "chars": 15170,
+        "cards": [
+          "Tailored résumé · your SMARTER format",
+          "Lead with these 8 bullets",
+          "Profile line for this job",
+          "Keywords to check (1)",
+          "Already in your words (15)",
+          "Format checks"
+        ],
+        "smarterTitle": true,
+        "checks": 8,
+        "editors": 1,
+        "tables": 1,
+        "svgs": 0,
+        "buttons": 34
+      },
+      {
+        "tab": "Cover letter",
+        "chars": 4380,
+        "cards": [
+          "Draft for this job",
+          "Checks for any letter you send"
+        ],
+        "smarterTitle": false,
+        "checks": 6,
+        "editors": 1,
+        "tables": 0,
+        "svgs": 0,
+        "buttons": 35
+      },
+      {
+        "tab": "30-60-90 plan",
+        "chars": 3188,
+        "cards": [
+          "30-60-90 day plan · Director of Analytics & Reporting",
+          "Work-sample idea",
+          "Interview questions to prepare"
+        ],
+        "smarterTitle": false,
+        "checks": 0,
+        "editors": 0,
+        "tables": 0,
+        "svgs": 1,
+        "buttons": 24
+      },
+      {
+        "tab": "Job search & tracker",
+        "chars": 1572,
+        "cards": [
+          "Find similar openings",
+          "Also search these titles",
+          "Application tracker"
+        ],
+        "smarterTitle": false,
+        "checks": 0,
+        "editors": 0,
+        "tables": 1,
+        "svgs": 1,
+        "buttons": 23
+      }
+    ],
+    "errors": []
+  }
+}

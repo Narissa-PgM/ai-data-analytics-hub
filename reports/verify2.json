@@ -1,0 +1,167 @@
+{
+  "checks": [
+    {
+      "name": "lazy library builds only when opened",
+      "pass": true,
+      "info": {
+        "before": 0,
+        "after": 111
+      }
+    },
+    {
+      "name": "focus ring rule installed",
+      "pass": true,
+      "info": {
+        "ringRule": true,
+        "border": "rgb(127, 145, 156)"
+      }
+    },
+    {
+      "name": "input boundary >= 3:1 colour applied",
+      "pass": true,
+      "info": {
+        "border": "rgb(127, 145, 156)"
+      }
+    },
+    {
+      "name": "micro text uses #56697a",
+      "pass": true,
+      "info": {
+        "color": "rgb(86, 105, 122)"
+      }
+    },
+    {
+      "name": "historical mode: no synthetic-forecast segment",
+      "pass": true,
+      "info": {
+        "lines": [
+          {
+            "pts": 5,
+            "dash": null
+          },
+          {
+            "pts": 0,
+            "dash": "5 4"
+          }
+        ],
+        "legend": "Synthetic history",
+        "caption": "Select for 2020–2024 data, assumptions and evidence"
+      }
+    },
+    {
+      "name": "chart caption follows the chosen horizon",
+      "pass": true,
+      "info": {
+        "caption": "Select for 2020–2024 data, assumptions and evidence"
+      }
+    },
+    {
+      "name": "forecast mode: dashed segment + forecast legend",
+      "pass": true,
+      "info": {
+        "lines": [
+          {
+            "pts": 6,
+            "dash": null
+          },
+          {
+            "pts": 6,
+            "dash": "5 4"
+          }
+        ],
+        "legend": "Synthetic historySynthetic forecast"
+      }
+    },
+    {
+      "name": "[data-ri] nodes activate on Enter and Space",
+      "pass": true,
+      "info": {
+        "enter": 1,
+        "space": 2
+      }
+    },
+    {
+      "name": "modal Tab containment works (#edModal)",
+      "pass": true,
+      "info": {
+        "count": 2,
+        "afterTab": true,
+        "afterShift": true
+      }
+    },
+    {
+      "name": "Ctrl+K opens the library and focuses search",
+      "pass": true,
+      "info": {
+        "wasHidden": true,
+        "libraryVisible": true,
+        "focused": true,
+        "cards": 111
+      }
+    },
+    {
+      "name": "Job Fit stepper is 3-across on a phone",
+      "pass": true,
+      "info": {
+        "stepsHeight": 0,
+        "rows": 1
+      }
+    },
+    {
+      "name": "phone toolbar is not sticky",
+      "pass": true,
+      "info": {
+        "position": "static"
+      }
+    },
+    {
+      "name": "phone tap targets reach 44 px",
+      "pass": true,
+      "info": {
+        "clear": [
+          44,
+          44
+        ],
+        "icon": [
+          44,
+          44
+        ]
+      }
+    },
+    {
+      "name": "no horizontal page overflow at 390",
+      "pass": true,
+      "info": {
+        "toolbarPosition": "static",
+        "clearSize": [
+          44,
+          44
+        ],
+        "iconSize": [
+          44,
+          44
+        ],
+        "pageScrollWidth": 390,
+        "clientWidth": 390
+      }
+    },
+    {
+      "name": "pilot hero prints dark-on-white",
+      "pass": true,
+      "info": {
+        "color": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "name": "main is a focusable skip target",
+      "pass": true,
+      "info": {}
+    }
+  ],
+  "summary": {
+    "total": 16,
+    "passed": 16,
+    "failed": []
+  }
+}

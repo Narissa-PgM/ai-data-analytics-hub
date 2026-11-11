@@ -1,0 +1,605 @@
+{
+  "file": "C:\\Users\\sawat\\OneDrive\\Documents\\deepseek-harness\\default-workspace\\ai-pilot-v3\\AI_Pilot.html",
+  "bytes": 2335605,
+  "startedAt": "2026-11-11T03:45:29.299Z",
+  "browser": "edge",
+  "browserVersion": "Edg/157.0.4341.46",
+  "loadWallMs": 1007,
+  "loadMsToComplete": 2221,
+  "timing": {
+    "domContentLoaded": 460,
+    "loadEvent": 480,
+    "domInteractive": 427,
+    "responseEnd": 41,
+    "firstPaint": 276,
+    "firstContentfulPaint": 276,
+    "domNodes": 6613,
+    "htmlBytes": 2651349
+  },
+  "structure": {
+    "duplicateIds": [],
+    "viewToggleCount": 15,
+    "views": [
+      {
+        "id": "viewJobFit",
+        "label": "★ Job Fit Studio"
+      },
+      {
+        "id": "viewJobRadar",
+        "label": "⌖ Job Match Radar"
+      },
+      {
+        "id": "viewMAJobs",
+        "label": "⌕ Massachusetts Jobs"
+      },
+      {
+        "id": "viewContract",
+        "label": "⌂ Remote / Consulting"
+      },
+      {
+        "id": "viewCareer",
+        "label": "▣ Resume + Cover Letter"
+      },
+      {
+        "id": "viewFit",
+        "label": "◎ Career Fit & Demo Gaps"
+      },
+      {
+        "id": "viewWorkSample",
+        "label": "▦ Work Sample Studio"
+      },
+      {
+        "id": "viewAdmiss",
+        "label": "①Should we do it? Admissibility"
+      },
+      {
+        "id": "viewEnterprise",
+        "label": "②Align to the org Enterprise & C-Suite"
+      },
+      {
+        "id": "viewPilot",
+        "label": "③Plan, budget, calendar Co-worker"
+      },
+      {
+        "id": "viewAnalyzer",
+        "label": "④Design the platform Platform Analyzer"
+      },
+      {
+        "id": "viewAudit",
+        "label": "⑤Auto-check the build Audit Lab"
+      },
+      {
+        "id": "viewQA",
+        "label": "⑥Sign off the release QA Gate"
+      },
+      {
+        "id": "viewLibrary",
+        "label": "⌘ Command Library"
+      },
+      {
+        "id": "viewGallery",
+        "label": "◫ Visual Samples"
+      }
+    ],
+    "sectionIds": [
+      "jobFitPanel",
+      "recipes",
+      "visualPanel",
+      "analyzerPanel",
+      "qaPanel",
+      "careerPanel",
+      "maJobsPanel",
+      "contractPanel",
+      "jobRadarPanel",
+      "admissPanel",
+      "adSheetReverse",
+      "workSamplePanel",
+      "wsPanelBrief",
+      "wsPanelSpec",
+      "wsPanelPrompt",
+      "wsPanelQa",
+      "wsPanelRole",
+      "wsPanelCmb",
+      "enterprisePanel",
+      "auditPanel",
+      "pilotPanel",
+      "fitPanel"
+    ],
+    "brokenAnchors": [],
+    "externalRefs": [
+      "https://nces.ed.gov/ipeds",
+      "https://ncses.nsf.gov/surveys/higher-education-research-development",
+      "https://www.bls.gov/developers/",
+      "https://www.w3.org/TR/WCAG22/",
+      "https://owasp.org/www-project-web-security-testing-guide/",
+      "https://www.nist.gov/itl/ai-risk-management-framework",
+      "https://careerservices.fas.harvard.edu/ai-resumes-and-cover-letters/",
+      "https://www.mass.gov/info-details/independent-contractors-0",
+      "https://www.mass.gov/find-your-next-job-with-masshire-jobquest",
+      "https://massanf.taleo.net/careersection/exm/jobsearch.ftl",
+      "https://www.mma.org/municipal-marketplace/job-ads/",
+      "https://www.hercjobs.org/regions/higher-ed-careers-new-england/",
+      "https://careers.massachusetts.edu/en-us/listing/",
+      "https://masstowncareers.org/search-jobs/",
+      "https://www.linkedin.com/jobs/",
+      "https://www.indeed.com/",
+      "https://www.flexjobs.com/",
+      "https://www.idealist.org/en/jobs",
+      "https://www.linkedin.com/jobs/search/?keywords=Director%2C%20Program%20Management%20Office&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://www.google.com/search?q=Director%2C%20Program%20Management%20Office%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.usajobs.gov/",
+      "https://www.builtinboston.com/jobs?search=Director%2C%20Program%20Management%20Office",
+      "https://www.google.com/search?q=%22Director%2C%20Program%20Management%20Office%22%20employer%20careers%20jobs%20Massachusetts",
+      "https://www.idealist.org/en/jobs?q=Grants%20and%20Data%20Manager",
+      "https://www.linkedin.com/jobs/search/?keywords=Grants%20and%20Data%20Manager&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://www.google.com/search?q=Grants%20and%20Data%20Manager%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.linkedin.com/jobs/search/?keywords=Manager%20of%20Institutional%20Research&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://main.hercjobs.org/",
+      "https://www.higheredjobs.com/search/",
+      "https://www.google.com/search?q=Manager%20of%20Institutional%20Research%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.linkedin.com/jobs/search/?keywords=Quality%20Data%20Manager&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://www.google.com/search?q=Quality%20Data%20Manager%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.dice.com/jobs?q=Quality%20Data%20Manager&location=Massachusetts",
+      "https://www.google.com/search?q=site%3Aorg%20%22Quality%20Data%20Manager%22%20jobs%20Massachusetts",
+      "https://www.linkedin.com/jobs/search/?keywords=Director%20of%20Institutional%20Research&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://main.hercjobs.org/",
+      "https://www.higheredjobs.com/search/",
+      "https://www.google.com/search?q=Director%20of%20Institutional%20Research%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.google.com/search?q=site%3Aedu%20%22Director%20of%20Institutional%20Research%22%20jobs%20Massachusetts",
+      "https://www.linkedin.com/jobs/search/?keywords=Senior%20Data%20Analyst&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://www.google.com/search?q=Senior%20Data%20Analyst%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.dice.com/jobs?q=Senior%20Data%20Analyst&location=Massachusetts",
+      "https://www.mass.gov/masscareers",
+      "https://www.higheredjobs.com/search/",
+      "https://www.linkedin.com/jobs/search/?keywords=Director%20of%20Performance%20Management&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://www.google.com/search?q=Director%20of%20Performance%20Management%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.usajobs.gov/",
+      "https://www.mass.gov/masscareers",
+      "https://www.google.com/search?q=site%3Agov%20%22Director%20of%20Performance%20Management%22%20jobs%20Massachusetts",
+      "https://www.idealist.org/en/jobs?q=Director%20of%20Impact%20and%20Evaluation",
+      "https://www.linkedin.com/jobs/search/?keywords=Director%20of%20Impact%20and%20Evaluation&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://www.google.com/search?q=Director%20of%20Impact%20and%20Evaluation%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.google.com/search?q=site%3Aorg%20%22Director%20of%20Impact%20and%20Evaluation%22%20jobs%20Massachusetts",
+      "https://www.mass.gov/masscareers",
+      "https://www.usajobs.gov/",
+      "https://www.google.com/search?q=Budget%20and%20Performance%20Manager%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.indeed.com/",
+      "https://www.linkedin.com/jobs/search/?keywords=Budget%20and%20Performance%20Manager&location=Massachusetts",
+      "https://www.linkedin.com/jobs/search/?keywords=Director%2C%20Healthcare%20Analytics&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://www.dice.com/jobs?q=Director%2C%20Healthcare%20Analytics&location=Massachusetts",
+      "https://www.google.com/search?q=Director%2C%20Healthcare%20Analytics%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.google.com/search?q=site%3Aorg%20%22Director%2C%20Healthcare%20Analytics%22%20jobs%20Massachusetts",
+      "https://www.linkedin.com/jobs/search/?keywords=Senior%20Program%20Manager&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://www.google.com/search?q=Senior%20Program%20Manager%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.mass.gov/masscareers",
+      "https://www.usajobs.gov/",
+      "https://www.linkedin.com/jobs/search/?keywords=Director%20of%20Data%20Analytics%20and%20BI&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://www.dice.com/jobs?q=Director%20of%20Data%20Analytics%20and%20BI&location=Massachusetts",
+      "https://www.builtinboston.com/jobs?search=Director%20of%20Data%20Analytics%20and%20BI",
+      "https://www.google.com/search?q=Director%20of%20Data%20Analytics%20and%20BI%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.flexjobs.com/search?search=Director%20of%20Data%20Analytics%20and%20BI",
+      "https://www.linkedin.com/jobs/search/?keywords=Analytics%20Manager&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://www.dice.com/jobs?q=Analytics%20Manager&location=Massachusetts",
+      "https://www.builtinboston.com/jobs?search=Analytics%20Manager",
+      "https://www.google.com/search?q=Analytics%20Manager%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://remote.co/",
+      "https://www.linkedin.com/jobs/search/?keywords=Chief%20Data%20Officer&location=Massachusetts",
+      "https://www.indeed.com/",
+      "https://www.google.com/search?q=Chief%20Data%20Officer%20Massachusetts%20jobs&ibp=htl;jobs",
+      "https://www.dice.com/jobs?q=Chief%20Data%20Officer&location=Massachusetts",
+      "https://www.flexjobs.com/search?search=Chief%20Data%20Officer",
+      "https://www.pmi.org/standards",
+      "https://www.gao.gov/managing-results-government",
+      "https://www.w3.org/TR/WCAG22/",
+      "https://developers.openai.com/api/docs/pricing",
+      "https://help.openai.com/en/articles/20001415-chatgpt-rate-card-enterprise-token-based-pricing",
+      "https://developers.openai.com/api/docs/pricing",
+      "https://platform.claude.com/docs/en/about-claude/pricing",
+      "https://platform.claude.com/docs/en/about-claude/pricing",
+      "https://platform.claude.com/docs/en/about-claude/pricing",
+      "https://api-docs.deepseek.com/quick_start/pricing/",
+      "https://api-docs.deepseek.com/quick_start/pricing/",
+      "https://prod.cursor.com/docs/models-and-pricing",
+      "https://prod.cursor.com/docs/models-and-pricing",
+      "https://huggingface.co/docs/inference-providers/pricing",
+      "https://registrar.fas.harvard.edu/academic-calendar",
+      "https://seas.harvard.edu/office-finance/financial-planning-analysis-fpa/annual-fpa-lifecycle"
+    ],
+    "scriptBytes": 1984165,
+    "styleBytes": 187475,
+    "dialogs": 3,
+    "buttons": 394,
+    "inputs": 429
+  },
+  "a11y": {
+    "buttonWithoutName": [],
+    "inputWithoutName": [],
+    "imgWithoutAlt": [],
+    "svgWithoutLabel": 2,
+    "headingJumps": 1,
+    "h1Count": 15,
+    "lang": "en",
+    "title": "Job Fit Studio · ExecutivePilot AI"
+  },
+  "views": [
+    {
+      "id": "viewJobFit",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewJobRadar",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewMAJobs",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewContract",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewCareer",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewFit",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewWorkSample",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewAdmiss",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewEnterprise",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewPilot",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewAnalyzer",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewAudit",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewQA",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewLibrary",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    },
+    {
+      "id": "viewGallery",
+      "click": true,
+      "state": {
+        "visibleTopLevel": 2,
+        "headingText": "Drop the job. Drop your résumé. Get the whole package.",
+        "scrollWidth": 1391,
+        "clientWidth": 1391
+      },
+      "errors": []
+    }
+  ],
+  "consoleErrorsTotal": [],
+  "responsive": [
+    {
+      "w": 1920,
+      "h": 1080,
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflowCount": 0,
+      "sample": []
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflowCount": 0,
+      "sample": []
+    },
+    {
+      "w": 1024,
+      "h": 768,
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflowCount": 0,
+      "sample": []
+    },
+    {
+      "w": 768,
+      "h": 900,
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflowCount": 0,
+      "sample": []
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "overflowCount": 12,
+      "sample": [
+        {
+          "tag": "BUTTON",
+          "id": "viewMAJobs",
+          "cls": "view-toggle",
+          "right": 463
+        },
+        {
+          "tag": "BUTTON",
+          "id": "viewContract",
+          "cls": "view-toggle",
+          "right": 638
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "symbol",
+          "right": 497
+        },
+        {
+          "tag": "BUTTON",
+          "id": "viewCareer",
+          "cls": "view-toggle",
+          "right": 826
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "symbol",
+          "right": 672
+        },
+        {
+          "tag": "BUTTON",
+          "id": "viewFit",
+          "cls": "view-toggle",
+          "right": 1020
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "symbol",
+          "right": 860
+        },
+        {
+          "tag": "BUTTON",
+          "id": "viewWorkSample",
+          "cls": "view-toggle",
+          "right": 1194
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "symbol",
+          "right": 1054
+        },
+        {
+          "tag": "BUTTON",
+          "id": "viewAdmiss",
+          "cls": "view-toggle",
+          "right": 1344
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "symbol",
+          "right": 1228
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "fl",
+          "right": 1335
+        }
+      ]
+    },
+    {
+      "w": 360,
+      "h": 780,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflowCount": 12,
+      "sample": [
+        {
+          "tag": "BUTTON",
+          "id": "viewMAJobs",
+          "cls": "view-toggle",
+          "right": 463
+        },
+        {
+          "tag": "BUTTON",
+          "id": "viewContract",
+          "cls": "view-toggle",
+          "right": 638
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "symbol",
+          "right": 497
+        },
+        {
+          "tag": "BUTTON",
+          "id": "viewCareer",
+          "cls": "view-toggle",
+          "right": 826
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "symbol",
+          "right": 672
+        },
+        {
+          "tag": "BUTTON",
+          "id": "viewFit",
+          "cls": "view-toggle",
+          "right": 1020
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "symbol",
+          "right": 860
+        },
+        {
+          "tag": "BUTTON",
+          "id": "viewWorkSample",
+          "cls": "view-toggle",
+          "right": 1194
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "symbol",
+          "right": 1054
+        },
+        {
+          "tag": "BUTTON",
+          "id": "viewAdmiss",
+          "cls": "view-toggle",
+          "right": 1344
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "symbol",
+          "right": 1228
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "fl",
+          "right": 1335
+        }
+      ]
+    }
+  ],
+  "print": {
+    "bytes": 106954,
+    "pages": 2
+  },
+  "finishedAt": "2026-11-11T03:45:46.516Z"
+}

@@ -1,0 +1,159 @@
+{
+  "jobA": "91Director of Analytics & ReportingExample University, Office of the P",
+  "A_ws": {
+    "w": "ws",
+    "bar": "⇩Drop your job description and résumé, or nothing at allPDF, DOCX, HTML or TXT. Anything a",
+    "status": "Built automatically for “Director of Analytics & Reporting”: 13 of 14 fields filled. Open “Details” to check or edit any of them.",
+    "autoChecked": true,
+    "fields": {
+      "wsRole": {
+        "v": "Director of Analytics & Reporting",
+        "auto": "1",
+        "user": ""
+      },
+      "wsJD": {
+        "v": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organiz",
+        "auto": "1",
+        "user": ""
+      },
+      "wsSpecify": {
+        "v": "Executive Reporting & Self-Service Analytics Modernization: One govern",
+        "auto": "1",
+        "user": ""
+      }
+    },
+    "prompt": "You are a senior program and portfolio director (PMP/MSP), an information designer, and a "
+  },
+  "A_career": {
+    "w": "career",
+    "bar": "⇩Drop your job description and résumé, or nothing at allPDF, DOCX, HTML or TXT. Anything a",
+    "status": "Built automatically for “Director of Analytics & Reporting”: 8 of 9 fields filled (already up to date). Open “Details” to check or edit any of them.",
+    "autoChecked": true,
+    "fields": {
+      "cJob": {
+        "v": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organiz",
+        "auto": "",
+        "user": ""
+      },
+      "cRole": {
+        "v": "Director of Analytics & Reporting",
+        "auto": "",
+        "user": ""
+      }
+    },
+    "prompt": "Candidate → requirement coverage (transparent heuristic)88% means 14 of 16 extracted job t"
+  },
+  "A_fit": {
+    "w": "fit",
+    "bar": "⇩Drop your job description and résumé, or nothing at allPDF, DOCX, HTML or TXT. Anything a",
+    "status": "Built automatically for “Director of Analytics & Reporting”: 6 of 8 fields filled. Open “Details” to check or edit any of them.",
+    "autoChecked": true,
+    "fields": {
+      "fitRole": {
+        "v": "Director of Analytics & Reporting",
+        "auto": "1",
+        "user": ""
+      },
+      "fitJD": {
+        "v": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organiz",
+        "auto": "1",
+        "user": ""
+      }
+    },
+    "prompt": "1. Build highest-priority missing moduleAct as a senior integrated program/portfolio manag"
+  },
+  "jobB": "94Director of Stewardship ReportingCascade Health Network — Office of ",
+  "storage": {
+    "ep_worksample_v1": "{\"role\":\"Director of Analytics & Reporting\",\"org\":\"Example University, Office of the Provost (fictional) — Office of Institutional Analytics\",\"jd\":\"Director of ",
+    "ep_apply_auto_v1": "{\"auto\":{\"career\":true,\"fit\":true,\"ws\":true},\"built\":{\"ws\":\"jmwbflqucx79ss|jmwbflqudx8hi3|2002|10148|0|0\",\"career\":\"jmwbflqucx79ss|jmwbflqudx8hi3|2002|10148|0|0",
+    "ep_jobradar_profile_v1": "{\"skills\":\"SQL, Tableau, Power BI, institutional research, IPEDS reporting, data governance, program evaluation, stakeholder management, Python, Excel modeling,",
+    "ep_jobfit_v1": "{\"items\":[{\"id\":\"jmwbflqucx79ss\",\"kind\":\"job\",\"name\":\"Director of Analytics & Reporting\",\"text\":\"Director of Analytics & Reporting (SAMPLE — fictional posting)\\"
+  },
+  "B_ws": {
+    "w": "ws",
+    "bar": "⇩Drop your job description and résumé, or nothing at allPDF, DOCX, HTML or TXT. Anything a",
+    "status": "Built automatically for “Director of Stewardship Reporting”: 13 of 14 fields filled. Open “Details” to check or edit any of them.",
+    "autoChecked": true,
+    "fields": {
+      "wsRole": {
+        "v": "Director of Stewardship Reporting",
+        "auto": "1",
+        "user": ""
+      },
+      "wsJD": {
+        "v": "Director of Stewardship Reporting Cascade Health Network — Office of P",
+        "auto": "1",
+        "user": ""
+      },
+      "wsSpecify": {
+        "v": "Advancement Data & Gift Operations Modernization: Faster, accurate gif",
+        "auto": "1",
+        "user": ""
+      }
+    },
+    "prompt": "You are a senior program and portfolio director (PMP/MSP), an information designer, and a "
+  },
+  "B_career": {
+    "w": "career",
+    "bar": "⇩Drop your job description and résumé, or nothing at allPDF, DOCX, HTML or TXT. Anything a",
+    "status": "Built automatically for “Director of Stewardship Reporting”: 8 of 9 fields filled (already up to date). Open “Details” to check or edit any of them.",
+    "autoChecked": true,
+    "fields": {
+      "cJob": {
+        "v": "Director of Stewardship Reporting Cascade Health Network — Office of P",
+        "auto": "",
+        "user": ""
+      },
+      "cRole": {
+        "v": "Director of Stewardship Reporting",
+        "auto": "",
+        "user": ""
+      }
+    },
+    "prompt": "Candidate → requirement coverage (transparent heuristic)56% means 5 of 9 extracted job ter"
+  },
+  "B_fit": {
+    "w": "fit",
+    "bar": "⇩Drop your job description and résumé, or nothing at allPDF, DOCX, HTML or TXT. Anything a",
+    "status": "Built automatically for “Director of Stewardship Reporting”: 6 of 8 fields filled. Open “Details” to check or edit any of them.",
+    "autoChecked": true,
+    "fields": {
+      "fitRole": {
+        "v": "Director of Stewardship Reporting",
+        "auto": "1",
+        "user": ""
+      },
+      "fitJD": {
+        "v": "Director of Stewardship Reporting Cascade Health Network — Office of P",
+        "auto": "1",
+        "user": ""
+      }
+    },
+    "prompt": "1. Build highest-priority missing moduleAct as a senior integrated program/portfolio manag"
+  },
+  "wsManual": {
+    "w": "ws",
+    "bar": "⇩Drop your job description and résumé, or nothing at allPDF, DOCX, HTML or TXT. Anything a",
+    "status": "Built for “Director of Stewardship Reporting”: 13 of 14 fields filled. Open “Details” to check or edit any of them.",
+    "autoChecked": true,
+    "fields": {
+      "wsRole": {
+        "v": "Director of Stewardship Reporting",
+        "auto": "1",
+        "user": ""
+      },
+      "wsJD": {
+        "v": "Director of Stewardship Reporting Cascade Health Network — Office of P",
+        "auto": "1",
+        "user": ""
+      },
+      "wsSpecify": {
+        "v": "Advancement Data & Gift Operations Modernization: Faster, accurate gif",
+        "auto": "1",
+        "user": ""
+      }
+    },
+    "prompt": "You are a senior program and portfolio director (PMP/MSP), an information designer, and a "
+  },
+  "errors": []
+}

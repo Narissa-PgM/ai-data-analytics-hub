@@ -1,0 +1,96 @@
+{
+  "checks": [
+    {
+      "n": "structured research document applies",
+      "p": true,
+      "i": {
+        "kicker": "Research JSON applied",
+        "title": "Loaded 6 fields"
+      }
+    },
+    {
+      "n": "mission assembled from all levels",
+      "p": true,
+      "i": {
+        "head": "- Harvard University: Harvard’s mission of excellence in teaching, learning, and research.\n- Harvard Kennedy School: Harvard Kennedy School ",
+        "full": "- Harvard University: Harvard’s mission of excellence in teaching, learning, and research.\n- Harvard Kennedy School: Harvard Kennedy School trains exceptional public leaders, generates cutting-edge research to make the world more safe, free, just, and sustainably prosperous for all.\n- HKS Library & Research Services: Library & Research Services (LRS) advances the HKS mission by serving the research, data, and curricular needs of our community.\n- Chief Research Enablement Officer: Coordinate institutional research enablement capabilities to deliver effective, reliable, compliant, and researcher-centered services."
+      }
+    },
+    {
+      "n": "values assembled from values + principles",
+      "p": true,
+      "i": {
+        "head": "Respect — Respect the rights, differences, and dignity of others. / Integrity — Demonstrate honesty and integrity in all dealings / Respect "
+      }
+    },
+    {
+      "n": "strategic plan captured",
+      "p": true,
+      "i": {
+        "plan": "HKS 2036: Leadership for a New Era (2026-2036) · published 2026-06-03"
+      }
+    },
+    {
+      "n": "plan goals + related initiatives captured",
+      "p": true,
+      "i": {
+        "head": "Research and Scholarly Excellence | current | 2026-2036 |  / Technology for the Public Good | current | 2026-2036 |  / Harvard Impact Labs | current |  | "
+      }
+    },
+    {
+      "n": "evidence register becomes sources",
+      "p": true,
+      "i": {
+        "head": "Harvard Community Values | https://ccl.harvard.edu/about/community-values / HKS 2036 | https://www.hks.harvard.edu/sites/default/files/about_us/HKS_2036.pdf / H"
+      }
+    },
+    {
+      "n": "proposed operating priorities kept separately",
+      "p": true,
+      "i": {
+        "head": "Researcher Time — Reduce administrative friction so researchers can devote more time to scholarship."
+      }
+    },
+    {
+      "n": "executive theme captured",
+      "p": true,
+      "i": {
+        "motto": "Connect strategy, people, analytics, governance, and systems to enable scholarship."
+      }
+    },
+    {
+      "n": "job reference captured from the document",
+      "p": true,
+      "i": {
+        "ref": "003413SR"
+      }
+    },
+    {
+      "n": "organization resolved",
+      "p": true,
+      "i": {
+        "org": "Harvard Kennedy School — Harvard University"
+      }
+    },
+    {
+      "n": "work-sample brief receives mission + plan",
+      "p": true,
+      "i": {
+        "mission": "- Harvard University: Harvard’s mission of excellence in teaching, learning, and research.\n- Harvard",
+        "plan": "Research and Scholarly Excellence | current | 2026-2036 | \nTechnology for the Public Good | current "
+      }
+    },
+    {
+      "n": "no console errors",
+      "p": true,
+      "i": {
+        "errors": []
+      }
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "passed": 12,
+    "failed": []
+  }
+}

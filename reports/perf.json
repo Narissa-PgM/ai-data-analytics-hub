@@ -1,0 +1,280 @@
+{
+  "file": "C:\\Users\\sawat\\OneDrive\\Documents\\deepseek-harness\\default-workspace\\ai-pilot-v3\\AI_Pilot.html",
+  "bytes": 2295845,
+  "wallMs": 5108,
+  "topSelf": [
+    {
+      "fn": "(idle) @-1",
+      "ms": 4018.4,
+      "pct": 79.5
+    },
+    {
+      "fn": "(program) @-1",
+      "ms": 665.1,
+      "pct": 13.2
+    },
+    {
+      "fn": "scrollTo @-1",
+      "ms": 89.2,
+      "pct": 1.8
+    },
+    {
+      "fn": "drawDemo @3786",
+      "ms": 40.7,
+      "pct": 0.8
+    },
+    {
+      "fn": "makeCard @3325",
+      "ms": 37.6,
+      "pct": 0.7
+    },
+    {
+      "fn": "(anonymous) @4175",
+      "ms": 12.5,
+      "pct": 0.2
+    },
+    {
+      "fn": "(anonymous) @5826",
+      "ms": 8.4,
+      "pct": 0.2
+    },
+    {
+      "fn": "(anonymous) @3304",
+      "ms": 7.3,
+      "pct": 0.1
+    },
+    {
+      "fn": "buildCommandVisual @3568",
+      "ms": 7,
+      "pct": 0.1
+    },
+    {
+      "fn": "el @3318",
+      "ms": 6.2,
+      "pct": 0.1
+    },
+    {
+      "fn": "(garbage collector) @-1",
+      "ms": 5.9,
+      "pct": 0.1
+    },
+    {
+      "fn": "renderBudget @4277",
+      "ms": 5.3,
+      "pct": 0.1
+    },
+    {
+      "fn": "carVal @3899",
+      "ms": 5,
+      "pct": 0.1
+    },
+    {
+      "fn": "(anonymous) @3328",
+      "ms": 5,
+      "pct": 0.1
+    },
+    {
+      "fn": "createElement @-1",
+      "ms": 4.4,
+      "pct": 0.1
+    },
+    {
+      "fn": "(anonymous) @3564",
+      "ms": 4.2,
+      "pct": 0.1
+    },
+    {
+      "fn": "evaluateNow @7472",
+      "ms": 3.7,
+      "pct": 0.1
+    },
+    {
+      "fn": "runAnalysis @3783",
+      "ms": 3.6,
+      "pct": 0.1
+    },
+    {
+      "fn": "renderQuestionnaire @4300",
+      "ms": 3.6,
+      "pct": 0.1
+    },
+    {
+      "fn": "render @8907",
+      "ms": 3.3,
+      "pct": 0.1
+    },
+    {
+      "fn": "appendChild @-1",
+      "ms": 2.9,
+      "pct": 0.1
+    },
+    {
+      "fn": "getElementById @-1",
+      "ms": 2.7,
+      "pct": 0.1
+    },
+    {
+      "fn": "iso @4263",
+      "ms": 2.7,
+      "pct": 0.1
+    },
+    {
+      "fn": "renderCalendar @4290",
+      "ms": 2.7,
+      "pct": 0.1
+    },
+    {
+      "fn": "(anonymous) @3786",
+      "ms": 2.6,
+      "pct": 0.1
+    },
+    {
+      "fn": "chartFor @3575",
+      "ms": 2.6,
+      "pct": 0.1
+    },
+    {
+      "fn": "init @6380",
+      "ms": 2.6,
+      "pct": 0.1
+    },
+    {
+      "fn": "fmt @4179",
+      "ms": 2.6,
+      "pct": 0.1
+    },
+    {
+      "fn": "buildPrompt @8687",
+      "ms": 2.6,
+      "pct": 0.1
+    },
+    {
+      "fn": "(anonymous) @15557",
+      "ms": 2.3,
+      "pct": 0
+    }
+  ],
+  "metrics": {
+    "TaskDuration": 1.047131,
+    "ScriptDuration": 0.289172,
+    "LayoutDuration": 0.456815,
+    "RecalcStyleDuration": 0.017952,
+    "JSHeapUsedSize": 4132012,
+    "Nodes": 23175,
+    "Documents": 4
+  },
+  "dom": {
+    "total": 10193,
+    "panels": [
+      {
+        "id": "libraryPanel",
+        "hidden": true,
+        "nodes": 3650
+      },
+      {
+        "id": "admissPanel",
+        "hidden": true,
+        "nodes": 1332
+      },
+      {
+        "id": "pilotPanel",
+        "hidden": true,
+        "nodes": 1307
+      },
+      {
+        "id": "jobRadarPanel",
+        "hidden": true,
+        "nodes": 1219
+      },
+      {
+        "id": "workSamplePanel",
+        "hidden": true,
+        "nodes": 960
+      },
+      {
+        "id": "analyzerPanel",
+        "hidden": true,
+        "nodes": 423
+      },
+      {
+        "id": "fitPanel",
+        "hidden": true,
+        "nodes": 198
+      },
+      {
+        "id": "visualPanel",
+        "hidden": true,
+        "nodes": 157
+      },
+      {
+        "id": "enterprisePanel",
+        "hidden": true,
+        "nodes": 151
+      },
+      {
+        "id": "careerPanel",
+        "hidden": true,
+        "nodes": 131
+      },
+      {
+        "id": "auditPanel",
+        "hidden": true,
+        "nodes": 131
+      },
+      {
+        "id": "qaPanel",
+        "hidden": true,
+        "nodes": 86
+      },
+      {
+        "id": "jobFitPanel",
+        "hidden": false,
+        "nodes": 81
+      },
+      {
+        "id": "maJobsPanel",
+        "hidden": true,
+        "nodes": 75
+      },
+      {
+        "id": "contractPanel",
+        "hidden": true,
+        "nodes": 68
+      },
+      {
+        "id": "edModal",
+        "hidden": false,
+        "nodes": 7
+      },
+      {
+        "id": "xpModal",
+        "hidden": false,
+        "nodes": 7
+      }
+    ]
+  },
+  "longTasks": [
+    {
+      "s": 139,
+      "d": 85
+    },
+    {
+      "s": 232,
+      "d": 58
+    }
+  ],
+  "paint": {
+    "first-paint": 160,
+    "first-contentful-paint": 160,
+    "domInteractive": 231.9,
+    "domContentLoaded": 275.9,
+    "loadEvent": 299.6
+  },
+  "throttled4xMs": 3159,
+  "throttledPaint": {
+    "first-paint": 192,
+    "first-contentful-paint": 304,
+    "domContentLoaded": 1094,
+    "loadEvent": 1124.8
+  }
+}

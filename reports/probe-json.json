@@ -1,0 +1,63 @@
+{
+  "fenced": {
+    "res": {
+      "ok": true
+    },
+    "state": {
+      "summary": "Step 0 · Organization research HKS Example mission ✓ · values ✓ · 1 published projects PUBLISHED · VERIFY",
+      "mission": "To improve public policy and leadership.\nSource: https://example.edu/mission",
+      "toast": "",
+      "toasts": [],
+      "status": ""
+    }
+  },
+  "prose": {
+    "res": {
+      "ok": true
+    },
+    "state": {
+      "summary": "Step 0 · Organization research HKS Example mission ✓ · values ✓ · 0 published projects PUBLISHED · VERIFY",
+      "mission": "To improve public policy.\nSource: https://example.edu/mission",
+      "toast": "",
+      "toasts": [],
+      "status": ""
+    }
+  },
+  "nested": {
+    "res": {
+      "ok": true
+    },
+    "state": {
+      "summary": "Step 0 · Organization research HKS Example mission ✓ · values ✓ · 1 published projects PUBLISHED · VERIFY",
+      "mission": "Nested mission text.\nSource: https://example.edu/m",
+      "toast": "",
+      "toasts": [],
+      "status": ""
+    }
+  },
+  "curly": {
+    "res": {
+      "ok": true
+    },
+    "state": {
+      "summary": "Step 0 · Organization research HKS Example mission ✓ · values ✓ · 1 published projects PUBLISHED · VERIFY",
+      "mission": "Nested mission text.\nSource: https://example.edu/m",
+      "toast": "",
+      "toasts": [],
+      "status": ""
+    }
+  },
+  "trailingComma": {
+    "res": {
+      "ok": true
+    },
+    "state": {
+      "summary": "Step 0 · Organization research HKS Example mission ✓ · values ✓ · 1 published projects PUBLISHED · VERIFY",
+      "mission": "Nested mission text.\nSource: https://example.edu/m",
+      "toast": "",
+      "toasts": [],
+      "status": ""
+    }
+  },
+  "errors": []
+}

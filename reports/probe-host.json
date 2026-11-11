@@ -1,0 +1,51 @@
+{
+  "file": {
+    "env": {
+      "url": "file:///C:/Users/sawat/OneDrive/Documents/deepseek-harness/default-workspace/ai-",
+      "secureContext": true,
+      "clipboard": true,
+      "localStorage": "works",
+      "indexedDB": true,
+      "fileSystemAccess": "function",
+      "downloadAttr": true,
+      "print": true
+    },
+    "externalFetch": "error: Failed to fetch",
+    "app": {
+      "resultChars": 11757,
+      "checks": 8,
+      "fixedRows": 4,
+      "smarterCard": false,
+      "storageKeys": 2
+    },
+    "errors": [
+      "Access to fetch at 'https://example.com/' from origin 'file://' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the reque",
+      "Failed to load resource: net::ERR_FAILED"
+    ]
+  },
+  "http": {
+    "env": {
+      "url": "http://127.0.0.1:8731/AI_Pilot.html",
+      "secureContext": true,
+      "clipboard": true,
+      "localStorage": "works",
+      "indexedDB": true,
+      "fileSystemAccess": "function",
+      "downloadAttr": true,
+      "print": true
+    },
+    "externalFetch": "error: Failed to fetch",
+    "app": {
+      "resultChars": 11757,
+      "checks": 8,
+      "fixedRows": 4,
+      "smarterCard": false,
+      "storageKeys": 2
+    },
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Access to fetch at 'https://example.com/' from origin 'http://127.0.0.1:8731' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is presen",
+      "Failed to load resource: net::ERR_FAILED"
+    ]
+  }
+}

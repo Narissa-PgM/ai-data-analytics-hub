@@ -1,0 +1,1068 @@
+{
+  "file": "C:\\Users\\sawat\\OneDrive\\Documents\\deepseek-harness\\default-workspace\\ai-pilot-v3\\AI_Pilot.html",
+  "afterA": [
+    {
+      "label": "editor",
+      "id": "cJob",
+      "cls": "cx-flash",
+      "tag": "TEXTAREA",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organization: Example University, Office of the Provost ("
+    },
+    {
+      "label": "editor",
+      "id": "wsRole",
+      "cls": "",
+      "tag": "INPUT",
+      "aHit": [
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Director of Analytics & Reporting"
+    },
+    {
+      "label": "editor",
+      "id": "wsOrg",
+      "cls": "",
+      "tag": "INPUT",
+      "aHit": [
+        "Example University",
+        "Office of the Provost"
+      ],
+      "bHit": false,
+      "head": "Example University, Office of the Provost (fictional) — Office of Institutional Analytics"
+    },
+    {
+      "label": "editor",
+      "id": "wsJD",
+      "cls": "",
+      "tag": "TEXTAREA",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organization: Example University, Office of the Provost ("
+    },
+    {
+      "label": "editor",
+      "id": "wsSpecify",
+      "cls": "",
+      "tag": "INPUT",
+      "aHit": [
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Executive Reporting & Self-Service Analytics Modernization: One governed set of dashboards that leaders use directly, fe"
+    },
+    {
+      "label": "editor",
+      "id": "wsPrompt",
+      "cls": "ws-prompt",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "You are a senior program and portfolio director (PMP/MSP), an information designer, and a front-end engineer. Build the "
+    },
+    {
+      "label": "editor",
+      "id": "fitJD",
+      "cls": "",
+      "tag": "TEXTAREA",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organization: Example University, Office of the Provost ("
+    },
+    {
+      "label": "editor",
+      "id": "fitCode",
+      "cls": "",
+      "tag": "TEXTAREA",
+      "aHit": [
+        "Example University",
+        "Office of the Provost"
+      ],
+      "bHit": false,
+      "head": "<!doctype html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width, initia"
+    },
+    {
+      "label": "editor",
+      "id": "fitPromptCards",
+      "cls": "fit-prompt-grid",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "1. Build highest-priority missing moduleAct as a senior integrated program/portfolio manager, institution researcher, UX"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "fit-prompt-card",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "1. Build highest-priority missing moduleAct as a senior integrated program/portfolio manager, institution researcher, UX"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Act as a senior integrated program/portfolio manager, institution researcher, UX analyst and software engineer. Build or"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "fit-prompt-card",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "2. Independent QA and smoke testAct as an independent SDET and senior hiring-panel reviewer. TARGET ROLE: Director of An"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Act as an independent SDET and senior hiring-panel reviewer. TARGET ROLE: Director of Analytics & Reporting at Example U"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "fit-prompt-card",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "3. Publishable GitHub work-sample narrativeAct as an executive portfolio author and UX lead. TARGET ROLE: Director of An"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Act as an executive portfolio author and UX lead. TARGET ROLE: Director of Analytics & Reporting at Example University, "
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "fit-prompt-card",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "4. Research official employer and strategic contextAct as a source-first higher-education and public-agency research ana"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Act as a source-first higher-education and public-agency research analyst. TARGET ROLE: Director of Analytics & Reportin"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "fit-prompt-card",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "5. Executive reviewer challenge questionsAct as a skeptical hiring committee for the specified role. TARGET ROLE: Direct"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Act as a skeptical hiring committee for the specified role. TARGET ROLE: Director of Analytics & Reporting at Example Un"
+    },
+    {
+      "label": "panel-text",
+      "id": "jobFitPanel",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "chars": 13038
+    },
+    {
+      "label": "panel-text",
+      "id": "careerPanel",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "chars": 6127
+    },
+    {
+      "label": "panel-text",
+      "id": "workSamplePanel",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "chars": 112014
+    },
+    {
+      "label": "panel-text",
+      "id": "fitPanel",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "chars": 49328
+    }
+  ],
+  "jobs": {
+    "sel": "94Director of Stewardship ReportingCascade Health Network — Office of Philanthropy, Boston",
+    "tray": [
+      "91Director of Analytics & ReportingExample University, Office of the P",
+      "94Director of Stewardship ReportingCascade Health Network — Office of "
+    ]
+  },
+  "afterB": [
+    {
+      "label": "editor",
+      "id": "cJob",
+      "cls": "cx-flash",
+      "tag": "TEXTAREA",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organization: Example University, Office of the Provost ("
+    },
+    {
+      "label": "editor",
+      "id": "wsRole",
+      "cls": "",
+      "tag": "INPUT",
+      "aHit": [
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Director of Analytics & Reporting"
+    },
+    {
+      "label": "editor",
+      "id": "wsOrg",
+      "cls": "",
+      "tag": "INPUT",
+      "aHit": [
+        "Example University",
+        "Office of the Provost"
+      ],
+      "bHit": false,
+      "head": "Example University, Office of the Provost (fictional) — Office of Institutional Analytics"
+    },
+    {
+      "label": "editor",
+      "id": "wsJD",
+      "cls": "",
+      "tag": "TEXTAREA",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organization: Example University, Office of the Provost ("
+    },
+    {
+      "label": "editor",
+      "id": "wsSpecify",
+      "cls": "",
+      "tag": "INPUT",
+      "aHit": [
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Executive Reporting & Self-Service Analytics Modernization: One governed set of dashboards that leaders use directly, fe"
+    },
+    {
+      "label": "editor",
+      "id": "wsPrompt",
+      "cls": "ws-prompt",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "You are a senior program and portfolio director (PMP/MSP), an information designer, and a front-end engineer. Build the "
+    },
+    {
+      "label": "editor",
+      "id": "fitJD",
+      "cls": "",
+      "tag": "TEXTAREA",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organization: Example University, Office of the Provost ("
+    },
+    {
+      "label": "editor",
+      "id": "fitCode",
+      "cls": "",
+      "tag": "TEXTAREA",
+      "aHit": [
+        "Example University",
+        "Office of the Provost"
+      ],
+      "bHit": false,
+      "head": "<!doctype html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width, initia"
+    },
+    {
+      "label": "editor",
+      "id": "fitPromptCards",
+      "cls": "fit-prompt-grid",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "1. Build highest-priority missing moduleAct as a senior integrated program/portfolio manager, institution researcher, UX"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "fit-prompt-card",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "1. Build highest-priority missing moduleAct as a senior integrated program/portfolio manager, institution researcher, UX"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Act as a senior integrated program/portfolio manager, institution researcher, UX analyst and software engineer. Build or"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "fit-prompt-card",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "2. Independent QA and smoke testAct as an independent SDET and senior hiring-panel reviewer. TARGET ROLE: Director of An"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Act as an independent SDET and senior hiring-panel reviewer. TARGET ROLE: Director of Analytics & Reporting at Example U"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "fit-prompt-card",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "3. Publishable GitHub work-sample narrativeAct as an executive portfolio author and UX lead. TARGET ROLE: Director of An"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Act as an executive portfolio author and UX lead. TARGET ROLE: Director of Analytics & Reporting at Example University, "
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "fit-prompt-card",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "4. Research official employer and strategic contextAct as a source-first higher-education and public-agency research ana"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Act as a source-first higher-education and public-agency research analyst. TARGET ROLE: Director of Analytics & Reportin"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "fit-prompt-card",
+      "tag": "DIV",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "5. Executive reviewer challenge questionsAct as a skeptical hiring committee for the specified role. TARGET ROLE: Direct"
+    },
+    {
+      "label": "editor",
+      "id": "",
+      "cls": "",
+      "tag": "PRE",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "head": "Act as a skeptical hiring committee for the specified role. TARGET ROLE: Director of Analytics & Reporting at Example Un"
+    },
+    {
+      "label": "panel-text",
+      "id": "jobFitPanel",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": true,
+      "chars": 11194
+    },
+    {
+      "label": "panel-text",
+      "id": "careerPanel",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "chars": 6127
+    },
+    {
+      "label": "panel-text",
+      "id": "workSamplePanel",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "chars": 112014
+    },
+    {
+      "label": "panel-text",
+      "id": "fitPanel",
+      "aHit": [
+        "Example University",
+        "Office of the Provost",
+        "Director of Analytics & Reporting"
+      ],
+      "bHit": false,
+      "chars": 49328
+    }
+  ],
+  "afterRefresh": {
+    "viewCareer": [
+      {
+        "label": "editor",
+        "id": "wsRole",
+        "cls": "",
+        "tag": "INPUT",
+        "aHit": [
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Director of Analytics & Reporting"
+      },
+      {
+        "label": "editor",
+        "id": "wsOrg",
+        "cls": "",
+        "tag": "INPUT",
+        "aHit": [
+          "Example University",
+          "Office of the Provost"
+        ],
+        "bHit": false,
+        "head": "Example University, Office of the Provost (fictional) — Office of Institutional Analytics"
+      },
+      {
+        "label": "editor",
+        "id": "wsJD",
+        "cls": "",
+        "tag": "TEXTAREA",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organization: Example University, Office of the Provost ("
+      },
+      {
+        "label": "editor",
+        "id": "wsSpecify",
+        "cls": "",
+        "tag": "INPUT",
+        "aHit": [
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Executive Reporting & Self-Service Analytics Modernization: One governed set of dashboards that leaders use directly, fe"
+      },
+      {
+        "label": "editor",
+        "id": "wsPrompt",
+        "cls": "ws-prompt",
+        "tag": "PRE",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "You are a senior program and portfolio director (PMP/MSP), an information designer, and a front-end engineer. Build the "
+      },
+      {
+        "label": "editor",
+        "id": "fitJD",
+        "cls": "",
+        "tag": "TEXTAREA",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organization: Example University, Office of the Provost ("
+      },
+      {
+        "label": "editor",
+        "id": "fitCode",
+        "cls": "",
+        "tag": "TEXTAREA",
+        "aHit": [
+          "Example University",
+          "Office of the Provost"
+        ],
+        "bHit": false,
+        "head": "<!doctype html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width, initia"
+      },
+      {
+        "label": "editor",
+        "id": "fitPromptCards",
+        "cls": "fit-prompt-grid",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "1. Build highest-priority missing moduleAct as a senior integrated program/portfolio manager, institution researcher, UX"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "fit-prompt-card",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "1. Build highest-priority missing moduleAct as a senior integrated program/portfolio manager, institution researcher, UX"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "",
+        "tag": "PRE",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Act as a senior integrated program/portfolio manager, institution researcher, UX analyst and software engineer. Build or"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "fit-prompt-card",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "2. Independent QA and smoke testAct as an independent SDET and senior hiring-panel reviewer. TARGET ROLE: Director of An"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "",
+        "tag": "PRE",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Act as an independent SDET and senior hiring-panel reviewer. TARGET ROLE: Director of Analytics & Reporting at Example U"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "fit-prompt-card",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "3. Publishable GitHub work-sample narrativeAct as an executive portfolio author and UX lead. TARGET ROLE: Director of An"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "",
+        "tag": "PRE",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Act as an executive portfolio author and UX lead. TARGET ROLE: Director of Analytics & Reporting at Example University, "
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "fit-prompt-card",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "4. Research official employer and strategic contextAct as a source-first higher-education and public-agency research ana"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "",
+        "tag": "PRE",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Act as a source-first higher-education and public-agency research analyst. TARGET ROLE: Director of Analytics & Reportin"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "fit-prompt-card",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "5. Executive reviewer challenge questionsAct as a skeptical hiring committee for the specified role. TARGET ROLE: Direct"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "",
+        "tag": "PRE",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Act as a skeptical hiring committee for the specified role. TARGET ROLE: Director of Analytics & Reporting at Example Un"
+      },
+      {
+        "label": "panel-text",
+        "id": "jobFitPanel",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": true,
+        "chars": 11194
+      },
+      {
+        "label": "panel-text",
+        "id": "workSamplePanel",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "chars": 112014
+      },
+      {
+        "label": "panel-text",
+        "id": "fitPanel",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "chars": 49328
+      }
+    ],
+    "viewWorkSample": [
+      {
+        "label": "editor",
+        "id": "fitJD",
+        "cls": "",
+        "tag": "TEXTAREA",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Director of Analytics & Reporting (SAMPLE — fictional posting) Organization: Example University, Office of the Provost ("
+      },
+      {
+        "label": "editor",
+        "id": "fitCode",
+        "cls": "",
+        "tag": "TEXTAREA",
+        "aHit": [
+          "Example University",
+          "Office of the Provost"
+        ],
+        "bHit": false,
+        "head": "<!doctype html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width, initia"
+      },
+      {
+        "label": "editor",
+        "id": "fitPromptCards",
+        "cls": "fit-prompt-grid",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "1. Build highest-priority missing moduleAct as a senior integrated program/portfolio manager, institution researcher, UX"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "fit-prompt-card",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "1. Build highest-priority missing moduleAct as a senior integrated program/portfolio manager, institution researcher, UX"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "",
+        "tag": "PRE",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Act as a senior integrated program/portfolio manager, institution researcher, UX analyst and software engineer. Build or"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "fit-prompt-card",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "2. Independent QA and smoke testAct as an independent SDET and senior hiring-panel reviewer. TARGET ROLE: Director of An"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "",
+        "tag": "PRE",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Act as an independent SDET and senior hiring-panel reviewer. TARGET ROLE: Director of Analytics & Reporting at Example U"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "fit-prompt-card",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "3. Publishable GitHub work-sample narrativeAct as an executive portfolio author and UX lead. TARGET ROLE: Director of An"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "",
+        "tag": "PRE",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Act as an executive portfolio author and UX lead. TARGET ROLE: Director of Analytics & Reporting at Example University, "
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "fit-prompt-card",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "4. Research official employer and strategic contextAct as a source-first higher-education and public-agency research ana"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "",
+        "tag": "PRE",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Act as a source-first higher-education and public-agency research analyst. TARGET ROLE: Director of Analytics & Reportin"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "fit-prompt-card",
+        "tag": "DIV",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "5. Executive reviewer challenge questionsAct as a skeptical hiring committee for the specified role. TARGET ROLE: Direct"
+      },
+      {
+        "label": "editor",
+        "id": "",
+        "cls": "",
+        "tag": "PRE",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "head": "Act as a skeptical hiring committee for the specified role. TARGET ROLE: Director of Analytics & Reporting at Example Un"
+      },
+      {
+        "label": "panel-text",
+        "id": "jobFitPanel",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": true,
+        "chars": 11194
+      },
+      {
+        "label": "panel-text",
+        "id": "fitPanel",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": false,
+        "chars": 49328
+      }
+    ],
+    "viewFit": [
+      {
+        "label": "panel-text",
+        "id": "jobFitPanel",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": true,
+        "chars": 11194
+      }
+    ],
+    "viewJobFit": [
+      {
+        "label": "panel-text",
+        "id": "jobFitPanel",
+        "aHit": [
+          "Example University",
+          "Office of the Provost",
+          "Director of Analytics & Reporting"
+        ],
+        "bHit": true,
+        "chars": 11194
+      }
+    ]
+  },
+  "errors": []
+}

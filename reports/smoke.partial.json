@@ -1,0 +1,322 @@
+[
+  {
+    "view": "viewJobFit",
+    "name": "default view is Job Fit and only one panel visible",
+    "detail": "",
+    "acted": null,
+    "passed": true,
+    "info": "{\"visible\":[\"jobFitPanel\"]}",
+    "errors": [],
+    "ms": 524
+  },
+  {
+    "view": "viewJobFit",
+    "name": "Try sample job renders a fit result",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"chars\":11554,\"head\":\"Analysis · Strong matchDirector of Analytics & Reporting · Example University, Office of the Provost (fictional)💲 $120,\"}",
+    "errors": [],
+    "ms": 1980
+  },
+  {
+    "view": "viewJobFit",
+    "name": "Forget everything clears result",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"chars\":299,\"head\":\"Add a job and your résumé to see your fit.The studio scores how well your documented evidence covers each requirement, c\"}",
+    "errors": [],
+    "ms": 1228
+  },
+  {
+    "view": "viewLibrary",
+    "name": "library renders 111 cards",
+    "detail": "",
+    "acted": null,
+    "passed": true,
+    "info": "{\"cards\":111,\"totalLabel\":\"111\"}",
+    "errors": [],
+    "ms": 1277
+  },
+  {
+    "view": "viewLibrary",
+    "name": "search filters the catalog",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"cards\":4,\"label\":\"4 of 111 shown\"}",
+    "errors": [],
+    "ms": 1149
+  },
+  {
+    "view": "viewLibrary",
+    "name": "open command details dialog and close with Escape",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"title\":\"/studyguide\",\"open\":\"overlay open\"}",
+    "errors": [],
+    "ms": 1038
+  },
+  {
+    "view": "viewLibrary",
+    "name": "Escape closes dialog and restores focus",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"open\":\"overlay\"}",
+    "errors": [],
+    "ms": 937
+  },
+  {
+    "view": "viewLibrary",
+    "name": "star a command updates favourites count",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"favorites\":1}",
+    "errors": [],
+    "ms": 968
+  },
+  {
+    "view": "viewCareer",
+    "name": "Load example then generate career package",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"chars\":2068,\"tabs\":7,\"head\":\"Candidate → requirement coverage (transparent heuristic)69% means 9 of 13 extracted job terms appear\"}",
+    "errors": [],
+    "ms": 1687
+  },
+  {
+    "view": "viewCareer",
+    "name": "tab switch renders letter tab",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"head\":\"Editable letter — supports full-time, part-time remote, or project-based consulting positioning. Proofread it before use.\"}",
+    "errors": [],
+    "ms": 1043
+  },
+  {
+    "view": "viewJobRadar",
+    "name": "radar ranks role patterns",
+    "detail": "",
+    "acted": null,
+    "passed": true,
+    "info": "{\"cards\":14,\"chars\":19949}",
+    "errors": [],
+    "ms": 1456
+  },
+  {
+    "view": "viewJobRadar",
+    "name": "open role detail dialog",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"open\":true,\"title\":\"Director, Program Management Office\"}",
+    "errors": [],
+    "ms": 1052
+  },
+  {
+    "view": "viewJobRadar",
+    "name": "Escape closes role dialog",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"open\":false}",
+    "errors": [],
+    "ms": 835
+  },
+  {
+    "view": "viewMAJobs",
+    "name": "generate Massachusetts search plan",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"chars\":3191,\"head\":\"SEARCH STRATEGY (requires external browser / AI search to execute) QUERY: data analytics director OR\"}",
+    "errors": [],
+    "ms": 1373
+  },
+  {
+    "view": "viewContract",
+    "name": "generate remote proposal",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"chars\":3641,\"head\":\"FRACTIONAL / REMOTE PROJECT PROPOSAL (ILLUSTRATIVE) Engagement approach: fixed-scope Proposed focus:\"}",
+    "errors": [],
+    "ms": 1349
+  },
+  {
+    "view": "viewFit",
+    "name": "load synthetic example and analyze",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"headline\":\"18\",\"bars\":12}",
+    "errors": [],
+    "ms": 1699
+  },
+  {
+    "view": "viewFit",
+    "name": "gap backlog renders",
+    "detail": "",
+    "acted": null,
+    "passed": true,
+    "info": "{\"cards\":12}",
+    "errors": [],
+    "ms": 1010
+  },
+  {
+    "view": "viewWorkSample",
+    "name": "load example fills the meter",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"meter\":\"100\"}",
+    "errors": [],
+    "ms": 1490
+  },
+  {
+    "view": "viewWorkSample",
+    "name": "build spec",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"chars\":11354,\"head\":\"1. MastheadExecutive Director, Department of Biomedical Informatics (SYNTHETIC EXAMPLE ROLE) · Examp\"}",
+    "errors": [],
+    "ms": 1667
+  },
+  {
+    "view": "viewAdmiss",
+    "name": "gate tab opens with NOT YET ADMISSIBLE",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"verdict\":\"\\n      \\n        Verdict\\n        NOT YET ADMISSIBLE\\n        UNSIGNED — not a decision record\\n      \\n      \\n        0/5\\n  \"}",
+    "errors": [],
+    "ms": 1259
+  },
+  {
+    "view": "viewAdmiss",
+    "name": "load synthetic example produces a verdict",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"head\":\"Nothing is certified here. The gate evaluates only what you type. It cannot verify a metric, a source, a system of record or a person's auth\"}",
+    "errors": [],
+    "ms": 1445
+  },
+  {
+    "view": "viewAdmiss",
+    "name": "intake sheet tab renders",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"chars\":10357}",
+    "errors": [],
+    "ms": 1025
+  },
+  {
+    "view": "viewEnterprise",
+    "name": "generate enterprise package",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"chars\":1191,\"head\":\"2 · Enterprise design packagePortfolio / PMO · 8 proposed modules. 5 missing information categories.\"}",
+    "errors": [],
+    "ms": 1884
+  },
+  {
+    "view": "viewPilot",
+    "name": "pilot dashboard computes KPIs",
+    "detail": "",
+    "acted": null,
+    "passed": true,
+    "info": "{\"head\":\"40Estimated elapsed working days96Planned project hours2027-01-08Planned delivery date\"}",
+    "errors": [],
+    "ms": 1381
+  },
+  {
+    "view": "viewAnalyzer",
+    "name": "run analyzer produces blueprint",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"chars\":1237,\"head\":\"7Decision modules8Visual patterns3Source candidates12Code-ready promptsPlatform design architectureA\"}",
+    "errors": [],
+    "ms": 2081
+  },
+  {
+    "view": "viewAudit",
+    "name": "load example and run audit",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"chars\":264,\"checks\":29,\"head\":\"BLOCKED / NOT EVIDENCED · Synthetic_Test_Platform.html17 HTML nodes · 2 buttons · 1 SVG/canvas · 1 l\"}",
+    "errors": [],
+    "ms": 2314
+  },
+  {
+    "view": "viewQA",
+    "name": "QA gate renders counters and tests",
+    "detail": "",
+    "acted": null,
+    "passed": true,
+    "info": "{\"rows\":54,\"counters\":\"0Pass0Fail54Not tested0N/A\"}",
+    "errors": [],
+    "ms": 1410
+  },
+  {
+    "view": "viewGallery",
+    "name": "gallery cards render",
+    "detail": "",
+    "acted": null,
+    "passed": true,
+    "info": "{\"cards\":6}",
+    "errors": [],
+    "ms": 1252
+  },
+  {
+    "view": "viewGallery",
+    "name": "open visual popup then close",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"open\":\"modern-popup open\"}",
+    "errors": [],
+    "ms": 953
+  },
+  {
+    "view": "viewGallery",
+    "name": "Escape closes visual popup",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"open\":\"modern-popup\"}",
+    "errors": [],
+    "ms": 878
+  },
+  {
+    "view": "viewJobFit",
+    "name": "document.title tracks active workspace",
+    "detail": "",
+    "acted": null,
+    "passed": true,
+    "info": "{\"title\":\"Job Fit Studio · ExecutivePilot AI\"}",
+    "errors": [],
+    "ms": 867
+  },
+  {
+    "view": "viewLibrary",
+    "name": "Ctrl+K focuses search",
+    "detail": "",
+    "acted": "ok",
+    "passed": true,
+    "info": "{\"active\":\"search\"}",
+    "errors": [],
+    "ms": 1071
+  }
+]

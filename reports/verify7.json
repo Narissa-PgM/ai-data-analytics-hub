@@ -1,0 +1,145 @@
+{
+  "checks": [
+    {
+      "n": "raw newlines inside a string → applied",
+      "p": true,
+      "i": {
+        "kicker": "Research JSON applied",
+        "mission": "Line one\nLine two mission."
+      }
+    },
+    {
+      "n": "raw newlines inside a string → persistent note",
+      "p": true,
+      "i": {
+        "status": " · JSON applied Nov 10, 10:41 PM"
+      }
+    },
+    {
+      "n": "line and block comments → applied",
+      "p": true,
+      "i": {
+        "kicker": "Research JSON applied",
+        "mission": "Comment mission."
+      }
+    },
+    {
+      "n": "line and block comments → persistent note",
+      "p": true,
+      "i": {
+        "status": " · JSON applied Nov 10, 10:41 PM"
+      }
+    },
+    {
+      "n": "single-quoted strings → applied",
+      "p": true,
+      "i": {
+        "kicker": "Research JSON applied",
+        "mission": "Single-quote mission."
+      }
+    },
+    {
+      "n": "single-quoted strings → persistent note",
+      "p": true,
+      "i": {
+        "status": " · JSON applied Nov 10, 10:41 PM"
+      }
+    },
+    {
+      "n": "unquoted keys → applied",
+      "p": true,
+      "i": {
+        "kicker": "Research JSON applied",
+        "mission": "Bare-key mission."
+      }
+    },
+    {
+      "n": "unquoted keys → persistent note",
+      "p": true,
+      "i": {
+        "status": " · JSON applied Nov 10, 10:42 PM"
+      }
+    },
+    {
+      "n": "top-level array → applied",
+      "p": true,
+      "i": {
+        "kicker": "Research JSON applied",
+        "mission": "Array mission."
+      }
+    },
+    {
+      "n": "top-level array → persistent note",
+      "p": true,
+      "i": {
+        "status": " · JSON applied Nov 10, 10:42 PM"
+      }
+    },
+    {
+      "n": "Python literals (True/False/None) → applied",
+      "p": true,
+      "i": {
+        "kicker": "Research JSON applied",
+        "mission": "Python mission."
+      }
+    },
+    {
+      "n": "Python literals (True/False/None) → persistent note",
+      "p": true,
+      "i": {
+        "status": " · JSON applied Nov 10, 10:42 PM"
+      }
+    },
+    {
+      "n": "two objects in prose → applied",
+      "p": true,
+      "i": {
+        "kicker": "Research JSON applied",
+        "mission": "Second object mission."
+      }
+    },
+    {
+      "n": "two objects in prose → persistent note",
+      "p": true,
+      "i": {
+        "status": " · JSON applied Nov 10, 10:42 PM"
+      }
+    },
+    {
+      "n": "fenced with curly quotes → applied",
+      "p": true,
+      "i": {
+        "kicker": "Research JSON applied",
+        "mission": "Curly mission.\nSource: https://example.edu/m"
+      }
+    },
+    {
+      "n": "fenced with curly quotes → persistent note",
+      "p": true,
+      "i": {
+        "status": " · JSON applied Nov 10, 10:42 PM"
+      }
+    },
+    {
+      "n": "unrepairable JSON explains itself in a dialog",
+      "p": true,
+      "i": {
+        "open": true,
+        "kicker": "Could not read that JSON",
+        "body": "No readable JSON object found — check the braces, quotes and trailing commas.The box is still open. Common causes: the reply has prose inside the braces, a bare comma before a closing brace/bracket, a"
+      }
+    },
+    {
+      "n": "no console errors",
+      "p": true,
+      "i": {
+        "errors": []
+      }
+    }
+  ],
+  "summary": {
+    "total": 18,
+    "passed": 18,
+    "failed": []
+  }
+}

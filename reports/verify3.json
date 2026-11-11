@@ -1,0 +1,117 @@
+{
+  "checks": [
+    {
+      "n": "SMARTER résumé card renders",
+      "p": true,
+      "i": {
+        "chars": 8682
+      }
+    },
+    {
+      "n": "SMARTER statement kept",
+      "p": true,
+      "i": {
+        "headings": [
+          "PROFILE · EXECUTIVE LEADERSHIP STATEMENT",
+          "STRENGTHS MATCHED TO THE ROLE",
+          "SELECTED WORK SAMPLES",
+          "SKILLS & CAPABILITIES",
+          "PROFESSIONAL EXPERIENCE",
+          "CERTIFICATIONS",
+          "EDUCATION",
+          "SYSTEMS"
+        ]
+      }
+    },
+    {
+      "n": "résumé has PROFILE heading",
+      "p": true,
+      "i": [
+        "PROFILE · EXECUTIVE LEADERSHIP STATEMENT",
+        "STRENGTHS MATCHED TO THE ROLE",
+        "SELECTED WORK SAMPLES",
+        "SKILLS & CAPABILITIES",
+        "PROFESSIONAL EXPERIENCE",
+        "CERTIFICATIONS",
+        "EDUCATION",
+        "SYSTEMS"
+      ]
+    },
+    {
+      "n": "résumé has SKILLS heading",
+      "p": true,
+      "i": [
+        "PROFILE · EXECUTIVE LEADERSHIP STATEMENT",
+        "STRENGTHS MATCHED TO THE ROLE",
+        "SELECTED WORK SAMPLES",
+        "SKILLS & CAPABILITIES",
+        "PROFESSIONAL EXPERIENCE",
+        "CERTIFICATIONS",
+        "EDUCATION",
+        "SYSTEMS"
+      ]
+    },
+    {
+      "n": "format checks show fixed rows",
+      "p": true,
+      "i": {
+        "fixedCount": 4,
+        "checks": [
+          "contact:pass",
+          "length:warn→fixed",
+          "heads:warn→fixed",
+          "quant:warn",
+          "action:fail→fixed",
+          "dates:pass",
+          "keywords:pass",
+          "summary:fail→fixed"
+        ]
+      }
+    },
+    {
+      "n": "“what was fixed” panel shown",
+      "p": true,
+      "i": {
+        "panel": "Fixed for you in the tailored SMARTER résumé (4)Length fits two pages — 766 words (target 450–1,100)Standard section headings — 3 of 3 found: Experience · Education · SkillsBullets start with an action verb — 70% of bullets lead with a verbHas a short profile / summary — summary section foundRésumé length is unchanged."
+      }
+    },
+    {
+      "n": "panel states length unchanged",
+      "p": true,
+      "i": {
+        "panel": "Fixed for you in the tailored SMARTER résumé (4)Length fits two pages — 766 words (target 450–1,100)Standard section headings — 3 of 3 found: Experience · Education · SkillsBullets start with an action verb — 70% of bullets lead with a verbHas a short profile / summary — summary section foundRésumé length is unchanged."
+      }
+    },
+    {
+      "n": "ATS readiness KPI counts fixed rows",
+      "p": true,
+      "i": {
+        "kpi": "ATS readine 7/84 fixed by your tailored ré umé · format check  pa ed"
+      }
+    },
+    {
+      "n": "downloaded résumé keeps SMARTER format",
+      "p": true,
+      "i": {
+        "file": "resume-director-of-analytics-reporting.html",
+        "bytes": 12742,
+        "profile": true,
+        "skills": true,
+        "smarter": true,
+        "pages": 2
+      }
+    },
+    {
+      "n": "downloaded résumé prints on 2 pages",
+      "p": true,
+      "i": {
+        "pages": 2
+      }
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "passed": 10,
+    "failed": []
+  }
+}
