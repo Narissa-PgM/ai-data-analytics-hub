@@ -1,0 +1,98 @@
+{
+  "checks": [
+    {
+      "n": "CREO is not classified as a reporting role",
+      "p": true,
+      "i": {
+        "reporting": false,
+        "format": "smarter"
+      }
+    },
+    {
+      "n": "CREO work sample uses the SMARTER format",
+      "p": true,
+      "i": {
+        "format": "smarter",
+        "smarter": true,
+        "reportingTitle": false
+      }
+    },
+    {
+      "n": "CREO work sample contains no donor/gift template",
+      "p": true,
+      "i": {
+        "donor": false
+      }
+    },
+    {
+      "n": "CREO work sample keeps the CREO job",
+      "p": true,
+      "i": {
+        "title": "Chief Research Enablement Officer (CREO) REF: 003413SR",
+        "org": "Harvard Kennedy School — Cambridge, Massachusetts"
+      }
+    },
+    {
+      "n": "CREO sample dataset detected as general",
+      "p": true,
+      "i": {
+        "adv": false,
+        "domain": false,
+        "ctxAdv": false
+      }
+    },
+    {
+      "n": "advancement role stays a reporting role",
+      "p": true,
+      "i": {
+        "reporting": true,
+        "format": "reporting"
+      }
+    },
+    {
+      "n": "advancement work sample keeps the donor/gift dataset",
+      "p": true,
+      "i": {
+        "donor": true,
+        "ctxAdv": true
+      }
+    },
+    {
+      "n": "dataset override flips donors on/off per job",
+      "p": true,
+      "i": {
+        "a1": true,
+        "a2": false,
+        "a3": true
+      }
+    },
+    {
+      "n": "forced reporting shows a heads-up with a one-click switch",
+      "p": true,
+      "i": {
+        "heads": true,
+        "hadButton": true,
+        "format": "smarter"
+      }
+    },
+    {
+      "n": "the one-click switch saves the SMARTER format",
+      "p": true,
+      "i": {
+        "format": "smarter"
+      }
+    },
+    {
+      "n": "no console errors",
+      "p": true,
+      "i": {
+        "errors": []
+      }
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "passed": 11,
+    "failed": []
+  }
+}

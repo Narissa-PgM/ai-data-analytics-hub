@@ -1,20 +1,20 @@
 {
   "file": "C:\\Users\\sawat\\OneDrive\\Documents\\deepseek-harness\\default-workspace\\ai-pilot-v3\\AI_Pilot.html",
-  "bytes": 2345591,
-  "startedAt": "2026-11-11T04:41:48.496Z",
+  "bytes": 2350629,
+  "startedAt": "2026-11-11T07:15:21.890Z",
   "browser": "edge",
   "browserVersion": "Edg/157.0.4341.46",
   "loadWallMs": 967,
-  "loadMsToComplete": 2171,
+  "loadMsToComplete": 2177,
   "timing": {
-    "domContentLoaded": 423,
-    "loadEvent": 444,
-    "domInteractive": 386,
-    "responseEnd": 33.599999994039536,
-    "firstPaint": 248,
-    "firstContentfulPaint": 248,
+    "domContentLoaded": 435,
+    "loadEvent": 447,
+    "domInteractive": 414,
+    "responseEnd": 42.20000000298023,
+    "firstPaint": 292,
+    "firstContentfulPaint": 292,
     "domNodes": 6613,
-    "htmlBytes": 2661829
+    "htmlBytes": 2666873
   },
   "structure": {
     "duplicateIds": [],
@@ -217,7 +217,7 @@
       "https://registrar.fas.harvard.edu/academic-calendar",
       "https://seas.harvard.edu/office-finance/financial-planning-analysis-fpa/annual-fpa-lifecycle"
     ],
-    "scriptBytes": 1994088,
+    "scriptBytes": 1999124,
     "styleBytes": 188032,
     "dialogs": 3,
     "buttons": 394,
@@ -601,5 +601,5 @@
     "bytes": 106954,
     "pages": 2
   },
-  "finishedAt": "2026-11-11T04:42:04.608Z"
+  "finishedAt": "2026-11-11T07:15:38.158Z"
 }

@@ -1,3 +1,43 @@
+## Round 9 — the work sample no longer renders the donor/stewardship template for a research role
+
+**Symptom:** the generated `work-sample-chief-research-enablement-officer-creo…html` carried 201 "donor",
+111 "gift" and 15 "stewardship" references — the advancement/reporting template — for a CREO research role.
+
+**Two causes, both fixed:**
+
+1. **Format detection.** `isReporting()` returned true whenever the posting contained "report"/"metric" six times.
+   A CREO posting says *"reporting to…"*, *"reporting line"*, *"advancement of research"* — so it was sent to the
+   *Reporting Director* work sample, which is a donor/impact-reporting template. It now requires either the job
+   **title** to name the reporting/analytics craft, or ≥4 genuine craft terms (dashboard, SQL, Tableau, data
+   quality, KPI…) plus ≥3 "report" words, and a research/library/sponsored-programme role is excluded unless the
+   craft signals are strong. CREO now defaults to the **SMARTER program playbook** format.
+2. **Sample-dataset detection.** The report's data switched to donors/gifts if *any* of
+   `advancement|development|alumni|donor|gift|fundrais` appeared — and "advancement of research" is not a donor
+   role. Detection now needs strong advancement-office phrasing (advancement services, donor relations, gift
+   officer/processing, philanthropy, alumni relations, development office…), has a research-role guard, and can be
+   **overridden per job**.
+
+**Also added:**
+
+- Role work sample tab now shows a **dataset toggle**: “General programme data (stakeholders, programmes)” vs
+  “Advancement data (donors, gifts)”, with the reason for the detection and a note that "advancement of research"
+  does not make it a donor role.
+- If the reporting format is selected for a research/library/governance role, a **heads-up** appears with a
+  one-click **“Use the SMARTER playbook for this job”** button.
+- The Role tab's Preview / Download / Send-to-check now honour the selected format for that job (previously the
+  download always built the reporting template).
+
+Verified with `qa/verify10.mjs` — **11/11**: CREO not classified reporting, defaults to SMARTER, no donor/gift
+template, keeps the CREO title/org, general dataset; the advancement job still gets the reporting format and donor
+data; dataset override flips both ways; forced reporting shows the heads-up and the one-click switch saves the
+SMARTER format; 0 console errors. Full regression: verify9 12/12, verify8 12/12, verify7 18/18, verify6 14/14,
+smoke 32/32, verify5 8/8, verify4 9/9, verify3 10/10, baseline clean.
+
+> The downloaded file you already have was produced by the old build — re-download after applying this one
+> (Job Fit Studio → ⇩ Work sample, or Work Sample Studio → 05 · Role work sample → Download).
+
+---
+
 ## Round 8 — project-specific investment logic + "how this number is computed" popups
 
 **Why every programme said roughly $130K.** The cost line was `weeks × 40 × FTE × rate + tools` with **fixed
@@ -186,8 +226,8 @@ after the change: smoke 32/32, verify2 16/16, verify3 10/10, baseline 0 errors.
 # AI_Pilot.html — improvement pass
 
 **Deliverable:** `ai-pilot-v3/AI_Pilot.html`
-**Size:** 2,345,591 bytes (was 2,295,845 — +49.7 KB, all CSS/comments/logic; no dependencies added)
-**Lines:** 16,521 (was 15,901) · **sha256:** `CFA039F4C4957ACE5B44C932E1FB09ED1C56ABB58D05C9764E869C7CA41BF8F3`
+**Size:** 2,350,629 bytes (was 2,295,845 — +54.8 KB, all CSS/comments/logic; no dependencies added)
+**Lines:** 16,569 (was 15,901) · **sha256:** `BEAB4C3373291144765C364882C75E2860B2544FA92C45301FEB65AB584EB2D0`
 **Baseline preserved untouched:** `ai-pilot-v3/baseline/AI_Pilot.baseline.html` (`948E106B…`)
 **Scope agreed with the user:** fixes + performance + mobile/accessibility polish. No features removed, no new features, still one offline file.
 
@@ -346,6 +386,7 @@ Two "high/medium" findings did not survive runtime verification, so the source w
    node qa/contrast.mjs        # WCAG runtime sweep
    ```
    (These need the headless browser, which this sandbox only allows with elevated file access.)
+
 
 
 

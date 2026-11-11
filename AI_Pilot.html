@@ -14139,11 +14139,20 @@ window.EPReporting = (() => {
     { k: 'decision', n: 'Reporting Decision Studio', l: 'R', ic: '◆', one: 'Decide what to build (or not), and turn a report into a decision with weights and sensitivity.', kw: /decision|insight|recommend|model|predict|analy|strateg|advis|forecast|prioritiz/i }
   ];
 
+  /* Reporting-advisor format only for genuine reporting/analytics roles.
+     "Reporting to the Dean", "annual reporting" or "advancement of research" must not select
+     the donor-reporting template, so the title has to carry the craft OR the posting must
+     show real reporting/data craft, not just the word "report". */
   function isReporting(job) {
     if (!job) return false;
-    const t = String(job.title || ''), x = String(job.text || '').slice(0, 6000);
+    const t = String(job.title || '');
+    const x = String(job.text || '').slice(0, 8000);
     if (/report|analytic|business intelligence|\bBI\b|insight|dashboard|data (strategy|services|operations|and reporting)|information (management|services)/i.test(t)) return true;
-    return (x.match(/report|dashboard|analytic|metric|data quality/gi) || []).length >= 6;
+    const craft = (x.match(/\b(dashboard|analytics|business intelligence|data quality|data governance|\bSQL\b|Tableau|Power BI|metric definitions?|\bKPIs?\b|self-service|reporting (platform|system|services|team|function)|data warehouse|impact report|stewardship report)\b/gi) || []).length;
+    const word = (x.match(/\breport(ing|s)?\b/gi) || []).length;
+    const researchRole = /\b(research (enablement|administration|computing|services|integrity)|sponsored (programs|research)|librar(y|ies)|faculty affairs|admissions|advancement of research)\b/i.test(t + ' ' + x.slice(0, 3000));
+    if (researchRole && craft < 6) return false;
+    return craft >= 4 && word >= 3;
   }
   function getFormat(job) {
     let v = {}; try { v = JSON.parse(localStorage.getItem(FMT_KEY) || '{}') || {}; } catch (e) { v = {}; }
@@ -14265,6 +14274,33 @@ window.EPReporting = (() => {
     return out;
   }
 
+  /* Domain of the sample data (advancement donors/gifts vs general programmes).
+     "Advancement of research" or "professional development" must not flip a research role
+     into the donor/gift dataset, so strong advancement phrasing is required, a research-role
+     guard applies, and the user can override the choice per job. */
+  const DOM_KEY = 'ep_ws_domain_v1';
+  function detectAdv(job) {
+    const hay = String((job && job.text) || '') + ' ' + ((job && job.unit) || '') + ' ' + ((job && job.title) || '') + ' ' + ((job && job.org) || '');
+    const strong = (hay.match(/\b(advancement (services|office|division|operations|communications|team)|donor (relations|reporting|stewardship|engagement|experience|communications)|gift (officer|processing|agreement|accounting|revenue|records|administration)|fundraising|philanthrop\w*|alumni (relations|affairs|engagement|events)|development (office|division|department|operations)|campaign (fundraising|giving|progress)|prospect (management|research|development)|annual fund|endowment (reporting|accounting|management))\b/gi) || []).length;
+    const weak = (hay.match(/\b(donor|donors|gift|gifts|endowed|endowment|bequest|planned giving|prospect|prospects|stewardship|advancement|fundraising|philanthropy|alumni)\b/gi) || []).length;
+    const roleGuard = /\b(research (enablement|administration|computing|services|integrity)|sponsored (programs|research)|librar(y|ies)|data services)\b/i.test(String((job && job.title) || '') + ' ' + String((job && job.unit) || ''));
+    if (strong >= 2) return true;
+    if (roleGuard && strong === 0) return false;
+    return strong >= 1 || weak >= 6;
+  }
+  function getDomain(job) {
+    if (!job) return false;
+    let v = {}; try { v = JSON.parse(localStorage.getItem(DOM_KEY) || '{}') || {}; } catch (e) { v = {}; }
+    if (v[job.id]) return v[job.id] === 'adv';
+    return detectAdv(job);
+  }
+  function setDomain(job, kind) {
+    if (!job) return;
+    let v = {}; try { v = JSON.parse(localStorage.getItem(DOM_KEY) || '{}') || {}; } catch (e) { v = {}; }
+    v[job.id] = kind === 'adv' ? 'adv' : 'general';
+    try { localStorage.setItem(DOM_KEY, JSON.stringify(v)); } catch (e) { /* blocked */ }
+  }
+
   function ctx(a, j) {
     const B = window.EPSmarter ? window.EPSmarter.build(a, j) : null, job = j || (a && a.job) || {};
     const txt = String(job.text || '');
@@ -14272,7 +14308,7 @@ window.EPReporting = (() => {
     const words = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 };
     const teamN = +team || words[String(team).toLowerCase()] || 3;
     const rpt = (txt.match(/reports? to (?:the )?([A-Z][^.,;\n]{3,70})/) || [])[1] || '';
-    const adv = /advancement|development|alumni|donor|fundrais|philanthrop|gift/i.test(txt + ' ' + (job.unit || '') + ' ' + (job.title || ''));
+    const adv = getDomain(job);
     const R = job.research || {};
     const mv = mvOf(job);
     const srcs = [].concat(lines(R.sources).map((u) => ({ title: u, url: /^https?:/i.test(u) ? u : '' })),
@@ -15963,7 +15999,12 @@ RETURN: (1) three subject lines of 55 characters or fewer, and the preheader; (2
     const byMod = {}; A.forEach((x) => { byMod[x.mod] = (byMod[x.mod] || 0) + 1; });
     box.innerHTML = '<div class="rw-det ' + (rep ? 'rw-yes' : '') + '"><b>' + esc(j.title || 'This job') + '</b>' + (j.org ? ' — ' + esc(j.org) : '') + '<br>' + (rep ? 'Detected as a <b>reporting and analytics leadership</b> role. The work sample shows the reporting work itself.' : 'Not detected as a reporting role. You can still choose the reporting format below.') + '</div>'
       + '<div class="rw-fmt" role="group" aria-label="Work sample format"><button type="button" class="ws-btn' + (fmt === 'reporting' ? ' ws-btn-primary' : '') + '" data-rw="fmt" data-v="reporting" aria-pressed="' + (fmt === 'reporting') + '">Reporting Director format</button><button type="button" class="ws-btn' + (fmt === 'smarter' ? ' ws-btn-primary' : '') + '" data-rw="fmt" data-v="smarter" aria-pressed="' + (fmt === 'smarter') + '">SMARTER program playbook</button></div>'
+      + '<div class="rw-fmt" role="group" aria-label="Sample dataset"><button type="button" class="ws-btn' + (!getDomain(j) ? ' ws-btn-primary' : '') + '" data-rw="dom" data-v="general" aria-pressed="' + (!getDomain(j)) + '">General programme data (stakeholders, programmes)</button><button type="button" class="ws-btn' + (getDomain(j) ? ' ws-btn-primary' : '') + '" data-rw="dom" data-v="adv" aria-pressed="' + (getDomain(j)) + '">Advancement data (donors, gifts)</button></div>'
+      + '<p class="ws-help">Sample dataset for products, funds, metrics and charts. The posting reads as <b>' + (detectAdv(j) ? 'advancement / donor work' : 'general programme work') + '</b>' + (getDomain(j) !== detectAdv(j) ? ' — but you overrode it for this job.' : '.') + ' Change it if this role is not about donors or gifts: "advancement of research" alone does not make it a donor role.</p>'
       + '<p class="ws-help">The chosen format is what the zip, the ⇩ work sample button and the Apply bar send for this job (a file you checked and attached in 04 still wins).</p>'
+      + ((fmt === 'reporting' && (/\b(research (enablement|administration|computing|services|integrity)|sponsored (programs|research)|librar(y|ies)|faculty affairs|admissions)\b/i.test(String(j.title || '') + ' ' + String(j.text || '').slice(0, 2500)) || !getDomain(j)))
+        ? '<div class="rw-det"><b>Heads-up:</b> the Reporting Director format is written for donor and impact reporting; a research, library or governance role is usually better served by the SMARTER program playbook. <button type="button" class="ws-btn ws-btn-primary" data-rw="fmt" data-v="smarter">Use the SMARTER playbook for this job</button></div>'
+        : '')
       + chapters(a, j)
       + '<h3 class="rw-h">Index — grouped by SMARTER</h3><ol class="rw-nav">' + SMARTER_INDEX.map((g) => '<li><span>' + esc(g[0]) + '</span><b>' + esc(g[1]) + '</b>&nbsp;— ' + esc(g[2]) + '</li>').join('') + '</ol><p class="ws-help">Definitions are not tables in the chapters: every label and term opens a popup, and all of them are on the Data dictionary page.</p>'
       + '<div class="rw-act"><button type="button" class="ws-btn ws-btn-primary" data-rw="preview">Preview</button><button type="button" class="ws-btn" data-rw="dl">Download the work sample (.html)</button><button type="button" class="ws-btn" data-rw="check">Send to 04 · Check & use</button></div><div id="wsRolePrev"></div><p class="ws-help" id="wsRoleStatus" role="status" aria-live="polite"></p>';
@@ -15996,7 +16037,14 @@ RETURN: (1) three subject lines of 55 characters or fewer, and the preheader; (2
       const k = e.target.closest('[data-rw]'); if (!k) return; const { a, j } = cur(); if (!a || !j) return; const st2 = $('wsRoleStatus');
       const act = k.getAttribute('data-rw');
       if (act === 'fmt') { setFormat(j, k.getAttribute('data-v')); renderTab(); return; }
-      const html = build(a, j);
+      if (act === 'dom') {
+        setDomain(j, k.getAttribute('data-v'));
+        renderTab();
+        const st3 = $('wsRoleStatus');
+        if (st3) st3.textContent = 'Sample dataset set to ' + (k.getAttribute('data-v') === 'adv' ? 'advancement (donors, gifts)' : 'general programme data (stakeholders, programmes)') + ' for this job. Rebuild the work sample to apply it.';
+        return;
+      }
+      const html = (window.EPProposal && window.EPProposal.build) ? window.EPProposal.build(a, j) : build(a, j);
       if (act === 'preview') { const pv = $('wsRolePrev'); pv.innerHTML = ''; const fr = document.createElement('iframe'); fr.setAttribute('sandbox', 'allow-scripts allow-modals'); fr.title = 'Work sample preview'; fr.srcdoc = html; pv.appendChild(fr); if (st2) st2.textContent = 'Preview loaded (' + Math.round(html.length / 1024) + ' KB). Every page and popup works inside it.'; }
       else if (act === 'dl') { dlFile('work-sample_' + slug(j.title) + '.html', html); if (st2) st2.textContent = 'Downloaded.'; }
       else if (act === 'check') { if (window.EPWsCheck) { const qt = $('wsTabQa'); if (qt) qt.click(); window.EPWsCheck.check(html, 'work-sample_' + slug(j.title) + '.html'); } }
@@ -16011,7 +16059,7 @@ RETURN: (1) three subject lines of 55 characters or fewer, and the preheader; (2
   }
   wrap();
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount, { once: true }); else mount();
-  return { build, isReporting, align, ctx, getFormat, setFormat, MODS, renderTab, SMARTER_INDEX };
+  return { build, isReporting, align, ctx, getFormat, setFormat, getDomain, setDomain, detectAdv, MODS, renderTab, SMARTER_INDEX };
 })();
 
 /* RP-END */
