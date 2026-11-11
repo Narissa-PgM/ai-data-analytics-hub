@@ -7,7 +7,7 @@
     "passed": true,
     "info": "{\"visible\":[\"jobFitPanel\"]}",
     "errors": [],
-    "ms": 526
+    "ms": 522
   },
   {
     "view": "viewJobFit",
@@ -15,9 +15,9 @@
     "detail": "",
     "acted": "ok",
     "passed": true,
-    "info": "{\"chars\":11554,\"head\":\"Analysis · Strong matchDirector of Analytics & Reporting · Example University, Office of the Provost (fictional)💲 $120,\"}",
+    "info": "{\"chars\":11652,\"head\":\"Analysis · Strong matchDirector of Analytics & Reporting · Example University, Office of the Provost (fictional)💲 $120,\"}",
     "errors": [],
-    "ms": 2036
+    "ms": 1948
   },
   {
     "view": "viewJobFit",
@@ -27,7 +27,7 @@
     "passed": true,
     "info": "{\"chars\":299,\"head\":\"Add a job and your résumé to see your fit.The studio scores how well your documented evidence covers each requirement, c\"}",
     "errors": [],
-    "ms": 1236
+    "ms": 1238
   },
   {
     "view": "viewLibrary",
@@ -37,7 +37,7 @@
     "passed": true,
     "info": "{\"cards\":111,\"totalLabel\":\"111\"}",
     "errors": [],
-    "ms": 1151
+    "ms": 1239
   },
   {
     "view": "viewLibrary",
@@ -47,7 +47,7 @@
     "passed": true,
     "info": "{\"cards\":4,\"label\":\"4 of 111 shown\"}",
     "errors": [],
-    "ms": 1125
+    "ms": 1132
   },
   {
     "view": "viewLibrary",
@@ -57,7 +57,7 @@
     "passed": true,
     "info": "{\"title\":\"/studyguide\",\"open\":\"overlay open\"}",
     "errors": [],
-    "ms": 993
+    "ms": 1002
   },
   {
     "view": "viewLibrary",
@@ -67,7 +67,7 @@
     "passed": true,
     "info": "{\"open\":\"overlay\"}",
     "errors": [],
-    "ms": 851
+    "ms": 884
   },
   {
     "view": "viewLibrary",
@@ -77,7 +77,7 @@
     "passed": true,
     "info": "{\"favorites\":1}",
     "errors": [],
-    "ms": 961
+    "ms": 978
   },
   {
     "view": "viewCareer",
@@ -87,7 +87,7 @@
     "passed": true,
     "info": "{\"chars\":2068,\"tabs\":7,\"head\":\"Candidate → requirement coverage (transparent heuristic)69% means 9 of 13 extracted job terms appear\"}",
     "errors": [],
-    "ms": 1668
+    "ms": 1700
   },
   {
     "view": "viewCareer",
@@ -97,7 +97,7 @@
     "passed": true,
     "info": "{\"head\":\"Editable letter — supports full-time, part-time remote, or project-based consulting positioning. Proofread it before use.\"}",
     "errors": [],
-    "ms": 1017
+    "ms": 1015
   },
   {
     "view": "viewJobRadar",
@@ -107,7 +107,7 @@
     "passed": true,
     "info": "{\"cards\":14,\"chars\":19949}",
     "errors": [],
-    "ms": 1349
+    "ms": 1392
   },
   {
     "view": "viewJobRadar",
@@ -117,7 +117,7 @@
     "passed": true,
     "info": "{\"open\":true,\"title\":\"Director, Program Management Office\"}",
     "errors": [],
-    "ms": 1045
+    "ms": 1043
   },
   {
     "view": "viewJobRadar",
@@ -127,7 +127,7 @@
     "passed": true,
     "info": "{\"open\":false}",
     "errors": [],
-    "ms": 833
+    "ms": 828
   },
   {
     "view": "viewMAJobs",
@@ -137,7 +137,7 @@
     "passed": true,
     "info": "{\"chars\":3191,\"head\":\"SEARCH STRATEGY (requires external browser / AI search to execute) QUERY: data analytics director OR\"}",
     "errors": [],
-    "ms": 1351
+    "ms": 1336
   },
   {
     "view": "viewContract",
@@ -147,7 +147,7 @@
     "passed": true,
     "info": "{\"chars\":3641,\"head\":\"FRACTIONAL / REMOTE PROJECT PROPOSAL (ILLUSTRATIVE) Engagement approach: fixed-scope Proposed focus:\"}",
     "errors": [],
-    "ms": 1339
+    "ms": 1332
   },
   {
     "view": "viewFit",
@@ -157,7 +157,7 @@
     "passed": true,
     "info": "{\"headline\":\"18\",\"bars\":12}",
     "errors": [],
-    "ms": 1664
+    "ms": 1658
   },
   {
     "view": "viewFit",
@@ -167,7 +167,7 @@
     "passed": true,
     "info": "{\"cards\":12}",
     "errors": [],
-    "ms": 1027
+    "ms": 1010
   },
   {
     "view": "viewWorkSample",
@@ -177,7 +177,7 @@
     "passed": true,
     "info": "{\"meter\":\"100\"}",
     "errors": [],
-    "ms": 1487
+    "ms": 1460
   },
   {
     "view": "viewWorkSample",
@@ -187,7 +187,7 @@
     "passed": true,
     "info": "{\"chars\":11354,\"head\":\"1. MastheadExecutive Director, Department of Biomedical Informatics (SYNTHETIC EXAMPLE ROLE) · Examp\"}",
     "errors": [],
-    "ms": 1641
+    "ms": 1635
   },
   {
     "view": "viewAdmiss",
@@ -197,7 +197,7 @@
     "passed": true,
     "info": "{\"verdict\":\"\\n      \\n        Verdict\\n        NOT YET ADMISSIBLE\\n        UNSIGNED — not a decision record\\n      \\n      \\n        0/5\\n  \"}",
     "errors": [],
-    "ms": 1157
+    "ms": 1166
   },
   {
     "view": "viewAdmiss",
@@ -207,7 +207,7 @@
     "passed": true,
     "info": "{\"head\":\"Nothing is certified here. The gate evaluates only what you type. It cannot verify a metric, a source, a system of record or a person's auth\"}",
     "errors": [],
-    "ms": 1438
+    "ms": 1446
   },
   {
     "view": "viewAdmiss",
@@ -217,7 +217,7 @@
     "passed": true,
     "info": "{\"chars\":10357}",
     "errors": [],
-    "ms": 1019
+    "ms": 1027
   },
   {
     "view": "viewEnterprise",
@@ -225,9 +225,9 @@
     "detail": "",
     "acted": "ok",
     "passed": true,
-    "info": "{\"chars\":1191,\"head\":\"2 · Enterprise design packagePortfolio / PMO · 8 proposed modules. 5 missing information categories.\"}",
+    "info": "{\"chars\":1313,\"head\":\"2 · Enterprise design packageIntegrated enterprise suite · 10 proposed modules. 1 missing informatio\"}",
     "errors": [],
-    "ms": 1847
+    "ms": 2045
   },
   {
     "view": "viewPilot",
@@ -237,7 +237,7 @@
     "passed": true,
     "info": "{\"head\":\"40Estimated elapsed working days96Planned project hours2027-01-11Planned delivery date\"}",
     "errors": [],
-    "ms": 1339
+    "ms": 1366
   },
   {
     "view": "viewAnalyzer",
@@ -245,9 +245,9 @@
     "detail": "",
     "acted": "ok",
     "passed": true,
-    "info": "{\"chars\":1237,\"head\":\"7Decision modules8Visual patterns3Source candidates12Code-ready promptsPlatform design architectureA\"}",
+    "info": "{\"chars\":1167,\"head\":\"6Decision modules7Visual patterns3Source candidates12Code-ready promptsPlatform design architectureA\"}",
     "errors": [],
-    "ms": 2052
+    "ms": 2063
   },
   {
     "view": "viewAudit",
@@ -257,7 +257,7 @@
     "passed": true,
     "info": "{\"chars\":264,\"checks\":29,\"head\":\"BLOCKED / NOT EVIDENCED · Synthetic_Test_Platform.html17 HTML nodes · 2 buttons · 1 SVG/canvas · 1 l\"}",
     "errors": [],
-    "ms": 2254
+    "ms": 2267
   },
   {
     "view": "viewQA",
@@ -267,7 +267,7 @@
     "passed": true,
     "info": "{\"rows\":54,\"counters\":\"0Pass0Fail54Not tested0N/A\"}",
     "errors": [],
-    "ms": 1343
+    "ms": 1362
   },
   {
     "view": "viewGallery",
@@ -277,7 +277,7 @@
     "passed": true,
     "info": "{\"cards\":6}",
     "errors": [],
-    "ms": 1241
+    "ms": 1220
   },
   {
     "view": "viewGallery",
@@ -287,7 +287,7 @@
     "passed": true,
     "info": "{\"open\":\"modern-popup open\"}",
     "errors": [],
-    "ms": 941
+    "ms": 935
   },
   {
     "view": "viewGallery",
@@ -297,7 +297,7 @@
     "passed": true,
     "info": "{\"open\":\"modern-popup\"}",
     "errors": [],
-    "ms": 832
+    "ms": 827
   },
   {
     "view": "viewJobFit",
@@ -307,7 +307,7 @@
     "passed": true,
     "info": "{\"title\":\"Job Fit Studio · ExecutivePilot AI\"}",
     "errors": [],
-    "ms": 850
+    "ms": 846
   },
   {
     "view": "viewLibrary",
@@ -317,6 +317,6 @@
     "passed": true,
     "info": "{\"active\":\"search\"}",
     "errors": [],
-    "ms": 995
+    "ms": 979
   }
 ]

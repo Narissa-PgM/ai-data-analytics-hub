@@ -19,7 +19,7 @@
       "p": true,
       "i": {
         "title": "Estimated investment",
-        "head": "InputValueWhere it comes fromDuration25 weekscritical-path length of the WBS (phases, not summed effort)Hours per week40one full-time equivalentTeam FTE2.2from 17 work packages (Ex"
+        "head": "InputValueWhere it comes fromDuration24 weekscritical-path length of the WBS (phases, not summed effort)Hours per week40one full-time equivalentTeam FTE2.2from 17 work packages (Ex"
       }
     },
     {
@@ -61,29 +61,29 @@
       "n": "displayed investment matches its own formula",
       "p": true,
       "i": {
-        "weeks": 25,
+        "weeks": 24,
         "fte": 2.2,
         "rate": 85,
         "tools": 24000,
-        "shown": 211000,
-        "expected": 211000
+        "shown": 203520,
+        "expected": 203520
       }
     },
     {
       "n": "cost is no longer the old flat ~$130K default for every project",
       "p": true,
       "i": {
-        "shown": 211000,
-        "expected": 211000
+        "shown": 203520,
+        "expected": 203520
       }
     },
     {
       "n": "a different programme gets a different investment",
       "p": true,
       "i": {
-        "analytics": 211000,
-        "advancement": 246180,
-        "analyticsWeeks": 25,
+        "analytics": 203520,
+        "advancement": 255840,
+        "analyticsWeeks": 24,
         "advancementWeeks": 0
       }
     },
@@ -91,7 +91,7 @@
       "n": "second programme’s popup names its own inputs",
       "p": true,
       "i": {
-        "head": "InputValueWhere it comes fromDuration23 weekscritical-path length of the WBS (phases, not summed effort)Hours per week40one full-time equivalentTeam FTE2.1from "
+        "head": "InputValueWhere it comes fromDuration24 weekscritical-path length of the WBS (phases, not summed effort)Hours per week40one full-time equivalentTeam FTE2.1from "
       }
     },
     {

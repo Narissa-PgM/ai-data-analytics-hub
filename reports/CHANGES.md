@@ -1,3 +1,68 @@
+## Round 11 — "Forget everything" now clears every draft that can leak into an export or a build prompt
+
+**Symptom:** after "Forget everything", a new job's exports and the work-sample build prompt still contained the
+previous job (the stewardship work). Reproduced: the Job Fit studio emptied correctly, but the **Work Sample
+brief** (`ep_worksample_v1` — role/org/JD/SMARTER fields) and the **Career package** survived, so their build prompt
+and exports re-emitted the old job. Career exports also re-used the last generated package even after the inputs
+changed.
+
+**Fixes:**
+
+1. **"Forget everything" now clears cross-workspace drafts**, not just the Job Fit list: work-sample brief, spec,
+   build prompt, role-sample preview, apply bookkeeping (`ep_apply_auto_v1`), work-sample format/domain/import
+   choices, admissibility gate (`ep_admiss_v1`), the ExecutivePilot project, QA marks, the Career package and its
+   job inputs (candidate name/contact kept), Career Fit session, Analyzer outputs, Enterprise inputs, and the
+   admissibility intake. **Kept deliberately:** the tracker, your saved résumé/profile, and backup files.
+   The confirmation now says exactly that.
+2. **Career exports can no longer emit a stale package.** A package is stamped with the inputs it was built from;
+   every export button now refuses with a clear message when the inputs changed (“The package was built from
+   different inputs — press Generate career package to rebuild before exporting”) or when nothing was generated
+   yet, instead of silently exporting old work or doing nothing.
+3. **Work-sample spec and build prompt reset to placeholders** on clear and rebuild automatically for the next job;
+   they already re-render as you type.
+4. Two silent no-ops found while testing were fixed: Enterprise results stay visible after generating, and the
+   Analyzer now says “Add a project title and description” instead of doing nothing.
+
+Verified with `qa/verify12.mjs` — **10/10**: old drafts exist before clearing; work-sample brief/spec/prompt and
+storage cleared; career drafts cleared with identity kept; career export blocked with explanation; new job fills the
+work sample; build prompt/spec contain no old-job text; a changed input blocks export. Regression after the change:
+verify11 15/15, verify10 11/11, verify9 12/12, verify8 12/12, verify6 14/14, smoke 32/32, verify5 8/8,
+verify4 9/9, verify3 10/10, baseline clean.
+
+---
+
+## Round 10 — seamless flow: one "application kit" strip + backup/restore
+
+### 10.1 Application kit strip (always shows what is next)
+
+A single strip now sits at the top of the Job Fit result, above Autopilot, and is the only place you need to look
+between steps:
+
+`✓ Job + résumé · ✓ Fit + checks · • Résumé file · • Cover letter · • Work sample · • Tracker` with a primary
+button **“Next: Download the résumé →”** that advances as you go:
+
+- each chip is a real button that jumps to that tab/action;
+- **Résumé file** turns green when the résumé .docx/.html is downloaded (or the pack is), **Cover letter** when the
+  letter is downloaded, **Work sample** when it is downloaded or attached after checking, **Tracker** when the job is
+  saved to the tracker;
+- the primary button follows the first unfinished step and ends at **“⇩ Download the pack”**;
+- state is remembered per job (`state.kit`), so it is accurate when you switch applications.
+
+### 10.2 Backup & restore in the rail
+
+“⇩ Back up my data” / “↥ Restore” in the rail exports **every saved item** (jobs, résumés, research, briefs,
+tracker, format/domain choices, QA marks — all `ep_*` storage) as one dated JSON file and restores it on any
+browser or after re-downloading the app. This closes the “localStorage does not follow the file” gap between the
+`C:\` copy and GitHub Pages. Public API: `window.EPBackup.exportText() / importText(json) / download()`.
+
+Verified with `qa/verify11.mjs` — **15/15**: strip renders with six steps, starts at the résumé, chip jumps to the
+right tab, each download marks its step and advances the primary button, work-sample download completes the strip
+and offers the pack, backup controls exist, export contains the app keys, restore writes them back, 0 console
+errors. Regression: verify10 11/11, verify9 12/12, verify8 12/12, verify6 14/14, verify4 9/9, verify3 10/10,
+smoke 32/32, baseline clean (no overflow at 360–1920 px).
+
+---
+
 ## Round 9 — the work sample no longer renders the donor/stewardship template for a research role
 
 **Symptom:** the generated `work-sample-chief-research-enablement-officer-creo…html` carried 201 "donor",
@@ -226,8 +291,8 @@ after the change: smoke 32/32, verify2 16/16, verify3 10/10, baseline 0 errors.
 # AI_Pilot.html — improvement pass
 
 **Deliverable:** `ai-pilot-v3/AI_Pilot.html`
-**Size:** 2,350,629 bytes (was 2,295,845 — +54.8 KB, all CSS/comments/logic; no dependencies added)
-**Lines:** 16,569 (was 15,901) · **sha256:** `BEAB4C3373291144765C364882C75E2860B2544FA92C45301FEB65AB584EB2D0`
+**Size:** 2,361,941 bytes (was 2,295,845 — +66.1 KB, all CSS/comments/logic; no dependencies added)
+**Lines:** 16,714 (was 15,901) · **sha256:** `9A03CCF075517B6F44597B377BD98DEDD0545525EF0F62B62E854B38C012DD07`
 **Baseline preserved untouched:** `ai-pilot-v3/baseline/AI_Pilot.baseline.html` (`948E106B…`)
 **Scope agreed with the user:** fixes + performance + mobile/accessibility polish. No features removed, no new features, still one offline file.
 
@@ -386,6 +451,8 @@ Two "high/medium" findings did not survive runtime verification, so the source w
    node qa/contrast.mjs        # WCAG runtime sweep
    ```
    (These need the headless browser, which this sandbox only allows with elevated file access.)
+
+
 
 
 

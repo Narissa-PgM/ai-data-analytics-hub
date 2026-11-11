@@ -1,0 +1,56 @@
+{
+  "wsBefore": {
+    "role": "Director of Stewardship Reporting",
+    "prompt": "You are a senior program and portfolio director (PMP/MSP), an information designer, and a front-end engineer. Build the best working program playbook you are capable of: an interactive, infographic, s",
+    "spec": "1. MastheadDirector of Stewardship Reporting · Cascade Health Network — Office of Philanthropy, Boston, MA · unit: Advancement Data & Gift Operations Modernizat"
+  },
+  "afterClear": {
+    "jobs": 0,
+    "resultHead": "Add a job and your résumé to see your fit.The studio scores how well your documented evidence covers each requirement, c",
+    "storedJobs": 0
+  },
+  "newJob": "100Chief Research Enablement Officer (CREO) REF: 003413SRHarvard Kenne",
+  "wsAfter": {
+    "role": "Chief Research Enablement Officer (CREO) REF: 003413SR",
+    "org": "Harvard Kennedy School — Cambridge, Massachusetts",
+    "jd": "Chief Research Enablement Officer (CREO) REF: 003413SR\nHarvard Kennedy School — Cambridge, Massachusetts\n\nResponsibiliti",
+    "mission": "",
+    "prompt": "You are a senior program and portfolio director (PMP/MSP), an information designer, and a front-end engineer. Build the best working program playbook you are capable of: an interactive, infographic, single-file HTML application that a hiring committee can click through as if it were a live program o",
+    "spec": "1. MastheadChief Research Enablement Officer (CREO) REF: 003413SR · Harvard Kennedy School — Cambridge, Massachusetts · unit: Faculty Lifecycle & Sponsored-Research Operations PlatformWORK SAMPLE - NO"
+  },
+  "careerAfter": {
+    "job": "Chief Research Enablement Officer (CREO) REF: 003413SR\nHarvard Kennedy School — Cambridge, Massachusetts\n\nResponsibiliti",
+    "role": "Chief Research Enablement Officer (CREO) REF: 003413SR",
+    "company": "Harvard Kennedy School — Cambridge, Massachusetts",
+    "output": "Candidate → requirement coverage (transparent heuristic)44% means 4 of 9 extracted job terms appear literally in the supplied resume. This is not a real ATS score, recruiter ranking, or probability of being interviewed.Keyword evidence✓ research✓ administration✓ computing✓ servicesUnproven terms — v"
+  },
+  "downloads": [
+    {
+      "file": "resume-chief-research-enablement-officer-creo-ref-003413s.html",
+      "bytes": 12203,
+      "oldTokens": [
+        "Stewardship",
+        "donor",
+        "Donor"
+      ]
+    },
+    {
+      "file": "Tailored_ATS_Resume_2page_PRINT.html",
+      "bytes": 4972,
+      "oldTokens": [
+        "Cascade",
+        "Stewardship",
+        "donor",
+        "Donor"
+      ]
+    },
+    {
+      "file": "work-sample-chief-research-enablement-officer-creo-ref-003413s.html",
+      "bytes": 129203,
+      "oldTokens": []
+    }
+  ],
+  "wsAfterOld": [],
+  "careerAfterOld": [],
+  "errors": []
+}

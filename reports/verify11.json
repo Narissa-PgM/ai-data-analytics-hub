@@ -1,0 +1,126 @@
+{
+  "checks": [
+    {
+      "n": "kit strip renders with six steps",
+      "p": true,
+      "i": {
+        "steps": [
+          "Job + résumé",
+          "Fit + checks",
+          "Résumé file",
+          "Cover letter",
+          "Work sample",
+          "Tracker"
+        ]
+      }
+    },
+    {
+      "n": "kit starts by pointing at the résumé file",
+      "p": true,
+      "i": {
+        "next": "Next: Download the résumé →"
+      }
+    },
+    {
+      "n": "résumé step opens the résumé tab",
+      "p": true,
+      "i": {
+        "sel": "Tailored résumé · your SMARTER format",
+        "active": "Résumé & evidence"
+      }
+    },
+    {
+      "n": "downloading the résumé marks the step done",
+      "p": true,
+      "i": {
+        "next": "Next: Download the cover letter →"
+      }
+    },
+    {
+      "n": "kit advances to the cover letter",
+      "p": true,
+      "i": {
+        "next": "Next: Download the cover letter →"
+      }
+    },
+    {
+      "n": "downloading the cover letter marks the step done",
+      "p": true,
+      "i": {
+        "next": "Next: Build the work sample →"
+      }
+    },
+    {
+      "n": "kit advances to the work sample",
+      "p": true,
+      "i": {
+        "next": "Next: Build the work sample →"
+      }
+    },
+    {
+      "n": "work-sample step opens Work Sample Studio",
+      "p": true,
+      "i": {}
+    },
+    {
+      "n": "saving to the tracker marks that step done",
+      "p": true,
+      "i": {
+        "next": "Next: Build the work sample →"
+      }
+    },
+    {
+      "n": "work-sample download marks the step done",
+      "p": true,
+      "i": {
+        "next": "⇩ Download the pack"
+      }
+    },
+    {
+      "n": "kit ends by offering the pack",
+      "p": true,
+      "i": {
+        "next": "⇩ Download the pack"
+      }
+    },
+    {
+      "n": "backup controls exist in the rail",
+      "p": true,
+      "i": {
+        "exp": true,
+        "imp": true,
+        "file": true
+      }
+    },
+    {
+      "n": "backup exports the saved app data",
+      "p": true,
+      "i": {
+        "keys": 5
+      }
+    },
+    {
+      "n": "restore writes a backup back into storage",
+      "p": true,
+      "i": {
+        "hasJobfit": true,
+        "keys": 5,
+        "n": 1,
+        "changed": true,
+        "restored": true
+      }
+    },
+    {
+      "n": "no console errors",
+      "p": true,
+      "i": {
+        "errors": []
+      }
+    }
+  ],
+  "summary": {
+    "total": 15,
+    "passed": 15,
+    "failed": []
+  }
+}
